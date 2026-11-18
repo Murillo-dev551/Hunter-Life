@@ -7,7 +7,7 @@ var feedback: Label
 func build(state) -> void:
     add_child(UI.label("UM NOVO CAMINHO",12,UI.GREEN))
     add_child(UI.title("Sua jornada começa aqui"))
-    add_child(UI.label("Antes de buscar a licença Hunter, toda história precisa de alguém para vivê-la.",16,UI.MUTED))
+    add_child(UI.label("Toda história precisa de alguém para vivê-la. Escolha seu caminho, com ou sem uma licença Hunter.",16,UI.MUTED))
     var form = UI.card(self)
     form.add_child(UI.label("Como você se chama?",18))
     name_input = LineEdit.new()
@@ -28,8 +28,9 @@ func build(state) -> void:
     start_button = UI.button("Iniciar nova partida",true)
     start_button.pressed.connect(func(): start_requested.emit(name_input.text))
     add_child(start_button)
-    add_child(UI.label("Protótipo · Etapa 1\nUma cena, três escolhas e o começo de uma história.",13,UI.MUTED))
+    add_child(UI.label("Protótipo · Etapa 2\nOportunidades, escolhas e caminhos diferentes.",13,UI.MUTED))
 func show_error(message: String) -> void:
     feedback.text = message
     feedback.show()
     name_input.grab_focus()
+

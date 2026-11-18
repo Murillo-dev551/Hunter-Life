@@ -1,85 +1,41 @@
-# Hunter Life — Etapa 1
+# Hunter Life — Etapa 2
 
-Protótipo textual independente, ambientado em Hunter × Hunter. Interface inspirada na referência fornecida, com criação de personagem e uma cena fixa de três escolhas. Não há motor narrativo completo.
+Continuação do projeto existente: tema, criação, atributos e quatro abas preservados.
 
 ## Executar
+Importe project.godot no Godot 4.7.2 e pressione F5. Crie um personagem, escolha uma opção e pressione Continuar jornada. Visite Registro para salvar. A tela inicial oferece Continuar partida salva. O botão Criar outro personagem mantém o save anterior até que você salve uma nova sessão.
 
-1. No gerenciador do Godot, importe o `project.godot` desta pasta.
-2. Abra no Godot 4.7.2, versão instalada e usada na validação.
-3. Pressione **F5**.
-4. Informe um nome e clique em **Iniciar nova partida**. Se necessário, role o formulário para ver os quatro atributos e o botão.
+## Implementado
+12 acontecimentos originais em data/events.json: cinco situações independentes, uma oportunidade, três continuações e três finais. Seleção ponderada sem repetição; continuações obrigatórias precedem novos sorteios. Escolhas respeitam flags, atributos mínimos e Jenny. A aventura da entrega tem preparação de rota, travessia com alternativas e decisão de vida no desfecho. Não obriga o Exame Hunter nem usa personagens canônicos.
 
-O projeto usa o renderizador de compatibilidade e não exige plugins, conexão à internet, imagens ou fontes baixadas. A janela inicial é vertical, 480×860; o tamanho mínimo é 320×480. O conteúdo central tem rolagem e a navegação fica fora dela.
+Testes usam 1d20 + atributo >= dificuldade. A interface mostra rolagem, soma, dificuldade e sucesso/fracasso junto da consequência. Atributos ficam entre 1 e 10; Jenny nunca é negativo. Escolhas resolvidas são bloqueadas e o RNG é persistido.
 
-## Funcionalidades
+## Estrutura JSON
+Cada evento contém id, title, chapter, kind (independent/opportunity/continuation/ending), weight, conditions, paragraphs e choices. Todos são únicos por partida, controlados por seen. Continuações e finais têm peso zero e só são acessados por encadeamento. Se o catálogo elegível se esgotar, há encerramento seguro.
 
-- Criação com nome de até 32 caracteres, validação contextual e quatro atributos de valor inicial 5/10: Força, Agilidade, Intelecto e Presença.
-- Aventura com título, capítulo, texto, três escolhas e uma consequência diferente por opção.
-- Cada cena é resolvida uma vez por sessão; cliques repetidos não duplicam registros.
-- Abas Aventura, Personagem, Inventário e Registro; atalho superior para o registro.
-- Inventário é apenas uma tela de apresentação, explicitamente indisponível.
-- A aba Personagem permite criar outro personagem e reiniciar a demonstração.
-- Registro das escolhas e consequências em memória.
-- Paleta `#F3EBDD`, `#E3D3B8`, `#292C2A`, `#315C4C`, `#B58A45` e `#A14B43` centralizada em um tema reutilizável.
-- Ícones desenhados com controles nativos. A imagem de referência não é usada como fundo.
-- Source Sans 3 e Cinzel são preferidas quando instaladas. Na ausência delas, são usadas fontes do sistema, como Segoe UI/Arial para textos e Georgia para títulos, com fallback do Godot.
+Exemplo de escolha:
+```json
+{"label":"Tentar a passagem","test":{"attribute":"agility","difficulty":16},"result":"Você atravessa.","jenny":0,"flags":{"crossed":true},"next":"delivery","failure":{"result":"Você procura ajuda.","jenny":0,"next":"delivery"}}
+```
+Effects suportados: result, jenny, attributes (deltas), flags (booleanos), next. O bloco failure substitui os efeitos de sucesso, sem aplicar ambos. Conditions suporta flags com valores esperados, attributes com mínimos e jenny mínimo. Capacidades futuras podem ser representadas por flags, sem implementar Nen. Não há linguagem genérica de scripts.
 
-## Arquivos criados
+## Arquivos
+Novos: scripts/catalog.gd, scripts/storage.gd, data/events.json, tests/test_narrative.gd e tests/test_story_ui.gd.
+Modificados: scripts/game_state.gd, scripts/main.gd, scripts/ui/adventure_view.gd, scripts/ui/creation_view.gd, project.godot, tests/test_foundation.gd, tests/test_visual.gd, README.md. Tema, ícones e cena principal preservados. data/demo_event.json permanece como referência antiga, sem ser usado pelo motor.
 
-| Arquivo | Função |
-|---|---|
-| `project.godot` | Configuração e diretório de dados próprio |
-| `main.tscn` | Cena principal |
-| `scripts/main.gd` | Composição da tela, navegação e sessão |
-| `scripts/game_state.gd` | Personagem, validação e resolução da demonstração |
-| `scripts/ui/styles.gd` | Tema, cores, fontes e componentes reutilizáveis |
-| `scripts/ui/line_icon.gd` | Ícones nativos de traço |
-| `scripts/ui/creation_view.gd` | Formulário inicial e atributos |
-| `scripts/ui/adventure_view.gd` | Narrativa, escolhas e consequência |
-| `data/demo_event.json` | Dados da única cena fixa |
-| `tests/test_foundation.gd` | Testes de estado, validação, sinais e navegação |
-| `tests/test_visual.gd` | Testes com renderização e capturas |
-| `tests/captures/.gdignore` | Evita importar capturas como recursos do jogo |
-| `.gitignore` | Exclui cache local e logs do controle de versão |
-| `README.md` | Uso, escopo e evidências |
+## Saves
+Arquivo manual user://hunter_life.json no diretório Hunter Life Prototype. Gravação temporária e substituição após sucesso. Preserva nome, atributos, Jenny, flags, eventos visitados, evento atual, escolha resolvida, resultado, continuação pendente, aventura ativa, registro e RNG. Carregar valida tipos, intervalos, IDs e continuidade básica antes de substituir a sessão. Saves inválidos mostram erro no formulário. Etapa 1 não tinha saves persistentes.
 
-O Godot também gera os arquivos `.gd.uid` correspondentes aos scripts. O cache `.godot/` é local e descartável. Logs e capturas ficam em `tests/`.
+## Testes
+Executados no Godot 4.7.2: test_foundation.gd (41), test_narrative.gd (1277), test_visual.gd (348) e test_story_ui.gd (24): 1690 verificações, nenhuma falha. Foram produzidas 35 capturas em cinco resoluções (320x480 até 1100x720). A suíte narrativa cobre 1000 seleções ponderadas, condições de flags/Jenny, encadeamento prioritário, três finais, save de finais, 50 sementes antes/depois de salvar, rejeição de duplicação e arquivos inválidos. Regressões da Etapa 1 foram adaptadas aos resultados reais, mantendo as verificações de navegação, formulário e layout.
 
-O JSON já separa conteúdo e interface, mas só esse arquivo fixo é carregado. Não há catálogo, seleção dinâmica, condições de eventos, encadeamento ou aplicação genérica de efeitos. Isso permite ampliar o conteúdo posteriormente sem construir uma abstração desnecessária nesta etapa.
-
-## Testar manualmente
-
-1. Tente iniciar sem nome: aparece uma mensagem junto ao campo.
-2. Digite um nome e inicie: os quatro atributos ficam disponíveis em Personagem.
-3. Visite as quatro abas e volte à Aventura; o estado é preservado.
-4. Selecione uma escolha: sua consequência aparece abaixo e as três opções ficam desativadas.
-5. Abra Registro e confira a decisão.
-6. Em Personagem, crie outro personagem para experimentar as outras duas escolhas.
-7. Redimensione a janela e confira rolagem, cabeçalho e navegação inferior.
-8. Feche e reabra: uma nova sessão começa, pois não há salvamento nesta etapa.
-
-## Testes automatizados
-
-A partir desta pasta, com o executável Godot no PATH:
-
+Com o executável do Godot no PATH:
 ```powershell
-godot --headless --editor --path . --quit
 godot --headless --path . --script res://tests/test_foundation.gd
+godot --headless --path . --script res://tests/test_narrative.gd
 godot --path . --script res://tests/test_visual.gd
 ```
 
-O teste visual exige renderização real; não deve usar `--headless`. Ele captura as telas em `tests/captures/`, nas resoluções 320×480, 390×844, 480×860, 768×1024 e 1100×720. Os testes verificam nome inválido, atributos, todas as escolhas, repetição de cliques, reinício, sinais, abas, cabeçalho, ausência de transbordamento horizontal e acesso ao botão inicial por rolagem.
+## Limitações
+Uma aventura curta, saves manuais em um slot e todos os eventos sem repetição. Os finais resultam de decisões explícitas no abrigo ou da opção de permanecer na cidade; não são sorteados. O inventário continua indisponível. Não há calendário, NPCs autônomos, combate, Nen, mundo aberto ou economia complexa. Fontes têm fallback local. Não há compatibilidade prometida com alterações manuais arbitrárias do catálogo após salvar. Não foi iniciada a Etapa 3.
 
-Resultados executados no Godot 4.7.2: **41 verificações funcionais + 348 verificações visuais = 389 verificações, nenhuma falha**. Foram produzidas **35 capturas** em cinco resoluções. Criação, aventura, resultado e layout amplo foram inspecionados visualmente. A importação pelo editor e a inicialização normal do projeto também terminaram sem erros ou avisos nos logs finais. Capturas de criação, aventura, personagem, inventário, registro e consequência ficam disponíveis para avaliação visual.
-
-## Limites conhecidos
-
-- Não há salvamento persistente; tudo é mantido somente nesta sessão.
-- Os 250 Jenny mostrados são um saldo ilustrativo fixo. Não há economia nem recompensas.
-- Nen, combate, progressão de atributos, NPCs autônomos, missões, mundo aberto, geração procedural e inventário funcional não foram implementados.
-- A cena não avança para uma segunda aventura após a decisão. Para testar outra opção, crie outro personagem.
-- Em telas compactas, a criação e as consequências exigem rolagem. A navegação inferior permanece disponível.
-- A aparência das fontes pode variar conforme as fontes instaladas no computador.
-- Compatibilidade foi executada no Godot 4.7.2 instalado; versões anteriores não foram testadas.
-
-Nenhum arquivo dos projetos One Piece Life foi alterado. A etapa 2 não foi iniciada.

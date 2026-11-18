@@ -1,0 +1,388 @@
+[
+  {
+    "chapter": "Caminhos abertos",
+    "paragraphs": [
+      "Uma vendedora procura ajuda para conferir uma entrega."
+    ],
+    "weight": 3,
+    "choices": [
+      {
+        "attributes": {
+          "intellect": 1
+        },
+        "result": "Você ajuda e recebe uma pequena gratificação.",
+        "failure": {
+          "jenny": 0,
+          "result": "Sua tentativa não resolve tudo. Você aprende com a experiência e segue sem pagamento."
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 15
+        },
+        "label": "Conferir as contas",
+        "jenny": 35
+      },
+      {
+        "jenny": 0,
+        "label": "Ouvir as histórias",
+        "result": "Você conhece melhor a comunidade."
+      },
+      {
+        "jenny": 0,
+        "label": "Seguir seu caminho",
+        "result": "Você prefere buscar outra oportunidade."
+      }
+    ],
+    "id": "market",
+    "title": "Contas no mercado",
+    "kind": "independent",
+    "conditions": {
+      "attributes": {
+        "intellect": 3
+      }
+    }
+  },
+  {
+    "chapter": "Caminhos abertos",
+    "paragraphs": [
+      "Um torneio amistoso de equilíbrio reúne moradores. Não há luta."
+    ],
+    "weight": 3,
+    "choices": [
+      {
+        "attributes": {
+          "agility": 1
+        },
+        "result": "Você ajuda e recebe uma pequena gratificação.",
+        "failure": {
+          "jenny": 0,
+          "result": "Sua tentativa não resolve tudo. Você aprende com a experiência e segue sem pagamento."
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 15
+        },
+        "label": "Participar da prova",
+        "jenny": 35
+      },
+      {
+        "jenny": 0,
+        "label": "Ouvir as histórias",
+        "result": "Você conhece melhor a comunidade."
+      },
+      {
+        "jenny": 0,
+        "label": "Seguir seu caminho",
+        "result": "Você prefere buscar outra oportunidade."
+      }
+    ],
+    "id": "tournament",
+    "title": "A prova da praça",
+    "kind": "independent",
+    "conditions": {}
+  },
+  {
+    "chapter": "Caminhos abertos",
+    "paragraphs": [
+      "Uma família tenta retirar sua carroça da lama."
+    ],
+    "weight": 3,
+    "choices": [
+      {
+        "attributes": {
+          "strength": 1
+        },
+        "result": "Você ajuda e recebe uma pequena gratificação.",
+        "failure": {
+          "jenny": 0,
+          "result": "Sua tentativa não resolve tudo. Você aprende com a experiência e segue sem pagamento."
+        },
+        "test": {
+          "attribute": "strength",
+          "difficulty": 15
+        },
+        "label": "Ajudar a empurrar",
+        "jenny": 35
+      },
+      {
+        "jenny": 0,
+        "label": "Ouvir as histórias",
+        "result": "Você conhece melhor a comunidade."
+      },
+      {
+        "jenny": 0,
+        "label": "Seguir seu caminho",
+        "result": "Você prefere buscar outra oportunidade."
+      }
+    ],
+    "id": "cart",
+    "title": "Uma carroça atolada",
+    "kind": "independent",
+    "conditions": {}
+  },
+  {
+    "chapter": "Caminhos abertos",
+    "paragraphs": [
+      "Um viajante precisa encontrar o cais antes de sua partida."
+    ],
+    "weight": 3,
+    "choices": [
+      {
+        "attributes": {
+          "presence": 1
+        },
+        "result": "Você ajuda e recebe uma pequena gratificação.",
+        "failure": {
+          "jenny": 0,
+          "result": "Sua tentativa não resolve tudo. Você aprende com a experiência e segue sem pagamento."
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "label": "Pedir orientação aos moradores",
+        "jenny": 35
+      },
+      {
+        "jenny": 0,
+        "label": "Ouvir as histórias",
+        "result": "Você conhece melhor a comunidade."
+      },
+      {
+        "jenny": 0,
+        "label": "Seguir seu caminho",
+        "result": "Você prefere buscar outra oportunidade."
+      }
+    ],
+    "id": "traveler",
+    "title": "Um viajante perdido",
+    "kind": "independent",
+    "conditions": {
+      "attributes": {
+        "presence": 3
+      }
+    }
+  },
+  {
+    "chapter": "Caminhos abertos",
+    "paragraphs": [
+      "Trabalhos locais disputam espaço com anúncios do Exame Hunter. Você não precisa seguir esse caminho."
+    ],
+    "weight": 3,
+    "choices": [
+      {
+        "attributes": {
+          "intellect": 1
+        },
+        "result": "Você ajuda e recebe uma pequena gratificação.",
+        "failure": {
+          "jenny": 0,
+          "result": "Sua tentativa não resolve tudo. Você aprende com a experiência e segue sem pagamento."
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 15
+        },
+        "label": "Organizar os avisos",
+        "jenny": 35
+      },
+      {
+        "jenny": 0,
+        "label": "Ouvir as histórias",
+        "result": "Você conhece melhor a comunidade."
+      },
+      {
+        "jenny": 0,
+        "label": "Seguir seu caminho",
+        "result": "Você prefere buscar outra oportunidade."
+      }
+    ],
+    "id": "notice",
+    "title": "Um mural de oportunidades",
+    "kind": "independent",
+    "conditions": {}
+  },
+  {
+    "chapter": "A entrega da serra",
+    "paragraphs": [
+      "Uma transportadora local oferece 100 Jenny por uma entrega ao abrigo da serra. O pacote contém ferramentas, sem segredos."
+    ],
+    "weight": 2,
+    "choices": [
+      {
+        "jenny": 0,
+        "flags": {
+          "contract": true
+        },
+        "next": "route",
+        "label": "Aceitar a entrega",
+        "result": "Você combina levar uma encomenda comum ao abrigo da serra."
+      },
+      {
+        "jenny": 0,
+        "next": "route",
+        "label": "Negociar os termos",
+        "result": "Você aceita após combinar que pode voltar se a trilha ficar perigosa."
+      },
+      {
+        "jenny": 0,
+        "next": "end_home",
+        "label": "Recusar e ficar na cidade",
+        "result": "Você escolhe construir uma vida por aqui."
+      }
+    ],
+    "id": "offer",
+    "title": "Uma proposta inesperada",
+    "kind": "opportunity",
+    "conditions": {}
+  },
+  {
+    "chapter": "A entrega da serra",
+    "paragraphs": [
+      "No início da trilha, você decide como organizar a viagem."
+    ],
+    "weight": 0,
+    "choices": [
+      {
+        "jenny": 0,
+        "flags": {
+          "prepared": true
+        },
+        "next": "bridge",
+        "label": "Estudar a trilha",
+        "result": "Você marca uma passagem mais segura no mapa."
+      },
+      {
+        "jenny": 0,
+        "next": "bridge",
+        "label": "Seguir pela trilha curta",
+        "result": "Você segue a rota indicada pelos moradores."
+      },
+      {
+        "jenny": 0,
+        "next": "end_home",
+        "label": "Desistir da entrega",
+        "result": "Você devolve o pacote sem receber a recompensa."
+      }
+    ],
+    "id": "route",
+    "title": "Antes da subida",
+    "kind": "continuation",
+    "conditions": {}
+  },
+  {
+    "chapter": "A entrega da serra",
+    "paragraphs": [
+      "Uma ponte foi danificada pela chuva. Há um desvio, mas ele é difícil de localizar sem um mapa preparado."
+    ],
+    "weight": 0,
+    "choices": [
+      {
+        "next": "delivery",
+        "result": "Você cruza com a encomenda intacta.",
+        "jenny": 0,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 16
+        },
+        "label": "Equilibrar a passagem",
+        "failure": {
+          "next": "delivery",
+          "jenny": -20,
+          "result": "Você precisa de ajuda de uma barqueira e paga 20 Jenny pela travessia segura."
+        },
+        "conditions": {
+          "jenny": 20
+        }
+      },
+      {
+        "jenny": 0,
+        "conditions": {
+          "flags": {
+            "prepared": true
+          }
+        },
+        "next": "delivery",
+        "label": "Usar o desvio marcado",
+        "result": "Seu planejamento permite uma travessia tranquila."
+      },
+      {
+        "jenny": "-30",
+        "next": "delivery",
+        "label": "Pagar uma travessia segura",
+        "result": "Uma barqueira leva você pela margem."
+      }
+    ],
+    "id": "bridge",
+    "title": "A ponte danificada",
+    "kind": "continuation",
+    "conditions": {}
+  },
+  {
+    "chapter": "A entrega da serra",
+    "paragraphs": [
+      "As ferramentas chegam ao abrigo. Depois de receber o pagamento, você decide o que deseja para os próximos meses."
+    ],
+    "weight": 0,
+    "choices": [
+      {
+        "jenny": 100,
+        "next": "end_path",
+        "label": "Continuar como viajante",
+        "result": "Você entrega a encomenda e escolhe novas estradas."
+      },
+      {
+        "jenny": 100,
+        "next": "end_home",
+        "label": "Voltar e criar raízes",
+        "result": "Você recebe o pagamento e decide voltar à comunidade."
+      },
+      {
+        "jenny": 100,
+        "next": "end_duty",
+        "label": "Trabalhar com o abrigo",
+        "result": "Você recebe o pagamento e aceita ajudar nas próximas entregas."
+      }
+    ],
+    "id": "delivery",
+    "title": "O abrigo da serra",
+    "kind": "continuation",
+    "conditions": {}
+  },
+  {
+    "chapter": "Desfecho",
+    "paragraphs": [
+      "Você parte por vontade própria. A licença Hunter pode esperar; há muitos caminhos possíveis."
+    ],
+    "weight": 0,
+    "choices": [],
+    "id": "end_path",
+    "title": "Estradas em aberto",
+    "kind": "ending",
+    "conditions": {}
+  },
+  {
+    "chapter": "Desfecho",
+    "paragraphs": [
+      "Você escolhe uma vida na comunidade. Construir vínculos cotidianos também é uma aventura."
+    ],
+    "weight": 0,
+    "choices": [],
+    "id": "end_home",
+    "title": "Um lugar para voltar",
+    "kind": "ending",
+    "conditions": {}
+  },
+  {
+    "chapter": "Desfecho",
+    "paragraphs": [
+      "Você encontra satisfação ajudando o abrigo. Sua jornada continua como alguém em quem se pode confiar."
+    ],
+    "weight": 0,
+    "choices": [],
+    "id": "end_duty",
+    "title": "Um trabalho com propósito",
+    "kind": "ending",
+    "conditions": {}
+  }
+]

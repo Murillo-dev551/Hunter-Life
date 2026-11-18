@@ -57,6 +57,7 @@ func run() -> void:
         ui.start_game("Teste de escolha")
         ui.adventure_view.choice_buttons[i].pressed.emit()
         await settle()
-        check(ui.adventure_view.result_text.text==ui.state.demo["choices"][i]["result"],"Resultado correto de cada escolha")
+        check(ui.adventure_view.result_text.text==ui.state.result,"Resultado correto de cada escolha")
     print("VISUAL HUNTER LIFE: %d verificações, %d falhas, %d capturas" % [checks,failures,captures])
     quit(1 if failures else 0)
+

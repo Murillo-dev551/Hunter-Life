@@ -5,6 +5,7 @@ const Creation = preload("res://scripts/ui/creation_view.gd")
 const Adventure = preload("res://scripts/ui/adventure_view.gd")
 const TABS = ["Aventura","Personagem","Inventário","Registro"]
 const ICONS = ["adventure","character","inventory","record"]
+const Storage = preload("res://scripts/storage.gd")
 var state = State.new()
 var margin: MarginContainer
 var chapter: Label
@@ -130,6 +131,9 @@ func show_creation() -> void:
     creation_view = Creation.new()
     content.add_child(creation_view)
     creation_view.build(state)
+    var continue_button = UI.button("Continuar partida salva")
+    content.add_child(continue_button)
+    continue_button.pressed.connect(load_saved)
     creation_view.start_requested.connect(start_game)
     page_title.text = "Uma nova jornada"
     chapter.text = "Prólogo · Seu personagem"
@@ -143,11 +147,14 @@ func focus_creation() -> void:
 func start_game(raw_name: String) -> void:
     var error: String = state.start(raw_name)
     if error != "": creation_view.show_error(error); return
+    build_session()
+func build_session() -> void:
     clear_pages()
     var content = add_page("Aventura")
     adventure_view = Adventure.new()
     content.add_child(adventure_view)
     adventure_view.build(state)
+    adventure_view.continue_requested.connect(next_event)
     adventure_view.choice_requested.connect(choose)
     adventure_view.record_requested.connect(func(): select_tab(3))
     character_content = add_page("Personagem")
@@ -160,8 +167,8 @@ func start_game(raw_name: String) -> void:
     record_content = add_page("Registro")
     refresh_records()
     chapter.text = state.demo["chapter"]
-    balance.text = "250 Jenny"
-    balance.tooltip_text = "Saldo ilustrativo fixo. Não há economia ou recompensas neste protótipo."
+    balance.text = "%d Jenny" % state.jenny
+    balance.tooltip_text = "Recursos disponíveis nesta jornada."
     journal_button.disabled = false
     for b in navigation: b.disabled = false
     select_tab(0)
@@ -171,27 +178,37 @@ func build_character() -> void:
     var stats = UI.card(character_content)
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
-    character_content.add_child(UI.label("Os atributos são fixos nesta etapa. Não há combate, Nen ou progressão de personagem.",14,UI.MUTED))
+    character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Não há combate ou Nen nesta etapa.",14,UI.MUTED))
     var reset = UI.button("Criar outro personagem")
     reset.pressed.connect(show_creation)
     character_content.add_child(reset)
-    character_content.add_child(UI.label("Começa uma nova demonstração e substitui a sessão atual. O protótipo ainda não salva partidas.",13,UI.MUTED))
+    character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
 func choose(index: int) -> void:
     if not state.choose(index): return
     adventure_view.refresh(state)
+    balance.text = "%d Jenny" % state.jenny
+    for child in character_content.get_children():
+        character_content.remove_child(child); child.queue_free()
+    build_character()
     refresh_records()
     var scroll = pages.get_child(0)
     scroll.ensure_control_visible.call_deferred(adventure_view.consequence)
+func save_current() -> void:
+    var message = UI.label("Partida salva." if Storage.save(state)=="" else "Falha ao salvar.",14)
+    record_content.add_child(message)
 func refresh_records() -> void:
     for child in record_content.get_children():
         record_content.remove_child(child)
         child.queue_free()
     record_content.add_child(UI.title("Registro da jornada"))
+    var save_button = UI.button("Salvar partida")
+    save_button.pressed.connect(save_current)
+    record_content.add_child(save_button)
     record_content.add_child(UI.label("Os primeiros passos de %s." % state.character_name,14,UI.MUTED))
     for entry in state.records:
         var card = UI.card(record_content)
         card.add_child(UI.label(entry,16))
-    record_content.add_child(UI.label("Registro desta sessão · Ainda sem salvamento persistente.",13,UI.MUTED))
+    record_content.add_child(UI.label("Decisões e consequências desta jornada.",13,UI.MUTED))
 func select_tab(index: int) -> void:
     if state.character_name.is_empty() or index<0 or index>=TABS.size(): return
     current_tab = index
@@ -205,3 +222,14 @@ func update_navigation(selected: int) -> void:
         nav_icons[i].color = color
         nav_icons[i].queue_redraw()
         nav_labels[i].add_theme_color_override("font_color",color)
+
+func next_event() -> void:
+    if not state.advance(): return
+    build_session()
+    pages.get_child(0).scroll_vertical=0
+func load_saved() -> void:
+    var loaded: Dictionary = Storage.load_state()
+    if loaded["error"]!="": creation_view.show_error(loaded["error"]); return
+    state=loaded["state"]
+    build_session()
+

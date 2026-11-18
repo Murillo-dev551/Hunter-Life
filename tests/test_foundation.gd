@@ -8,7 +8,7 @@ func check(ok: bool,text: String) -> void:
     if not ok: failures += 1; push_error(text)
 func run() -> void:
     var state = State.new()
-    check(state.error=="" and state.demo["choices"].size()==3,"JSON demonstrativo válido")
+    check(state.error=="" and state.catalog.events.size()==12,"JSON demonstrativo válido")
     check(not state.choose(0),"Não escolhe antes de criar personagem")
     for invalid in ["","   ","\n\t", "a".repeat(33)]: check(state.start(invalid)!="","Nome inválido recusado")
     check(state.character_name=="","Falha de nome não inicia partida")
@@ -17,9 +17,9 @@ func run() -> void:
         check(state.attributes==State.INITIAL_ATTRIBUTES and state.attributes.size()==4,"Quatro atributos equilibrados")
         check(not state.choose(-1) and not state.choose(3),"Índice inválido recusado")
         check(state.choose(i) and state.selected_choice==i,"Cada opção tem consequência")
-        check(state.records.size()==3 and state.records[-1]==state.demo["choices"][i]["result"],"Consequência registrada")
+        check(state.records.size()==3 and state.records[-1]==state.result,"Consequência registrada")
         check(not state.choose((i+1)%3) and state.records.size()==3,"Escolha não pode ser aplicada duas vezes")
-        check(state.attributes==State.INITIAL_ATTRIBUTES,"Consequência não inventa progressão")
+        check(state.attributes.values().all(func(v): return v>=1 and v<=10),"Atributos permanecem limitados")
     check(state.start("Outro personagem")=="" and state.selected_choice==-1 and state.records.size()==1,"Nova partida limpa demonstração anterior")
     change_scene_to_file("res://main.tscn")
     await process_frame
@@ -40,7 +40,7 @@ func run() -> void:
     ui.navigation[0].pressed.emit()
     ui.adventure_view.choice_buttons[1].pressed.emit()
     await process_frame
-    check(ui.state.selected_choice==1 and ui.adventure_view.result_text.text==ui.state.demo["choices"][1]["result"],"Sinal exibe consequência correta")
+    check(ui.state.selected_choice==1 and ui.adventure_view.result_text.text==ui.state.result,"Sinal exibe consequência correta")
     check(ui.adventure_view.choice_buttons.all(func(b): return b.disabled),"Escolhas resolvidas desativadas")
     ui.journal_button.pressed.emit()
     check(ui.pages.current_tab==3,"Atalho do registro funciona")
@@ -49,3 +49,5 @@ func run() -> void:
     check(ui.state.character_name=="" and ui.pages.get_child_count()==1,"Reinício retorna à criação")
     print("FUNDAÇÃO HUNTER LIFE: %d verificações, %d falhas" % [checks,failures])
     quit(1 if failures else 0)
+
+
