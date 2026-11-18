@@ -145,7 +145,7 @@ func show_creation() -> void:
 func focus_creation() -> void:
     if is_instance_valid(creation_view) and creation_view.is_inside_tree() and state.character_name.is_empty(): creation_view.name_input.grab_focus()
 func start_game(raw_name: String) -> void:
-    var error: String = state.start(raw_name)
+    var error: String = state.start(raw_name,creation_view.inclination.selected)
     if error != "": creation_view.show_error(error); return
     build_session()
 func build_session() -> void:
@@ -182,6 +182,12 @@ func build_character() -> void:
     var reset = UI.button("Criar outro personagem")
     reset.pressed.connect(show_creation)
     character_content.add_child(reset)
+    character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
+    var end_button = UI.button("Escolher o final da jornada")
+    end_button.disabled=state.active_adventure or state.demo["kind"]=="ending"
+    end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
+    end_button.pressed.connect(func(): state.open_event("crossroads"); build_session())
+    character_content.add_child(end_button)
     character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
 func choose(index: int) -> void:
     if not state.choose(index): return
@@ -232,4 +238,5 @@ func load_saved() -> void:
     if loaded["error"]!="": creation_view.show_error(loaded["error"]); return
     state=loaded["state"]
     build_session()
+
 

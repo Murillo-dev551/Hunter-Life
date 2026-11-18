@@ -14,6 +14,8 @@ func run() -> void:
     ui.state.open_event("offer");ui.build_session()
     for id in ["route","bridge","delivery","end_path"]:
         var index: int = 1 if ui.state.current_id=="bridge" else 0
+        for i in range(ui.state.demo["choices"].size()):
+            if ui.state.demo["choices"][i].has("test"): check(ui.adventure_view.choice_buttons[i].text.contains("Dificuldade"),"Teste visível antes de escolher")
         ui.choose(index)
         await process_frame
         ui.pages.get_child(0).scroll_vertical=100
@@ -27,3 +29,4 @@ func run() -> void:
         ui.select_tab(0)
     print("CONTINUIDADE UI: %d verificações, %d falhas" % [checks,failures])
     quit(1 if failures else 0)
+

@@ -1,6 +1,7 @@
 extends VBoxContainer
 signal start_requested(character_name: String)
 const UI = preload("res://scripts/ui/styles.gd")
+var inclination: OptionButton
 var name_input: LineEdit
 var start_button: Button
 var feedback: Label
@@ -23,14 +24,29 @@ func build(state) -> void:
     form.add_child(feedback)
     var stats = UI.card(self)
     stats.add_child(UI.label("Seu ponto de partida",18))
-    stats.add_child(UI.label("Quatro atributos equilibrados. Nenhuma distribuição de pontos nesta demonstração.",14,UI.MUTED))
-    UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
+    stats.add_child(UI.label("Escolha uma inclinação inicial. Atributos não citados permanecem em 5.",14,UI.MUTED))
+    inclination=OptionButton.new()
+    for text in ["Equilibrado · todos 5","Vigor · Força 6, Intelecto 4","Destreza · Agilidade 6, Presença 4","Curiosidade · Intelecto 6, Força 4"]: inclination.add_item(text)
+    inclination.custom_minimum_size.y=44
+    inclination.clip_text=true
+    inclination.fit_to_longest_item=false
+    stats.add_child(inclination)
+    var preview = VBoxContainer.new()
+    stats.add_child(preview)
+    UI.attributes(preview,state.attributes,state.ATTRIBUTE_NAMES)
+    inclination.item_selected.connect(func(index):
+        for child in preview.get_children(): preview.remove_child(child);child.queue_free()
+        UI.attributes(preview,state.starting_attributes(index),state.ATTRIBUTE_NAMES)
+    )
     start_button = UI.button("Iniciar nova partida",true)
     start_button.pressed.connect(func(): start_requested.emit(name_input.text))
     add_child(start_button)
-    add_child(UI.label("Protótipo · Etapa 2\nOportunidades, escolhas e caminhos diferentes.",13,UI.MUTED))
+    add_child(UI.label("Protótipo · Etapa 3\nOportunidades, escolhas e caminhos diferentes.",13,UI.MUTED))
 func show_error(message: String) -> void:
     feedback.text = message
     feedback.show()
     name_input.grab_focus()
+
+
+
 
