@@ -14,6 +14,7 @@ func run() -> void:
     check(state.character_name=="","Falha de nome não inicia partida")
     for i in range(3):
         check(state.start("  Liora  ")=="" and state.character_name=="Liora","Nome normalizado")
+        state.open_event("market")
         check(state.attributes==State.INITIAL_ATTRIBUTES and state.attributes.size()==4,"Quatro atributos equilibrados")
         check(not state.choose(-1) and not state.choose(3),"Índice inválido recusado")
         check(state.choose(i) and state.selected_choice==i,"Cada opção tem consequência")
@@ -49,6 +50,7 @@ func run() -> void:
     check(ui.state.character_name=="" and ui.pages.get_child_count()==1,"Reinício retorna à criação")
     print("FUNDAÇÃO HUNTER LIFE: %d verificações, %d falhas" % [checks,failures])
     quit(1 if failures else 0)
+
 
 
 

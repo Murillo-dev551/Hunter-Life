@@ -55,9 +55,11 @@ func run() -> void:
     for i in range(3):
         ui.show_creation()
         ui.start_game("Teste de escolha")
+        ui.state.open_event("market");ui.build_session()
         ui.adventure_view.choice_buttons[i].pressed.emit()
         await settle()
         check(ui.adventure_view.result_text.text==ui.state.result,"Resultado correto de cada escolha")
     print("VISUAL HUNTER LIFE: %d verificações, %d falhas, %d capturas" % [checks,failures,captures])
     quit(1 if failures else 0)
+
 

@@ -18,8 +18,10 @@
           "attribute": "intellect"
         },
         "failure": {
-          "result": "As contas continuam confusas. A vendedora chama sua sócia."
-        }
+          "result": "As contas continuam confusas. A vendedora chama sua sócia.",
+          "xp": 3
+        },
+        "xp": 8
       },
       {
         "jenny": 0,
@@ -68,24 +70,29 @@
         "result": "Você vence uma rodada e recebe o pagamento combinado.",
         "label": "Participar da prova",
         "failure": {
-          "result": "Você erra um apoio e sai sem prêmio."
+          "result": "Você erra um apoio e sai sem prêmio.",
+          "xp": 6,
+          "health": -1
         },
         "test": {
           "difficulty": 16,
           "attribute": "agility"
-        }
+        },
+        "xp": 18
       },
       {
         "jenny": 30,
         "result": "Sua equipe recebe o pagamento combinado para dividir as tarefas.",
         "label": "Organizar uma equipe",
         "failure": {
-          "result": "O grupo não combina os passos e termina sem colocação."
+          "result": "O grupo não combina os passos e termina sem colocação.",
+          "xp": 4
         },
         "test": {
           "difficulty": 13,
           "attribute": "presence"
-        }
+        },
+        "xp": 12
       }
     ],
     "id": "tournament",
@@ -110,12 +117,15 @@
         "result": "A carroça sai da lama. A família oferece 20 Jenny.",
         "label": "Empurrar em conjunto",
         "failure": {
-          "result": "O esforço não basta; será preciso outro método."
+          "result": "O esforço não basta; será preciso outro método.",
+          "xp": 5,
+          "health": -1
         },
         "test": {
           "difficulty": 14,
           "attribute": "strength"
-        }
+        },
+        "xp": 15
       },
       {
         "label": "Improvisar uma alavanca",
@@ -129,8 +139,10 @@
           "attribute": "intellect"
         },
         "failure": {
-          "result": "O galho cede sem machucar ninguém."
-        }
+          "result": "O galho cede sem machucar ninguém.",
+          "xp": 5
+        },
+        "xp": 20
       },
       {
         "jenny": "-15",
@@ -171,8 +183,10 @@
           "attribute": "presence"
         },
         "failure": {
-          "result": "Ninguém pode desviar a rota. Vocês seguem a pé."
-        }
+          "result": "Ninguém pode desviar a rota. Vocês seguem a pé.",
+          "xp": 4
+        },
+        "xp": 10
       },
       {
         "jenny": 0,
@@ -213,12 +227,14 @@
         "result": "Você evita uma taxa falsa. O funcionário do mural agradece.",
         "label": "Verificar um anúncio suspeito",
         "failure": {
-          "result": "Sem provas, você prefere não acusar ninguém."
+          "result": "Sem provas, você prefere não acusar ninguém.",
+          "xp": 3
         },
         "test": {
           "difficulty": 14,
           "attribute": "intellect"
-        }
+        },
+        "xp": 12
       },
       {
         "jenny": 0,
@@ -288,7 +304,8 @@
         },
         "next": "bridge",
         "label": "Estudar a trilha",
-        "result": "Você marca uma passagem mais segura no mapa."
+        "result": "Você marca uma passagem mais segura no mapa.",
+        "xp": 8
       },
       {
         "jenny": 0,
@@ -332,11 +349,14 @@
         "failure": {
           "next": "delivery",
           "jenny": -20,
-          "result": "Você precisa de ajuda de uma barqueira e paga 20 Jenny pela travessia segura."
+          "result": "Você precisa de ajuda de uma barqueira e paga 20 Jenny pela travessia segura.",
+          "xp": 8,
+          "health": -2
         },
         "conditions": {
           "jenny": 20
-        }
+        },
+        "xp": 20
       },
       {
         "jenny": 0,
@@ -347,13 +367,15 @@
         },
         "next": "delivery",
         "label": "Usar o desvio marcado",
-        "result": "Seu planejamento permite uma travessia tranquila."
+        "result": "Seu planejamento permite uma travessia tranquila.",
+        "xp": 12
       },
       {
         "jenny": "-30",
         "next": "delivery",
         "label": "Pagar uma travessia segura",
-        "result": "Uma barqueira leva você pela margem."
+        "result": "Uma barqueira leva você pela margem.",
+        "xp": 8
       }
     ],
     "id": "bridge",
@@ -380,7 +402,8 @@
         "result": "Você entrega a encomenda e escolhe novas estradas.",
         "flags": {
           "delivery_completed": true
-        }
+        },
+        "xp": 40
       },
       {
         "jenny": 100,
@@ -389,7 +412,8 @@
         "result": "Você recebe o pagamento e decide voltar à comunidade.",
         "flags": {
           "delivery_completed": true
-        }
+        },
+        "xp": 40
       },
       {
         "jenny": 100,
@@ -398,7 +422,8 @@
         "result": "Você recebe o pagamento e aceita ajudar nas próximas entregas.",
         "flags": {
           "delivery_completed": true
-        }
+        },
+        "xp": 40
       }
     ],
     "id": "delivery",
@@ -570,8 +595,10 @@
           "flags": {
             "survey_incomplete": true
           },
-          "next": "survey_find"
-        }
+          "next": "survey_find",
+          "xp": 6
+        },
+        "xp": 18
       },
       {
         "jenny": 0,
@@ -582,7 +609,8 @@
             "survey_tools": true
           }
         },
-        "next": "survey_find"
+        "next": "survey_find",
+        "xp": 10
       },
       {
         "label": "Subir para observar",
@@ -598,8 +626,11 @@
           "flags": {
             "survey_incomplete": true
           },
-          "next": "survey_find"
-        }
+          "next": "survey_find",
+          "xp": 7,
+          "health": -2
+        },
+        "xp": 20
       }
     ]
   },
@@ -627,7 +658,8 @@
           "honest_report": true,
           "survey_completed": true
         },
-        "next": "survey_done"
+        "next": "survey_done",
+        "xp": 25
       },
       {
         "jenny": 90,
@@ -637,7 +669,8 @@
           "dishonest": true,
           "survey_completed": true
         },
-        "next": "survey_done"
+        "next": "survey_done",
+        "xp": 8
       },
       {
         "label": "Conferir o trecho com corda",
@@ -652,7 +685,8 @@
         "flags": {
           "honest_report": true,
           "survey_completed": true
-        }
+        },
+        "xp": 30
       }
     ]
   },
@@ -705,7 +739,8 @@
       {
         "jenny": 18,
         "result": "Você recebe o pagamento combinado pelo turno sem incidentes.",
-        "label": "Conferir etiquetas"
+        "label": "Conferir etiquetas",
+        "xp": 5
       },
       {
         "jenny": 32,
@@ -713,12 +748,14 @@
         "label": "Organizar o carregamento",
         "failure": {
           "result": "Você termina apenas parte do turno e recebe um pagamento parcial.",
-          "jenny": 8
+          "jenny": 8,
+          "xp": 4
         },
         "test": {
           "difficulty": 13,
           "attribute": "strength"
-        }
+        },
+        "xp": 10
       }
     ]
   },
@@ -743,12 +780,14 @@
         "label": "Compartilhar uma refeição",
         "flags": {
           "survey_contact": true
-        }
+        },
+        "health": 3
       },
       {
         "jenny": 0,
         "result": "Você espera a chuva passar, sem ganhar recursos.",
-        "label": "Descansar e observar"
+        "label": "Descansar e observar",
+        "health": 1
       }
     ]
   },

@@ -25,7 +25,7 @@ static func load_state(path: String = PATH) -> Dictionary:
         if d.get("current") in ["end_home","end_path","end_duty"]: d["current"]="journey_"+str(d["current"]).trim_prefix("end_"); d["seen"].append(d["current"])
     for key in ["name","current","next","result","seed","rng"]:
         if not d.get(key) is String: return {"error":"Campo de texto inválido."}
-    if not integer(d.get("version"),2,3) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
+    if not integer(d.get("version"),2,4) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
     if d["next"]!="" and not s.catalog.events.has(d["next"]): return {"error":"Continuação inválida."}
     if not d.get("active") is bool or not d.get("attributes") is Dictionary or not d.get("flags") is Dictionary or not d.get("seen") is Array or not d.get("records") is Array: return {"error":"Estado incompleto."}
     if not integer(d.get("jenny"),0,1000000) or not integer(d.get("choice"),-1,s.catalog.events[d["current"]]["choices"].size()-1): return {"error":"Valores inválidos."}
@@ -45,7 +45,7 @@ static func load_state(path: String = PATH) -> Dictionary:
     s.current_id=d["current"]; s.demo=s.catalog.events[s.current_id]; s.selected_choice=int(d["choice"]); s.pending_next=d["next"]; s.active_adventure=d["active"]; s.result=d["result"]; s.records.assign(d["records"])
     for key in s.attributes: s.attributes[key]=int(s.attributes[key])
     s.rng.seed=int(d["seed"]); s.rng.state=int(d["rng"])
-    if d["version"]==3:
+    if d["version"]>=3:
         if not integer(d.get("step"),1,100000) or not d.get("visits") is Dictionary or not d.get("last_visit") is Dictionary or not d.get("completed") is Array or not d.get("adventure") is String: return {"error":"Jornada inválida."}
         if d["visits"].size()!=seen.size() or d["last_visit"].size()!=seen.size(): return {"error":"Contadores incompletos."}
         for id in seen:
@@ -59,7 +59,13 @@ static func load_state(path: String = PATH) -> Dictionary:
         s.step=seen.size()
         for id in seen: s.visits[id]=1;s.last_visit[id]=s.step
         s.current_adventure="delivery" if s.active_adventure else ""
+    if d["version"]==4:
+        if not integer(d.get("level"),1,10000) or not integer(d.get("xp"),0,State.Progress.threshold(int(d["level"]))-1) or not integer(d.get("points"),0,State.Progress.room(s)) or not integer(d.get("health"),0,10): return {"error":"Progressão ou Saúde inválida."}
+        if int(d["points"])>int(d["level"])-1: return {"error":"Pontos incompatíveis com o nível."}
+        if int(d["health"])==0 and (d["active"] or d["next"]!="" or int(d["choice"])<0): return {"error":"Jornada encerrada inconsistente."}
+        s.level=int(d["level"]);s.xp=int(d["xp"]);s.points=int(d["points"]);s.health=int(d["health"])
     return {"state":s,"error":""}
+
 
 
 

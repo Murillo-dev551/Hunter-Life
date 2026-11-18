@@ -7,11 +7,12 @@ var choice_buttons: Array[Button] = []
 var consequence: VBoxContainer
 var result_text: Label
 var selected_text: Label
+var advance_button: Button
 func build(state) -> void:
     var story = UI.card(self)
     var banner = PanelContainer.new()
     banner.add_theme_stylebox_override("panel",UI.box(UI.GREEN,5,Color.TRANSPARENT,6))
-    banner.add_child(UI.label("FINAL DA JORNADA" if state.demo["kind"]=="ending" else "AVENTURA CONCLUÍDA" if state.demo["kind"]=="adventure_end" else "ACONTECIMENTO",11,UI.BG))
+    banner.add_child(UI.label("FINAL DA JORNADA" if state.health==0 or state.demo["kind"]=="ending" else "AVENTURA CONCLUÍDA" if state.demo["kind"]=="adventure_end" else "ACONTECIMENTO",11,UI.BG))
     story.add_child(banner)
     story.add_child(UI.label(state.demo["title"],22))
     for paragraph in state.demo["paragraphs"]: story.add_child(UI.label(paragraph,16))
@@ -20,7 +21,7 @@ func build(state) -> void:
         var b = UI.button(state.demo["choices"][i]["label"],i==0)
         if state.demo["choices"][i].has("test"):
             var test: Dictionary = state.demo["choices"][i]["test"]
-            b.text+="\n◇ %s · Dificuldade %d" % [state.ATTRIBUTE_NAMES[test["attribute"]],int(test["difficulty"])]
+            b.text+="\n◇ %s · Dificuldade %d · %d%%" % [state.ATTRIBUTE_NAMES[test["attribute"]],int(test["difficulty"]),state.Progress.chance(int(state.attributes[test["attribute"]]),int(test["difficulty"]))]
             b.custom_minimum_size.y=72
             b.add_theme_font_size_override("font_size",14)
         b.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -33,7 +34,9 @@ func build(state) -> void:
     consequence.add_child(selected_text)
     result_text = UI.label("",16)
     consequence.add_child(result_text)
-    var next_button = UI.button("Continuar jornada",true)
+    var next_button = UI.button("Jornada encerrada" if state.health==0 else "Continuar jornada",true)
+    next_button.disabled=state.health==0
+    advance_button=next_button
     next_button.pressed.connect(func(): continue_requested.emit())
     consequence.add_child(next_button)
     var record_button = UI.button("Ver registro da jornada")
@@ -42,14 +45,21 @@ func build(state) -> void:
     refresh(state)
 func refresh(state) -> void:
     var chosen: bool = state.selected_choice >= 0
+    advance_button.disabled=state.health==0
+    if state.health==0: advance_button.text="Jornada encerrada"
     for i in range(choice_buttons.size()):
         choice_buttons[i].disabled = chosen or state.choice_reason(i)!=""
         if not chosen: choice_buttons[i].tooltip_text=state.choice_reason(i)
         if chosen: choice_buttons[i].tooltip_text = "Sua escolha" if i==state.selected_choice else "Acontecimento resolvido"
     consequence.get_parent().visible = chosen
     if chosen:
-        selected_text.text = state.records[-2].get_slice(" — ",1) if state.records.size()>=2 else state.demo["choices"][state.selected_choice]["label"]
+        selected_text.text = state.demo["choices"][state.selected_choice]["label"]
+        var prefix: String=state.demo["title"]+" — "
+        for i in range(state.records.size()-1,-1,-1):
+            if state.records[i].begins_with(prefix): selected_text.text=state.records[i].trim_prefix(prefix);break
         result_text.text = state.result
+
+
 
 
 

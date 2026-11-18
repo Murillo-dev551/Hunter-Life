@@ -1,3 +1,9 @@
+# Hunter Life — Etapa 4
+
+Implementação atual: veja [STAGE_4.md](STAGE_4.md) para XP, nível, Saúde, saves v4, testes e arquivos modificados. Abra project.godot no Godot 4.7.2 e pressione F5.
+
+O texto abaixo documenta a base da Etapa 3; regras de progressão e salvamento foram atualizadas na Etapa 4.
+
 # Hunter Life — Etapa 3
 
 Projeto existente preservado: tema de diário, criação, quatro abas, testes d20 e salvamento local. Abra project.godot no Godot 4.7.2 e pressione F5. Escolha nome e inclinação, participe das oportunidades e pressione Continuar jornada após cada decisão. Salve em Registro; retome pela tela inicial.
@@ -61,4 +67,5 @@ godot --path . --script res://tests/test_visual.gd
 
 ## Limitações
 Catálogo compacto e finito; a jornada pode ser encerrada cedo por decisão explícita. Repetíveis usam texto base reaproveitado, com pagamentos variáveis mostrados na consequência. Não há salvamento automático nem múltiplos slots. Informações de migração não recuperam feitos que o formato antigo não distinguia. Não há batalhas, Nen, Hatsus, calendário, mundo aberto, NPCs autônomos, inventário funcional ou economia complexa. Etapa seguinte não iniciada.
+
 

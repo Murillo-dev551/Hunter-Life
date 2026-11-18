@@ -6,6 +6,7 @@ const Adventure = preload("res://scripts/ui/adventure_view.gd")
 const TABS = ["Aventura","Personagem","Inventário","Registro"]
 const ICONS = ["adventure","character","inventory","record"]
 const Storage = preload("res://scripts/storage.gd")
+var attribute_buttons: Dictionary={}
 var state = State.new()
 var margin: MarginContainer
 var chapter: Label
@@ -175,6 +176,22 @@ func build_session() -> void:
 func build_character() -> void:
     character_content.add_child(UI.title(state.character_name))
     character_content.add_child(UI.label("Viajante · Uma história por escrever",15,UI.MUTED))
+    var progress = UI.card(character_content)
+    progress.add_child(UI.label("Nível %d · Saúde %d/10" % [state.level,state.health],20,UI.GREEN))
+    progress.add_child(UI.label("%d / %d XP para o próximo nível" % [state.xp,state.Progress.threshold(state.level)],14))
+    var xp_bar=ProgressBar.new()
+    xp_bar.max_value=state.Progress.threshold(state.level);xp_bar.value=state.xp;xp_bar.show_percentage=false;xp_bar.custom_minimum_size.y=9
+    progress.add_child(xp_bar)
+    progress.add_child(UI.label("Pontos disponíveis: %d" % state.points,16))
+    var allocation=HFlowContainer.new()
+    progress.add_child(allocation)
+    attribute_buttons={}
+    for attribute in state.ATTRIBUTE_NAMES:
+        var add_button=UI.button("+1 "+state.ATTRIBUTE_NAMES[attribute])
+        attribute_buttons[attribute]=add_button
+        add_button.disabled=state.points==0 or int(state.attributes[attribute])>=10 or state.health==0
+        add_button.pressed.connect(func(): allocate_point(attribute))
+        allocation.add_child(add_button)
     var stats = UI.card(character_content)
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
@@ -184,7 +201,7 @@ func build_character() -> void:
     character_content.add_child(reset)
     character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
     var end_button = UI.button("Escolher o final da jornada")
-    end_button.disabled=state.active_adventure or state.demo["kind"]=="ending"
+    end_button.disabled=state.health==0 or state.active_adventure or state.demo["kind"]=="ending"
     end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
     end_button.pressed.connect(func(): state.open_event("crossroads"); build_session())
     character_content.add_child(end_button)
@@ -239,4 +256,11 @@ func load_saved() -> void:
     state=loaded["state"]
     build_session()
 
+
+func allocate_point(attribute: String) -> void:
+    if not state.Progress.spend(state,attribute): return
+    var tab: int=current_tab
+    build_session()
+    select_tab(tab)
+    character_content.add_child(UI.label("Ponto aplicado: %s agora é %d." % [state.ATTRIBUTE_NAMES[attribute],state.attributes[attribute]],14,UI.GREEN))
 
