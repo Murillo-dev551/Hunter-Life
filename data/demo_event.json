@@ -1,0 +1,14 @@
+{
+  "id": "demo_market_offer",
+  "title": "Uma proposta inesperada",
+  "chapter": "Capítulo I · O início",
+  "paragraphs": [
+    "Enquanto caminha pelo mercado, você encontra um viajante procurando alguém disposto a acompanhá-lo até uma região montanhosa.",
+    "A recompensa parece generosa, mas ele evita explicar os perigos da viagem. Com o Exame Hunter no horizonte, uma oportunidade assim merece atenção."
+  ],
+  "choices": [
+    {"label": "Aceitar a proposta", "result": "Você aceita conhecer o plano. O viajante combina um encontro ao amanhecer, antes de qualquer partida."},
+    {"label": "Pedir mais informações", "result": "Você pergunta sobre o trajeto. O viajante admite que não conhece bem a trilha. Você prefere pensar antes de assumir um compromisso."},
+    {"label": "Recusar e seguir viagem", "result": "Você recusa com educação e volta ao movimento do mercado. Buscar seu próprio caminho também é uma escolha."}
+  ]
+}
