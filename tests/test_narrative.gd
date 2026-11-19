@@ -16,7 +16,7 @@ func run() -> void:
         var id: String = s.catalog.select(s)
         distribution[id]=int(distribution.get(id,0))+1
         check(s.catalog.events[id]["weight"]>0,"Somente eventos independentes elegíveis")
-    check(distribution.size()==19,"Seleção diversificada")
+    check(distribution.size()==26,"Seleção diversificada")
     s.open_event("bridge")
     check(s.choice_reason(1)!="","Flag bloqueia desvio")
     s.flags["prepared"]=true

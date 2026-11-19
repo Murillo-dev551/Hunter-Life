@@ -39,6 +39,7 @@ static func finish(s,outcome: String) -> void:
     if not b["rewarded"]:
         b["rewarded"]=true
         var reward: Dictionary=s.demo.get("battle_rewards",{}).get(outcome,{})
+        if reward.has("next"):s.pending_next=reward["next"]
         var xp: int=int(reward.get("xp",0))
         var levels: int=s.Progress.award(s,xp)
         if levels>0:text+="\nNível %d alcançado · %d ponto(s) disponível(is)." % [s.level,s.points]

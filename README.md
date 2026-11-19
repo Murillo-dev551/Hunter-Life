@@ -4,6 +4,8 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
+**Etapa atual: 10B — Expansão narrativa.** O catálogo possui 78 acontecimentos, incluindo duas novas aventuras, cinco encontros independentes e três retornos de decisões anteriores. A escrita revisada na 10A foi preservada. Consulte os detalhes no [relatório 10B](STAGE_10B.md).
+
 ## Funcionalidades
 
 | Sistema | Disponível no protótipo |
@@ -12,8 +14,8 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
 | Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
 | Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
-| Narrativa | 58 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
-| Aventuras | Entrega da Serra, Levantamento da Trilha e Exame Hunter opcional |
+| Narrativa | 78 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
 | Confrontos | Turnos narrativos, intenções observáveis e diferentes resultados |
 | Inventário | Nove itens, incluindo consumíveis, equipamentos, ferramentas e Licença Hunter |
@@ -37,6 +39,14 @@ A experiência necessária para o próximo nível é `40 + 20 × (nível atual �
 Saúde não cai apenas por avançar acontecimentos. Ferimentos e recuperação dependem de escolhas. Em zero, o personagem recebe socorro e abandona a vida de aventuras, encerrando a jornada por incapacidade, sem morte automática.
 
 Concluir uma aventura normalmente devolve o personagem às oportunidades. Finais definitivos resultam de decisões explícitas ou incapacidade. Eventos únicos e repetíveis têm limites; retornos de atividades repetíveis reduzem recompensas e não concedem novamente objetos ou atributos.
+
+### Escolta e expedição
+
+Na escolta, **Orlan** negocia o pagamento e espera que a carga chegue ao mercado. Preparar a rota ou a corda muda as alternativas do percurso; uma cobrança irregular pode ser negociada, paga, contornada ou enfrentada. Fuga e rendição encerram a escolta sem pagamento pela entrega. A conclusão não encerra a jornada.
+
+Na expedição, **Lídia e Bento** examinam um antigo canal: travessia, inscrições de uso da água e retirada segura. É possível produzir um relato completo ou parcial, priorizar a segurança ou ocultar um fragmento para vendê-lo. As decisões podem reaparecer depois em novas conversas e cobranças.
+
+As duas aventuras têm seis acontecimentos cada, podem ocorrer em ordens diferentes e não exigem Nen, Hatsu ou licença. Todos os novos encontros são únicos por jornada; as atividades repetíveis anteriores mantêm seus limites.
 
 ## Nen e Hatsus
 
@@ -131,6 +141,8 @@ O jogo usa um slot manual, `user://hunter_life.json`, no diretório de dados **H
 
 O formato atual é **v9**. Preserva personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG e batalha, além de participação no exame, sequência de provas, etapa, advertências e resultado. A licença está vinculada à aprovação.
 
+As aventuras da expansão usam os campos narrativos existentes, sem nova migração. Saves da 10A continuam válidos; novos acontecimentos podem surgir sem recalcular decisões ou recompensas antigas.
+
 As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
 
 A gravação usa arquivo temporário e substituição após sucesso. Não há salvamento automático ou múltiplos slots. O JSON é local e não criptografado.
@@ -149,15 +161,19 @@ godot --headless --path . --script res://tests/test_battle.gd
 godot --headless --path . --script res://tests/test_inventory.gd
 godot --headless --path . --script res://tests/test_nen.gd
 godot --headless --path . --script res://tests/test_hatsu.gd
+godot --headless --path . --script res://tests/test_narrative_revision.gd
+godot --headless --path . --script res://tests/test_expansion.gd
 
 # Verificações com renderização e capturas
 godot --path . --script res://tests/test_exam_visual.gd
 godot --path . --script res://tests/test_visual.gd
+godot --path . --script res://tests/test_narrative_revision_visual.gd
+godot --path . --script res://tests/test_expansion_visual.gd
 ```
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. Logs da entrega atual ficam em `tests/stage9_*.log`; imagens, em `tests/captures/`. Resultados detalhados e limitações das simulações estão no [relatório da Etapa 9](STAGE_9.md).
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 78 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10b_*.log`; imagens, em `tests/captures/`. O teste editorial continua protegendo a assinatura mecânica dos 58 acontecimentos originais. Resultados da expansão estão no [relatório 10B](STAGE_10B.md).
 
 ## Limitações e desenvolvimento futuro
 
@@ -165,7 +181,7 @@ O catálogo é finito e possui poucas aventuras. As provas do exame são combina
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento está concluído somente até a Etapa 9. A Etapa 10 depende de nova autorização.
+O desenvolvimento inclui a expansão narrativa 10B. O Bloco 10C não foi iniciado e depende de nova autorização.
 
 ## Histórico resumido
 
@@ -178,4 +194,6 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 6 | [Hatsus e personalização](STAGE_6.md) |
 | 7 | [Batalhas narrativas](STAGE_7.md) |
 | 8 | [Inventário funcional](STAGE_8.md) |
-| 9 | [Exame Hunter e validação atual](STAGE_9.md) |
+| 9 | [Exame Hunter](STAGE_9.md) |
+| 10A | [Revisão narrativa dos acontecimentos](STAGE_10A.md) |
+| 10B | [Expansão das aventuras e consequências](STAGE_10B.md) |

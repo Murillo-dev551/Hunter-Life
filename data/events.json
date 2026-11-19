@@ -2,13 +2,14 @@
   {
     "chapter": "Caminhos abertos",
     "paragraphs": [
-      "Uma vendedora procura ajuda para conferir uma entrega."
+      "Sob o toldo de uma banca, uma vendedora alinha recibos ao lado de caixas recém-chegadas do cais. A soma cobrada pelo carregador não combina com o dinheiro que ela separou.",
+      "“Minha sócia ainda está descarregando. Pode me ajudar a descobrir onde errei?” Ela oferece pagamento pela conferência, mas também precisa saber a quem recorrer no porto."
     ],
     "weight": 3,
     "choices": [
       {
         "label": "Conferir as contas",
-        "result": "Você encontra uma cobrança duplicada e recebe 25 Jenny.",
+        "result": "Você encontra o mesmo frete em dois recibos. A vendedora risca a cobrança duplicada, separa 25 Jenny para você e guarda sua indicação junto ao livro-caixa.",
         "jenny": 25,
         "flags": {
           "merchant_help": true
@@ -18,14 +19,14 @@
           "attribute": "intellect"
         },
         "failure": {
-          "result": "As contas continuam confusas. A vendedora chama sua sócia.",
+          "result": "Os recibos misturam pesos e datas de entregas diferentes. Você não consegue separar as cobranças; a vendedora deixa a conta para a sócia, sem lhe pagar pela conferência.",
           "xp": 3
         },
         "xp": 8
       },
       {
         "jenny": 0,
-        "result": "Você oferece uma indicação honesta. Ela promete procurar você novamente.",
+        "result": "Você aponta o balcão de conferência do cais e explica com quem falar. Ela anota seu nome: quando precisar de alguém cuidadoso, saberá onde procurar.",
         "label": "Apresentar a vendedora ao cais",
         "flags": {
           "merchant_help": true
@@ -33,7 +34,7 @@
       },
       {
         "jenny": 15,
-        "result": "Você embolsa 15 Jenny, mas perde a confiança da vendedora.",
+        "result": "Você inventa um contato e cobra 15 Jenny pela indicação. Ao pedir detalhes, ela percebe que os nomes não conferem e fecha o livro antes que você ofereça outro serviço.",
         "label": "Cobrar por uma dica falsa",
         "flags": {
           "dishonest": true
@@ -56,21 +57,22 @@
   {
     "chapter": "Caminhos abertos",
     "paragraphs": [
-      "Um torneio amistoso de equilíbrio reúne moradores. Não há luta."
+      "Fitas coloridas cercam um circuito de tábuas e apoios na praça. Os participantes precisam atravessá-lo sem tocar o chão, carregando uma pequena bandeira até a chegada.",
+      "O organizador ainda procura mãos para a montagem e aceita inscrições individuais ou em equipe. Perto da corda, um grupo discute quem deverá ir na frente."
     ],
     "weight": 3,
     "choices": [
       {
         "jenny": 12,
-        "result": "Você recebe o pagamento combinado pelo trabalho de montagem.",
+        "result": "Você testa os nós e ajusta uma tábua que oscilava. Quando o circuito fica pronto, o organizador lhe entrega o pagamento combinado pela montagem.",
         "label": "Ajudar a montar o circuito"
       },
       {
         "jenny": 45,
-        "result": "Você vence uma rodada e recebe o pagamento combinado.",
+        "result": "Você sente a tábua ceder, muda o peso a tempo e leva a bandeira até a chegada. A rodada termina sob aplausos e o organizador lhe entrega o prêmio.",
         "label": "Participar da prova",
         "failure": {
-          "result": "Você erra um apoio e sai sem prêmio.",
+          "result": "Seu pé escapa do último apoio e você bate a canela na borda. A bandeira toca o chão; a rodada acaba para você, sem prêmio.",
           "xp": 6,
           "health": -1
         },
@@ -82,10 +84,10 @@
       },
       {
         "jenny": 30,
-        "result": "Sua equipe recebe o pagamento combinado para dividir as tarefas.",
+        "result": "Você distribui as posições conforme o equilíbrio de cada participante. A equipe atravessa sem se atropelar; você recebe sua parte do prêmio e ajuda a recolher a bandeira.",
         "label": "Organizar uma equipe",
         "failure": {
-          "result": "O grupo não combina os passos e termina sem colocação.",
+          "result": "Duas pessoas avançam ao mesmo tempo e a tábua gira. Ninguém se machuca, mas a bandeira cai antes da chegada e a equipe termina sem colocação.",
           "xp": 4
         },
         "test": {
@@ -98,10 +100,10 @@
         "label": "Demonstrar Ren com moderação",
         "failure": {
           "xp": 4,
-          "result": "A demonstração causa desconforto. Você interrompe Ren e pede desculpas, sem receber prêmio."
+          "result": "O grupo recua desconfortável diante da pressão. Você recolhe a aura e se desculpa; a conversa se desfaz antes de uma equipe ser formada."
         },
         "xp": 12,
-        "result": "Sua emissão firme convence o grupo a organizar o espaço sem confronto.",
+        "result": "Você reúne o grupo e libera uma pressão breve de aura antes de indicar as posições. A discussão cessa o suficiente para que todos ouçam; vocês combinam a ordem de passagem.",
         "conditions": {
           "flags": {
             "nen_ren": true
@@ -126,16 +128,17 @@
   {
     "chapter": "Caminhos abertos",
     "paragraphs": [
-      "Uma família tenta retirar sua carroça da lama."
+      "Uma roda de carroça afundou até o eixo na lama da estrada. A família já descarregou parte dos sacos, mas o esforço de puxar só abriu um sulco mais fundo.",
+      "Há troncos secos junto à cerca. Do outro lado do caminho, um agricultor observa com uma junta de animais e oferece ajuda por 15 Jenny."
     ],
     "weight": 3,
     "choices": [
       {
         "jenny": 20,
-        "result": "A carroça sai da lama. A família oferece 20 Jenny.",
+        "result": "Você combina o impulso com a família e a roda sobe para o chão firme. O condutor limpa as mãos na roupa e lhe entrega 20 Jenny pelo esforço.",
         "label": "Empurrar em conjunto",
         "failure": {
-          "result": "O esforço não basta; será preciso outro método.",
+          "result": "A roda sobe apenas um palmo e volta ao sulco. Você torce o ombro ao tentar segurá-la e precisa recuar para que a família encontre outra maneira de tirar a carroça.",
           "xp": 5,
           "health": -1
         },
@@ -147,7 +150,7 @@
       },
       {
         "label": "Improvisar uma alavanca",
-        "result": "Sua alavanca funciona. A família agradece e ensina como distribuir o peso.",
+        "result": "Você encaixa um tronco sob o eixo e usa uma pedra como apoio. A roda se ergue; enquanto recoloca os sacos, a família lhe mostra como distribui a carga e oferece 10 Jenny.",
         "jenny": 10,
         "attributes": {
           "intellect": 1
@@ -157,14 +160,14 @@
           "attribute": "intellect"
         },
         "failure": {
-          "result": "O galho cede sem machucar ninguém.",
+          "result": "O tronco estala antes de erguer o eixo. Você avisa a tempo de todos afastarem as mãos; a família procura uma peça mais firme.",
           "xp": 5
         },
         "xp": 20
       },
       {
         "jenny": "-15",
-        "result": "Você paga 15 Jenny para retirar a carroça sem forçar ninguém.",
+        "result": "Você paga 15 Jenny ao agricultor. Com os animais puxando e a família guiando a roda, a carroça sai do sulco sem exigir outro esforço de vocês.",
         "label": "Pagar uma junta de animais"
       }
     ],
@@ -180,18 +183,19 @@
   {
     "chapter": "Caminhos abertos",
     "paragraphs": [
-      "Um viajante precisa encontrar o cais antes de sua partida."
+      "Um viajante gira um bilhete de embarque entre os dedos, tentando comparar os nomes das ruas com as indicações de uma placa. O navio parte do cais, não da estação onde ele desembarcou.",
+      "O bonde custa 10 Jenny para acompanhá-lo até o porto. Um carroceiro prepara-se para sair; também é possível explicar o caminho por escrito."
     ],
     "weight": 3,
     "choices": [
       {
         "jenny": "-10",
-        "result": "Você paga 10 Jenny e acompanha o viajante até o cais.",
+        "result": "Você compra o bilhete de 10 Jenny e acompanha o viajante. Quando o bonde vira em direção ao mar, ele finalmente relaxa a mão que amassava a passagem.",
         "label": "Comprar uma passagem de bonde"
       },
       {
         "label": "Negociar uma carona",
-        "result": "Um carroceiro aceita levá-los. O viajante deixa uma indicação de trabalho.",
+        "result": "O carroceiro aceita desviar por uma rua próxima ao porto. Durante o trajeto, o viajante lhe passa o contato de uma cooperativa que contrata gente para conferir trilhas.",
         "jenny": 0,
         "flags": {
           "survey_contact": true
@@ -201,14 +205,14 @@
           "attribute": "presence"
         },
         "failure": {
-          "result": "Ninguém pode desviar a rota. Vocês seguem a pé.",
+          "result": "O carroceiro está atrasado para uma entrega e não pode mudar a rota. Você acompanha o viajante a pé, indicando as ruas que ainda precisam atravessar.",
           "xp": 4
         },
         "xp": 10
       },
       {
         "jenny": 0,
-        "result": "O viajante segue suas indicações e agradece.",
+        "result": "Você desenha as esquinas e marca a torre visível do cais. O viajante repete o trajeto com o dedo antes de agradecer e guardar o papel junto à passagem.",
         "label": "Desenhar o trajeto"
       }
     ],
@@ -228,13 +232,14 @@
   {
     "chapter": "Caminhos abertos",
     "paragraphs": [
-      "Trabalhos locais disputam espaço com anúncios do Exame Hunter. Você não precisa seguir esse caminho."
+      "O mural da estação está coberto por anúncios sobrepostos: fretes, reparos, levantamento de trilhas e instruções para chegar ao Exame Hunter. Alguém escreveu “inscrições garantidas” sobre um papel sem assinatura.",
+      "Uma funcionária repõe as tachinhas. Ela conhece os contratantes locais e tem pouca paciência para anúncios que ninguém consegue confirmar."
     ],
     "weight": 3,
     "choices": [
       {
         "jenny": 0,
-        "result": "Você encontra uma vaga de levantamento de trilhas e anota o contato.",
+        "result": "Você separa os anúncios de trabalho e copia o endereço de uma cooperativa. Ela precisa de alguém para conferir marcos de uma trilha usada pelos moradores.",
         "label": "Separar os trabalhos civis",
         "flags": {
           "survey_contact": true
@@ -242,10 +247,10 @@
       },
       {
         "jenny": 0,
-        "result": "Você evita uma taxa falsa. O funcionário do mural agradece.",
+        "result": "Você compara o anúncio com as instruções oficiais do mural. A cobrança não consta em nenhuma delas; a funcionária retira o papel antes que outro viajante pague.",
         "label": "Verificar um anúncio suspeito",
         "failure": {
-          "result": "Sem provas, você prefere não acusar ninguém.",
+          "result": "O anúncio não tem assinatura nem contato verificável. Você leva a dúvida à funcionária, mas não encontra elementos para apontar um responsável pela cobrança.",
           "xp": 3
         },
         "test": {
@@ -256,7 +261,7 @@
       },
       {
         "jenny": 0,
-        "result": "Você conhece os custos e as exigências, sem assumir compromisso.",
+        "result": "A funcionária explica que a licença é concedida a quem passa no exame, não a quem paga um intermediário. Você anota onde obter instruções de participação, sem assumir compromisso.",
         "label": "Conversar sobre a licença Hunter"
       }
     ],
@@ -272,7 +277,8 @@
   {
     "chapter": "A entrega da serra",
     "paragraphs": [
-      "Uma transportadora local oferece 100 Jenny por uma entrega ao abrigo da serra. O pacote contém ferramentas, sem segredos."
+      "Na porta de um depósito, a transportadora pesa uma caixa de ferramentas e confere a lista pregada na tampa. O abrigo da serra espera o material para consertar o telhado antes das próximas chuvas.",
+      "“Cem Jenny na entrega”, diz a encarregada. Ela mostra o caminho até a trilha e deixa você examinar a carga antes de responder."
     ],
     "weight": 2,
     "choices": [
@@ -283,17 +289,17 @@
         },
         "next": "route",
         "label": "Aceitar a entrega",
-        "result": "Você combina levar uma encomenda comum ao abrigo da serra."
+        "result": "Você confere a lista, acomoda a caixa e combina entregá-la ao responsável pelo abrigo. A encarregada lhe indica onde começa a subida."
       },
       {
         "jenny": 0,
         "next": "route",
         "label": "Negociar os termos",
-        "result": "Você aceita após combinar que pode voltar se a trilha ficar perigosa."
+        "result": "Você pergunta o que fazer se a trilha estiver impraticável. A encarregada aceita receber a caixa de volta nesse caso; com isso acertado, você assume a entrega."
       },
       {
         "jenny": 0,
-        "result": "Você devolve a proposta e volta a buscar oportunidades.",
+        "result": "Você deixa a caixa sobre a balança e agradece pela oferta. A encarregada volta aos recibos enquanto você sai em busca de outro serviço.",
         "label": "Recusar por enquanto",
         "finish_adventure": true
       }
@@ -311,7 +317,8 @@
   {
     "chapter": "A entrega da serra",
     "paragraphs": [
-      "No início da trilha, você decide como organizar a viagem."
+      "As casas ficam para trás e a trilha começa a subir entre encostas úmidas. Perto de um marco, um esboço do caminho distingue a rota curta de uma passagem junto à margem do rio.",
+      "A caixa está bem amarrada, mas a chuva recente pode ter mudado o terreno. Você pode conferir as referências antes de partir ou devolver a encomenda enquanto o depósito ainda está próximo."
     ],
     "weight": 0,
     "choices": [
@@ -322,25 +329,25 @@
         },
         "next": "bridge",
         "label": "Estudar a trilha",
-        "result": "Você marca uma passagem mais segura no mapa.",
+        "result": "Você compara o esboço com o relevo e memoriza a entrada do desvio pela margem. A marcação ficará como referência caso a passagem principal esteja danificada.",
         "xp": 8
       },
       {
         "jenny": 0,
         "next": "bridge",
         "label": "Seguir pela trilha curta",
-        "result": "Você segue a rota indicada pelos moradores."
+        "result": "Você segue as marcas da rota curta, mantendo a caixa junto ao corpo nas curvas da encosta."
       },
       {
         "jenny": 0,
         "next": "end_home",
         "label": "Desistir da entrega",
-        "result": "Você devolve o pacote sem receber a recompensa."
+        "result": "Você retorna ao depósito e entrega a caixa fechada. A encarregada recebe o material de volta; não há pagamento por uma entrega que não chegou ao abrigo."
       },
       {
         "next": "bridge",
         "label": "Consultar seu mapa regional",
-        "result": "Seu mapa indica uma passagem mais segura.",
+        "result": "Você abre seu mapa regional junto ao marco e identifica a entrada da passagem pela margem. Guarda o papel dobrado com a referência voltada para fora.",
         "xp": 6,
         "flags": {
           "prepared": true
@@ -365,13 +372,14 @@
   {
     "chapter": "A entrega da serra",
     "paragraphs": [
-      "Uma ponte foi danificada pela chuva. Há um desvio, mas ele é difícil de localizar sem um mapa preparado."
+      "O rio corre alto sob uma ponte de tábuas. Duas delas desapareceram; o restante da estrutura ainda permite passagem, mas exige equilíbrio com a encomenda nas costas.",
+      "Uma barqueira oferece a travessia completa por 30 Jenny. Há também um desvio pela margem para quem souber localizar a entrada, e pilares onde uma corda pode ser ancorada."
     ],
     "weight": 0,
     "choices": [
       {
         "next": "delivery",
-        "result": "Você cruza com a encomenda intacta.",
+        "result": "Você distribui o peso da caixa e cruza as tábuas restantes. Na outra margem, confere as amarras: a encomenda continua intacta.",
         "jenny": 0,
         "test": {
           "attribute": "agility",
@@ -381,7 +389,7 @@
         "failure": {
           "next": "delivery",
           "jenny": -20,
-          "result": "Você precisa de ajuda de uma barqueira e paga 20 Jenny pela travessia segura.",
+          "result": "Uma tábua vira sob seu pé. Você bate o joelho e precisa alcançar um apoio baixo; a barqueira o recolhe com a encomenda e cobra 20 Jenny pelo auxílio.",
           "xp": 8,
           "health": -2
         },
@@ -399,14 +407,14 @@
         },
         "next": "delivery",
         "label": "Usar o desvio marcado",
-        "result": "Seu planejamento permite uma travessia tranquila.",
+        "result": "Você reconhece a entrada marcada antes da subida e contorna o trecho danificado. O caminho é mais longo, mas a caixa não chega a se molhar.",
         "xp": 12
       },
       {
         "jenny": "-30",
         "next": "delivery",
         "label": "Pagar uma travessia segura",
-        "result": "Uma barqueira leva você pela margem.",
+        "result": "Você paga 30 Jenny e se senta com a caixa entre os pés. A barqueira usa a correnteza para alcançar a outra margem.",
         "xp": 8
       },
       {
@@ -415,10 +423,10 @@
         "failure": {
           "next": "delivery",
           "xp": 6,
-          "result": "Você tropeça, mas Ten evita a escoriação. A barqueira ajuda a terminar a travessia."
+          "result": "Seu pé escorrega na madeira molhada. Ten amortece a pancada e você consegue segurar a caixa; a barqueira aproxima o barco para ajudar a terminar a travessia."
         },
         "xp": 16,
-        "result": "Você mantém aura junto ao corpo para amortecer pequenos impactos. Ainda precisa atravessar com cuidado.",
+        "result": "Você mantém Ten junto ao corpo e atravessa sem apressar os passos. A aura amortece o contato com as cordas ásperas enquanto você protege a encomenda.",
         "conditions": {
           "flags": {
             "nen_ten": true
@@ -431,7 +439,7 @@
       },
       {
         "xp": 10,
-        "result": "Você usa a corda resistente para uma travessia cuidadosa. A corda é recolhida ao final.",
+        "result": "Você ancora sua corda nos pilares firmes e a usa como apoio durante a travessia. Depois de levar a caixa, recolhe a corda e confere os nós antes de guardá-la.",
         "label": "Montar apoio com sua corda",
         "conditions": {
           "items": {
@@ -454,7 +462,8 @@
   {
     "chapter": "A entrega da serra",
     "paragraphs": [
-      "As ferramentas chegam ao abrigo. Depois de receber o pagamento, você decide o que deseja para os próximos meses."
+      "O abrigo aparece depois da última curva, com lona estendida sobre parte do telhado. O responsável abre a caixa e confere cada ferramenta antes de separar os 100 Jenny prometidos.",
+      "Enquanto os trabalhadores preparam o reparo, ele lhe oferece uma pequena lembrança do lugar e pergunta para onde você pretende seguir."
     ],
     "weight": 0,
     "choices": [
@@ -462,7 +471,7 @@
         "jenny": 100,
         "next": "end_path",
         "label": "Continuar como viajante",
-        "result": "Você entrega a encomenda e escolhe novas estradas.",
+        "result": "Você recebe os 100 Jenny e guarda a lembrança junto aos pertences. Ao perguntar sobre a estrada adiante, já começa a pensar na próxima viagem.",
         "flags": {
           "delivery_completed": true
         },
@@ -475,7 +484,7 @@
         "jenny": 100,
         "next": "end_home",
         "label": "Voltar e criar raízes",
-        "result": "Você recebe o pagamento e decide voltar à comunidade.",
+        "result": "Você recebe os 100 Jenny e a lembrança do abrigo. A conversa faz você pensar no caminho de volta e em ter um lugar onde suas coisas não precisem estar sempre prontas para partir.",
         "flags": {
           "delivery_completed": true
         },
@@ -488,7 +497,7 @@
         "jenny": 100,
         "next": "end_duty",
         "label": "Trabalhar com o abrigo",
-        "result": "Você recebe o pagamento e aceita ajudar nas próximas entregas.",
+        "result": "Você recebe os 100 Jenny e a lembrança. O responsável comenta a dificuldade de manter o abrigo abastecido; você demonstra interesse em trabalho desse tipo.",
         "flags": {
           "delivery_completed": true
         },
@@ -511,19 +520,20 @@
   {
     "chapter": "Entrega · Conclusão",
     "paragraphs": [
-      "A entrega foi resolvida. Você pode continuar buscando oportunidades ou escolher encerrar sua trajetória."
+      "A serra começa a desaparecer atrás das árvores. Você parou de conferir as amarras da caixa vazia, mas ainda carrega na memória a passagem do rio.",
+      "À frente, a estrada se divide. Você pode procurar outro serviço ou guardar este diário e dar um rumo diferente à própria vida."
     ],
     "weight": 0,
     "choices": [
       {
         "jenny": 0,
-        "result": "Você guarda as experiências e volta à estrada.",
+        "result": "Você ajusta a bagagem e segue na direção dos próximos povoados, atento aos anúncios e às conversas de estrada.",
         "label": "Buscar outra oportunidade",
         "finish_adventure": true
       },
       {
         "jenny": 0,
-        "result": "Você decide que este é um bom ponto de chegada.",
+        "result": "Você fecha o diário. As estradas não acabam aqui, mas já não pretende registrar cada uma como parte desta jornada.",
         "label": "Encerrar minha jornada",
         "next": "journey_path"
       }
@@ -541,19 +551,20 @@
   {
     "chapter": "Entrega · Conclusão",
     "paragraphs": [
-      "A entrega foi resolvida. Você pode continuar buscando oportunidades ou escolher encerrar sua trajetória."
+      "Na descida, você reconhece a fumaça das casas e o movimento do caminho para o mercado. Pensar em voltar já não parece o mesmo que simplesmente refazer a estrada.",
+      "Ainda há trabalho para viajantes. Também há a possibilidade de guardar a bagagem e escolher um lugar onde ficar."
     ],
     "weight": 0,
     "choices": [
       {
         "jenny": 0,
-        "result": "Você guarda as experiências e volta à estrada.",
+        "result": "Você passa pelas primeiras casas sem desfazer a bagagem. Antes de procurar um lugar para ficar, quer saber que outras oportunidades apareceram.",
         "label": "Buscar outra oportunidade",
         "finish_adventure": true
       },
       {
         "jenny": 0,
-        "result": "Você decide que este é um bom ponto de chegada.",
+        "result": "Você procura um teto para chamar de seu e começa a fazer planos que não dependem de uma próxima partida.",
         "label": "Encerrar minha jornada",
         "next": "journey_home"
       }
@@ -571,19 +582,20 @@
   {
     "chapter": "Entrega · Conclusão",
     "paragraphs": [
-      "A entrega foi resolvida. Você pode continuar buscando oportunidades ou escolher encerrar sua trajetória."
+      "As conversas do abrigo continuam com você: telhas para trocar, ferramentas para repor, caminhos que alguém precisa percorrer. Há utilidade em um serviço que volta a ser necessário depois de concluído.",
+      "Você pode levar essa ideia à próxima viagem ou deixar de procurar aventuras e se dedicar a um ofício."
     ],
     "weight": 0,
     "choices": [
       {
         "jenny": 0,
-        "result": "Você guarda as experiências e volta à estrada.",
+        "result": "Você guarda os contatos do abrigo e volta a procurar serviço na estrada, sem assumir um compromisso duradouro.",
         "label": "Buscar outra oportunidade",
         "finish_adventure": true
       },
       {
         "jenny": 0,
-        "result": "Você decide que este é um bom ponto de chegada.",
+        "result": "Você decide procurar trabalho estável. Em vez de perguntar por novos caminhos, começa a perguntar de que ajuda a comunidade precisa.",
         "label": "Encerrar minha jornada",
         "next": "journey_duty"
       }
@@ -600,7 +612,8 @@
   },
   {
     "paragraphs": [
-      "Uma cooperativa procura alguém para conferir marcos de uma trilha usada por moradores. Não é uma missão oficial Hunter."
+      "Uma cooperativa mantém aberto sobre a mesa um mapa cheio de correções a lápis. A chuva deslocou placas numa trilha usada para chegar às propriedades do vale.",
+      "A encarregada quer observações confiáveis, mesmo que incompletas. Ela oferece o serviço e, por 20 Jenny, o empréstimo de corda e de um mapa de consulta durante a vistoria."
     ],
     "weight": 2,
     "title": "Mapas para quem caminha",
@@ -616,13 +629,13 @@
     "choices": [
       {
         "jenny": 0,
-        "result": "Você combina uma vistoria simples, sem prometer mais do que pode cumprir.",
+        "result": "Você combina registrar o que conseguir verificar e distinguir dúvidas de certezas. A encarregada aponta o primeiro marco da trilha.",
         "label": "Aceitar o levantamento",
         "next": "survey_path"
       },
       {
         "jenny": "-20",
-        "result": "Você paga 20 Jenny pelo uso de corda e mapa de consulta nesta vistoria.",
+        "result": "Você paga 20 Jenny e recebe a corda e o mapa emprestados para esta vistoria. A encarregada lhe mostra as marcas que precisam ser conferidas.",
         "label": "Alugar equipamentos",
         "flags": {
           "survey_tools": true
@@ -631,7 +644,7 @@
       },
       {
         "jenny": 0,
-        "result": "Você repassa o contato e segue sua jornada.",
+        "result": "Você deixa o contato com outro trabalhador que conhece a região e segue sem assumir a vistoria.",
         "label": "Indicar outra pessoa",
         "finish_adventure": true
       }
@@ -639,7 +652,8 @@
   },
   {
     "paragraphs": [
-      "A chuva apagou uma placa. Seguir por um atalho ou conferir o mapa muda o resultado da vistoria."
+      "Na bifurcação, uma placa virou sobre o poste e a tinta escorreu até ficar ilegível. Um dos caminhos acompanha o terreno baixo; o outro desaparece atrás de uma elevação coberta de pedras.",
+      "O mapa de consulta pode resolver a dúvida. Sem essa referência, resta interpretar o relevo ou ganhar altura para procurar o marco seguinte."
     ],
     "weight": 0,
     "title": "Uma bifurcação apagada",
@@ -655,7 +669,7 @@
     "choices": [
       {
         "label": "Ler o relevo",
-        "result": "Você encontra o marco correto.",
+        "result": "Você compara a inclinação do terreno com o curso do riacho e encontra o marco correto antes de se afastar da bifurcação.",
         "next": "survey_find",
         "jenny": 0,
         "test": {
@@ -663,7 +677,7 @@
           "attribute": "intellect"
         },
         "failure": {
-          "result": "Você se perde e retorna ao ponto de referência.",
+          "result": "O caminho baixo termina num cercado. Você precisa voltar à bifurcação e anota que não conseguiu confirmar aquele trecho.",
           "flags": {
             "survey_incomplete": true
           },
@@ -674,7 +688,7 @@
       },
       {
         "jenny": 0,
-        "result": "O mapa indica o desvio seguro.",
+        "result": "Você abre o mapa emprestado e reconhece a curva desenhada junto ao riacho. O desvio leva ao marco que a cooperativa pediu para conferir.",
         "label": "Usar o mapa emprestado",
         "conditions": {
           "flags": {
@@ -686,7 +700,7 @@
       },
       {
         "label": "Subir para observar",
-        "result": "Do alto você localiza o caminho.",
+        "result": "Você sobe até uma saliência firme. De lá, consegue distinguir o marco entre as árvores e memoriza a direção antes de descer.",
         "next": "survey_find",
         "jenny": 0,
         "test": {
@@ -694,7 +708,7 @@
           "attribute": "agility"
         },
         "failure": {
-          "result": "Você abandona a subida e registra que faltou visibilidade.",
+          "result": "Uma pedra solta sob seu peso e você se machuca ao interromper a subida. De volta à bifurcação, registra que faltou visibilidade para confirmar o caminho.",
           "flags": {
             "survey_incomplete": true
           },
@@ -708,7 +722,8 @@
   },
   {
     "paragraphs": [
-      "Você encontra um trecho com erosão. A cooperativa precisa de um relato confiável, não de um relatório perfeito."
+      "O barranco junto ao riacho perdeu terra sob a passagem. Parte do marco ainda está firme, mas não é possível avaliar toda a borda sem chegar mais perto.",
+      "No relatório da cooperativa, há espaço para descrever limites da vistoria. Você pode relatar o que viu, usar a corda emprestada para conferir o trecho ou preencher as lacunas com uma certeza que não tem."
     ],
     "weight": 0,
     "title": "O marco e o riacho",
@@ -724,7 +739,7 @@
     "choices": [
       {
         "jenny": 60,
-        "result": "Você entrega observações honestas e recebe 60 Jenny.",
+        "result": "Você entrega um relato que separa o trecho observado das dúvidas. A cooperativa paga 60 Jenny e guarda suas notas para orientar a próxima vistoria.",
         "label": "Relatar os limites da vistoria",
         "flags": {
           "honest_report": true,
@@ -735,7 +750,7 @@
       },
       {
         "jenny": 90,
-        "result": "Você recebe 90 Jenny, mas a informação falsa fecha futuras indicações.",
+        "result": "Você descreve como segura uma passagem que não conferiu. Recebe 90 Jenny pelo relatório completo, mas as contradições nas referências fazem a cooperativa deixar de indicar seu nome.",
         "label": "Inventar uma vistoria completa",
         "flags": {
           "dishonest": true,
@@ -746,7 +761,7 @@
       },
       {
         "label": "Conferir o trecho com corda",
-        "result": "Você confirma o risco e recebe 80 Jenny.",
+        "result": "Com a corda emprestada, você se aproxima da margem sem depender da borda erodida. Confirma o risco e recebe 80 Jenny pelo relato detalhado.",
         "conditions": {
           "flags": {
             "survey_tools": true
@@ -770,14 +785,14 @@
         "failure": {
           "next": "survey_done",
           "xp": 6,
-          "result": "Um galho estala e interrompe a observação. Você entrega um relatório parcial, sem inventar dados.",
+          "result": "Um galho se parte sob seu pé e você interrompe a aproximação. Entrega um relatório parcial, marcando o trecho que não chegou a observar.",
           "flags": {
             "honest_report": true,
             "survey_completed": true
           }
         },
         "xp": 22,
-        "result": "Você suprime a aura para não perturbar a observação do riacho. Continua visível, então se move devagar.",
+        "result": "Você suprime a aura e se aproxima devagar, atento também ao ruído dos passos. O exame do riacho permite entregar um relato cuidadoso, sem acrescentar o que não viu.",
         "conditions": {
           "flags": {
             "nen_zetsu": true
@@ -792,7 +807,8 @@
   },
   {
     "paragraphs": [
-      "A cooperativa recebe o relatório. A vistoria termina, mas sua jornada pode continuar."
+      "A encarregada estende seu relatório ao lado do mapa e começa a passar as observações para a margem do papel. O caminho usado pelos moradores agora tem uma descrição mais recente.",
+      "Do lado de fora, chegam pedidos de outras propriedades. Você pode voltar à estrada ou procurar um lugar nesse trabalho cotidiano."
     ],
     "weight": 0,
     "title": "Um mapa com anotações",
@@ -808,13 +824,13 @@
     "choices": [
       {
         "jenny": 0,
-        "result": "Você conclui o levantamento e procura outro caminho.",
+        "result": "Você deixa as anotações com a cooperativa e se despede. A estrada volta a ser sua próxima preocupação.",
         "label": "Voltar às oportunidades",
         "finish_adventure": true
       },
       {
         "jenny": 0,
-        "result": "Você escolhe uma vida de trabalho junto à comunidade.",
+        "result": "Você pergunta se a cooperativa precisa de ajuda regular. Pela primeira vez desde a partida, pensa no trabalho da semana seguinte sem imaginar outra viagem.",
         "label": "Encerrar a jornada aqui",
         "next": "journey_duty"
       }
@@ -823,7 +839,8 @@
   {
     "repeat_reward_scale": 0.5,
     "paragraphs": [
-      "O encarregado precisa de ajuda para conferir caixas e organizar o embarque."
+      "No cais, as caixas chegam mais depressa do que o encarregado consegue conferir. Uma fileira precisa receber etiquetas; outra bloqueia a passagem até o embarque.",
+      "Ele oferece um turno de serviço. A conferência exige paciência, enquanto reorganizar o carregamento significa lidar com volumes pesados antes que o navio termine de receber a carga."
     ],
     "weight": 2,
     "title": "Um turno no cais",
@@ -838,16 +855,16 @@
     "choices": [
       {
         "jenny": 18,
-        "result": "Você recebe o pagamento combinado pelo turno sem incidentes.",
+        "result": "Você confere destino e número de cada caixa, separando as etiquetas borradas. O encarregado paga pelo turno quando o último lote fica pronto.",
         "label": "Conferir etiquetas",
         "xp": 5
       },
       {
         "jenny": 32,
-        "result": "O trabalho termina cedo. Você recebe o pagamento combinado.",
+        "result": "Você distribui as caixas maiores antes das menores e abre espaço para o embarque. O encarregado entrega o pagamento combinado, com o cais finalmente desimpedido.",
         "label": "Organizar o carregamento",
         "failure": {
-          "result": "Você termina apenas parte do turno e recebe um pagamento parcial.",
+          "result": "Os volumes mais pesados não cabem na ordem planejada. Você termina apenas parte do carregamento antes do fechamento e recebe um pagamento parcial pelo serviço realizado.",
           "jenny": 8,
           "xp": 4
         },
@@ -861,7 +878,8 @@
   },
   {
     "paragraphs": [
-      "Você divide uma marquise com outros viajantes. Há tempo para conversar ou descansar."
+      "A chuva engrossa antes que você alcance a próxima esquina. Sob a marquise de uma pensão, viajantes afastam as bagagens da água que escorre pelas telhas.",
+      "Da cozinha vem o cheiro de uma refeição quente, vendida por 8 Jenny. Quem já comeu troca notícias enquanto espera o aguaceiro ceder."
     ],
     "weight": 2,
     "title": "Um abrigo na chuva",
@@ -876,7 +894,7 @@
     "choices": [
       {
         "jenny": "-8",
-        "result": "Você gasta 8 Jenny e ouve relatos de uma trilha que precisa de vistoria.",
+        "result": "Você paga 8 Jenny por uma tigela e se acomoda junto aos viajantes. A comida ajuda a se recompor; na conversa, alguém lhe passa o contato de uma cooperativa que procura vistoriadores de trilhas.",
         "label": "Compartilhar uma refeição",
         "flags": {
           "survey_contact": true
@@ -885,7 +903,7 @@
       },
       {
         "jenny": 0,
-        "result": "Você espera a chuva passar, sem ganhar recursos.",
+        "result": "Você apoia a bagagem na parede e descansa enquanto observa o movimento da rua. Quando a chuva diminui, o corpo está um pouco menos dolorido.",
         "label": "Descansar e observar",
         "health": 1
       }
@@ -893,7 +911,8 @@
   },
   {
     "paragraphs": [
-      "A vendedora do mercado lembra de sua ajuda e apresenta um contato da cooperativa."
+      "A vendedora do mercado reconhece você entre as bancas e o chama pelo aceno de um recibo. Dessa vez a conta está certa; ela quer apenas outra conferência antes de fechar o caixa.",
+      "“Também falaram em alguém para olhar as trilhas do vale. Lembrei de você”, diz, separando o endereço de uma cooperativa."
     ],
     "weight": 5,
     "title": "Uma indicação merecida",
@@ -913,7 +932,7 @@
     "choices": [
       {
         "jenny": 15,
-        "result": "Você recebe 15 Jenny por uma pequena conferência e anota o contato.",
+        "result": "Você confere o recibo, recebe 15 Jenny e guarda o endereço da cooperativa. A vendedora promete dizer que foi ela quem fez a indicação.",
         "label": "Aceitar a indicação",
         "flags": {
           "survey_contact": true
@@ -921,14 +940,15 @@
       },
       {
         "jenny": 0,
-        "result": "Você indica outro trabalhador e segue sem pagamento.",
+        "result": "Você aponta outro trabalhador de confiança para a conferência. A vendedora agradece a indicação e você segue sem assumir o serviço.",
         "label": "Repassar o serviço"
       }
     ]
   },
   {
     "paragraphs": [
-      "Você pode escolher um ponto de chegada. Não há obrigação de continuar aceitando trabalhos."
+      "Você abre o diário numa mesa tranquila e encontra páginas marcadas por poeira, contas e caminhos riscados. Pela primeira vez em algum tempo, não há ninguém esperando uma resposta imediata.",
+      "É possível escolher o que vem depois sem transformar isso em outra encomenda. Você decide como encerrar esta trajetória."
     ],
     "weight": 0,
     "title": "Uma pausa na jornada",
@@ -943,19 +963,19 @@
     "choices": [
       {
         "jenny": 0,
-        "result": "Você escolhe criar raízes.",
+        "result": "Você procura um lugar na comunidade e começa a desfazer a bagagem.",
         "label": "Ficar na comunidade",
         "next": "journey_home"
       },
       {
         "jenny": 0,
-        "result": "Você encerra este capítulo antes de seguir outro rumo.",
+        "result": "Você guarda os contatos, fecha o diário e prepara uma partida que já pertence a outra fase da sua vida.",
         "label": "Partir para uma nova fase",
         "next": "journey_path"
       },
       {
         "jenny": 0,
-        "result": "Você escolhe a segurança de um ofício cotidiano.",
+        "result": "Você deixa de perguntar por trabalhos de passagem e procura um ofício ao qual possa voltar todos os dias.",
         "label": "Buscar trabalho estável",
         "next": "journey_duty"
       }
@@ -963,7 +983,8 @@
   },
   {
     "paragraphs": [
-      "Você fecha este diário e segue para uma nova fase. Este é o final desta jornada."
+      "O diário fica fechado enquanto a estrada desaparece atrás da janela. Há nomes e lugares que você ainda lembra sem consultar as páginas.",
+      "O que vier depois não precisa caber no mesmo relato. Você guarda este volume entre os pertences e segue para outra fase da vida."
     ],
     "weight": 0,
     "title": "Estradas em aberto",
@@ -979,7 +1000,8 @@
   },
   {
     "paragraphs": [
-      "Você encontra um lugar para voltar. Sua jornada se encerra por uma decisão sua."
+      "Com o tempo, você deixa de indicar o caminho de onde veio e passa a dizer onde mora. A bagagem ganha um canto; os rostos da rua deixam de mudar a cada partida.",
+      "O diário permanece por perto, com espaço entre as páginas para as coisas pequenas que trouxe de viagem. Você escolheu ficar."
     ],
     "weight": 0,
     "title": "Um lugar para voltar",
@@ -995,7 +1017,8 @@
   },
   {
     "paragraphs": [
-      "Você escolhe um trabalho com propósito e encerra sua trajetória de aventuras."
+      "Seu nome entra na lista de quem é esperado na manhã seguinte. Há ferramentas a guardar, serviço por terminar e pessoas que contam com sua volta.",
+      "Você fecha o diário de viagens ao fim do expediente. O trabalho continuará amanhã, mas esta trajetória de aventuras encontrou seu ponto de chegada."
     ],
     "weight": 0,
     "title": "Um trabalho com propósito",
@@ -1014,17 +1037,17 @@
       {
         "label": "Conhecer o aprendizado",
         "next": "nen_ten",
-        "result": "Você aceita uma primeira orientação, sem qualquer abertura forçada de aura."
+        "result": "Você se senta e escuta Mira descrever o exercício inicial. Ela pede que você pare sempre que perder o controle da respiração."
       },
       {
         "finish_adventure": true,
         "label": "Deixar para outra ocasião",
-        "result": "Mira deixa o convite em aberto."
+        "result": "Você explica que não quer começar agora. Mira volta a arrumar o pátio e deixa o convite em aberto."
       },
       {
         "finish_adventure": true,
         "label": "Recusar o aprendizado",
-        "result": "Você agradece e decide continuar sem aprender Nen.",
+        "result": "Você agradece pela explicação, mas recusa o aprendizado. Mira aceita sua resposta sem insistir.",
         "flags": {
           "nen_declined": true
         }
@@ -1044,7 +1067,8 @@
     "chapter": "Aprender a perceber",
     "kind": "opportunity",
     "paragraphs": [
-      "Mira, uma instrutora de práticas corporais, explica que também orienta pessoas a perceber a própria aura. O aprendizado é cuidadoso e não exige licença Hunter. Você pode se interessar ou seguir sua vida."
+      "Num pátio afastado do trânsito, Mira orienta um aluno a manter os ombros relaxados enquanto se concentra. Quando a sessão termina, ela percebe seu interesse e abre espaço no banco.",
+      "“O que você viu é só o começo de aprender a lidar com a aura”, explica. Oferece uma orientação cuidadosa, sem prometer atalhos. Você pode aceitar a primeira aula ou retomar seus afazeres."
     ],
     "title": "Uma aula no pátio",
     "id": "nen_offer",
@@ -1057,12 +1081,12 @@
         "label": "Praticar a manutenção",
         "next": "nen_zetsu",
         "nen_learn": "ten",
-        "result": "Você desperta a percepção da aura e aprende Ten."
+        "result": "A percepção deixa de vir em lampejos. Com as correções de Mira, você consegue manter a aura junto ao corpo: seu primeiro uso consciente de Ten."
       },
       {
         "finish_adventure": true,
         "label": "Interromper antes de despertar",
-        "result": "Você prefere voltar às oportunidades comuns."
+        "result": "Você interrompe o exercício antes de conseguir sustentar a percepção. Mira recolhe o banco e lhe deseja boa viagem."
       }
     ],
     "repeat": {
@@ -1074,7 +1098,8 @@
     "chapter": "Aprender a perceber",
     "kind": "continuation",
     "paragraphs": [
-      "Com orientação de Mira, você aprende a perceber a aura e mantê-la junto ao corpo. O treino é gradual, sem violência ou promessa de invulnerabilidade."
+      "Mira pede que você acompanhe a sensação de aura que se dissipa ao redor do corpo. Corrige sua postura e espera que você reconheça o fluxo antes de tentar mantê-lo junto à pele.",
+      "“Não prenda a respiração para segurar algo que ainda está aprendendo a sentir.” O primeiro exercício é encontrar continuidade, não liberar mais força."
     ],
     "title": "Manter a aura: Ten",
     "id": "nen_ten",
@@ -1087,7 +1112,7 @@
         "label": "Aprender a supressão",
         "next": "nen_ren",
         "nen_learn": "zetsu",
-        "result": "Você mantém a supressão e identifica quando retomar Ten. Aprende Zetsu com um exercício bem executado.",
+        "result": "Você regula a supressão e passa pelo fio sem tocar o sino. Ao retomar Ten, reconhece a diferença entre manter e recolher a aura; Mira confirma o exercício de Zetsu.",
         "test": {
           "difficulty": 13,
           "attribute": "intellect"
@@ -1097,7 +1122,7 @@
             "zetsu_guided": true
           },
           "xp": 3,
-          "result": "O sino toca e sua concentração se desfaz. Mira retoma o exercício ao seu lado. Você aprende o básico de Zetsu com ajuda, mas não conclui a prova independente.",
+          "result": "Ao concentrar toda a atenção na aura, você toca o fio e o sino soa. Mira interrompe o exercício e o refaz ao seu lado; com ajuda, você aprende a base de Zetsu, embora a tentativa independente não tenha dado certo.",
           "nen_learn": "zetsu",
           "next": "nen_ren"
         }
@@ -1105,7 +1130,7 @@
       {
         "nen_learn": "zetsu",
         "label": "Pedir orientação desde o início",
-        "result": "Mira acompanha os movimentos. Você aprende Zetsu de forma assistida, sem realizar a prova independente.",
+        "result": "Você pede que Mira acompanhe cada mudança. Com suas indicações, encontra o momento de recolher e retomar a aura, aprendendo a base de Zetsu sem completar a tentativa independente.",
         "xp": 4,
         "flags": {
           "zetsu_guided": true
@@ -1122,7 +1147,8 @@
     "chapter": "Aprender a perceber",
     "kind": "continuation",
     "paragraphs": [
-      "Mira propõe observar um sino sem fazê-lo tocar, suprimindo a aura e cuidando também dos passos. Zetsu não torna você invisível nem abafa ruídos físicos. Você pode tentar sozinho ou pedir orientação próxima."
+      "Mira pendura um sino leve no caminho entre dois apoios. Depois de orientar a supressão do fluxo de aura, pede que você atravesse sem esbarrar no fio e sem perder o controle.",
+      "“O chão continua ouvindo seus passos”, avisa. Ela observa sua concentração, pronta para ajudar caso você prefira não tentar o exercício sozinho."
     ],
     "title": "Silenciar a aura: Zetsu",
     "id": "nen_zetsu",
@@ -1135,7 +1161,7 @@
         "label": "Praticar a emissão intensa",
         "next": "nen_water",
         "nen_learn": "ren",
-        "result": "Você aprende Ren. Os três fundamentos formam sua base inicial."
+        "result": "Você intensifica o fluxo e consegue reduzi-lo quando Mira sinaliza. Ela reconhece a base de Ren e pede que descanse antes da próxima demonstração."
       }
     ],
     "repeat": {
@@ -1147,7 +1173,8 @@
     "chapter": "Aprender a perceber",
     "kind": "continuation",
     "paragraphs": [
-      "Você pratica intensificar a emissão de aura sob supervisão. Uma demonstração não garante que outra pessoa ceda a sua vontade."
+      "Mira afasta os bancos e pede que você volte a manter Ten antes de intensificar o fluxo. A pressão muda o ar do pátio; ela ergue a mão sempre que percebe seu controle oscilar.",
+      "“Aumentar é uma parte. Conseguir recolher também.” Você repete o exercício sob sua observação, buscando uma emissão que consiga interromper conscientemente."
     ],
     "title": "Ampliar a aura: Ren",
     "id": "nen_ren",
@@ -1166,12 +1193,12 @@
             "nen_zetsu": true
           }
         },
-        "result": "Você concentra sua aura ao redor do copo, seguindo a orientação."
+        "result": "Você aproxima as mãos e aplica Ren ao redor do copo. Mira pede que observe a água e a folha antes de tirar qualquer conclusão."
       },
       {
         "label": "Guardar essa descoberta para depois",
         "next": "nen_done",
-        "result": "Você prefere não revelar a categoria agora."
+        "result": "Você afasta as mãos antes de começar. Mira retira a folha e deixa o teste para quando você quiser fazê-lo."
       }
     ],
     "repeat": {
@@ -1183,7 +1210,8 @@
     "chapter": "Aprender a perceber",
     "kind": "continuation",
     "paragraphs": [
-      "Mira coloca uma folha sobre um copo com água. A adivinhação pela água pode revelar sua categoria. Você não precisa criar uma habilidade pessoal para fazer o teste."
+      "Mira enche um copo, põe uma folha sobre a água e o deixa sobre uma mesa nivelada. Pede que você observe o volume, o aspecto e a posição da folha antes de aproximar as mãos.",
+      "“A adivinhação pela água ajuda a reconhecer sua afinidade. Quero que veja o que muda quando aplicar Ren.” Ela espera sua decisão sem tocar no copo."
     ],
     "title": "Um copo e uma folha",
     "id": "nen_water",
@@ -1194,7 +1222,7 @@
       {
         "finish_adventure": true,
         "label": "Voltar à jornada",
-        "result": "Você leva consigo o que aprendeu."
+        "result": "Você se despede de Mira e deixa o pátio, procurando manter a calma dos exercícios enquanto retorna à rua."
       }
     ],
     "repeat": {
@@ -1206,7 +1234,8 @@
     "chapter": "Aprender a perceber",
     "kind": "adventure_end",
     "paragraphs": [
-      "Mira se despede. Conhecer Nen não define sua profissão nem obriga você a buscar perigos. Sua jornada continua entre as oportunidades comuns."
+      "Mira recolhe o material enquanto o movimento da rua volta a ocupar sua atenção. O pátio parece o mesmo, embora você agora perceba sensações que antes não sabia nomear.",
+      "“Cuidado não acaba quando a aula termina”, ela diz na despedida. Você guarda suas orientações e se prepara para voltar aos próprios caminhos."
     ],
     "title": "Uma base, não um destino",
     "id": "nen_done",
@@ -1217,10 +1246,10 @@
     "choices": [
       {
         "xp": 12,
-        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "result": "Você concentra aura no esforço e desloca a caixa sem perder a postura. Mira identifica a base de Corpo Temperado voltada à Potência; é essa direção que você decide desenvolver.",
         "failure": {
           "xp": 4,
-          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "result": "A caixa quase não se move e seu equilíbrio se perde. Mira reduz a carga e corrige o apoio; com ajuda, você aprende uma forma inicial de Potência, ainda aquém do esforço proposto.",
           "hatsu_learn": {
             "specialization": "power",
             "id": "reinforce"
@@ -1238,10 +1267,10 @@
       },
       {
         "xp": 12,
-        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "result": "Você recebe o impacto do apoio mantendo a aura distribuída e os pés firmes. Mira identifica a base de Corpo Temperado voltada à Resistência, a direção que você escolheu cultivar.",
         "failure": {
           "xp": 4,
-          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "result": "Você endurece o corpo cedo demais e perde a postura ao receber o apoio. Mira diminui o impacto e refaz o movimento com você, até surgir uma forma inicial de Resistência.",
           "hatsu_learn": {
             "specialization": "resistance",
             "id": "reinforce"
@@ -1259,7 +1288,7 @@
       },
       {
         "label": "Deixar a proposta passar",
-        "result": "Você prefere seguir com os fundamentos que já conhece."
+        "result": "Você deixa a caixa onde está e explica que prefere continuar apenas com os fundamentos. Mira não inicia o exercício."
       }
     ],
     "repeat": {
@@ -1274,7 +1303,8 @@
     "chapter": "Experiências na jornada",
     "kind": "independent",
     "paragraphs": [
-      "Mira prepara uma caixa pesada e um apoio acolchoado. Usar aura para mover a caixa ou amortecer um impacto exige práticas diferentes. Escolha uma especialização permanente: Potência ou Resistência."
+      "Mira põe uma caixa pesada ao lado de um suporte acolchoado. No primeiro exercício, a aura sustentará um esforço concentrado; no segundo, ajudará o corpo a receber um impacto controlado.",
+      "“Escolha o que quer cultivar primeiro. Não é o mesmo treino com outro nome.” Ela espera que você decida entre Potência e Resistência antes de começar a orientar sua forma pessoal de Corpo Temperado."
     ]
   },
   {
@@ -1282,10 +1312,10 @@
     "choices": [
       {
         "xp": 12,
-        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "result": "O disparo atinge o bloco com impacto concentrado. Você reconhece o controle que precisa cultivar para desenvolver o Projétil de Aura voltado à Potência.",
         "failure": {
           "xp": 4,
-          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "result": "A aura se dispersa antes de mover o bloco. Mira o aproxima e reduz a exigência; você encontra uma forma inicial de Potência, sem completar o impacto pretendido.",
           "hatsu_learn": {
             "specialization": "power",
             "id": "emission"
@@ -1303,10 +1333,10 @@
       },
       {
         "xp": 12,
-        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "result": "Você mantém a emissão coesa até alcançar a bandeira distante. Mira marca a distância no chão: esse será o ponto de partida do seu Projétil de Aura voltado ao Alcance.",
         "failure": {
           "xp": 4,
-          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "result": "A emissão se desfaz antes da bandeira. Com o alvo mais perto e orientação de Mira, você aprende uma forma inicial de Alcance, ainda distante da marca proposta.",
           "hatsu_learn": {
             "specialization": "range",
             "id": "emission"
@@ -1324,10 +1354,10 @@
       },
       {
         "xp": 12,
-        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "result": "Você ajusta o disparo até tocar a trava sem atingir a moldura. A prática estabelece a base do seu Projétil de Aura voltado à Precisão.",
         "failure": {
           "xp": 4,
-          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "result": "O disparo toca a moldura em vez da trava. Mira amplia o alvo e acompanha seus ajustes até você encontrar uma forma inicial de Precisão.",
           "hatsu_learn": {
             "specialization": "precision",
             "id": "emission"
@@ -1345,7 +1375,7 @@
       },
       {
         "label": "Deixar a proposta passar",
-        "result": "Você prefere seguir com os fundamentos que já conhece."
+        "result": "Você observa os alvos, mas prefere não escolher um exercício agora. Mira recolhe o material sem iniciar o desenvolvimento da habilidade."
       }
     ],
     "repeat": {
@@ -1360,7 +1390,8 @@
     "chapter": "Experiências na jornada",
     "kind": "independent",
     "paragraphs": [
-      "Num pátio vazio, Mira posiciona um bloco, um alvo distante e uma pequena trava. Projetar aura com impacto, distância ou controle fino exige prioridades diferentes. Escolha uma especialização permanente. Não há combate."
+      "No pátio vazio, Mira dispõe um bloco, uma bandeira distante e uma trava estreita. Cada alvo exige uma maneira diferente de manter o controle da aura depois de separá-la do corpo.",
+      "Ela pergunta que resultado você quer buscar: impacto, distância ou um ponto pequeno. A escolha orientará os exercícios com que você dará forma ao seu Projétil de Aura."
     ]
   },
   {
@@ -1373,24 +1404,24 @@
           "difficulty": 15,
           "attribute": "strength"
         },
-        "result": "Você coordena o esforço e libera a passagem sem aura.",
+        "result": "Você acompanha a contagem dos trabalhadores e ergue sua ponta na hora certa. A viga é levada até uma posição estável, liberando a passagem.",
         "failure": {
           "health": -3,
           "xp": 4,
-          "result": "O apoio escorrega. Você protege o rosto, mas sofre uma contusão (-3 Saúde)."
+          "result": "O apoio escapa antes da contagem. Você protege o rosto, mas a madeira atinge seu corpo e deixa uma contusão; os trabalhadores seguram a viga até que você possa recuar."
         }
       },
       {
         "label": "Chamar o encarregado",
-        "result": "O encarregado isola a passagem e providencia ajuda. Você segue sem recompensa."
+        "result": "Você avisa para ninguém se aproximar do corredor e chama o encarregado. Ele isola a área e organiza a retirada da viga."
       },
       {
         "xp": 12,
-        "result": "Sua especialização em Potência intensifica o esforço contra a viga. A passagem é liberada.",
+        "result": "Você concentra Corpo Temperado no esforço e move a viga até o apoio firme. Os trabalhadores aproveitam o deslocamento para desimpedir a saída.",
         "failure": {
           "health": -2,
           "xp": 4,
-          "result": "Mesmo com Potência, o apoio cede. Você interrompe o esforço com uma contusão menor."
+          "result": "A base gira sob a viga e você precisa abandonar o movimento. A aura não impede a pancada, embora você consiga recuar antes de receber todo o peso."
         },
         "conditions": {
           "hatsu": {
@@ -1406,11 +1437,11 @@
       },
       {
         "xp": 12,
-        "result": "Você amortece o impacto enquanto os demais recuam. Resistência protege esse contato, sem eliminar o risco.",
+        "result": "Você recebe o contato da viga com a aura distribuída pelo corpo enquanto os trabalhadores se afastam. Com a retirada livre, eles alcançam um apoio seguro.",
         "failure": {
           "health": -1,
           "xp": 4,
-          "result": "Você erra o apoio. A aura amortece parte do impacto, mas ainda sofre uma escoriação."
+          "result": "Você calcula mal o ponto de contato. A aura amortece parte da pancada, mas a madeira ainda raspa sua pele enquanto você protege a retirada."
         },
         "conditions": {
           "hatsu": {
@@ -1426,10 +1457,10 @@
       },
       {
         "xp": 12,
-        "result": "Um impacto concentrado libera o apoio da viga sem atingir pessoas.",
+        "result": "Você espera os trabalhadores recuarem e concentra um disparo no apoio preso. A peça se solta e a viga assenta na direção preparada para a retirada.",
         "failure": {
           "xp": 4,
-          "result": "O impacto não solta o apoio. Você afasta as pessoas e procura outra solução."
+          "result": "O disparo atinge o apoio sem soltá-lo. Você pede que ninguém volte ao corredor e deixa a retirada a cargo do encarregado."
         },
         "conditions": {
           "hatsu": {
@@ -1454,7 +1485,8 @@
     "chapter": "Experiências na jornada",
     "kind": "independent",
     "paragraphs": [
-      "Uma viga bloqueia o corredor de um armazém. Há trabalhadores para ajudar e espaço para recuar. Ninguém precisa lutar para resolver o problema."
+      "Uma viga caiu de lado no corredor de um armazém. Dois trabalhadores tentam impedir que ela deslize contra a saída enquanto os demais afastam as caixas.",
+      "O encarregado foi chamado, mas ainda não chegou. Há espaço para ajudar no peso, proteger a retirada ou soltar o apoio preso, desde que você consiga controlar o movimento."
     ]
   },
   {
@@ -1463,13 +1495,13 @@
       {
         "label": "Segurar a escada para o artesão",
         "xp": 3,
-        "result": "Você ajuda a estabilizar a escada e o artesão resolve o problema."
+        "result": "Você firma a escada enquanto o artesão sobe e desenrola a bandeira. Ele consegue baixar o tecido sem danificar a trava."
       },
       {
         "xp": 12,
-        "result": "Seu foco em Alcance permite tocar o alvo distante com uma emissão controlada.",
+        "result": "Sua emissão alcança o ponto distante e desloca a bandeira presa. O artesão recolhe a corda, aliviado por não precisar subir.",
         "failure": {
-          "result": "A tentativa falha. Você interrompe com cuidado e aprende os limites da técnica.",
+          "result": "A emissão se dispersa antes de alcançar a bandeira. Você interrompe as tentativas e deixa espaço para o artesão posicionar a escada.",
           "xp": 4
         },
         "conditions": {
@@ -1486,9 +1518,9 @@
       },
       {
         "xp": 12,
-        "result": "Um disparo preciso solta a trava sem quebrar o mecanismo.",
+        "result": "Seu disparo acerta a pequena trava, que se abre sem quebrar a moldura. A bandeira desce pela corda até as mãos do artesão.",
         "failure": {
-          "result": "A tentativa falha. Você interrompe com cuidado e aprende os limites da técnica.",
+          "result": "O disparo passa ao lado da trava. Você prefere não arriscar a moldura com outra tentativa e o artesão retoma o reparo com a escada.",
           "xp": 4
         },
         "conditions": {
@@ -1505,7 +1537,7 @@
       },
       {
         "label": "Seguir seu caminho",
-        "result": "Você deixa o reparo com a oficina."
+        "result": "Você se despede enquanto o artesão ajusta a escada para fazer o reparo."
       }
     ],
     "repeat": {
@@ -1518,23 +1550,25 @@
     "chapter": "Experiências na jornada",
     "kind": "independent",
     "paragraphs": [
-      "Uma bandeira ficou presa no alto; uma trava estreita controla a corda. A oficina aceita ajuda, mas também dispõe de uma escada. Acertar de longe e atingir a trava pequena são tarefas distintas."
+      "A bandeira de uma oficina ficou presa no alto do telhado, enrolada junto a uma pequena trava. O artesão quer baixá-la antes que o vento rasgue o tecido.",
+      "Ele já trouxe uma escada. Da rua, há espaço para tentar alcançar a bandeira com aura ou atingir diretamente a trava, se você tiver controle para isso."
     ]
   },
   {
     "kind": "independent",
     "paragraphs": [
-      "Um assaltante exige dinheiro, mas mantém uma rota de saída à vista. Você pode evitar o confronto."
+      "Numa curva afastada da estrada, um homem sai de trás de uma mureta e ocupa o caminho. O olhar dele vai primeiro à sua bolsa, depois à trilha por onde poderia escapar.",
+      "“Quinze Jenny e você passa.” A passagem é estreita, mas não está fechada: se decidir enfrentá-lo, ainda haverá espaço para tentar recuar."
     ],
     "choices": [
       {
         "label": "Enfrentar o assaltante",
-        "result": "O confronto começa. Há espaço para recuar.",
+        "result": "Você recusa a cobrança e se prepara quando o homem avança. A trilha atrás de você continua livre, se conseguir alcançá-la.",
         "battle": "bandit"
       },
       {
-        "label": "Resolver sem confronto",
-        "result": "Você escolhe a segurança e segue adiante.",
+        "label": "Entregar 15 Jenny e seguir",
+        "result": "Você entrega 15 Jenny e espera que ele se afaste. O homem guarda o dinheiro e desocupa o caminho, deixando você continuar a viagem.",
         "jenny": -15
       }
     ],
@@ -1570,17 +1604,18 @@
   {
     "kind": "independent",
     "paragraphs": [
-      "Uma lutadora local procura alguém para um treino supervisionado. Ninguém é obrigado a participar."
+      "Uma lutadora termina de arrumar o círculo de treino na praça e procura alguém disposto a enfrentá-la. Ela observa sua postura antes de explicar que ambos podem se render para interromper a disputa.",
+      "Há 20 Jenny reservados para quem conseguir vencê-la. Alguns moradores se acomodam junto à corda, esperando o próximo participante."
     ],
     "choices": [
       {
         "label": "Aceitar o treino amistoso",
-        "result": "Vocês combinam interromper o treino à rendição. Há um prêmio de 20 Jenny por vitória.",
+        "result": "Você aceita e entra no círculo. A lutadora confirma o sinal de rendição e assume a guarda, esperando sua primeira ação.",
         "battle": "fighter"
       },
       {
-        "label": "Resolver sem confronto",
-        "result": "Você escolhe a segurança e segue adiante.",
+        "label": "Recusar o treino",
+        "result": "Você agradece o convite e deixa o círculo livre. A lutadora chama outro participante enquanto você segue pela praça.",
         "jenny": 0
       }
     ],
@@ -1621,7 +1656,8 @@
     },
     "weight": 2,
     "paragraphs": [
-      "Uma banca temporária vende suprimentos: bandagem 15, remédio 35, corda 25, lanterna 20, mapa 15, faca 45 e colete 60 Jenny. Você escolhe uma compra nesta visita. O remédio tem oferta limitada."
+      "Um vendedor está encerrando uma banca temporária e oferece os últimos suprimentos antes de fechar os caixotes. “Escolha o que precisa; só tenho tempo de separar uma compra antes da partida.”",
+      "Ele aponta os preços: bandagem, 15 Jenny; remédio simples, 35; corda, 25; lanterna, 20; mapa regional, 15; faca, 45; colete, 60. Há apenas uma dose de remédio sobre o balcão."
     ],
     "title": "Suprimentos na feira",
     "kind": "independent",
@@ -1630,7 +1666,7 @@
         "items_add": {
           "bandage": 1
         },
-        "result": "Você confere o objeto e paga o preço combinado.",
+        "result": "Você paga 15 Jenny e recebe uma bandagem dobrada em embalagem limpa. Guarda-a longe da umidade.",
         "label": "Comprar uma bandagem",
         "jenny": -15
       },
@@ -1638,7 +1674,7 @@
         "items_add": {
           "medicine": 1
         },
-        "result": "Você confere o objeto e paga o preço combinado.",
+        "result": "Você paga 35 Jenny e guarda a dose de remédio simples. O vendedor retira do balcão o pequeno recipiente que restava.",
         "label": "Comprar remédio simples",
         "jenny": -35
       },
@@ -1646,7 +1682,7 @@
         "items_add": {
           "rope": 1
         },
-        "result": "Você confere o objeto e paga o preço combinado.",
+        "result": "Você paga 25 Jenny, examina as fibras e enrola a corda resistente antes de prendê-la à bagagem.",
         "label": "Comprar corda resistente",
         "jenny": -25
       },
@@ -1654,7 +1690,7 @@
         "items_add": {
           "lantern": 1
         },
-        "result": "Você confere o objeto e paga o preço combinado.",
+        "result": "Você paga 20 Jenny pela lanterna e confere seu fecho antes de guardá-la.",
         "label": "Comprar uma lanterna",
         "jenny": -20
       },
@@ -1662,16 +1698,16 @@
         "items_add": {
           "map": 1
         },
-        "result": "Você confere o objeto e paga o preço combinado.",
+        "result": "Você paga 15 Jenny e recebe um mapa regional com estradas públicas e referências dos arredores.",
         "label": "Comprar mapa regional",
         "jenny": -15
       },
       {
-        "result": "Você segue sem fazer compras.",
+        "result": "Você não separa nenhum objeto. O vendedor fecha o caixote e você conserva o dinheiro para outra ocasião.",
         "label": "Guardar o dinheiro"
       },
       {
-        "result": "Você paga 45 Jenny por uma faca de viagem.",
+        "result": "Você paga 45 Jenny e recebe uma faca de viagem. Confere o cabo e guarda a lâmina com cuidado.",
         "jenny": -45,
         "items_add": {
           "knife": 1
@@ -1679,7 +1715,7 @@
         "label": "Comprar uma faca de viagem"
       },
       {
-        "result": "Você paga 60 Jenny pelo colete.",
+        "result": "Você paga 60 Jenny pelo colete reforçado e examina as costuras antes de levá-lo.",
         "jenny": -60,
         "items_add": {
           "vest": 1
@@ -1698,7 +1734,8 @@
     },
     "weight": 2,
     "paragraphs": [
-      "Uma artesã oferece um objeto em troca de ajuda na organização de peças. Você pode negociar uma faca de viagem, um colete usado ou uma ferramenta de iluminação."
+      "Na oficina, uma artesã precisa liberar a bancada para a próxima encomenda. Há peças misturadas, volumes por carregar e ferramentas espalhadas junto a uma lanterna.",
+      "Ela propõe trocar trabalho por um objeto: a conferência cuidadosa das peças vale um colete usado; o carregamento, uma faca de viagem; organizar a bancada, a lanterna."
     ],
     "title": "Ajuda na oficina",
     "kind": "independent",
@@ -1713,29 +1750,29 @@
         },
         "failure": {
           "xp": 3,
-          "result": "A contagem precisa ser refeita. A artesã agradece a tentativa, mas não entrega o colete."
+          "result": "Algumas medidas ficaram misturadas e a soma não fecha. A artesã precisa refazer a conferência antes de retomar a encomenda; o colete permanece na oficina."
         },
         "label": "Conferir as peças por um colete",
-        "result": "Você confere as peças e recebe o colete combinado.",
+        "result": "Você separa as peças por medida e encontra uma que havia sido contada duas vezes. A artesã confere sua lista e lhe entrega o colete usado.",
         "xp": 8
       },
       {
         "xp": 5,
-        "result": "Você termina o carregamento e recebe uma faca de viagem.",
+        "result": "Você leva os volumes até a pilha indicada e deixa o corredor livre. A artesã lhe entrega a faca de viagem como pagamento combinado.",
         "label": "Ajudar no carregamento por uma faca",
         "items_add": {
           "knife": 1
         }
       },
       {
-        "result": "A lanterna é sua recompensa pelo trabalho.",
+        "result": "Você devolve cada ferramenta ao suporte e limpa a área de trabalho. A artesã deixa a lanterna em suas mãos, conforme o acordo.",
         "label": "Organizar a bancada por uma lanterna",
         "items_add": {
           "lantern": 1
         }
       },
       {
-        "result": "Você prefere outra oportunidade.",
+        "result": "Você explica que não pode assumir o serviço e deixa a artesã procurar outra pessoa.",
         "label": "Recusar o serviço"
       }
     ],
@@ -1750,34 +1787,35 @@
     },
     "weight": 2,
     "paragraphs": [
-      "Um viajante retorna para buscar seus pertences e oferece um objeto sobressalente em agradecimento por você guardar o embrulho."
+      "Você encontra um embrulho junto à trilha e espera por perto para que ninguém o leve. Pouco depois, um viajante retorna ofegante, reconhecendo o nó que fez no tecido.",
+      "Aliviado por recuperar as coisas, ele oferece um objeto sobressalente. Abre o embrulho e deixa que você escolha entre uma bandagem, uma corda e um mapa dos arredores."
     ],
     "title": "Um embrulho na trilha",
     "kind": "independent",
     "choices": [
       {
-        "result": "Ele entrega uma bandagem limpa.",
+        "result": "Você aceita a bandagem limpa e a guarda. O viajante fecha o embrulho com um nó mais firme desta vez.",
         "label": "Aceitar uma bandagem",
         "items_add": {
           "bandage": 1
         }
       },
       {
-        "result": "Ele entrega a corda sobressalente.",
+        "result": "Você aceita a corda sobressalente e confere o comprimento enquanto o viajante reorganiza o restante da bagagem.",
         "label": "Aceitar uma corda",
         "items_add": {
           "rope": 1
         }
       },
       {
-        "result": "Ele oferece um mapa regional com caminhos públicos.",
+        "result": "Você pede orientações e ele lhe entrega o mapa regional. Antes de partir, aponta as referências que costuma usar na estrada.",
         "label": "Pedir indicações da região",
         "items_add": {
           "map": 1
         }
       },
       {
-        "result": "Você agradece e deixa os objetos com o viajante.",
+        "result": "Você devolve o embrulho completo e recusa o presente. O viajante agradece outra vez antes de retomar a trilha.",
         "label": "Recusar o presente"
       }
     ],
@@ -1792,14 +1830,15 @@
     },
     "weight": 2,
     "paragraphs": [
-      "Uma oficina precisa verificar um corredor sem iluminação. Você pode esperar pelo responsável ou usar sua própria luz, sem enfrentar criaturas ou adversários."
+      "Uma etiqueta de carga desapareceu no corredor dos fundos de uma oficina. Sem iluminação, o responsável suspendeu a conferência até conseguir uma luz.",
+      "Um trabalhador espera junto à porta, comprimindo com um pano um pequeno corte feito na borda de uma caixa. A oficina oferece 12 Jenny a quem localizar a etiqueta."
     ],
     "title": "Uma passagem escura",
     "kind": "independent",
     "choices": [
       {
         "xp": 6,
-        "result": "Você ilumina a passagem e encontra a etiqueta procurada. A oficina paga 12 Jenny. Sua lanterna permanece com você.",
+        "result": "Você ilumina as prateleiras com sua lanterna e encontra a etiqueta caída atrás de uma caixa. O responsável paga 12 Jenny pela busca; você recolhe sua luz antes de sair.",
         "label": "Investigar com a lanterna",
         "conditions": {
           "items": {
@@ -1809,12 +1848,12 @@
         "jenny": 12
       },
       {
-        "result": "O responsável traz uma luz e resolve o problema. Você segue sem pagamento.",
+        "result": "Você aguarda junto à porta. O responsável volta com uma luz e encontra a etiqueta, encerrando a busca sem precisar contratar sua ajuda.",
         "label": "Esperar o responsável"
       },
       {
         "xp": 3,
-        "result": "Você entrega uma bandagem ao trabalhador. Ele agradece o cuidado.",
+        "result": "Você entrega uma bandagem limpa ao trabalhador. Ele troca o pano improvisado e agradece enquanto espera a conferência recomeçar.",
         "label": "Ceder uma bandagem para um corte leve",
         "conditions": {
           "items": {
@@ -1832,22 +1871,22 @@
   {
     "choices": [
       {
-        "label": "Investigar os detalhes",
-        "result": "Você procura o ponto de encontro informado.",
+        "label": "Procurar o ponto de orientação",
+        "result": "Você copia o endereço e procura o ponto de orientação. Quer ouvir as condições da seleção antes de confirmar sua participação.",
         "next": "exam_info"
       },
       {
         "label": "Inscrever-se e viajar",
-        "result": "Você confirma a única participação desta jornada.",
+        "result": "Você registra seu nome e segue as instruções de viagem. Ao partir, assume a tentativa de participar desta edição do exame.",
         "exam_start": true
       },
       {
         "label": "Adiar a participação",
-        "result": "Você guarda as informações para outra ocasião."
+        "result": "Você dobra uma cópia das instruções e a guarda. Antes de decidir pela viagem, ainda tem outros caminhos a considerar."
       },
       {
         "label": "Ignorar a oportunidade",
-        "result": "Você decide não participar nesta jornada.",
+        "result": "Você devolve o papel à funcionária. Não pretende tentar esta edição e prefere procurar trabalho e viagens por outros meios.",
         "flags": {
           "exam_ignored": true
         }
@@ -1869,7 +1908,8 @@
     "weight": 2,
     "adventure": "exam",
     "paragraphs": [
-      "Um aviso descreve uma seleção conduzida por examinadores independentes. Descobrir a rota até o local já exige iniciativa. Você não precisa de licença, Nen ou nível mínimo para tentar."
+      "Perto da estação, um aviso do Exame Hunter atrai viajantes de bagagens muito diferentes. O papel não promete vagas: indica um ponto de orientação para quem conseguir chegar à seleção.",
+      "Uma funcionária confirma o endereço e explica que os examinadores recebem candidatos de ofícios variados. Você pode procurar informações, assumir a viagem ou deixar o aviso para trás."
     ],
     "chapter": "Exame Hunter"
   },
@@ -1877,17 +1917,17 @@
     "choices": [
       {
         "label": "Confirmar inscrição",
-        "result": "Você parte para a seleção.",
+        "result": "Você confirma seu nome na lista. Selma devolve as instruções com a rota para o local da seleção, e você parte para se apresentar.",
         "exam_start": true
       },
       {
         "label": "Deixar para depois",
-        "result": "Você retorna à jornada normal.",
+        "result": "Você devolve a lista sem assinar. Selma deixa que leve as instruções para decidir depois, e você retorna à estação.",
         "finish_adventure": true
       },
       {
         "label": "Não participar",
-        "result": "Você segue outro caminho.",
+        "result": "Você informa que não vai participar desta edição. Selma recolhe a ficha em branco e lhe deseja boa viagem.",
         "flags": {
           "exam_ignored": true
         },
@@ -1905,7 +1945,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "A examinadora Selma explica: são quatro provas; até duas advertências podem ser compensadas por bom julgamento. Fraude ou abandono encerram a participação. O Nen não é requisito."
+      "O ponto indicado é uma sala simples junto à saída da estação. Selma, uma examinadora de fala direta, confere os nomes sem perguntar profissão ou experiência com aura.",
+      "“Serão quatro provas. Erros podem deixar advertências; a banca admite até duas na avaliação final, mas fraude e sabotagem encerram a tentativa. A prova final terá regras próprias, anunciadas antes de começar.”",
+      "Ela confirma que é possível desistir e voltar para casa. Não há um novo requerimento para repetir a tentativa nesta viagem; vale decidir antes de se inscrever."
     ],
     "chapter": "Exame Hunter"
   },
@@ -1913,12 +1955,12 @@
     "choices": [
       {
         "label": "Ouvir as regras e conhecer os candidatos",
-        "result": "Você se junta ao grupo.",
+        "result": "Selma ergue quatro dedos: “Uma prova de deslocamento, outra de raciocínio, uma de sobrevivência ou cooperação e a avaliação final. Em cada uma, ouvirão o objetivo e as regras antes de agir.” Ela distingue erros de conduta: atrasos e soluções mal executadas podem render advertências; até duas são admitidas na avaliação final. Fraude ou sabotagem encerram a participação. É possível desistir. O confronto final, se houver, terá critérios de vitória e rendição anunciados separadamente. Rui abre espaço para que vocês se organizem.",
         "next": "exam_candidates"
       },
       {
         "label": "Desistir antes das provas",
-        "result": "Você prefere voltar à sua jornada.",
+        "result": "Você entrega sua identificação a Selma e informa que não vai começar as provas. Ela risca seu nome da chamada e indica o caminho de volta.",
         "exam_withdraw": true
       }
     ],
@@ -1933,7 +1975,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Selma e o examinador Rui recebem os candidatos. Nara oferece ajuda, Daro mede os concorrentes e Ivo confere as regras. As quatro provas desta edição foram definidas."
+      "O ponto de apresentação é um antigo pavilhão na borda de uma área de provas. Selma confere os inscritos; Rui, o outro examinador, mantém livre a passagem até os portões.",
+      "Nara ajuda uma candidata a ajustar a alça da bagagem. Daro observa quem chega sem se aproximar de nenhum grupo. Ivo lê novamente as instruções e pergunta a Rui onde terminam os trechos autorizados.",
+      "As quatro provas da edição já foram escolhidas. Selma reúne os presentes para explicar as condições antes da partida."
     ],
     "chapter": "Exame Hunter"
   },
@@ -1941,7 +1985,7 @@
     "choices": [
       {
         "label": "Combinar ajuda com Nara",
-        "result": "Você aceita compartilhar informações permitidas.",
+        "result": "Você combina com Nara que um avisará o outro quando perceber um caminho permitido ou uma dificuldade. Ela confirma o acordo e se põe ao seu lado na chamada.",
         "exam_continue": true,
         "flags": {
           "exam_helped": true
@@ -1949,12 +1993,12 @@
       },
       {
         "label": "Competir sem acordo",
-        "result": "Você respeita a distância de Daro e segue por conta própria.",
+        "result": "Você avisa que seguirá por conta própria. Daro reconhece sua decisão com um aceno curto e volta a observar o portão.",
         "exam_continue": true
       },
       {
         "label": "Negociar informações com Ivo",
-        "result": "Ivo anota seu acordo de reciprocidade.",
+        "result": "Você aceita trocar orientações com Ivo. Ele aponta as anotações que fez sobre o percurso e combina retribuir informações úteis quando puder.",
         "exam_continue": true,
         "flags": {
           "exam_ivo": true
@@ -1972,7 +2016,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Nara propõe dividir informações públicas; Daro prefere competir sozinho; Ivo sugere guardar recursos para as provas. Ninguém exige uma aliança permanente."
+      "Enquanto Rui termina a chamada, Nara se apresenta e propõe trocar observações que os examinadores permitirem compartilhar. Ela fala olhando para o grupo, sem pedir promessa de acompanhar ninguém até o fim.",
+      "Daro prefere seguir sozinho: quer saber o que consegue fazer sem depender dos concorrentes. Ivo oferece um acordo mais estreito — trocar orientações de percurso para evitar desperdício de esforço.",
+      "O portão está prestes a abrir. Você decide com que disposição vai atravessá-lo."
     ],
     "chapter": "Exame Hunter"
   },
@@ -1984,11 +2030,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "Você atravessa sem atraso.",
+        "result": "Você espera o vento baixar e salta entre os apoios. Alcança o marco com os pés firmes antes que Rui encerre a conferência do trecho.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Um apoio gira na aterrissagem e você raspa a perna na pedra. Precisa voltar um trecho antes de cruzar; Rui registra uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2001,11 +2047,11 @@
           "difficulty": 12
         },
         "exam_trial": true,
-        "result": "Você identifica os apoios estáveis.",
+        "result": "Você identifica as marcas de desgaste e escolhe apoios que não giram sob o peso. Cruza até o marco sem precisar voltar sobre os próprios passos.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Uma saliência que parecia firme cede sob seu peso. Você se corta na pedra e refaz o caminho por baixo, chegando com atraso e uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2014,7 +2060,7 @@
       },
       {
         "label": "Ancorar sua corda",
-        "result": "Você cruza com apoio e recolhe a corda.",
+        "result": "Você ancora sua corda num pilar firme, cruza com apoio e a recolhe do outro lado. Rui registra a travessia concluída.",
         "exam_trial": true,
         "conditions": {
           "items": {
@@ -2026,7 +2072,7 @@
       {
         "label": "Ajudar Nara antes de seguir",
         "exam_trial": true,
-        "result": "Vocês cruzam pelo desvio. O atraso rende uma advertência, mas Nara lembra de sua ajuda.",
+        "result": "Você desce até Nara e aponta a saída do barranco. Juntos, alcançam a margem pelo desvio; Rui registra uma advertência pelo atraso, e Nara agradece por você ter voltado.",
         "xp": 8,
         "exam_setback": 1,
         "flags": {
@@ -2040,9 +2086,9 @@
           "attribute": "agility",
           "difficulty": 13
         },
-        "result": "Sua aura protege pequenos contatos, mas a travessia ainda exige atenção.",
+        "result": "Você mantém Ten enquanto atravessa os pontos de contato com a pedra. A aura amortece os choques leves e você alcança o marco sem perder o ritmo.",
         "failure": {
-          "result": "Ten evita a escoriação, mas não evita o atraso. Você recebe uma advertência.",
+          "result": "Seu pé escapa num apoio molhado. Ten amortece a pancada, mas você precisa retomar a travessia por outro ponto; Rui registra uma advertência pelo atraso.",
           "xp": 4,
           "exam_setback": 1,
           "exam_trial": true
@@ -2066,7 +2112,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Rui exige atravessar um desfiladeiro sinalizado. Nara está atrasada junto a um barranco. Corda e planejamento ajudam, mas não são obrigatórios."
+      "O caminho termina num desfiladeiro de pedra úmida, marcado por estacas até a outra margem. Rui espera junto ao primeiro apoio; mais abaixo, Nara perdeu tempo procurando uma saída de um barranco.",
+      "“Cheguem ao marco do outro lado pelo trecho sinalizado. Os apoios e o desvio inferior estão autorizados; podem usar o equipamento que trouxeram.” Ele aponta os pilares onde uma corda pode ser ancorada.",
+      "Uma travessia mal executada pode causar escoriações e atraso, registrado como advertência. Parar para buscar Nara também custará tempo, mas não é proibido. Ten protege o corpo, não encurta o caminho."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2078,11 +2126,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "Você conclui com reservas.",
+        "result": "Você encontra um ritmo que consegue sustentar e não tenta acompanhar cada arrancada. Cruza o marco com fôlego suficiente para ouvir a próxima orientação.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "O esforço pesa antes do trecho final. Você tropeça ao tentar recuperar o ritmo e chega com uma escoriação; Selma registra uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2095,11 +2143,11 @@
           "difficulty": 15
         },
         "exam_trial": true,
-        "result": "Você acompanha a arrancada e chega cedo.",
+        "result": "Você acompanha a aceleração de Daro, escolhendo os apoios antes de cada curva. Chega entre os primeiros, enquanto ele recupera o fôlego junto ao marco.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "A arrancada cobra mais do que você esperava. Você escorrega na subida e precisa terminar num passo mais lento, com um ferimento leve e uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2108,7 +2156,7 @@
       },
       {
         "label": "Usar o mapa regional",
-        "result": "Você segue o desvio autorizado e evita a subida mais dura.",
+        "result": "Você reconhece no mapa a entrada do desvio autorizado. Contorna a subida mais íngreme e termina o percurso sem precisar forçar o passo.",
         "exam_trial": true,
         "conditions": {
           "items": {
@@ -2119,7 +2167,7 @@
       },
       {
         "label": "Trocar orientação com Ivo",
-        "result": "Ivo indica o ritmo adequado ao acordo anterior.",
+        "result": "Ivo reconhece o acordo feito no pavilhão e avisa onde costuma ser tentador acelerar cedo demais. Você segue suas referências e ambos mantêm o ritmo até a chegada.",
         "exam_trial": true,
         "conditions": {
           "flags": {
@@ -2140,7 +2188,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Selma acompanha um percurso de ritmo contínuo. Ivo mantém um passo econômico; Daro acelera na subida. O mapa mostra um desvio autorizado."
+      "O percurso sobe por uma encosta aberta antes de retornar ao marco de chegada. Selma acompanha a partida e aponta as marcações que delimitam os caminhos permitidos.",
+      "“Quero ver quem chega mantendo condições de continuar. O desvio indicado nos mapas da região também está autorizado.” Ivo parte com um passo econômico; Daro acelera assim que encontra a subida.",
+      "Forçar um ritmo que não consegue sustentar pode terminar em queda e atraso. Quem chega fora do ritmo exigido recebe uma advertência, sem ser retirado ali mesmo da seleção."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2152,11 +2202,11 @@
           "difficulty": 14
         },
         "exam_trial": true,
-        "result": "Você entrega uma conclusão verificável.",
+        "result": "Você separa horários observados de comentários de segunda mão e encontra a única sequência que combina com as referências. Selma confere sua justificativa, não apenas a resposta.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Você confunde um relato indireto com uma observação. Ao voltar apressado ao ponto de conferência, cai num degrau e se machuca; entrega a correção tarde e recebe uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2169,11 +2219,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "As perguntas revelam a informação correta.",
+        "result": "Você pede que cada testemunha descreva o que viu antes de repetir o que ouviu. Uma contradição se desfaz e permite reconstruir o itinerário.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "As perguntas se prolongam sem separar os relatos. Você corre para rever uma testemunha, tropeça no caminho e se fere; a conclusão chega tarde à banca, que registra uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2181,13 +2231,13 @@
         "label": "Entrevistar as testemunhas"
       },
       {
-        "label": "Copiar a resposta sem verificar",
+        "label": "Entregar como sua a resposta ouvida",
         "exam_fail": true,
-        "result": "A origem da resposta viola a regra de autoria; você é reprovado."
+        "result": "Você entrega como sua a resposta que ouviu, sem conseguir explicar sua origem. Selma identifica a cópia na conferência e encerra sua participação por fraude."
       },
       {
         "label": "Comparar anotações públicas com Nara",
-        "result": "O acordo permite conferir as pistas sem copiar a conclusão.",
+        "result": "Nara abre as anotações conforme o acordo entre vocês. Comparando apenas as pistas públicas, vocês identificam a contradição; você entrega sua própria justificativa.",
         "exam_trial": true,
         "conditions": {
           "flags": {
@@ -2208,7 +2258,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Selma esconde um itinerário em depoimentos contraditórios. É preciso separar observação de boato. Daro oferece uma resposta sem explicar a origem."
+      "No pátio de um posto de trânsito, Selma distribui depoimentos sobre um itinerário e indica pessoas disponíveis para perguntas. Algumas informações são observações diretas; outras repetem rumores.",
+      "“Identifiquem o itinerário e expliquem como chegaram a ele. Podem comparar pistas públicas, mas cada conclusão precisa ser justificada por quem a entrega. Copiar uma resposta e apresentá-la como sua é fraude.”",
+      "Daro diz ter ouvido uma resposta pronta, sem revelar a origem. A conferência termina com a chamada da banca; perder tempo em pistas erradas pode render advertência e exigir pressa entre os pontos do pátio."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2220,11 +2272,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "Você alcança a fita no ponto certo.",
+        "result": "Você acompanha uma volta completa, identifica o intervalo e chega à passagem antes do suporte. Recolhe a fita no ponto previsto e a entrega a Rui.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Você calcula a volta pelo sinal errado e precisa mudar de caminho. Cai ao transpor um obstáculo baixo e recolhe a fita apenas depois do tempo esperado; Rui registra uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2237,11 +2289,11 @@
           "difficulty": 14
         },
         "exam_trial": true,
-        "result": "Você recupera a fita sem tocar outros candidatos.",
+        "result": "Você espera a passagem ficar livre e cruza o lado aberto do pátio. Alcança a fita sem esbarrar nos demais candidatos.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Você perde o apoio na mudança de direção e raspa o corpo no chão. Precisa esperar outra passagem da fita para terminar, recebendo uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2254,10 +2306,10 @@
           "difficulty": 12
         },
         "exam_trial": true,
-        "result": "Você suprime a aura, mas ainda precisa cuidar dos passos.",
+        "result": "Você recolhe o fluxo de aura e avança pelo trecho menos disputado. Continua cuidando dos passos até alcançar a fita, que entrega a Rui.",
         "failure": {
           "exam_setback": 1,
-          "result": "Um passo em falso revela sua aproximação. Você completa a prova com advertência.",
+          "result": "Você pisa numa peça solta e perde o momento de aproximação. Recolhe a fita na volta seguinte, mas Rui registra uma advertência pela demora.",
           "exam_trial": true,
           "xp": 4
         },
@@ -2275,10 +2327,10 @@
           "difficulty": 12
         },
         "exam_trial": true,
-        "result": "Você toca o mecanismo que retém a fita, sem atingir pessoas.",
+        "result": "Você concentra o disparo na pequena trava, afastado dos candidatos. O mecanismo libera a fita e você a recolhe antes que o suporte complete outra volta.",
         "failure": {
           "exam_setback": 1,
-          "result": "O disparo erra o mecanismo. Você completa por um trajeto mais longo.",
+          "result": "O disparo passa ao lado da trava. Você precisa contornar o circuito para recolher a fita por outro ponto e recebe uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 4
         },
@@ -2303,7 +2355,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Rui pede recuperar uma fita móvel num pátio, sem machucar ninguém. O percurso tem sinais para quem observar, e aproximação silenciosa não significa invisibilidade."
+      "Rui prepara um circuito num pátio com passagens e obstáculos baixos. Uma fita percorre o trajeto presa a um suporte móvel; ao fim de cada volta, passa perto de uma pequena trava.",
+      "“Recuperem a fita. O suporte e a trava podem ser usados; os candidatos não são alvos.” Ele aponta os sinais que permitem antecipar a próxima passagem.",
+      "É possível planejar a interceptação ou correr até a abertura. Quedas e atrasos rendem advertência. Suprimir aura pode ajudar na aproximação, mas a fita continua exigindo passos precisos; um disparo deve mirar o mecanismo."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2315,11 +2369,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "Você encontra um abrigo seguro.",
+        "result": "Você reconhece as marcas no terreno e conduz o grupo até o posto. Ivo confirma a última referência e vocês se apresentam juntos.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "Você segue uma marca antiga e precisa voltar por um trecho de pedras. Uma queda deixa um ferimento leve; quando enfim alcança o posto, Rui registra uma advertência pelo atraso.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2328,7 +2382,7 @@
       },
       {
         "label": "Iluminar a passagem com a lanterna",
-        "result": "O grupo alcança o posto sem se perder.",
+        "result": "Você ilumina o acesso ao posto, revelando raízes e marcas que desapareciam na sombra. O grupo acompanha sua luz até a chegada; a lanterna volta à bagagem.",
         "exam_trial": true,
         "conditions": {
           "items": {
@@ -2342,14 +2396,14 @@
           "bandage": 1
         },
         "exam_trial": true,
-        "result": "Você usa uma unidade em Nara e segue pelo desvio acompanhado.",
+        "result": "Você entrega uma bandagem limpa a Nara e espera que ela proteja o corte. Ela consegue seguir com você pelo desvio até o posto e agradece pela ajuda.",
         "xp": 10,
         "conditions": {
           "items": {
             "bandage": 1
           }
         },
-        "label": "Entregar uma bandagem a Nara",
+        "label": "Ceder uma bandagem a Nara — consome 1",
         "flags": {
           "exam_helped": true
         }
@@ -2357,7 +2411,7 @@
       {
         "label": "Deixar Nara sem informar o posto",
         "exam_trial": true,
-        "result": "O atraso no socorro é registrado. Você segue, mas perde a possibilidade de avaliação favorável por cooperação.",
+        "result": "Você segue sem Nara e omite sua situação na chegada. Sozinho num trecho ruim, se machuca numa queda; Rui percebe a ausência no relato, registra uma advertência e deixa de contar essa relação como demonstração de cooperação.",
         "xp": 3,
         "health": -1,
         "exam_setback": 1,
@@ -2377,7 +2431,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "O trecho autorizado termina num posto sem iluminação. Nara sofreu um corte superficial e Ivo procura água potável no local indicado pelos examinadores. Não há caça obrigatória nem necessidades diárias simuladas."
+      "Na área autorizada da mata, Rui aponta a direção de um posto onde o grupo deverá se apresentar. A passagem de acesso não tem iluminação; Ivo confere as indicações de água potável junto ao trajeto.",
+      "Nara chega com um corte superficial e precisa de ajuda para continuar. “Alcancem o posto e comuniquem quem ficou pelo caminho”, orienta Rui. “Se alguém precisar de auxílio, não o deixem desaparecer do relatório.”",
+      "Orientação ruim ou omitir quem ficou para trás rende advertência. Há pedras e raízes no percurso; avançar sem cuidado pode causar ferimentos. A lanterna ajuda a ler a passagem e uma bandagem pode permitir que Nara siga acompanhada."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2389,11 +2445,11 @@
           "difficulty": 13
         },
         "exam_trial": true,
-        "result": "Você coordena uma solução e o grupo atravessa.",
+        "result": "Você ouve as sugestões, divide o peso entre os apoios e combina a ordem de passagem. Mesmo Daro aceita uma função definida; o grupo atravessa sem refazer a montagem.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "As funções ficam confusas e dois candidatos soltam o mesmo apoio. Você se machuca ao tentar corrigir o movimento; o grupo precisa refazer a montagem e Rui registra uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2406,11 +2462,11 @@
           "difficulty": 14
         },
         "exam_trial": true,
-        "result": "Você sustenta o apoio enquanto os outros passam.",
+        "result": "Você assume o apoio mais pesado e avisa quando os outros podem passar. Mantém a peça firme até a troca de posição que permite sua própria travessia.",
         "failure": {
           "health": -1,
           "exam_setback": 1,
-          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "result": "O peso vence sua postura antes da troca de posições. Você recebe uma contusão e precisa pedir reorganização dos apoios; Rui registra uma advertência pela execução.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2423,10 +2479,10 @@
           "difficulty": 12
         },
         "exam_trial": true,
-        "result": "Sua aura auxilia o esforço, mas depende de execução correta.",
+        "result": "Você concentra Corpo Temperado no esforço e sustenta o apoio enquanto os demais se revezam. A Potência ajuda a manter a posição até que o grupo complete a passagem.",
         "failure": {
           "exam_setback": 1,
-          "result": "O grupo precisa reorganizar o apoio e recebe uma advertência.",
+          "result": "Você concentra o esforço antes de firmar a base e o apoio gira. O grupo consegue recuar, mas precisa refazer a montagem; Rui registra uma advertência.",
           "exam_trial": true,
           "xp": 5
         },
@@ -2442,7 +2498,7 @@
       {
         "label": "Sabotar o apoio de Daro",
         "exam_fail": true,
-        "result": "Rui vê a violação de segurança. Você é reprovado."
+        "result": "Você desloca de propósito o apoio de Daro. Rui interrompe a prova antes que alguém receba o peso e o reprova pela sabotagem."
       },
       {
         "xp": 12,
@@ -2451,9 +2507,9 @@
           "attribute": "presence",
           "difficulty": 15
         },
-        "result": "Sua presença firme é aceita, sem obrigar ninguém pela força.",
+        "result": "Você intensifica a aura e chama o grupo para uma divisão clara de funções. Recolhe a pressão quando todos escutam, deixando que a coordenação conduza a travessia.",
         "failure": {
-          "result": "O grupo se incomoda. Você encerra a emissão e precisa reorganizar a colaboração, recebendo advertência.",
+          "result": "A pressão provoca recuos e interrompe a conversa. Você recolhe a aura e precisa reconstruir o acordo; Rui registra uma advertência pela execução atrapalhada.",
           "xp": 4,
           "exam_setback": 1,
           "exam_trial": true
@@ -2477,7 +2533,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Um portão exige mover apoios e coordenar a passagem do grupo. Daro quer comandar tudo; Nara pede uma distribuição clara. As regras proíbem sabotar os outros."
+      "Num corredor de passagem, um portão pesado depende de apoios que precisam ser sustentados enquanto o grupo atravessa. Rui demonstra a posição das peças antes de se afastar.",
+      "“Organizem as funções e levem o grupo para o outro lado. Podem empregar os meios que controlam, mas sabotar o apoio de outro candidato encerra sua participação.” Daro quer coordenar tudo; Nara pede que decidam quem sustenta e quem passa primeiro.",
+      "Uma execução ruim obriga o grupo a refazer a montagem e pode causar contusões e advertência. Impor presença com aura também pode atrapalhar a coordenação em vez de ajudar."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2485,12 +2543,12 @@
     "choices": [
       {
         "label": "Conferir as observações e continuar",
-        "result": "Você se apresenta à próxima etapa.",
+        "result": "Você confere as anotações desta prova e se apresenta quando Selma chama os candidatos para a segunda etapa.",
         "exam_continue": true
       },
       {
         "label": "Desistir da participação",
-        "result": "Você decide voltar à jornada normal.",
+        "result": "Você informa a Selma que vai parar. Ela recolhe sua identificação e orienta o retorno antes que os demais partam.",
         "exam_withdraw": true
       }
     ],
@@ -2505,7 +2563,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+      "Os candidatos se reúnem no abrigo de passagem. Rui confere quem chegou; Selma passa as observações para as fichas, sem anunciar ainda o resultado final.",
+      "Há um banco seco para examinar escoriações e arrumar os próprios suprimentos. Quem não quiser continuar pode entregar sua identificação antes da próxima chamada."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2513,12 +2572,12 @@
     "choices": [
       {
         "label": "Conferir as observações e continuar",
-        "result": "Você se apresenta à próxima etapa.",
+        "result": "Você deixa o material com Selma e se junta aos candidatos chamados para a terceira etapa.",
         "exam_continue": true
       },
       {
         "label": "Desistir da participação",
-        "result": "Você decide voltar à jornada normal.",
+        "result": "Você explica a Rui que não vai prosseguir. Ele confirma a desistência e o encaminha para fora da área de provas.",
         "exam_withdraw": true
       }
     ],
@@ -2533,7 +2592,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+      "Sobre uma mesa comprida, os examinadores recolhem o material usado na prova. Selma mantém separados os registros de erro e as ocorrências que encerraram participações.",
+      "Enquanto espera a chamada seguinte, você tem uma pausa para cuidar dos ferimentos com o que trouxe e conferir sua bagagem. O caminho de saída permanece aberto a quem decidir desistir."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2541,12 +2601,12 @@
     "choices": [
       {
         "label": "Conferir as observações e continuar",
-        "result": "Você se apresenta à próxima etapa.",
+        "result": "Você guarda seus pertences e se apresenta diante de Selma para ouvir a avaliação final.",
         "exam_continue": true
       },
       {
         "label": "Desistir da participação",
-        "result": "Você decide voltar à jornada normal.",
+        "result": "Você entrega sua identificação antes da última chamada. Selma confirma que sua participação terminou por desistência.",
         "exam_withdraw": true
       }
     ],
@@ -2561,7 +2621,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+      "O pavilhão agora parece maior com menos candidatos. Rui encerra os registros da terceira etapa; Selma reúne as fichas que serão consideradas na avaliação final.",
+      "Você pode arrumar a bagagem e cuidar dos ferimentos antes de ouvir o último enunciado. Desistir aqui significa deixar a seleção sem receber a licença."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2570,11 +2631,11 @@
       {
         "label": "Aceitar o confronto supervisionado",
         "battle": "candidate",
-        "result": "Daro assume sua postura. A avaliação começa."
+        "result": "Você entra no círculo e confirma que ouviu as condições. Daro ergue a guarda; Selma dá o sinal para começar."
       },
       {
         "label": "Desistir antes do confronto",
-        "result": "Você encerra voluntariamente sua participação.",
+        "result": "Você não entra no círculo e comunica a decisão a Selma. Sua participação termina por desistência, antes do confronto.",
         "exam_withdraw": true
       }
     ],
@@ -2603,7 +2664,9 @@
     },
     "adventure": "exam",
     "paragraphs": [
-      "Selma propõe um duelo supervisionado contra Daro. Vencer permite aprovação com até duas advertências. Quem ajudou outro candidato pode demonstrar um turno de julgamento e render-se conscientemente: essa alternativa só vale com até uma advertência. Fugir ou render-se antes disso reprova, sem encerrar a jornada."
+      "Selma delimita um círculo no pátio e chama Daro para enfrentá-lo. Ele ajusta a postura, determinado a vencer sem desperdiçar movimentos, enquanto Rui acompanha a área de saída.",
+      "“Vitória ou desistência do adversário permitem aprovação com até duas advertências anteriores”, diz Selma. “Também considero reconhecer o próprio limite: quem ajudou Nara e tem no máximo uma advertência pode lutar ao menos um turno e então se render. Nessa condição, a cooperação e o julgamento bastam.”",
+      "Render-se antes de resolver um turno, fugir ou não cumprir esses critérios resulta em reprovação. O duelo pode causar ferimentos; ficar sem condições de continuar exige socorro e encerra sua vida de aventuras. Você ainda pode desistir antes de entrar no círculo."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2612,7 +2675,7 @@
       {
         "label": "Devolver a ficha e explicar a regra",
         "exam_decide": true,
-        "result": "Você recusa a vantagem irregular e apresenta uma solução verificável.",
+        "result": "Você devolve a ficha e explica por que uma resposta obtida dessa maneira não pode fundamentar a avaliação. Selma aceita a devolução e consulta suas advertências antes de anunciar o resultado.",
         "xp": 16
       },
       {
@@ -2621,10 +2684,10 @@
           "difficulty": 15
         },
         "exam_decide": true,
-        "result": "Você convence a banca a refazer a distribuição.",
+        "result": "Você pede que a banca refaça a distribuição para todos e sustenta como isso preserva as condições da prova. Selma aceita a proposta e passa à conferência das suas advertências.",
         "failure": {
           "exam_fail": true,
-          "result": "A justificativa não atende à regra final. A banca encerra sua participação.",
+          "result": "Você não consegue explicar como a nova distribuição manteria as condições propostas. Selma rejeita sua solução para a prova final e comunica a reprovação.",
           "xp": 5
         },
         "xp": 14,
@@ -2633,7 +2696,7 @@
       {
         "label": "Usar a ficha escondido",
         "exam_fail": true,
-        "result": "A fraude é constatada e você é reprovado."
+        "result": "Você usa a resposta e tenta ocultar a ficha. A banca reconhece o material irregular durante a conferência; Selma encerra sua participação por fraude."
       }
     ],
     "kind": "continuation",
@@ -2647,7 +2710,9 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Ivo encontra uma ficha perdida. Selma pede decidir entre usar uma vantagem não autorizada ou explicar como preservar a igualdade entre os candidatos. A avaliação considera suas advertências anteriores."
+      "Na mesa da última avaliação, Ivo encontra uma ficha com uma resposta que não deveria estar entre o material dos candidatos. Ele a mostra a você antes de entregarem as conclusões.",
+      "Selma estabelece a regra: cada resposta deve ser defendida sem material irregular. Devolver a ficha e explicar o problema preserva a avaliação, desde que você tenha no máximo duas advertências. Também é possível propor uma redistribuição, mas a justificativa precisa convencer a banca; se falhar, a tentativa termina reprovada.",
+      "Usar a ficha escondido constitui fraude e elimina. Ivo observa sua decisão com a mesma atenção com que conferiu as instruções na chegada."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2655,7 +2720,7 @@
     "choices": [
       {
         "label": "Voltar à jornada",
-        "result": "Você deixa o local da seleção.",
+        "result": "Você confere se a licença está segura entre os pertences e se despede dos examinadores. Fora do pavilhão, volta a procurar o próprio caminho.",
         "finish_adventure": true
       }
     ],
@@ -2671,7 +2736,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Você recebe a Licença Hunter e 40 XP. Ela reconhece sua condição de Hunter licenciado, sem conceder Nen ou atributos máximos."
+      "Selma confere a última anotação e chama seu nome entre os aprovados. Rui lhe entrega a Licença Hunter; por um instante, o pequeno cartão parece leve demais para toda a distância percorrida até ali.",
+      "Você guarda a licença e olha outra vez para o pátio. A seleção terminou. Ao sair, será você quem decidirá o que fazer com as portas que essa credencial pode abrir."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2679,7 +2745,7 @@
     "choices": [
       {
         "label": "Voltar à jornada",
-        "result": "Você deixa o local da seleção.",
+        "result": "Você recolhe a bagagem e sai do local da seleção. Na estrada, volta a prestar atenção aos trabalhos e destinos que havia deixado para depois.",
         "finish_adventure": true
       }
     ],
@@ -2694,7 +2760,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Os examinadores encerram sua participação. A experiência obtida permanece, e sua jornada pode continuar."
+      "Selma fecha sua ficha e informa que o resultado desta participação é reprovação. A chamada prossegue; você já não está entre os candidatos que seguirão para receber a licença.",
+      "Rui indica a saída e espera que você recolha os pertences. As decisões tomadas nas provas não podem ser refeitas ali, mas as experiências da tentativa continuam com você."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2702,7 +2769,7 @@
     "choices": [
       {
         "label": "Voltar à jornada",
-        "result": "Você deixa o local da seleção.",
+        "result": "Você deixa a área de provas e encontra o movimento comum da estrada. Por enquanto, seus planos já não passam pela seleção.",
         "finish_adventure": true
       }
     ],
@@ -2717,7 +2784,8 @@
     "weight": 0,
     "adventure": "exam",
     "paragraphs": [
-      "Você encerra sua participação por vontade própria. As oportunidades comuns continuam disponíveis."
+      "Seu nome deixa a lista dos candidatos ainda em prova. Selma confirma a desistência sem tentar convencê-lo a ficar; Rui devolve os pertences que aguardavam na saída.",
+      "Você não leva uma licença, mas pode escolher a próxima viagem sem esperar outra chamada dos examinadores."
     ],
     "chapter": "Exame Hunter"
   },
@@ -2728,10 +2796,10 @@
           "attribute": "intellect",
           "difficulty": 13
         },
-        "result": "Você entrega uma análise e recebe 45 Jenny.",
+        "result": "Você identifica uma referência deslocada e distingue os trechos confirmados dos que ainda precisam de vistoria. O atendente aceita a análise e paga os 45 Jenny combinados.",
         "failure": {
           "xp": 6,
-          "result": "Seu relatório precisa de revisão. Você aprende com as correções, sem receber o pagamento."
+          "result": "Uma divergência importante passa despercebida na sua análise. O atendente aponta a correção necessária e devolve o relatório para revisão, sem liberar o pagamento."
         },
         "xp": 18,
         "jenny": 45,
@@ -2739,7 +2807,7 @@
       },
       {
         "label": "Recusar o trabalho",
-        "result": "Você mantém sua licença e procura outra oportunidade."
+        "result": "Você devolve os documentos sem assumir a análise. Guarda a licença e deixa o balcão à procura de outra oportunidade."
       }
     ],
     "kind": "independent",
@@ -2757,8 +2825,1139 @@
     "weight": 3,
     "adventure": "exam",
     "paragraphs": [
-      "Sua licença permite consultar um pedido de verificação de uma rota pública. O trabalho é civil, com pagamento combinado e sem batalha obrigatória."
+      "Ao apresentar a Licença Hunter num balcão de serviços, você recebe acesso a um pedido de verificação de rota. Uma associação de transporte quer comparar um relatório com as referências públicas da região antes de contratar uma vistoria maior.",
+      "São 45 Jenny pela análise aceita. O atendente espalha mapa e depoimentos na mesa: o trabalho está nas divergências entre eles, não numa expedição armada."
     ],
     "chapter": "Exame Hunter"
+  },
+  {
+    "id": "escort_offer",
+    "title": "O valor de uma carga",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "Orlan espalha amostras de tecido no balcão de uma hospedaria. O comerciante precisa levar o restante da carga ao mercado do vale, mas voltou da última viagem com um saco cortado e ferramentas faltando.",
+      "“Quero alguém atento à estrada, não uma briga em cada curva.” Ele oferece 70 Jenny na chegada e admite discutir o preço. Seu cuidado com os recibos sugere que não vai esquecer o combinado."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar os 70 Jenny",
+        "result": "Você confere os volumes com Orlan. Ele anota 70 Jenny na entrega, reduzidos a 50 se houver perda de carga ou cobrança paga por ele, sem somar descontos. Depois, mostra onde a carroça está guardada.",
+        "next": "escort_prepare"
+      },
+      {
+        "label": "Pedir uma margem pelo risco",
+        "result": "Você aponta os custos de acompanhar uma carga vulnerável. Orlan concorda com 20 Jenny extras se a carga chegar sem perdas nem despesas pagas por ele, totalizando 90 Jenny, e registra a condição.",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Orlan escuta, mas mantém os 70 Jenny. Você aceita o valor inicial antes de começar a preparação.",
+          "next": "escort_prepare"
+        },
+        "next": "escort_prepare",
+        "flags": {
+          "escort_bonus": true
+        }
+      },
+      {
+        "label": "Não assumir a escolta",
+        "result": "Você devolve o recibo sem assinar. Orlan procura outra companhia para a viagem.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "escort_prepare",
+    "title": "Antes de apertar as correias",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "Orlan compara os lacres com a lista de entrega. A carga inclui tecido, utensílios e pacotes de sal; molhar a lona ou perder um saco significa discutir o prejuízo no mercado.",
+      "Ele lhe oferece tempo para conferir o caminho. Há um mapa de consulta na hospedaria, e o seu próprio equipamento pode ajudar a fixar a carga."
+    ],
+    "choices": [
+      {
+        "label": "Conferir os desvios no mapa da hospedaria",
+        "result": "Você distingue uma estrada alta da passagem baixa junto ao canal. Orlan marca a entrada da alternativa no recibo.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "O mapa da hospedaria está desatualizado. Você registra apenas a estrada principal, sem confiar nos desvios.",
+          "next": "escort_road",
+          "xp": 2
+        },
+        "next": "escort_road",
+        "xp": 6,
+        "flags": {
+          "escort_route": true
+        }
+      },
+      {
+        "label": "Marcar o percurso no mapa regional",
+        "result": "Você compara seu mapa com as referências de Orlan e marca a entrada da estrada alta antes de guardá-lo.",
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        },
+        "flags": {
+          "escort_route": true
+        },
+        "next": "escort_road",
+        "xp": 4
+      },
+      {
+        "label": "Prender a lona com sua corda",
+        "result": "Você cruza a corda sobre os volumes e deixa a amarra acessível para depois da passagem baixa. Orlan verifica os nós antes de partir.",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "flags": {
+          "escort_secured": true
+        },
+        "next": "escort_road",
+        "xp": 4
+      },
+      {
+        "label": "Conferir os lacres e partir pela estrada",
+        "result": "Você conta os volumes com Orlan e confere o fecho da lona. Ele assume as rédeas enquanto você acompanha a lateral da carroça.",
+        "next": "escort_road"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "escort_road",
+    "title": "Água sobre o caminho",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "A passagem baixa está coberta por água que escorre do canal. Orlan para antes de entrar: a roda alcança o trecho, mas um movimento brusco pode deslocar a carga.",
+      "Ao longe, uma estrada sobe pela encosta. Sem conhecer sua entrada, procurar o desvio também consumirá o dia. Orlan pergunta se você prefere tentar a passagem ou conduzi-lo por cima."
+    ],
+    "choices": [
+      {
+        "label": "Guiar as rodas pelos pontos firmes",
+        "result": "Você testa os apoios e orienta cada avanço. As rodas saem da água sem que a carga se desloque.",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Seu pé escapa na borda e você bate a perna. A carroça sai do trecho, mas a sacudida molha parte da carga; Orlan separa os volumes que terão desconto.",
+          "next": "escort_checkpoint",
+          "health": -1,
+          "flags": {
+            "escort_wet": true
+          },
+          "xp": 3
+        },
+        "next": "escort_checkpoint",
+        "xp": 10
+      },
+      {
+        "label": "Conduzir pela estrada alta marcada",
+        "result": "Você reconhece a entrada do desvio e acompanha Orlan pela encosta. A carroça evita a água sem depender de uma busca às cegas.",
+        "conditions": {
+          "flags": {
+            "escort_route": true
+          }
+        },
+        "next": "escort_checkpoint",
+        "xp": 6
+      },
+      {
+        "label": "Confiar na amarra de corda e acompanhar a roda",
+        "result": "A corda mantém os volumes no lugar enquanto você guia a roda pela borda. Na saída, recolhe a amarra e devolve a corda à bagagem.",
+        "conditions": {
+          "flags": {
+            "escort_secured": true
+          }
+        },
+        "next": "escort_checkpoint",
+        "xp": 6
+      },
+      {
+        "label": "Pagar 10 Jenny pelo caminho de um morador",
+        "result": "Um morador mostra a entrada seca usada pelos carros do canal. Você lhe paga 10 Jenny e Orlan conduz a carroça sem molhar os sacos.",
+        "jenny": -10,
+        "next": "escort_checkpoint"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "escort_checkpoint",
+    "title": "Uma corda atravessa a estrada",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "Um homem estendeu uma corda entre duas estacas e exige 20 Jenny para deixar a carroça passar. Não apresenta recibo nem autorização. Há marcas de rodas contornando a barreira por um caminho lateral.",
+      "Orlan mantém as mãos à vista. “Prefiro perder uma taxa a perder tudo. Mas não vou chamar isso de pedágio legítimo.” O homem olha sua bagagem e depois a saída entre as árvores."
+    ],
+    "choices": [
+      {
+        "label": "Negociar a passagem sem pagamento",
+        "result": "Você aponta que o desvio já tornou a barreira inútil e oferece encerrar a discussão ali. O homem recolhe a corda, contrariado, e deixa a carroça passar.",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "O homem se recusa a retirar a corda. Orlan paga os 20 Jenny para seguir, mas avisa que terá de descontá-los do acerto da escolta.",
+          "next": "escort_account",
+          "flags": {
+            "escort_toll": true
+          },
+          "xp": 3
+        },
+        "next": "escort_account",
+        "xp": 10
+      },
+      {
+        "label": "Pagar os 20 Jenny por conta própria",
+        "result": "Você entrega 20 Jenny e espera a corda ser recolhida. Orlan confere a carga antes de retomar a viagem, mantendo o pagamento da escolta.",
+        "jenny": -20,
+        "next": "escort_account"
+      },
+      {
+        "label": "Levar a carroça pelo desvio conhecido",
+        "result": "Você reconhece a ligação com a estrada alta e acompanha Orlan pelo contorno. Quando o homem chega à curva, a carroça já passou.",
+        "conditions": {
+          "flags": {
+            "escort_route": true
+          }
+        },
+        "next": "escort_account",
+        "xp": 6
+      },
+      {
+        "label": "Enfrentar o homem enquanto Orlan recua",
+        "result": "Você pede a Orlan que mantenha distância com a carroça. O homem abandona a corda e avança; você ainda pode tentar fugir ou se render.",
+        "battle": "bandit",
+        "next": "escort_done"
+      },
+      {
+        "label": "Usar Ren para sustentar a exigência de passagem",
+        "result": "A pressão breve o faz hesitar enquanto você exige que recolha a corda. Você encerra Ren antes de Orlan passar.",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "O homem reage à pressão sem sair da frente. Orlan paga a cobrança e informa que a descontará do seu acerto.",
+          "next": "escort_account",
+          "flags": {
+            "escort_toll": true
+          },
+          "xp": 3
+        },
+        "conditions": {
+          "flags": {
+            "nen_ren": true
+          }
+        },
+        "next": "escort_account",
+        "xp": 8
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "battle_rewards": {
+      "victory": {
+        "xp": 14,
+        "next": "escort_account"
+      },
+      "enemy_yield": {
+        "xp": 14,
+        "next": "escort_account"
+      },
+      "fled": {
+        "xp": 3,
+        "next": "escort_done"
+      },
+      "yielded": {
+        "xp": 3,
+        "next": "escort_done"
+      },
+      "incapacity": {
+        "xp": 0
+      }
+    }
+  },
+  {
+    "id": "escort_account",
+    "title": "Os lacres na chegada",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "No mercado do vale, Orlan abre espaço junto à balança e começa a conferir o que chegou. Ele compara o estado dos volumes com o recibo da partida antes de fazer qualquer conta.",
+      "Orlan confirma o acordo: sem perdas, vale o preço negociado; com carga molhada ou cobrança paga por ele, o acerto fica em 50 Jenny, sem somar descontos nem manter a gratificação. Você pode conferir a conta ou abrir mão do pagamento."
+    ],
+    "choices": [
+      {
+        "label": "Conferir o acordo de 90 Jenny",
+        "result": "Orlan paga os 90 Jenny negociados, depois de conferir a carga. Você assina o recibo ao lado dele e guarda uma cópia.",
+        "conditions": {
+          "flags": {
+            "escort_bonus": true,
+            "escort_wet": false,
+            "escort_toll": false
+          }
+        },
+        "jenny": 90,
+        "xp": 22,
+        "flags": {
+          "escort_completed": true
+        },
+        "next": "escort_done"
+      },
+      {
+        "label": "Receber os 70 Jenny combinados",
+        "result": "Orlan separa 70 Jenny pelo acompanhamento. Os lacres conferem e ele guarda seu nome junto ao recibo da viagem.",
+        "conditions": {
+          "flags": {
+            "escort_bonus": false,
+            "escort_wet": false,
+            "escort_toll": false
+          }
+        },
+        "jenny": 70,
+        "xp": 22,
+        "flags": {
+          "escort_completed": true
+        },
+        "next": "escort_done"
+      },
+      {
+        "label": "Aceitar 50 Jenny após os descontos",
+        "result": "Vocês conferem os gastos e perdas do percurso. Orlan fecha o acerto em 50 Jenny; você recebe o dinheiro sem fingir que a viagem saiu intacta.",
+        "conditions": {
+          "flags": {
+            "escort_wet": true
+          }
+        },
+        "jenny": 50,
+        "xp": 16,
+        "flags": {
+          "escort_completed": true,
+          "escort_loss": true
+        },
+        "next": "escort_done"
+      },
+      {
+        "label": "Acertar 50 Jenny pela taxa paga por Orlan",
+        "result": "Orlan apresenta a conta da cobrança na estrada e entrega 50 Jenny de pagamento. Você confere o valor e encerra o serviço.",
+        "conditions": {
+          "flags": {
+            "escort_toll": true,
+            "escort_wet": false
+          }
+        },
+        "jenny": 50,
+        "xp": 16,
+        "flags": {
+          "escort_completed": true,
+          "escort_loss": true
+        },
+        "next": "escort_done"
+      },
+      {
+        "label": "Encerrar o acordo sem receber",
+        "result": "Você abre mão do pagamento e deixa Orlan resolver o restante com o mercado. Ele registra que não houve acerto remunerado.",
+        "next": "escort_done",
+        "flags": {
+          "escort_unpaid": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "escort_done",
+    "title": "Onde a escolta termina",
+    "chapter": "A estrada das mercadorias",
+    "paragraphs": [
+      "Orlan dobra o recibo no mesmo vinco da partida. A viagem acabou para vocês, seja no mercado ou no caminho de retorno depois de abandonar a barreira.",
+      "Ele não oferece amizade como parte do contrato: prefere que cada um saiba o que assumiu e o que conseguiu cumprir. Você recolhe os pertences antes de decidir sua próxima direção."
+    ],
+    "choices": [
+      {
+        "label": "Despedir-se e seguir viagem",
+        "result": "Você se despede de Orlan e deixa a carroça aos cuidados dele. O próximo trabalho já não faz parte desta escolta.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "escort",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_offer",
+    "title": "O canal que deixou de correr",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "A pesquisadora Lídia procura alguém para acompanhar uma vistoria nas construções de um antigo canal de abastecimento. Quer copiar inscrições e localizar peças soltas que ajudem a entender como os moradores dividiam a água.",
+      "“Não estamos procurando tesouro”, explica, apontando uma planta de uso público. Ela oferece 60 Jenny por um relato utilizável. O pedreiro Bento cuidará das estruturas que ainda podem receber peso."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar a vistoria",
+        "result": "Você combina com Lídia que registrará apenas o que conseguir observar com segurança. Ela o apresenta à equipe antes da partida.",
+        "next": "ruins_team"
+      },
+      {
+        "label": "Apresentar a licença ao aceitar",
+        "result": "Você apresenta a licença como identificação, sem prometer conhecimentos que não tem. Lídia registra seus dados e o chama para conhecer Bento.",
+        "conditions": {
+          "items": {
+            "hunter_license": 1
+          }
+        },
+        "next": "ruins_team"
+      },
+      {
+        "label": "Não acompanhar a equipe",
+        "result": "Você devolve a planta e deseja uma boa vistoria. Lídia deixa de contar com sua presença antes de organizar o material.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_team",
+    "title": "O que cada um vai carregar",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "Lídia leva papel para cópias e insiste que nenhuma parede será desmontada. Bento conhece argamassa e apoios; prefere recuar de uma estrutura instável a tentar salvá-la com o próprio corpo.",
+      "Na antiga casa de comportas, a luz entra apenas pelo vão da porta. Vocês podem começar avaliando a planta ou preparar uma maneira de enxergar e atravessar os desníveis."
+    ],
+    "choices": [
+      {
+        "label": "Conferir a planta com Bento",
+        "result": "Vocês distinguem a galeria principal de um corredor de manutenção. Bento marca os apoios que ainda correspondem ao desenho.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A planta não mostra um reparo recente. Bento prefere verificar cada apoio no local; você guarda o desenho sem tratá-lo como garantia.",
+          "next": "ruins_entry",
+          "xp": 2
+        },
+        "next": "ruins_entry",
+        "flags": {
+          "ruins_plan": true
+        },
+        "xp": 6
+      },
+      {
+        "label": "Preparar sua lanterna para o interior",
+        "result": "Você acende a lanterna e combina com Lídia que a iluminação acompanhará a cópia dos registros.",
+        "conditions": {
+          "items": {
+            "lantern": 1
+          }
+        },
+        "flags": {
+          "ruins_light": true
+        },
+        "next": "ruins_entry"
+      },
+      {
+        "label": "Combinar uma travessia com corda",
+        "result": "Você mostra a corda a Bento, que indica onde poderá ser ancorada caso os degraus não suportem a passagem.",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "flags": {
+          "ruins_rope": true
+        },
+        "next": "ruins_entry"
+      },
+      {
+        "label": "Seguir pela área iluminada da entrada",
+        "result": "Você combina ficar nas partes alcançadas pela luz da porta até conhecer melhor a estrutura. Bento concorda em começar por ali.",
+        "next": "ruins_entry"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_entry",
+    "title": "O degrau que falta",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "A escada interna termina num trecho quebrado antes da galeria. Mais abaixo, uma passagem de manutenção ainda recebe luz da entrada, mas obriga a rastejar junto à parede.",
+      "Bento testa o apoio e não se compromete com um salto de todos ao mesmo tempo. É possível atravessar por cima, usar a corda preparada ou seguir o caminho baixo."
+    ],
+    "choices": [
+      {
+        "label": "Cruzar o vão e ajudar na outra margem",
+        "result": "Você alcança o apoio firme e orienta a passagem dos demais. Lídia leva os papéis sem encostá-los na parede úmida.",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você escorrega na borda e se machuca ao recuar. Bento interrompe a travessia e todos seguem pela passagem baixa.",
+          "next": "ruins_archive",
+          "health": -2,
+          "xp": 3,
+          "flags": {
+            "ruins_delay": true
+          }
+        },
+        "next": "ruins_archive",
+        "xp": 10
+      },
+      {
+        "label": "Usar a corda preparada com Bento",
+        "result": "Você ancora a corda no apoio conferido e ajuda cada um a descer. Depois da travessia, recolhe a corda sem deslocar a alvenaria.",
+        "conditions": {
+          "flags": {
+            "ruins_rope": true
+          }
+        },
+        "next": "ruins_archive",
+        "xp": 6
+      },
+      {
+        "label": "Conduzir pelo corredor da planta",
+        "result": "Você aponta o corredor de manutenção já comparado com Bento. A passagem leva à galeria sem depender do degrau quebrado.",
+        "conditions": {
+          "flags": {
+            "ruins_plan": true
+          }
+        },
+        "next": "ruins_archive",
+        "xp": 6
+      },
+      {
+        "label": "Rastejar pela passagem baixa",
+        "result": "Vocês atravessam um de cada vez, protegendo a cabeça. A passagem consome tempo, mas leva todos à galeria sem exigir o salto.",
+        "next": "ruins_archive",
+        "flags": {
+          "ruins_delay": true
+        }
+      },
+      {
+        "label": "Manter Ten durante a travessia",
+        "result": "Ten amortece o contato com a borda enquanto você alcança o apoio. Você então orienta os demais pela passagem baixa.",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você perde o apoio, mas a aura amortece a pancada. Bento insiste no corredor baixo; todos mudam o caminho antes de continuar.",
+          "next": "ruins_archive",
+          "flags": {
+            "ruins_delay": true
+          },
+          "xp": 3
+        },
+        "conditions": {
+          "flags": {
+            "nen_ten": true
+          }
+        },
+        "next": "ruins_archive",
+        "xp": 8
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_archive",
+    "title": "Nomes ao lado da água",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "Na galeria, placas registram turnos de irrigação, reparos e nomes de famílias que contribuíram com trabalho. Lídia reconhece abreviações de um sistema de distribuição usado pelas propriedades do vale.",
+      "Uma peça já solta repete parte das marcas da parede. Bento pede que ninguém retire o que ainda está preso: copiar a inscrição preservará melhor a relação entre os nomes e os canais."
+    ],
+    "choices": [
+      {
+        "label": "Reconstruir a ordem das inscrições",
+        "result": "Você compara as datas dos reparos e identifica quando o canal passou a atender mais propriedades. Lídia copia sua leitura junto às marcas originais.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "As abreviações não fecham uma sequência segura. Lídia registra apenas os trechos legíveis, deixando as lacunas assinaladas.",
+          "next": "ruins_choice",
+          "xp": 4
+        },
+        "next": "ruins_choice",
+        "flags": {
+          "ruins_record": true
+        },
+        "xp": 12
+      },
+      {
+        "label": "Iluminar as marcas para uma cópia fiel",
+        "result": "Você mantém a lanterna de lado para revelar os sulcos. Lídia consegue copiar os registros sem adivinhar letras nas partes gastas.",
+        "conditions": {
+          "flags": {
+            "ruins_light": true
+          }
+        },
+        "flags": {
+          "ruins_record": true
+        },
+        "next": "ruins_choice",
+        "xp": 8
+      },
+      {
+        "label": "Registrar só o que a luz da entrada permite",
+        "result": "Você copia os nomes mais visíveis e marca o restante como ilegível. Lídia aceita o registro parcial sem completar as lacunas por conta própria.",
+        "next": "ruins_choice",
+        "xp": 4
+      },
+      {
+        "label": "Soltar a trava da veneziana com Precisão",
+        "result": "O disparo toca a pequena trava e abre a veneziana sem atingir as placas. Com a luz, Lídia copia os registros que faltavam.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A emissão passa ao lado da trava. Você interrompe para não arriscar a alvenaria e a equipe conserva somente a cópia parcial.",
+          "next": "ruins_choice",
+          "xp": 3
+        },
+        "conditions": {
+          "hatsu": {
+            "id": "emission",
+            "specialization": "precision"
+          }
+        },
+        "next": "ruins_choice",
+        "flags": {
+          "ruins_record": true
+        },
+        "xp": 10
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_choice",
+    "title": "O que vale levar",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "Bento percebe a argamassa se desfazer junto a uma parede lateral e manda deixar livre o caminho de volta. Lídia protege os papéis e pede que decidam o destino da peça que já estava solta.",
+      "Ela pode ser catalogada com o registro, mas também interessaria a um comprador de antiguidades. Levar algo não exige permanecer sob a parede: o que importa é como você relata o achado ao sair."
+    ],
+    "choices": [
+      {
+        "label": "Entregar a cópia completa com a peça catalogada",
+        "result": "Você anota onde a peça estava e entrega tudo a Lídia. A comparação entre cópia e fragmento rende uma gratificação: o pagamento final é de 80 Jenny.",
+        "conditions": {
+          "flags": {
+            "ruins_record": true
+          }
+        },
+        "next": "ruins_done",
+        "jenny": 80,
+        "xp": 24,
+        "flags": {
+          "ruins_completed": true,
+          "ruins_shared": true
+        }
+      },
+      {
+        "label": "Entregar o relato parcial e sair com a equipe",
+        "result": "Você marca os limites da observação e ajuda Lídia a guardar o material. Ela paga os 60 Jenny combinados por um relato utilizável, mesmo sem cobrir toda a galeria.",
+        "next": "ruins_done",
+        "jenny": 60,
+        "xp": 18,
+        "flags": {
+          "ruins_completed": true,
+          "ruins_shared": true
+        }
+      },
+      {
+        "label": "Ocultar a peça e negociar com um comprador",
+        "result": "Você esconde o fragmento e declara não ter encontrado material solto. Fora do canal, um comprador paga 100 Jenny; o relato que deixa à equipe já não corresponde ao que viu.",
+        "next": "ruins_done",
+        "jenny": 100,
+        "xp": 6,
+        "flags": {
+          "ruins_completed": true,
+          "dishonest": true,
+          "ruins_stolen": true
+        }
+      },
+      {
+        "label": "Deixar o material e priorizar a retirada",
+        "result": "Você ajuda a equipe a sair antes de recolher o restante. Lídia aceita que não houve material suficiente para o pagamento, mas ninguém precisa voltar sob a parede.",
+        "next": "ruins_done",
+        "flags": {
+          "ruins_retreat": true
+        },
+        "xp": 4
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_done",
+    "title": "O canal no papel",
+    "chapter": "As pedras do antigo canal",
+    "paragraphs": [
+      "À luz da entrada, Bento compara as rachaduras com o desenho que trouxe. Lídia separa as folhas para que o que foi observado não se misture ao que ficou por verificar.",
+      "Ao lado dos nomes, uma cópia mostra onde a água era dividida entre as propriedades. Lídia guarda o registro separado das hipóteses que ainda precisará conferir."
+    ],
+    "choices": [
+      {
+        "label": "Deixar a vistoria e retomar o caminho",
+        "result": "Você se despede da equipe. As construções ficam para trás enquanto você volta a procurar seu próximo destino.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "ruins",
+    "conditions": {},
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "hearing",
+    "title": "Duas vozes no mesmo balcão",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Na administração de um mercado, uma costureira e um carregador discutem quem deve pagar por uma caixa entregue molhada. A atendente tem o recibo, mas ambos falam por cima dela.",
+      "Você estava aguardando outra informação quando pedem que ajude a pôr os fatos em ordem. Ninguém lhe oferece dinheiro para tomar partido."
+    ],
+    "choices": [
+      {
+        "label": "Pedir que cada um conte sua parte",
+        "result": "Você consegue que ambos esperem a leitura do recibo. A atendente identifica onde a responsabilidade mudou e os dois aceitam discutir a partir disso.",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Sua tentativa vira mais uma voz no balcão. Você recua para que a atendente retome a conversa.",
+          "xp": 2
+        },
+        "xp": 6
+      },
+      {
+        "label": "Comparar horário e condições no recibo",
+        "result": "Você aponta que a entrega ocorreu antes da chuva registrada pelos dois. A discussão muda de acusações para a conferência do lugar onde a caixa ficou guardada.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "O recibo está borrado justamente na informação que resolveria a dúvida. Você devolve o papel sem fingir certeza.",
+          "xp": 2
+        },
+        "xp": 6
+      },
+      {
+        "label": "Deixar a atendente conduzir a conversa",
+        "result": "Você espera a discussão baixar e evita dar um parecer sobre uma entrega que não presenciou."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {},
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "reservoir",
+    "title": "O portão do reservatório",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Um zelador tenta fechar a comporta de um reservatório antes da limpeza do canal. Uma peça de madeira travou o mecanismo; o esforço só está fazendo a manivela girar em falso.",
+      "Ele pede ajuda para retirar o calço ou manter o apoio. Há espaço para trabalhar do lado seco, mas a peça pode soltar de repente."
+    ],
+    "choices": [
+      {
+        "label": "Firmar o apoio enquanto ele gira a manivela",
+        "result": "Você mantém o apoio firme e avisa quando a peça cede. O zelador fecha a comporta sem prender as mãos de ninguém.",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O apoio escapa e você recebe uma pancada no braço. O zelador interrompe o fechamento para procurar outra ferramenta.",
+          "xp": 3,
+          "health": -1
+        },
+        "xp": 8
+      },
+      {
+        "label": "Usar Corpo Temperado para sustentar o apoio",
+        "result": "Você concentra Potência no apoio e sustenta a peça até a manivela voltar a funcionar. O zelador consegue fechar a comporta.",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 11
+        },
+        "failure": {
+          "result": "Mesmo com aura, a posição ruim faz o apoio girar. Você recua antes de se ferir e o zelador suspende a tentativa.",
+          "xp": 3
+        },
+        "conditions": {
+          "hatsu": {
+            "id": "reinforce",
+            "specialization": "power"
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Buscar o ajudante que trabalha na casa ao lado",
+        "result": "Você chama o ajudante. Os dois zeladores combinam a retirada com as ferramentas do posto e dispensam sua presença."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {},
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "night_watch",
+    "title": "Uma linha no céu",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Num abrigo de estrada, uma viajante tenta reconhecer no céu a direção do trajeto que fará pela manhã. O mapa mostra uma estrada nova, mas ela não consegue relacioná-la às referências do terreno.",
+      "Da varanda, vocês veem um pico e as luzes do povoado. Ela aceita companhia para comparar os sinais, sem pedir que você a conduza na viagem."
+    ],
+    "choices": [
+      {
+        "label": "Comparar céu, relevo e orientação do mapa",
+        "result": "Você identifica a posição do pico e mostra como a estrada muda de direção antes dele. A viajante corrige a anotação sem tratar o céu como um mapa completo.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "As nuvens fecham as referências e você não consegue confirmar o rumo. Deixa a dúvida anotada para ela perguntar no abrigo pela manhã.",
+          "xp": 2
+        },
+        "xp": 6
+      },
+      {
+        "label": "Abrir seu mapa regional ao lado do dela",
+        "result": "Vocês comparam a curva junto ao pico nos dois mapas. A viajante encontra a estrada de ligação e agradece antes de recolher os papéis.",
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        },
+        "xp": 4
+      },
+      {
+        "label": "Ficar na varanda e ouvir sobre a viagem",
+        "result": "Você escuta a descrição do caminho enquanto as luzes do povoado se apagam. A conversa termina sem promessa de resolver a rota."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {},
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "kitchen",
+    "title": "O caldo antes da partida",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Na cozinha de uma hospedaria, uma panela precisa chegar ao balcão antes que os viajantes partam. A cozinheira perdeu um ajudante para um atraso no cais e pede apoio no serviço.",
+      "Você pode carregar as tigelas, organizar a fila ou simplesmente pagar 6 Jenny por uma refeição. Ela não quer que ninguém improvise ingredientes."
+    ],
+    "choices": [
+      {
+        "label": "Servir sem interromper o trabalho da cozinha",
+        "result": "Você leva as tigelas sem derramar o caldo e mantém o balcão livre. A cozinheira paga 12 Jenny pela ajuda.",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Você esbarra numa pilha de tigelas vazias e precisa interromper o serviço para reorganizar o balcão. A cozinheira assume a distribuição, sem lhe pagar.",
+          "xp": 2
+        },
+        "jenny": 12,
+        "xp": 5
+      },
+      {
+        "label": "Pagar pela refeição e deixar livre o balcão",
+        "result": "Você paga 6 Jenny e come longe da fila. A comida e a pausa ajudam a recuperar o corpo antes da próxima partida.",
+        "jenny": -6,
+        "health": 2
+      },
+      {
+        "label": "Aguardar sem atrapalhar a passagem",
+        "result": "Você encosta a bagagem e espera a cozinha recuperar o ritmo, deixando os ajudantes passarem."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {},
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "storm_mark",
+    "title": "Depois que o vento passou",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Uma placa caiu do caminho alto e agora aponta para um barranco. Um morador tenta recolocá-la, mas o poste está rachado e não segura mais os pregos.",
+      "Ele conhece o trajeto correto. O problema é deixar uma indicação que outro viajante consiga entender antes de chegar ao trecho ruim."
+    ],
+    "choices": [
+      {
+        "label": "Subir até o marco para prender um aviso",
+        "result": "Você alcança o marco firme e prende o aviso acima da curva. O morador confirma que pode ser visto antes da entrada errada.",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você perde o apoio ao subir e raspa a perna. O morador o ajuda a voltar; a placa precisará esperar um suporte novo.",
+          "health": -1,
+          "xp": 2
+        },
+        "xp": 7
+      },
+      {
+        "label": "Emprestar a corda para firmar a indicação",
+        "result": "Você sustenta o aviso com sua corda enquanto o morador fixa um apoio de madeira. Ao terminar, recolhe a corda, deixando a indicação presa ao novo suporte.",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 4
+      },
+      {
+        "label": "Marcar a entrada junto com o morador",
+        "result": "Vocês colocam pedras e a placa caída junto à entrada errada, apontando o caminho que deve ser seguido. O aviso é simples, mas visível."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {},
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "escort_return",
+    "title": "O recibo guardado",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Orlan reconhece você numa fila de despacho e tira da carteira a cópia do serviço anterior. Ele lembra que vocês chegaram a um acerto pela escolta, sem transformar isso numa dívida de gratidão.",
+      "Desta vez, precisa apenas de alguém que compare os lacres antes do embarque. Oferece 18 Jenny por uma conferência completa, não outra viagem."
+    ],
+    "choices": [
+      {
+        "label": "Conferir os lacres com Orlan",
+        "result": "Você identifica uma numeração trocada antes que a carga siga ao embarque. Orlan paga os 18 Jenny e corrige o recibo.",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Você não consegue distinguir dois lacres gastos. Orlan chama o responsável pelo depósito para terminar a conferência e não libera o pagamento.",
+          "xp": 2
+        },
+        "jenny": 18,
+        "xp": 6
+      },
+      {
+        "label": "Recusar sem assumir outro compromisso",
+        "result": "Você devolve o recibo e explica que está de passagem. Orlan guarda o papel e chama outra pessoa."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {
+      "flags": {
+        "escort_completed": true
+      }
+    },
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "ruins_return",
+    "title": "Os nomes que ainda são usados",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Lídia encontra você junto a um quadro onde expôs a cópia do canal. Uma moradora reconheceu ali o nome de uma família que ainda trabalha na região.",
+      "“O registro não resolve a história inteira”, diz a pesquisadora, “mas dá um ponto de onde começar.” Ela pergunta se você pode ajudar a apresentar os limites do que viram."
+    ],
+    "choices": [
+      {
+        "label": "Explicar o que foi observado no local",
+        "result": "Você mostra quais referências vieram das paredes e quais partes ficaram sem leitura. A moradora relaciona um dos nomes ao antigo caminho de água, sem exigir que vocês confirmem o que não sabem.",
+        "xp": 5
+      },
+      {
+        "label": "Ouvir o relato da moradora",
+        "result": "Você acompanha a conversa e escuta como o canal ainda aparece nas lembranças da região. Lídia mantém o depoimento separado da cópia das inscrições."
+      }
+    ],
+    "kind": "independent",
+    "conditions": {
+      "flags": {
+        "ruins_shared": true
+      }
+    },
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "false_account",
+    "title": "Uma conta que voltou",
+    "chapter": "Entre caminhos",
+    "paragraphs": [
+      "Uma funcionária compara uma cobrança sua com anotações que recebeu de outro contratante. As versões não coincidem, e ela pede que você esclareça a parte que apresentou sem base.",
+      "Não é uma acusação de desconhecidos: é uma pendência de um serviço ou indicação em que você decidiu esconder o que sabia. O balcão fica em silêncio enquanto ela espera sua resposta."
+    ],
+    "choices": [
+      {
+        "label": "Pagar 20 Jenny para reparar parte da perda",
+        "result": "Você admite a informação falsa e entrega 20 Jenny. A funcionária registra a reparação parcial, sem apagar o que aconteceu.",
+        "jenny": -20,
+        "flags": {
+          "dishonest_repaired": true
+        }
+      },
+      {
+        "label": "Admitir a falha e recusar novos serviços ali",
+        "result": "Você reconhece que não pode sustentar sua versão e se retira. A funcionária encerra a conversa sem lhe oferecer outro trabalho.",
+        "flags": {
+          "dishonest_acknowledged": true
+        }
+      },
+      {
+        "label": "Pedir tempo para explicar as divergências",
+        "result": "Você consegue apresentar a sequência dos fatos sem inventar outra certeza. A funcionária aceita encerrar a conversa com suas ressalvas registradas.",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Sua explicação não esclarece a divergência. A funcionária recolhe os papéis e encerra o atendimento, sem lhe dar outra tarefa.",
+          "xp": 1
+        },
+        "xp": 3
+      }
+    ],
+    "kind": "independent",
+    "conditions": {
+      "flags": {
+        "dishonest": true
+      }
+    },
+    "weight": 1,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
   }
 ]

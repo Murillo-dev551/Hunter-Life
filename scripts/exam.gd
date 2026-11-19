@@ -22,7 +22,7 @@ static func apply(s,effect: Dictionary) -> String:
     elif effect.get("exam_continue",false):
         if s.current_id.begins_with("exam_interval_"):s.exam["stage"]+=1
         s.pending_next=s.exam["sequence"][s.exam["stage"]-1]
-    return "\nAdvertências registradas: %d. Até duas podem ser recuperadas na avaliação final." % s.exam["setbacks"] if effect.get("exam_setback",0)>0 else ""
+    return "\nAdvertências registradas: %d. A avaliação final admite até duas." % s.exam["setbacks"] if effect.get("exam_setback",0)>0 else ""
 static func on_open(s) -> void:
     if s.current_id!="exam_pass" or s.exam["status"]!="approved" or s.exam["awarded"]:return
     s.exam["awarded"]=true

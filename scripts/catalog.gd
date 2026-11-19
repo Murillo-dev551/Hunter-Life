@@ -14,6 +14,8 @@ func _init() -> void:
             error="Categoria ou peso inválido."; return
         events[event["id"]] = event
     for event in events.values():
+        for reward in event.get("battle_rewards",{}).values():
+            if reward.has("next") and not events.has(reward["next"]): error = "Continuação de confronto inexistente."
         for choice in event["choices"]:
             for effect in [choice,choice.get("failure",{})]:
                 if effect.has("next") and not events.has(effect["next"]): error = "Continuação inexistente."

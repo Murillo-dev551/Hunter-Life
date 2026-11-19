@@ -51,8 +51,8 @@ static func load_state(path: String = PATH) -> Dictionary:
         for id in seen:
             if not integer(d["visits"].get(id),1,100000) or not integer(d["last_visit"].get(id),1,int(d["step"])): return {"error":"Repetição inválida."}
         for id in d["completed"]:
-            if id not in ["delivery","survey","nen"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
-        if d["adventure"] not in ["","delivery","survey","nen","exam"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
+            if id not in ["delivery","survey","nen","escort","ruins"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
+        if d["adventure"] not in ["","delivery","survey","nen","exam","escort","ruins"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
         s.visits=d["visits"];s.last_visit=d["last_visit"];s.step=int(d["step"]);s.completed=d["completed"];s.current_adventure=d["adventure"]
         for id in seen: s.visits[id]=int(s.visits[id]);s.last_visit[id]=int(s.last_visit[id])
     else:

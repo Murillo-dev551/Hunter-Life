@@ -23,9 +23,7 @@ func run() -> void:
         if id=="victory":ui.state.battle["hp"]=0
         if id=="incapacity":ui.state.health=0
         ui.state.Battle.finish(ui.state,id)
-        ui.state.records.append("Aventura concluída: delivery")
-        ui.state.records.append("Aventura concluída: survey")
-        ui.state.records.append("Aventura concluída: nen")
+        for adventure in Text.ADVENTURES:ui.state.records.append("Aventura concluída: "+adventure)
         var before: Dictionary=ui.state.serialize().duplicate(true)
         ui.build_session()
         check(visible_text(ui.adventure_view).contains("Confronto encerrado: "+Text.OUTCOMES[id]),"Resultado traduzido: "+id)
