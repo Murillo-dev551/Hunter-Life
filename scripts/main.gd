@@ -192,6 +192,26 @@ func build_character() -> void:
         add_button.disabled=state.points==0 or int(state.attributes[attribute])>=10 or state.health==0
         add_button.pressed.connect(func(): allocate_point(attribute))
         allocation.add_child(add_button)
+    var nen_card=UI.card(character_content)
+    nen_card.add_child(UI.label("Nen",20,UI.GREEN))
+    if not state.nen["awakened"]:
+        nen_card.add_child(UI.label("Você ainda não conhece Nen.",14,UI.MUTED))
+        if "nen_offer" in state.seen and not state.flags.get("nen_declined",false):
+            var resume_nen=UI.button("Retomar o convite de Mira")
+            resume_nen.disabled=state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
+            resume_nen.pressed.connect(func(): state.open_event("nen_ten");build_session())
+            nen_card.add_child(resume_nen)
+    else:
+        var technique_names: Array[String]=[]
+        for technique in state.nen["techniques"]:technique_names.append(str(technique).capitalize())
+        nen_card.add_child(UI.label("Fundamentos: %s · Domínio básico %d/3" % [", ".join(technique_names),state.nen["mastery"]],14))
+        if state.nen["water_done"]:nen_card.add_child(UI.label("Categoria: "+state.nen["category"],16,UI.GREEN))
+        else:nen_card.add_child(UI.label("Categoria ainda não revelada.",14,UI.MUTED))
+        if state.nen["mastery"]==3 and not state.nen["water_done"]:
+            var water=UI.button("Procurar Mira para o teste da água")
+            water.disabled=state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
+            water.pressed.connect(func(): state.open_event("nen_water");build_session())
+            nen_card.add_child(water)
     var stats = UI.card(character_content)
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
@@ -263,4 +283,7 @@ func allocate_point(attribute: String) -> void:
     build_session()
     select_tab(tab)
     character_content.add_child(UI.label("Ponto aplicado: %s agora é %d." % [state.ATTRIBUTE_NAMES[attribute],state.attributes[attribute]],14,UI.GREEN))
+
+
+
 

@@ -1,7 +1,7 @@
 extends RefCounted
-# XP é saldo para o próximo nível: 80, 120, 160... Sem segunda rolagem.
+# XP é saldo para o próximo nível: 40, 60, 80... Sem segunda rolagem.
 static func threshold(level: int) -> int:
-    return 80+40*(level-1)
+    return 40+20*(level-1)
 static func chance(attribute: int, difficulty: int) -> int:
     var successes: int=0
     for roll in range(1,21):
@@ -25,3 +25,4 @@ static func spend(state, attribute: String) -> bool:
     state.points-=1
     state.records.append("Ponto distribuído: %s agora é %d." % [state.ATTRIBUTE_NAMES[attribute],state.attributes[attribute]])
     return true
+

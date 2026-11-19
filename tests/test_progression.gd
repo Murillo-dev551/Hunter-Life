@@ -18,9 +18,9 @@ func run() -> void:
             for roll in range(1,21):
                 if roll+attribute>=difficulty:count+=1
             check(P.chance(attribute,difficulty)==count*5,"Chance enumerada")
-    check(P.award(s,79)==0 and s.xp==79,"Sem nível prematuro")
+    check(P.award(s,39)==0 and s.xp==39,"Sem nível prematuro")
     check(P.award(s,1)==1 and s.level==2 and s.points==1,"Primeiro nível")
-    check(P.award(s,280)==2 and s.level==4 and s.xp==0 and s.points==3,"Múltiplos níveis")
+    check(P.award(s,140)==2 and s.level==4 and s.xp==0 and s.points==3,"Múltiplos níveis")
     check(P.spend(s,"strength") and s.attributes["strength"]==6 and s.points==2,"Distribuição consome um ponto")
     s.attributes["strength"]=10
     check(not P.spend(s,"strength") and s.points==2,"Não excede dez")
@@ -77,6 +77,7 @@ func run() -> void:
     print("PROGRESSÃO: %d verificações, %d falhas; 100 jornadas por nível=%s, maior saldo XP=%d" % [checks,failures,distribution,max_xp])
     DirAccess.remove_absolute("user://test_progression.json")
     quit(1 if failures else 0)
+
 
 
 

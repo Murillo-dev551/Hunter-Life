@@ -93,6 +93,24 @@
           "attribute": "presence"
         },
         "xp": 12
+      },
+      {
+        "label": "Demonstrar Ren com moderação",
+        "failure": {
+          "xp": 4,
+          "result": "A demonstração causa desconforto. Você interrompe Ren e pede desculpas, sem receber prêmio."
+        },
+        "xp": 12,
+        "result": "Sua emissão firme convence o grupo a organizar o espaço sem confronto.",
+        "conditions": {
+          "flags": {
+            "nen_ren": true
+          }
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 16
+        }
       }
     ],
     "id": "tournament",
@@ -376,6 +394,26 @@
         "label": "Pagar uma travessia segura",
         "result": "Uma barqueira leva você pela margem.",
         "xp": 8
+      },
+      {
+        "label": "Usar Ten durante a travessia",
+        "next": "delivery",
+        "failure": {
+          "next": "delivery",
+          "xp": 6,
+          "result": "Você tropeça, mas Ten evita a escoriação. A barqueira ajuda a terminar a travessia."
+        },
+        "xp": 16,
+        "result": "Você mantém aura junto ao corpo para amortecer pequenos impactos. Ainda precisa atravessar com cuidado.",
+        "conditions": {
+          "flags": {
+            "nen_ten": true
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 16
+        }
       }
     ],
     "id": "bridge",
@@ -687,6 +725,34 @@
           "survey_completed": true
         },
         "xp": 30
+      },
+      {
+        "label": "Observar em Zetsu",
+        "next": "survey_done",
+        "flags": {
+          "honest_report": true,
+          "survey_completed": true
+        },
+        "failure": {
+          "next": "survey_done",
+          "xp": 6,
+          "result": "Um galho estala e interrompe a observação. Você entrega um relatório parcial, sem inventar dados.",
+          "flags": {
+            "honest_report": true,
+            "survey_completed": true
+          }
+        },
+        "xp": 22,
+        "result": "Você suprime a aura para não perturbar a observação do riacho. Continua visível, então se move devagar.",
+        "conditions": {
+          "flags": {
+            "nen_zetsu": true
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        }
       }
     ]
   },
@@ -908,5 +974,185 @@
       "gap": 0
     },
     "choices": []
+  },
+  {
+    "choices": [
+      {
+        "label": "Conhecer o aprendizado",
+        "next": "nen_ten",
+        "result": "Você aceita uma primeira orientação, sem qualquer abertura forçada de aura."
+      },
+      {
+        "finish_adventure": true,
+        "label": "Deixar para outra ocasião",
+        "result": "Mira deixa o convite em aberto."
+      },
+      {
+        "finish_adventure": true,
+        "label": "Recusar o aprendizado",
+        "result": "Você agradece e decide continuar sem aprender Nen.",
+        "flags": {
+          "nen_declined": true
+        }
+      }
+    ],
+    "repeat": {
+      "max": 3,
+      "gap": 4
+    },
+    "conditions": {
+      "flags": {
+        "nen_declined": false,
+        "nen_ten": false
+      }
+    },
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "opportunity",
+    "paragraphs": [
+      "Mira, uma instrutora de práticas corporais, explica que também orienta pessoas a perceber a própria aura. O aprendizado é cuidadoso e não exige licença Hunter. Você pode se interessar ou seguir sua vida."
+    ],
+    "title": "Uma aula no pátio",
+    "id": "nen_offer",
+    "weight": 2
+  },
+  {
+    "choices": [
+      {
+        "xp": 8,
+        "label": "Praticar a manutenção",
+        "next": "nen_zetsu",
+        "nen_learn": "ten",
+        "result": "Você desperta a percepção da aura e aprende Ten."
+      },
+      {
+        "finish_adventure": true,
+        "label": "Interromper antes de despertar",
+        "result": "Você prefere voltar às oportunidades comuns."
+      }
+    ],
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "continuation",
+    "paragraphs": [
+      "Com orientação de Mira, você aprende a perceber a aura e mantê-la junto ao corpo. O treino é gradual, sem violência ou promessa de invulnerabilidade."
+    ],
+    "title": "Manter a aura: Ten",
+    "id": "nen_ten",
+    "weight": 0
+  },
+  {
+    "choices": [
+      {
+        "xp": 8,
+        "label": "Aprender a supressão",
+        "next": "nen_ren",
+        "nen_learn": "zetsu",
+        "result": "Você aprende Zetsu, sabendo que não é invisibilidade."
+      }
+    ],
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "continuation",
+    "paragraphs": [
+      "Mira ensina a suprimir a emissão de aura. Você continua visível e pode ser ouvido; discrição ainda depende de cuidado."
+    ],
+    "title": "Silenciar a aura: Zetsu",
+    "id": "nen_zetsu",
+    "weight": 0
+  },
+  {
+    "choices": [
+      {
+        "xp": 10,
+        "label": "Praticar a emissão intensa",
+        "next": "nen_water",
+        "nen_learn": "ren",
+        "result": "Você aprende Ren. Os três fundamentos formam sua base inicial."
+      }
+    ],
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "continuation",
+    "paragraphs": [
+      "Você pratica intensificar a emissão de aura sob supervisão. Uma demonstração não garante que outra pessoa ceda a sua vontade."
+    ],
+    "title": "Ampliar a aura: Ren",
+    "id": "nen_ren",
+    "weight": 0
+  },
+  {
+    "choices": [
+      {
+        "water_test": true,
+        "label": "Realizar a adivinhação",
+        "next": "nen_done",
+        "conditions": {
+          "flags": {
+            "nen_ten": true,
+            "nen_ren": true,
+            "nen_zetsu": true
+          }
+        },
+        "result": "Você concentra sua aura ao redor do copo, seguindo a orientação."
+      },
+      {
+        "label": "Guardar essa descoberta para depois",
+        "next": "nen_done",
+        "result": "Você prefere não revelar a categoria agora."
+      }
+    ],
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "continuation",
+    "paragraphs": [
+      "Mira coloca uma folha sobre um copo com água. A adivinhação pela água pode revelar sua categoria. Você não precisa criar uma habilidade pessoal para fazer o teste."
+    ],
+    "title": "Um copo e uma folha",
+    "id": "nen_water",
+    "weight": 0
+  },
+  {
+    "choices": [
+      {
+        "finish_adventure": true,
+        "label": "Voltar à jornada",
+        "result": "Você leva consigo o que aprendeu."
+      }
+    ],
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "adventure": "nen",
+    "chapter": "Aprender a perceber",
+    "kind": "adventure_end",
+    "paragraphs": [
+      "Mira se despede. Conhecer Nen não define sua profissão nem obriga você a buscar perigos. Sua jornada continua entre as oportunidades comuns."
+    ],
+    "title": "Uma base, não um destino",
+    "id": "nen_done",
+    "weight": 0
   }
 ]
