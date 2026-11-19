@@ -10,6 +10,7 @@ func build(state) -> void:
     var card=UI.card(self)
     card.add_child(UI.label(state.Battle.ENEMIES[b["enemy"]]["name"],22,UI.GREEN))
     card.add_child(UI.label(state.Battle.ENEMIES[b["enemy"]]["description"],14))
+    if state.hatsu["id"]=="manipulation" and state.hatsu["specialization"]=="objects" and state.Battle.object_target(state)!="":card.add_child(UI.label("Uma fivela solta pende do cinturão, ao alcance quando ele se aproxima.",14,UI.MUTED))
     card.add_child(UI.label("Sua Saúde: %d/10 · Adversário: %d/%d\nTurno %d" % [state.health,b["hp"],state.Battle.ENEMIES[b["enemy"]]["hp"],b["turn"]],16))
     if not b["log"].is_empty():
         var last=UI.card(self);last.add_child(UI.label("\n".join(b["log"].slice(-2)) if b["outcome"]!="" else b["log"][-1],15,UI.ALERT if state.health<=3 else UI.INK))
@@ -31,6 +32,7 @@ func build(state) -> void:
             var token: int=b["turn"]
             button.pressed.connect(func():action_requested.emit(id,token))
             add_child(button);buttons[id]=button
+            if id=="hatsu" and state.hatsu["id"]=="manipulation" and state.hatsu["specialization"]=="objects" and state.Battle.object_target(state)=="":add_child(UI.label(state.Battle.reason(state,id),14,UI.MUTED))
     else:
         add_child(UI.label("Confronto encerrado: "+PlayerText.outcome(b["outcome"]),17,UI.GREEN))
         var next=UI.button("Continuar jornada",true);next.disabled=state.health==0

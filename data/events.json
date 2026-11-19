@@ -1577,6 +1577,25 @@
           "result": "O filamento se solta antes de puxar a corda. Você recolhe a aura e deixa a escada livre para o artesão.",
           "xp": 3
         }
+      },
+      {
+        "label": "Fixar uma agulha na trava da bandeira",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "objects"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você sobe pela escada até alcançar a trava e fixa a agulha na peça. Um giro simples libera a corda; você recolhe o instrumento e o artesão baixa a bandeira.",
+        "xp": 8,
+        "failure": {
+          "result": "Você não encontra contato firme na pequena peça. Recolhe a agulha e desce, deixando a escada para o artesão concluir o reparo.",
+          "xp": 3
+        }
       }
     ],
     "repeat": {
@@ -2403,6 +2422,28 @@
           "exam_trial": true,
           "exam_setback": 1
         }
+      },
+      {
+        "label": "Acionar a trava próxima com a agulha",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "objects"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você espera o suporte chegar à parte acessível do trajeto e fixa a agulha na trava. Um movimento simples libera a fita, que você recolhe antes de desfazer o comando.",
+        "xp": 12,
+        "exam_trial": true,
+        "failure": {
+          "result": "Você erra o ponto de fixação. Precisa esperar outra volta do suporte para terminar e Rui registra uma advertência pelo atraso.",
+          "xp": 4,
+          "exam_trial": true,
+          "exam_setback": 1
+        }
       }
     ],
     "kind": "continuation",
@@ -3166,6 +3207,28 @@
         },
         "next": "escort_account",
         "xp": 8
+      },
+      {
+        "label": "Interromper o braço que sustenta a barreira",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "motor"
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        },
+        "result": "Você se aproxima enquanto fala e acerta a agulha no braço que segura a corda. Um único comando interrompe o movimento; Orlan passa com a carroça antes que o homem retome o apoio. Você recolhe a agulha e acompanha o comerciante.",
+        "xp": 10,
+        "next": "escort_account",
+        "failure": {
+          "result": "O homem recua antes de a agulha se fixar e avança contra você. Orlan afasta a carroça enquanto o confronto começa; nenhuma ordem foi transmitida.",
+          "xp": 3,
+          "battle": "bandit",
+          "next": "escort_done"
+        }
       }
     ],
     "kind": "continuation",
@@ -3824,6 +3887,26 @@
           "xp": 3,
           "health": -1
         }
+      },
+      {
+        "label": "Girar o fecho acessível com a agulha",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "objects"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você fixa a agulha no fecho ao lado da manivela e comanda um giro curto. O zelador retira o calço enquanto a peça libera a passagem; você recolhe a agulha quando ele fecha a comporta.",
+        "xp": 8,
+        "failure": {
+          "result": "A agulha escapa antes de firmar o fecho. Você bate o braço ao recuar do calço e o zelador interrompe a tentativa para buscar outro apoio.",
+          "xp": 3,
+          "health": -1
+        }
       }
     ],
     "kind": "independent",
@@ -4219,6 +4302,74 @@
       {
         "label": "Recusar o desenvolvimento",
         "result": "Você recusa iniciar o desenvolvimento. Mira recolhe o material e você volta aos próprios caminhos, mantendo os fundamentos que já conhece."
+      }
+    ]
+  },
+  {
+    "id": "develop_manipulation",
+    "title": "Agulha de Comando: contato e movimento",
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {
+      "hatsu_available": "Manipulação"
+    },
+    "paragraphs": [
+      "Mira coloca sobre a bancada uma trava simples e uma agulha de treino. Explica como impregnar o instrumento com aura: o comando só alcançará um alvo em que você conseguir atingir ou fixar a agulha. Ela acompanha a prática e recolhe o instrumento depois de cada tentativa.",
+      "Controle de Objetos atua em movimentos simples de peças pequenas e próximas, como girar uma trava ou puxar uma fivela acessível. Precisa de acesso físico: não move construções inteiras, não opera qualquer mecanismo à distância e não resolve uma sequência complexa de ações.",
+      "Comando Motor interfere brevemente num movimento de um ser vivo atingido. Mira oferece um exercício supervisionado de interromper seu braço em avanço. O alvo continua consciente e capaz de reagir; não há ordens complexas, obediência duradoura ou controle da personalidade.",
+      "Ela pede que você escolha a direção que irá cultivar. Em confronto, o comando vale só para a resposta atual e a abertura criada para a próxima ação; é preciso uma ação comum antes de outra técnica especial. A especialização não poderá ser trocada livremente."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Controle de Objetos",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "manipulation",
+          "specialization": "objects"
+        },
+        "result": "Você fixa a agulha no ponto acessível da trava e transmite um único giro. Recolhe o instrumento quando a peça se move; Mira reconhece a base de Agulha de Comando voltada ao Controle de Objetos.",
+        "failure": {
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "manipulation",
+            "specialization": "objects"
+          },
+          "result": "A agulha não se firma e a trava permanece no lugar. Mira aproxima a peça e orienta o ponto de contato; você aprende a forma inicial de Controle de Objetos, sem completar o exercício proposto."
+        }
+      },
+      {
+        "label": "Cultivar Comando Motor",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "manipulation",
+          "specialization": "motor"
+        },
+        "result": "Sob supervisão, você acerta o ponto indicado no braço de Mira. Um comando breve interrompe o avanço; ela retoma o movimento assim que você recolhe a agulha. Você estabelece a base de Comando Motor.",
+        "failure": {
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "manipulation",
+            "specialization": "motor"
+          },
+          "result": "Mira interrompe a tentativa antes que a agulha alcance o ponto correto. Com o exercício mais lento e orientação direta, você aprende a forma inicial de Comando Motor, sem completar a interrupção no ritmo proposto."
+        }
+      },
+      {
+        "label": "Recusar o desenvolvimento",
+        "result": "Você deixa a agulha na bancada e explica que não vai iniciar a prática. Mira recolhe o material; você mantém os fundamentos que já conhece."
       }
     ]
   }

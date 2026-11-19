@@ -8,7 +8,7 @@ func check(ok: bool,text: String) -> void:
     if not ok: failures += 1; push_error(text)
 func run() -> void:
     var state = State.new()
-    check(state.error=="" and state.catalog.events.size()==80,"Catálogo narrativo válido")
+    check(state.error=="" and state.catalog.events.size()==81,"Catálogo narrativo válido")
     check(not state.choose(0),"Não escolhe antes de criar personagem")
     for invalid in ["","   ","\n\t", "a".repeat(33)]: check(state.start(invalid)!="","Nome inválido recusado")
     check(state.character_name=="","Falha de nome não inicia partida")

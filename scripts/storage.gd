@@ -90,7 +90,9 @@ static func load_state(path: String = PATH) -> Dictionary:
         if not State.Battle.valid(d.get("battle"),s):return {"error":"Confronto inválido."}
         s.battle=d["battle"].duplicate(true)
         if not s.battle.is_empty():
-            if s.selected_choice<0 or s.demo["choices"][s.selected_choice].get("battle","")!=s.battle["enemy"]:return {"error":"Confronto fora do acontecimento."}
+            if s.selected_choice<0:return {"error":"Confronto fora do acontecimento."}
+            var selected: Dictionary=s.demo["choices"][s.selected_choice]
+            if s.battle["enemy"] not in [selected.get("battle",""),selected.get("failure",{}).get("battle","")]:return {"error":"Confronto fora do acontecimento."}
             for key in ["hp","turn","repeat","special_until"]:s.battle[key]=int(s.battle[key])
     if d["version"]>=8:
         if not State.Items.valid(d.get("inventory")):return {"error":"Inventário ou equipamento inválido."}

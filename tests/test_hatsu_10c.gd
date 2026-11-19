@@ -113,7 +113,9 @@ func run() -> void:
         var s=ready(pair[1],pair[2]);s.open_event(pair[0])
         if pair[0].begins_with("exam_"):
             s.exam={"status":"active","sequence":["exam_crossing","exam_capture","exam_team","exam_judgment"],"stage":2 if pair[0]=="exam_capture" else 3,"setbacks":0,"awarded":false}
-        var index: int=s.demo["choices"].size()-1
+        var index: int=-1
+        for i in range(s.demo["choices"].size()):
+            if s.demo["choices"][i].get("conditions",{}).get("hatsu",{})=={"id":pair[1],"specialization":pair[2]}:index=i
         check(s.choice_reason(index)=="" and s.choose(index),"Alternativa narrativa disponível")
         check(s.result!="","Resultado contextual apresentado")
         s=load_same(s)

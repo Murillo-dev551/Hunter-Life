@@ -33,7 +33,7 @@ func run() -> void:
     var digest: String = JSON.stringify(mechanics(originals)).sha256_text()
     print("ASSINATURA MECÂNICA: ", digest)
     check(digest == EXPECTED_MECHANICS, "Preserva integralmente os dados mecânicos da Etapa 9")
-    check(events.size() == 80, "Preserva 78 acontecimentos e acrescenta dois aprendizados")
+    check(events.size() == 81, "Preserva 80 acontecimentos e acrescenta aprendizado de Manipulação")
     for event in events:
         check(not event["paragraphs"].is_empty(), "Contexto presente: " + event["id"])
         for choice in event["choices"]:

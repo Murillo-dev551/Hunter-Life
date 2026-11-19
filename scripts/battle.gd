@@ -3,6 +3,9 @@ const ENEMIES={"bandit":{"name":"Assaltante de estrada","description":"Avança s
 const INTENTS={"strike":"Ergue o braço e encurta a distância.","charge":"Firma os pés e avança rapidamente em sua direção.","guard":"Mantém os braços junto ao tronco e acompanha seus movimentos.","prepare":"Recua um pé, ajusta a postura e ergue os braços.","hesitate":"Interrompe o avanço e olha para a rota de saída."}
 const LABELS={"attack":"Atacar com Força","quick":"Atacar com Agilidade","defend":"Defender","dodge":"Esquivar","flee":"Fugir","yield":"Render-se","ten":"Ten: proteger o corpo","zetsu":"Zetsu: recuar discretamente","ren":"Ren: pressionar o adversário","hatsu":"Usar Hatsu"}
 static func active(s) -> bool:return not s.battle.is_empty() and s.battle["outcome"]==""
+static func object_target(s) -> String:
+    # Os demais adversários atuais lutam sem equipamento acessível para esta técnica.
+    return "a fivela solta do cinturão" if s.battle.get("enemy","")=="bandit" else ""
 static func begin(s,id: String) -> void:
     if not s.battle.is_empty() or id not in ENEMIES:return
     s.battle={"enemy":id,"hp":ENEMIES[id]["hp"],"turn":1,"intent":"charge" if id=="bandit" else "prepare","opening":false,"last":"","repeat":0,"special_until":0,"outcome":"","log":[],"rewarded":false}
@@ -11,6 +14,7 @@ static func reason(s,id: String) -> String:
     if id not in LABELS:return "Ação desconhecida."
     if id in ["ten","zetsu","ren"] and id not in s.nen["techniques"]:return "Técnica não aprendida."
     if id=="hatsu" and not s.hatsu["learned"]:return "Hatsu não desenvolvido."
+    if id=="hatsu" and s.hatsu["id"]=="manipulation" and s.hatsu["specialization"]=="objects" and object_target(s)=="":return "Não há objeto pequeno acessível para fixar a agulha neste confronto."
     if id in ["ten","zetsu","ren","hatsu"] and int(s.battle["turn"])<int(s.battle["special_until"]):return "Recupere a concentração com uma ação comum antes de usar aura novamente."
     return ""
 static func test(s,id: String) -> Dictionary:
@@ -22,6 +26,9 @@ static func test(s,id: String) -> Dictionary:
     if id=="ren":attribute="presence";dc+=1
     if id=="zetsu":dc-=2
     if id=="hatsu":
+        if s.hatsu["id"]=="manipulation":
+            attribute="intellect" if s.hatsu["specialization"]=="objects" else "agility"
+            dc+=-2 if s.hatsu["specialization"]=="objects" else 1
         if s.hatsu["id"]=="conjuration":return {"attribute":"intellect","difficulty":maxi(2,dc-(1 if s.hatsu["specialization"]=="resistance" else 0))}
         if s.hatsu["id"]=="transmutation":
             attribute="agility"
@@ -75,7 +82,18 @@ static func act(s,id: String, token: int) -> bool:
     var block: int=0
     var damage: int=0
     var defending: bool=id in ["defend","ten"] or (id=="hatsu" and s.hatsu["specialization"]=="resistance")
-    if id=="hatsu" and s.hatsu["id"]=="transmutation":
+    if id=="hatsu" and s.hatsu["id"]=="manipulation":
+        b["opening"]=success
+        if success:
+            if s.hatsu["specialization"]=="objects":
+                block=1
+                text+="\nVocê fixa uma agulha n%s e transmite um único puxão. O ajuste interrompe o equilíbrio do equipamento: até 1 de dano evitado nesta resposta e abertura para sua próxima ação." % object_target(s)
+            else:
+                block=2
+                text+="\nA agulha atinge o membro que avançava. Um comando motor breve atrasa o movimento: até 2 de dano evitado nesta resposta e abertura para sua próxima ação. O adversário continua consciente e pode reagir."
+            text+=" A agulha é recolhida e o comando termina aqui; não há controle mantido."
+        else:text+="\nA agulha não se fixa no alvo. Você a recolhe sem transmitir o comando; o adversário mantém sua resposta."
+    elif id=="hatsu" and s.hatsu["id"]=="transmutation":
         b["opening"]=success
         if success:
             if s.hatsu["specialization"]=="restraint":
