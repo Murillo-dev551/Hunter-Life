@@ -20,9 +20,10 @@ static func award(state, amount: int) -> int:
         state.points=mini(room(state),state.points+1)
     return state.level-old
 static func spend(state, attribute: String) -> bool:
-    if state.health<=0 or state.character_name.is_empty() or state.points<=0 or not state.attributes.has(attribute) or int(state.attributes[attribute])>=10: return false
+    if state.Battle.active(state) or state.health<=0 or state.character_name.is_empty() or state.points<=0 or not state.attributes.has(attribute) or int(state.attributes[attribute])>=10: return false
     state.attributes[attribute]=int(state.attributes[attribute])+1
     state.points-=1
     state.records.append("Ponto distribuído: %s agora é %d." % [state.ATTRIBUTE_NAMES[attribute],state.attributes[attribute]])
     return true
+
 

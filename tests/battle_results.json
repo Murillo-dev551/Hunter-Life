@@ -1,0 +1,117 @@
+{
+  "abilities": {
+    "emission:power": {
+      "escaped": 0,
+      "mean_turns": 3.22,
+      "wins": 49
+    },
+    "emission:precision": {
+      "escaped": 0,
+      "mean_turns": 3.38,
+      "wins": 48
+    },
+    "emission:range": {
+      "escaped": 0,
+      "mean_turns": 3.54,
+      "wins": 48
+    },
+    "reinforce:power": {
+      "escaped": 0,
+      "mean_turns": 3.22,
+      "wins": 49
+    },
+    "reinforce:resistance": {
+      "escaped": 0,
+      "mean_turns": 7.0,
+      "wins": 36
+    },
+    "ren": {
+      "escaped": 0,
+      "mean_turns": 3.36,
+      "wins": 48
+    },
+    "ten": {
+      "escaped": 0,
+      "mean_turns": 7.0,
+      "wins": 36
+    },
+    "zetsu": {
+      "escaped": 50,
+      "mean_turns": 1.24,
+      "wins": 0
+    }
+  },
+  "baseline": {
+    "bandit_attack": {
+      "max": 5,
+      "mean_turns": 2.365,
+      "outcomes": {
+        "enemy_yield": 50,
+        "incapacity": 8,
+        "victory": 142
+      },
+      "wins": 192
+    },
+    "bandit_defend": {
+      "max": 6,
+      "mean_turns": 4.98,
+      "outcomes": {
+        "incapacity": 200
+      },
+      "wins": 0
+    },
+    "bandit_flee": {
+      "max": 5,
+      "mean_turns": 1.4,
+      "outcomes": {
+        "fled": 199,
+        "incapacity": 1
+      },
+      "wins": 0
+    },
+    "bandit_tactical": {
+      "max": 6,
+      "mean_turns": 3.52,
+      "outcomes": {
+        "enemy_yield": 42,
+        "incapacity": 8,
+        "victory": 150
+      },
+      "wins": 192
+    },
+    "fighter_attack": {
+      "max": 7,
+      "mean_turns": 4.52,
+      "outcomes": {
+        "incapacity": 67,
+        "victory": 133
+      },
+      "wins": 133
+    },
+    "fighter_defend": {
+      "max": 6,
+      "mean_turns": 6.0,
+      "outcomes": {
+        "incapacity": 200
+      },
+      "wins": 0
+    },
+    "fighter_flee": {
+      "max": 5,
+      "mean_turns": 1.325,
+      "outcomes": {
+        "fled": 200
+      },
+      "wins": 0
+    },
+    "fighter_tactical": {
+      "max": 9,
+      "mean_turns": 4.085,
+      "outcomes": {
+        "incapacity": 25,
+        "victory": 175
+      },
+      "wins": 175
+    }
+  }
+}

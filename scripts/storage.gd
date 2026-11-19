@@ -25,7 +25,7 @@ static func load_state(path: String = PATH) -> Dictionary:
         if d.get("current") in ["end_home","end_path","end_duty"]: d["current"]="journey_"+str(d["current"]).trim_prefix("end_"); d["seen"].append(d["current"])
     for key in ["name","current","next","result","seed","rng"]:
         if not d.get(key) is String: return {"error":"Campo de texto inválido."}
-    if not integer(d.get("version"),2,6) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
+    if not integer(d.get("version"),2,7) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
     if d["next"]!="" and not s.catalog.events.has(d["next"]): return {"error":"Continuação inválida."}
     if not d.get("active") is bool or not d.get("attributes") is Dictionary or not d.get("flags") is Dictionary or not d.get("seen") is Array or not d.get("records") is Array: return {"error":"Estado incompleto."}
     if not integer(d.get("jenny"),0,1000000) or not integer(d.get("choice"),-1,s.catalog.events[d["current"]]["choices"].size()-1): return {"error":"Valores inválidos."}
@@ -83,10 +83,17 @@ static func load_state(path: String = PATH) -> Dictionary:
         var affinity_rng=RandomNumberGenerator.new()
         affinity_rng.seed=s.rng.seed;affinity_rng.state=s.rng.state
         s.nen["category"]=State.Nen.CATEGORIES[affinity_rng.randi_range(0,5)]
-    if d["version"]==6:
+    if d["version"]>=6:
         if not State.Hatsu.valid(d.get("hatsu"),s):return {"error":"Hatsu incompatível ou inválido."}
         s.hatsu=d["hatsu"].duplicate(true)
+    if d["version"]==7:
+        if not State.Battle.valid(d.get("battle"),s):return {"error":"Confronto inválido."}
+        s.battle=d["battle"].duplicate(true)
+        if not s.battle.is_empty():
+            if s.selected_choice<0 or s.demo["choices"][s.selected_choice].get("battle","")!=s.battle["enemy"]:return {"error":"Confronto fora do acontecimento."}
+            for key in ["hp","turn","repeat","special_until"]:s.battle[key]=int(s.battle[key])
     return {"state":s,"error":""}
+
 
 
 

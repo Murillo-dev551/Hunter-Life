@@ -1486,5 +1486,97 @@
     "paragraphs": [
       "Uma bandeira ficou presa no alto; uma trava estreita controla a corda. A oficina aceita ajuda, mas também dispõe de uma escada. Acertar de longe e atingir a trava pequena são tarefas distintas."
     ]
+  },
+  {
+    "kind": "independent",
+    "paragraphs": [
+      "Um assaltante exige dinheiro, mas mantém uma rota de saída à vista. Você pode evitar o confronto."
+    ],
+    "choices": [
+      {
+        "label": "Enfrentar o assaltante",
+        "result": "O confronto começa. Há espaço para recuar.",
+        "battle": "bandit"
+      },
+      {
+        "label": "Resolver sem confronto",
+        "result": "Você escolhe a segurança e segue adiante.",
+        "jenny": -15
+      }
+    ],
+    "id": "battle_bandit",
+    "title": "Uma ameaça na estrada",
+    "chapter": "Encontros na jornada",
+    "weight": 2,
+    "conditions": {},
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "battle_rewards": {
+      "fled": {
+        "xp": 3
+      },
+      "incapacity": {
+        "xp": 0
+      },
+      "yielded": {
+        "jenny": -25,
+        "xp": 3
+      },
+      "victory": {
+        "jenny": 0,
+        "xp": 22
+      },
+      "enemy_yield": {
+        "xp": 22
+      }
+    }
+  },
+  {
+    "kind": "independent",
+    "paragraphs": [
+      "Uma lutadora local procura alguém para um treino supervisionado. Ninguém é obrigado a participar."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar o treino amistoso",
+        "result": "Vocês combinam interromper o treino à rendição. Há um prêmio de 20 Jenny por vitória.",
+        "battle": "fighter"
+      },
+      {
+        "label": "Resolver sem confronto",
+        "result": "Você escolhe a segurança e segue adiante.",
+        "jenny": 0
+      }
+    ],
+    "id": "battle_fighter",
+    "title": "Um treino na praça",
+    "chapter": "Encontros na jornada",
+    "weight": 2,
+    "conditions": {},
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "battle_rewards": {
+      "fled": {
+        "xp": 3
+      },
+      "incapacity": {
+        "xp": 0
+      },
+      "yielded": {
+        "jenny": 0,
+        "xp": 3
+      },
+      "victory": {
+        "jenny": 20,
+        "xp": 30
+      },
+      "enemy_yield": {
+        "xp": 22
+      }
+    }
   }
 ]

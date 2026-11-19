@@ -1,3 +1,7 @@
+# Hunter Life — Etapa 7
+
+Versão atual: [STAGE_7.md](STAGE_7.md), com batalhas narrativas, regras, saves v7 e validação. Abra project.godot no Godot 4.7.2 e pressione F5. Os textos abaixo são registros históricos.
+
 # Hunter Life — Etapa 6
 
 Implementação atual: [STAGE_6.md](STAGE_6.md), com Hatsus, especializações, saves v6 e resultados dos testes. Abra project.godot no Godot 4.7.2 e pressione F5. Os textos abaixo documentam etapas anteriores.
@@ -75,6 +79,7 @@ godot --path . --script res://tests/test_visual.gd
 
 ## Limitações
 Catálogo compacto e finito; a jornada pode ser encerrada cedo por decisão explícita. Repetíveis usam texto base reaproveitado, com pagamentos variáveis mostrados na consequência. Não há salvamento automático nem múltiplos slots. Informações de migração não recuperam feitos que o formato antigo não distinguia. Não há batalhas, Nen, Hatsus, calendário, mundo aberto, NPCs autônomos, inventário funcional ou economia complexa. Etapa seguinte não iniciada.
+
 
 
 

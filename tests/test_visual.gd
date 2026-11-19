@@ -40,6 +40,7 @@ func run() -> void:
         capture("criacao_atributos_%dx%d" % [size.x,size.y])
         ui.creation_view.name_input.text="Nara"
         ui.creation_view.start_button.pressed.emit()
+        ui.state.open_event("market");ui.build_session()
         await settle()
         for i in range(4):
             ui.navigation[i].pressed.emit()
@@ -61,5 +62,6 @@ func run() -> void:
         check(ui.adventure_view.result_text.text==ui.state.result,"Resultado correto de cada escolha")
     print("VISUAL HUNTER LIFE: %d verificações, %d falhas, %d capturas" % [checks,failures,captures])
     quit(1 if failures else 0)
+
 
 

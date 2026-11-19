@@ -1,4 +1,5 @@
 extends SceneTree
+const Driver=preload("res://tests/battle_driver.gd")
 const State=preload("res://scripts/game_state.gd")
 const Store=preload("res://scripts/storage.gd")
 var checks: int=0
@@ -78,11 +79,12 @@ func run() -> void:
                 for i in range(s.demo["choices"].size()):
                     if s.choice_reason(i)=="" and not s.demo["choices"][i].has("hatsu_learn"):options.append(i)
                 if options.is_empty():check(false,"Sem bloqueio");break
-                s.choose(options[s.rng.randi_range(0,options.size()-1)]);s.advance();steps+=1
+                s.choose(options[s.rng.randi_range(0,options.size()-1)]);Driver.resolve(s);s.advance();steps+=1
             check(steps<100 and (s.health==0 or s.demo["kind"]=="ending"),"Jornada com ou sem Hatsu conclui")
             group[s.level]=int(group.get(s.level,0))+1
         levels["com_hatsu" if use_hatsu else "sem_hatsu"]=group
     print("HATSUS: %d verificações, %d falhas; jornadas=%s" % [checks,failures,levels])
     DirAccess.remove_absolute("user://test_hatsu.json")
     quit(1 if failures else 0)
+
 

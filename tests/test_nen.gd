@@ -1,4 +1,5 @@
 extends SceneTree
+const Driver=preload("res://tests/battle_driver.gd")
 const State=preload("res://scripts/game_state.gd")
 const Store=preload("res://scripts/storage.gd")
 var checks: int=0
@@ -94,7 +95,7 @@ func run() -> void:
                 for i in range(s.demo["choices"].size()):
                     if s.choice_reason(i)=="":options.append(i)
                 if options.is_empty():check(false,"Jornada sem bloqueio");break
-                s.choose(options[s.rng.randi_range(0,options.size()-1)]);s.advance();steps+=1
+                s.choose(options[s.rng.randi_range(0,options.size()-1)]);Driver.resolve(s);s.advance();steps+=1
             check(steps<100 and (s.demo["kind"]=="ending" or s.health==0),"Jornada com ou sem Nen chega a conclusão")
             levels[s.level]=int(levels.get(s.level,0))+1
         journeys["com_nen" if use_nen else "sem_nen"]=levels
@@ -102,6 +103,7 @@ func run() -> void:
     print("NEN: %d verificações, %d falhas; categorias=%s" % [checks,failures,categories])
     DirAccess.remove_absolute("user://test_nen.json")
     quit(1 if failures else 0)
+
 
 
 

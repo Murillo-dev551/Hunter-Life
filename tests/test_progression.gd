@@ -1,4 +1,5 @@
 extends SceneTree
+const Driver=preload("res://tests/battle_driver.gd")
 const State=preload("res://scripts/game_state.gd")
 const Storage=preload("res://scripts/storage.gd")
 const P=preload("res://scripts/progression.gd")
@@ -71,12 +72,13 @@ func run() -> void:
             for i in range(s.demo["choices"].size()):
                 if s.choice_reason(i)=="":options.append(i)
             if options.is_empty():check(false,"Sem bloqueio");break
-            s.choose(options[s.rng.randi_range(0,options.size()-1)]);s.advance();steps+=1
+            s.choose(options[s.rng.randi_range(0,options.size()-1)]);Driver.resolve(s);s.advance();steps+=1
         check(steps<100 and (s.health==0 or s.demo["kind"]=="ending"),"Jornada conclui")
         distribution[s.level]=int(distribution.get(s.level,0))+1;max_xp=maxi(max_xp,s.xp)
     print("PROGRESSÃO: %d verificações, %d falhas; 100 jornadas por nível=%s, maior saldo XP=%d" % [checks,failures,distribution,max_xp])
     DirAccess.remove_absolute("user://test_progression.json")
     quit(1 if failures else 0)
+
 
 
 

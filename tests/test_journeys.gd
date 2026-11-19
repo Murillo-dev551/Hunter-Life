@@ -1,4 +1,5 @@
 extends SceneTree
+const Driver=preload("res://tests/battle_driver.gd")
 const State = preload("res://scripts/game_state.gd")
 const Storage = preload("res://scripts/storage.gd")
 var checks: int = 0
@@ -68,12 +69,13 @@ func run() -> void:
             for i in range(s.demo["choices"].size()):
                 if s.choice_reason(i)=="": options.append(i)
             if options.is_empty():check(false,"Nenhum bloqueio sem saída");break
-            s.choose(options[s.rng.randi_range(0,options.size()-1)]);s.advance();steps+=1
+            s.choose(options[s.rng.randi_range(0,options.size()-1)]);Driver.resolve(s);s.advance();steps+=1
         check((s.demo["kind"]=="ending" or s.health==0) and steps<100,"Partida completa chega a final")
         check(s.attributes.values().all(func(v):return v>=1 and v<=10),"Atributos dentro dos limites")
         results[s.current_id]=int(results.get(s.current_id,0))+1;longest=maxi(longest,steps)
     print("JORNADAS: %d verificações, %d falhas; 100 partidas, finais=%s, máximo=%d escolhas" % [checks,failures,results,longest])
     DirAccess.remove_absolute("user://test_journey.json")
     quit(1 if failures else 0)
+
 
 

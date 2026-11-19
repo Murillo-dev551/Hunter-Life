@@ -1,6 +1,8 @@
 extends RefCounted
 const INITIAL_ATTRIBUTES = {"strength":5,"agility":5,"intellect":5,"presence":5}
 const ATTRIBUTE_NAMES = {"strength":"Força","agility":"Agilidade","intellect":"Intelecto","presence":"Presença"}
+const Battle=preload("res://scripts/battle.gd")
+var battle: Dictionary={}
 const Hatsu = preload("res://scripts/hatsu.gd")
 var hatsu: Dictionary=Hatsu.fresh()
 const Nen = preload("res://scripts/nen.gd")
@@ -39,6 +41,7 @@ func start(raw_name: String, inclination: int = 0) -> String:
     if clean.is_empty(): return "Dê um nome ao personagem para começar."
     if clean.length()>32: return "Use um nome com até 32 caracteres."
     if error!="": return error
+    battle={}
     level=1;xp=0;points=0;health=10;nen=Nen.fresh();hatsu=Hatsu.fresh()
     character_name=clean; attributes=INITIAL_ATTRIBUTES.duplicate(); jenny=250
     attributes=starting_attributes(inclination)
@@ -49,6 +52,7 @@ func start(raw_name: String, inclination: int = 0) -> String:
     open_event(catalog.select(self))
     return ""
 func open_event(id: String) -> void:
+    if Battle.active(self):return
     current_id=id; demo=catalog.events[id]; selected_choice=-1; result=""
     step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
     if id not in seen: seen.append(id)
@@ -67,7 +71,7 @@ func choice_reason(index: int) -> String:
     if jenny + int(choice.get("jenny",0)) < 0: return "Jenny insuficiente."
     return ""
 func choose(index: int) -> bool:
-    if health<=0 or character_name.is_empty() or selected_choice!=-1 or index<0 or index>=demo.get("choices",[]).size(): return false
+    if not battle.is_empty() or health<=0 or character_name.is_empty() or selected_choice!=-1 or index<0 or index>=demo.get("choices",[]).size(): return false
     if choice_reason(index)!="": return false
     var choice: Dictionary = demo["choices"][index]
     var effect: Dictionary = choice
@@ -108,16 +112,18 @@ func choose(index: int) -> bool:
     for key in effect.get("attributes",{}):
         if attributes[key]!=old_attributes[key]: result+="\n%+d %s (%d/10)" % [attributes[key]-old_attributes[key],ATTRIBUTE_NAMES[key],attributes[key]]
     if jenny!=old_money: result+="\n%+d Jenny" % (jenny-old_money)
+    if effect.has("battle"):Battle.begin(self,effect["battle"])
     records.append("%s — %s" % [demo["title"],choice["label"]]); records.append(result)
     return true
 func advance() -> bool:
+    if Battle.active(self):return false
     if health<=0 or selected_choice<0 or demo["kind"]=="ending": return false
     var next: String = pending_next if pending_next!="" else "crossroads" if active_adventure else catalog.select(self)
-    pending_next=""
+    pending_next="";battle={}
     open_event(next)
     return true
 func serialize() -> Dictionary:
-    return {"version":6,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
+    return {"version":7,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
     if current_adventure!="" and flags.get(current_adventure+"_completed",false) and current_adventure not in completed:
@@ -130,6 +136,8 @@ static func starting_attributes(inclination: int) -> Dictionary:
     elif inclination==2: values["agility"]=6;values["presence"]=4
     elif inclination==3: values["intellect"]=6;values["strength"]=4
     return values
+
+
 
 
 

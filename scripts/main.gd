@@ -2,6 +2,7 @@ extends Control
 const UI = preload("res://scripts/ui/styles.gd")
 const State = preload("res://scripts/game_state.gd")
 const Creation = preload("res://scripts/ui/creation_view.gd")
+const BattleView=preload("res://scripts/ui/battle_view.gd")
 const Adventure = preload("res://scripts/ui/adventure_view.gd")
 const TABS = ["Aventura","Personagem","Inventário","Registro"]
 const ICONS = ["adventure","character","inventory","record"]
@@ -152,11 +153,12 @@ func start_game(raw_name: String) -> void:
 func build_session() -> void:
     clear_pages()
     var content = add_page("Aventura")
-    adventure_view = Adventure.new()
+    adventure_view = BattleView.new() if not state.battle.is_empty() else Adventure.new()
     content.add_child(adventure_view)
     adventure_view.build(state)
     adventure_view.continue_requested.connect(next_event)
-    adventure_view.choice_requested.connect(choose)
+    if state.battle.is_empty():adventure_view.choice_requested.connect(choose)
+    else:adventure_view.action_requested.connect(battle_action)
     adventure_view.record_requested.connect(func(): select_tab(3))
     character_content = add_page("Personagem")
     build_character()
@@ -189,7 +191,7 @@ func build_character() -> void:
     for attribute in state.ATTRIBUTE_NAMES:
         var add_button=UI.button("+1 "+state.ATTRIBUTE_NAMES[attribute])
         attribute_buttons[attribute]=add_button
-        add_button.disabled=state.points==0 or int(state.attributes[attribute])>=10 or state.health==0
+        add_button.disabled=state.Battle.active(state) or state.points==0 or int(state.attributes[attribute])>=10 or state.health==0
         add_button.pressed.connect(func(): allocate_point(attribute))
         allocation.add_child(add_button)
     var nen_card=UI.card(character_content)
@@ -198,7 +200,7 @@ func build_character() -> void:
         nen_card.add_child(UI.label("Você ainda não conhece Nen.",14,UI.MUTED))
         if "nen_offer" in state.seen and not state.flags.get("nen_declined",false):
             var resume_nen=UI.button("Retomar o convite de Mira")
-            resume_nen.disabled=state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
+            resume_nen.disabled=state.Battle.active(state) or state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
             resume_nen.pressed.connect(func(): state.open_event("nen_ten");build_session())
             nen_card.add_child(resume_nen)
     else:
@@ -214,25 +216,26 @@ func build_character() -> void:
             nen_card.add_child(UI.label("Hatsu ainda não desenvolvido. Busque uma oportunidade prática." if state.nen["category"] in ["Reforço","Emissão"] else "Ainda não há Hatsu implementado para esta categoria. Sua jornada pode continuar normalmente.",14,UI.MUTED))
         if state.nen["mastery"]==3 and not state.nen["water_done"]:
             var water=UI.button("Procurar Mira para o teste da água")
-            water.disabled=state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
+            water.disabled=state.Battle.active(state) or state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
             water.pressed.connect(func(): state.open_event("nen_water");build_session())
             nen_card.add_child(water)
     var stats = UI.card(character_content)
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
-    character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Não há batalhas nesta etapa.",14,UI.MUTED))
+    character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Os confrontos usam os atributos atuais.",14,UI.MUTED))
     var reset = UI.button("Criar outro personagem")
     reset.pressed.connect(show_creation)
     character_content.add_child(reset)
     character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
     var end_button = UI.button("Escolher o final da jornada")
-    end_button.disabled=state.health==0 or state.active_adventure or state.demo["kind"]=="ending"
+    end_button.disabled=state.Battle.active(state) or state.health==0 or state.active_adventure or state.demo["kind"]=="ending"
     end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
     end_button.pressed.connect(func(): state.open_event("crossroads"); build_session())
     character_content.add_child(end_button)
     character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
 func choose(index: int) -> void:
     if not state.choose(index): return
+    if not state.battle.is_empty():build_session();return
     adventure_view.refresh(state)
     balance.text = "%d Jenny" % state.jenny
     for child in character_content.get_children():
@@ -292,4 +295,9 @@ func allocate_point(attribute: String) -> void:
 
 
 
+
+func battle_action(id: String, token: int) -> void:
+    if not state.Battle.act(state,id,token):return
+    build_session()
+    pages.get_child(0).scroll_vertical=0
 

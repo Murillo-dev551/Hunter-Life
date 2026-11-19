@@ -8,7 +8,7 @@ func check(ok: bool,text: String) -> void:
     if not ok: failures += 1; push_error(text)
 func run() -> void:
     var state = State.new()
-    check(state.error=="" and state.catalog.events.size()==33,"JSON demonstrativo válido")
+    check(state.error=="" and state.catalog.events.size()==35,"JSON demonstrativo válido")
     check(not state.choose(0),"Não escolhe antes de criar personagem")
     for invalid in ["","   ","\n\t", "a".repeat(33)]: check(state.start(invalid)!="","Nome inválido recusado")
     check(state.character_name=="","Falha de nome não inicia partida")
@@ -50,6 +50,7 @@ func run() -> void:
     check(ui.state.character_name=="" and ui.pages.get_child_count()==1,"Reinício retorna à criação")
     print("FUNDAÇÃO HUNTER LIFE: %d verificações, %d falhas" % [checks,failures])
     quit(1 if failures else 0)
+
 
 
 
