@@ -1,6 +1,6 @@
 extends RefCounted
-const ENEMIES={"bandit":{"name":"Assaltante de estrada","description":"Avança sem muita disciplina e pode perder a coragem quando pressionado.","hp":6,"dc":12},"fighter":{"name":"Lutador experiente","description":"Uma praticante local observa hábitos e interrompe o treino antes de violência fatal.","hp":7,"dc":14}}
-const INTENTS={"strike":"Prepara um golpe direto.","charge":"Avança para uma investida forte: proteger-se parece prudente.","guard":"Fecha a guarda e espera um ataque previsível.","prepare":"Ajusta a postura para um golpe: uma ação firme pode interrompê-lo.","hesitate":"Hesita e deixa uma abertura."}
+const ENEMIES={"bandit":{"name":"Assaltante de estrada","description":"Avança sem muita disciplina e pode perder a coragem quando pressionado.","hp":6,"dc":12},"fighter":{"name":"Lutador experiente","description":"Uma praticante local observa hábitos e interrompe o treino antes de violência fatal.","hp":7,"dc":14},"candidate":{"name":"Daro, candidato competitivo","description":"Busca uma vitória limpa; a examinadora Selma observa também seu julgamento.","hp":7,"dc":14}}
+const INTENTS={"strike":"Ergue o braço e encurta a distância.","charge":"Firma os pés e avança rapidamente em sua direção.","guard":"Mantém os braços junto ao tronco e acompanha seus movimentos.","prepare":"Recua um pé, ajusta a postura e ergue os braços.","hesitate":"Interrompe o avanço e olha para a rota de saída."}
 const LABELS={"attack":"Atacar com Força","quick":"Atacar com Agilidade","defend":"Defender","dodge":"Esquivar","flee":"Fugir","yield":"Render-se","ten":"Ten: proteger o corpo","zetsu":"Zetsu: recuar discretamente","ren":"Ren: pressionar o adversário","hatsu":"Usar Hatsu"}
 static func active(s) -> bool:return not s.battle.is_empty() and s.battle["outcome"]==""
 static func begin(s,id: String) -> void:
@@ -28,7 +28,7 @@ static func test(s,id: String) -> Dictionary:
     if id in ["attack","quick","ren","hatsu"]:
         if b["intent"]=="guard":dc+=3
         if b["opening"] or b["intent"]=="hesitate":dc-=2
-    if b["enemy"]=="fighter" and b["last"]==id and int(b["repeat"])>=1:dc+=3
+    if b["enemy"] in ["fighter","candidate"] and b["last"]==id and int(b["repeat"])>=1:dc+=3
     if s.inventory["equipment"]["weapon"]=="knife" and b["enemy"]=="bandit" and id in ["attack","quick"]:dc-=1
     return {"attribute":attribute,"difficulty":maxi(2,dc)}
 static func finish(s,outcome: String) -> void:
@@ -48,6 +48,7 @@ static func finish(s,outcome: String) -> void:
         if s.jenny!=before:text+="\n%+d Jenny." % (s.jenny-before)
     if s.health==0:s.active_adventure=false;s.current_adventure="";s.pending_next=""
     s.flags["battle_"+outcome]=true
+    s.Exam.battle_end(s,outcome)
     s.result=text
     b["log"].append(text);s.records.append(text)
 static func act(s,id: String, token: int) -> bool:
@@ -91,7 +92,7 @@ static func act(s,id: String, token: int) -> bool:
         b["log"].append(text);s.records.append(text);finish(s,"victory");return true
     var incoming: int=3 if b["intent"]=="charge" else 0 if b["intent"] in ["prepare","hesitate"] else 1 if b["intent"]=="guard" else 2
     if int(b["turn"])>=6:incoming=mini(4,maxi(2,incoming)+1+floori((int(b["turn"])-6)/4.0))
-    if b["enemy"]=="fighter" and int(b["repeat"])>=2:incoming+=1
+    if b["enemy"] in ["fighter","candidate"] and int(b["repeat"])>=2:incoming+=1
     var hit: int=maxi(0,incoming-block)
     if s.inventory["equipment"]["protection"]=="vest" and b["intent"]=="charge" and hit>=2:
         hit-=1;text+="\nO colete amorteceu parte do impacto."
@@ -103,6 +104,7 @@ static func act(s,id: String, token: int) -> bool:
     b["turn"]=int(b["turn"])+1
     if b["enemy"]=="bandit":b["intent"]="hesitate" if b["hp"]<=2 else "charge" if s.rng.randf()<0.4 else "strike"
     else:b["intent"]="strike" if b["intent"]=="prepare" else "prepare" if s.rng.randf()<0.5 else "guard"
+
     s.result=text
     return true
 static func valid(v: Variant,s) -> bool:
@@ -121,9 +123,3 @@ static func valid(v: Variant,s) -> bool:
     if s.health==0 and v["outcome"]!="incapacity":return false
     if v["outcome"]=="victory" and v["hp"]!=0:return false
     return true
-
-
-
-
-
-

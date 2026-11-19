@@ -1,91 +1,181 @@
-# Hunter Life — Etapa 8
+# Hunter Life
 
-Versão atual: [STAGE_8.md](STAGE_8.md), com inventário, catálogo, saves v8 e validação. Abra project.godot no Godot 4.7.2 e pressione F5. Textos abaixo são registros históricos.
+**Hunter Life** é um RPG textual de escolhas inspirado na estrutura de aventuras de *Life in Adventure*, ambientado no universo de *Hunter × Hunter*. Você cria um protagonista original e conduz sua jornada por trabalhos, descobertas, pequenas aventuras e confrontos opcionais.
 
-# Hunter Life — Etapa 7
+O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-Versão atual: [STAGE_7.md](STAGE_7.md), com batalhas narrativas, regras, saves v7 e validação. Abra project.godot no Godot 4.7.2 e pressione F5. Os textos abaixo são registros históricos.
+## Funcionalidades
 
-# Hunter Life — Etapa 6
+| Sistema | Disponível no protótipo |
+|---|---|
+| Personagem | Nome e quatro perfis iniciais equilibrados |
+| Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
+| Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
+| Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
+| Narrativa | 58 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Aventuras | Entrega da Serra, Levantamento da Trilha e Exame Hunter opcional |
+| Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
+| Confrontos | Turnos narrativos, intenções observáveis e diferentes resultados |
+| Inventário | Nove itens, incluindo consumíveis, equipamentos, ferramentas e Licença Hunter |
+| Registro | Histórico das decisões, rolagens, recursos e encerramentos |
+| Persistência | Um slot de salvamento manual local, inclusive no meio de batalhas e provas |
 
-Implementação atual: [STAGE_6.md](STAGE_6.md), com Hatsus, especializações, saves v6 e resultados dos testes. Abra project.godot no Godot 4.7.2 e pressione F5. Os textos abaixo documentam etapas anteriores.
+A navegação usa quatro abas: **Aventura**, **Personagem**, **Inventário** e **Registro**. O conteúdo tem rolagem vertical; a navegação inferior permanece acessível em janelas compactas.
 
-# Hunter Life — Etapa 5
+### Escolhas, testes e progressão
 
-Consulte [STAGE_5.md](STAGE_5.md) para Nen, nova curva de XP, migração v4→v5, arquivos e testes. Abra project.godot no Godot 4.7.2 e pressione F5. As seções seguintes são registros históricos das etapas anteriores.
+Os testes seguem uma única fórmula:
 
-# Hunter Life — Etapa 4
+```text
+1d20 + atributo ≥ dificuldade
+```
 
-Implementação atual: veja [STAGE_4.md](STAGE_4.md) para XP, nível, Saúde, saves v4, testes e arquivos modificados. Abra project.godot no Godot 4.7.2 e pressione F5.
+Antes da escolha, aparecem atributo, dificuldade e chance real de sucesso. Com atributo 5 contra dificuldade 15, por exemplo, a chance é 55%. O resultado mostra a rolagem e suas consequências. Alterar atributos atualiza as probabilidades.
 
-O texto abaixo documenta a base da Etapa 3; regras de progressão e salvamento foram atualizadas na Etapa 4.
+A experiência necessária para o próximo nível é `40 + 20 × (nível atual − 1)`: 40, 60, 80, 100 XP… Cada nível concede um ponto para distribuir em Personagem; pontos guardados persistem e respeitam o espaço restante até o teto dos atributos. XP vem de conquistas declaradas no catálogo, inclusive alguns fracassos relevantes. Escolhas triviais não concedem XP automaticamente.
 
-# Hunter Life — Etapa 3
+Saúde não cai apenas por avançar acontecimentos. Ferimentos e recuperação dependem de escolhas. Em zero, o personagem recebe socorro e abandona a vida de aventuras, encerrando a jornada por incapacidade, sem morte automática.
 
-Projeto existente preservado: tema de diário, criação, quatro abas, testes d20 e salvamento local. Abra project.godot no Godot 4.7.2 e pressione F5. Escolha nome e inclinação, participe das oportunidades e pressione Continuar jornada após cada decisão. Salve em Registro; retome pela tela inicial.
+Concluir uma aventura normalmente devolve o personagem às oportunidades. Finais definitivos resultam de decisões explícitas ou incapacidade. Eventos únicos e repetíveis têm limites; retornos de atividades repetíveis reduzem recompensas e não concedem novamente objetos ou atributos.
 
-## Conteúdo e continuidade
-23 acontecimentos: os 12 originais revisados e 11 novos. Duas pequenas aventuras: Entrega da Serra e Levantamento da Trilha. Ambas podem ocorrer na mesma jornada, em ordens diferentes. A composição é: oito independentes, duas oportunidades, cinco continuações, quatro conclusões de aventura, uma pausa de encerramento e três finais. A contagem inclui continuações, conclusões, a pausa de encerramento e três finais definitivos.
+## Nen e Hatsus
 
-Acontecimentos são cenas; aventuras são sequências com identidade (delivery/survey); a jornada inclui todas elas. Concluir uma aventura limpa a aventura ativa e permite voltar ao sorteio. As conclusões possuem uma opção explícita de encerrar a jornada. Personagem também oferece Escolher o final da jornada, indisponível durante aventuras ativas. Se as oportunidades se esgotarem, Uma pausa na jornada oferece três encerramentos sem impor um contador obrigatório.
+O aprendizado de Nen surge como oportunidade opcional com a instrutora **Mira**. Você pode aceitar, adiar ou recusar, sem requisito de nível ou participação no Exame Hunter. A sequência inclui um desafio prático com resultados distintos e orientação assistida em caso de dificuldade.
 
-Nenhuma continuação aleatória é inserida no meio de uma aventura: next tem prioridade; o seletor também respeita a aventura ativa. Os antigos end_path/end_home/end_duty agora são conclusões da entrega. journey_path/journey_home/journey_duty são finais definitivos.
+Os fundamentos implementados são **Ten**, **Zetsu** e **Ren**. Seu domínio básico evolui por três marcos narrativos, separadamente do nível geral. As aplicações são contextuais: Ten protege contra certos impactos; Zetsu ajuda na discrição e fuga, sem invisibilidade; Ren pode auxiliar em ações de pressão, sem vitória automática.
 
-## Escolhas
-Os cinco acontecimentos antigos foram revisados individualmente: dificuldades variadas, atributos distintos em opções diferentes, alternativas pagas e decisões sem rolagem. O botão mostra ◇ Atributo · Dificuldade antes de escolher; o resultado mantém d20 + atributo >= dificuldade.
+A categoria é sorteada uma única vez na criação, permanece oculta e só é revelada pela **adivinhação pela água**, após os fundamentos. As seis categorias disponíveis são Reforço, Emissão, Transmutação, Materialização, Manipulação e Especialização. O protótipo utiliza pesos iguais para o sorteio. Carregar não permite sortear novamente a afinidade.
 
-Exemplos:
-- Carroça: empurrar usa Força 14; improvisar uma alavanca usa Intelecto 13 e pode ensinar um ponto de Intelecto; pagar animais custa 15 Jenny, sem rolagem.
-- Mercado: ajudar honestamente abre Uma indicação merecida; uma dica falsa paga pouco, mas a flag dishonest fecha essa indicação.
-- Levantamento: alugar equipamentos abre o desvio seguro e a conferência com corda. Sem equipamento, observação e leitura do relevo são caminhos com testes. Relatórios falsos pagam mais, mas fecham a indicação comercial.
-- Entrega: preparar o mapa continua permitindo evitar o teste na ponte. Ao concluir, é possível buscar outra aventura, em vez de terminar automaticamente.
+| Categoria | Hatsu implementado | Especializações |
+|---|---|---|
+| Reforço | Corpo Temperado | Potência ou Resistência |
+| Emissão | Projétil de Aura | Potência, Alcance ou Precisão |
 
-Não há reputação global ou relações complexas. Flags booleanas e condições existentes são suficientes. Os equipamentos são flags narrativas de empréstimo, sem inventário funcional; o aluguel de 20 Jenny vale para essa vistoria, sem sistema de inventário.
+Desenvolver um Hatsu exige uma oportunidade prática posterior à revelação da categoria. A especialização é persistente e não pode ser trocada livremente. As demais categorias podem aprender Nen e concluir jornadas, mas ainda não possuem Hatsus implementados. Não há criação livre de habilidades nem consumo detalhado de aura.
 
-## Repetição e progresso
-A política JSON repeat contém max (participações totais) e gap (quantidade mínima de transições narrativas desde a última visita). Não são dias; não há calendário. Cada evento é único por padrão.
+## Batalhas narrativas
 
-A prova da praça pode aparecer duas vezes, com intervalo 5; o turno no cais, três vezes, com intervalo 4. O pagamento positivo de retorno é multiplicado por repeat_reward_scale=0.5 e arredondado para baixo. Não há ganhos de atributos no retorno. A escolha continua resolvida uma só vez por visita, inclusive após salvar/carregar. O catálogo tem um número finito de retornos: não há fonte ilimitada de renda.
+Os confrontos aparecem dentro de acontecimentos, na aba Aventura. A tela apresenta adversário, Saúde dos participantes, turno, comportamento observável, ações e resultado anterior.
 
-Perfis iniciais opcionais mantêm soma 20: equilibrado (5 em tudo), vigor (Força 6/Intelecto 4), destreza (Agilidade 6/Presença 4), curiosidade (Intelecto 6/Força 4). A prévia muda com a seleção; atributos não citados permanecem 5. Limites gerais continuam 1–10. A única recompensa nova de atributo no catálogo é o aprendizado da alavanca, +1 Intelecto em evento único. Testar um atributo não gera progressão automática.
+As ações básicas são atacar com Força ou Agilidade, defender, esquivar, fugir e render-se. Preparação, guarda, abertura e repetição de ações influenciam o resultado. Intenções descrevem movimentos, sem indicar qual botão é a resposta ideal.
 
-## Arquivos criados e modificados
-Novo: tests/test_journeys.gd, com jornadas completas, ordens de aventuras, retornos, flags, perfis, migração e simulações.
-Modificados: data/events.json; scripts/catalog.gd; scripts/game_state.gd; scripts/storage.gd; scripts/main.gd; scripts/ui/adventure_view.gd; scripts/ui/creation_view.gd; project.godot; tests/test_foundation.gd; tests/test_narrative.gd; tests/test_story_ui.gd; README.md.
-A cena, tema e ícones foram preservados. Capturas e logs atualizados ficam em tests/. Nenhum arquivo One Piece Life foi alterado.
+Há um assaltante, uma lutadora experiente e o candidato necessário ao confronto final do exame. Nen e Hatsus oferecem alternativas específicas, com uma ação comum entre usos especiais. Equipamentos têm vantagens restritas ao contexto. Não é preciso conhecer Nen para vencer confrontos adequados.
 
-## Estrutura JSON
-Mantém id/title/chapter/kind/weight/conditions/paragraphs/choices. Ampliações:
-- kind: adventure_end separa conclusão de ending; hub é a pausa de encerramento.
-- adventure: identifica delivery ou survey.
-- repeat: {"max":3,"gap":4}; repeat_reward_scale opcional.
-- Uma escolha pode usar finish_adventure:true para voltar às oportunidades sem continuação obrigatória.
-- Flags delivery_completed/survey_completed identificam sucesso da aventura; desistências não são registradas como trabalhos concluídos.
-- Conditions segue suportando flags esperadas, mínimos de atributos e Jenny. As capacidades futuras continuam possíveis por flags, sem sistemas antecipados.
+Vitória, desistência do adversário, fuga, rendição e incapacidade têm consequências diferentes. Dinheiro não é concedido por derrotar qualquer pessoa: recompensas dependem do acontecimento. Não há regeneração automática por turno, mapa tático ou movimentação em tempo real.
 
-## Salvamento
-Mantém user://hunter_life.json e o diretório Hunter Life Prototype. Formato agora é versão 3, adicionando adventure, completed, step, visits e last_visit. Atributos, dinheiro, histórico, escolhas resolvidas, continuações e RNG permanecem persistidos.
-Saves válidos da versão 2 são migrados em memória: visitas anteriores contam uma vez e recebem um intervalo conservador; aventura ativa antiga é identificada como entrega. Finais antigos e continuações antigas para finais são mapeados para journey_*, preservando a decisão anterior de encerrar. Não são inventadas aventuras concluídas a partir de registros ambíguos. O histórico e os resultados antigos são mantidos; o rótulo da escolha resolvida é lido do registro para não atribuir retroativamente a nova opção ao jogador. Arquivos não são apagados ou regravados automaticamente ao carregar. O próximo salvamento manual usa v3.
+## Inventário
 
-## Testes realizados
-Godot 4.7.2: foundation 41; narrative 1280; story_ui 25; journeys 237; visual 348. Total: 1931 verificações, zero falhas nas execuções finais. As regressões antigas foram adaptadas para os 23 eventos e para a separação entre conclusão e final.
-100 partidas simuladas, com sementes de 0 a 99 e escolhas aleatórias entre alternativas elegíveis, chegaram a finais sem bloqueios: 33 journey_home, 49 journey_duty, 18 journey_path; máximo 21 escolhas. É uma amostra, não uma garantia universal de duração. Testes dirigidos completaram as duas aventuras nas duas ordens, salvaram entre aventuras, verificaram intervalos, limite de retornos, recompensa reduzida e persistência de escolha resolvida, além de migrações v2 em aventura e em final.
-35 capturas foram produzidas em 320x480, 390x844, 480x860, 768x1024 e 1100x720. Prévia de testes foi verificada antes da escolha; navegação e retorno da rolagem ao início foram exercitados depois de vários eventos.
+| Item | Aplicação |
+|---|---|
+| Bandagem | Recupera até 3 de Saúde fora de combate |
+| Remédio simples | Recupera até 5 de Saúde; oferta limitada |
+| Faca de viagem | Pequena vantagem em ataques comuns contra o assaltante |
+| Colete reforçado | Redução parcial em investidas anunciadas, sem anular impactos |
+| Corda resistente | Alternativas específicas de travessia |
+| Lanterna | Investigação de local escuro |
+| Mapa regional | Orientação em rotas declaradas no catálogo |
+| Lembrança de viagem | Registro da entrega, sem bônus |
+| Licença Hunter | Credencial única e permanente, desbloqueando conteúdo exclusivo |
 
-Com Godot no PATH:
+Objetos são obtidos por compras, serviços, encontros ou conclusões narrativas. Compras respeitam Jenny e limites de quantidade. Ferramentas são reutilizáveis salvo quando a escolha indica consumo; a doação de uma bandagem, por exemplo, remove uma unidade.
+
+Consumíveis não são desperdiçados com Saúde cheia. Os espaços **Arma** e **Proteção** são equipados pela aba Inventário. Usar consumíveis ou trocar equipamento durante uma batalha não é permitido. A licença não pode ser consumida ou equipada.
+
+## Exame Hunter
+
+Uma inscrição opcional pode surgir entre as oportunidades. É possível investigar, inscrever-se, adiar ou ignorar. Uma participação é permitida por jornada, sem calendário ou exames anuais. Nen, Hatsu e nível mínimo não são exigidos.
+
+Ao confirmar a participação, o RNG seleciona uma de duas provas em cada etapa. As quatro escolhas ficam salvas, produzindo até **16 combinações** de uma sequência fixa de textos previamente escritos.
+
+| Etapa | Alternativa A | Alternativa B |
+|---|---|---|
+| 1 | Travessia perigosa | Percurso de resistência |
+| 2 | Investigação de informações | Captura de uma fita |
+| 3 | Sobrevivência e abrigo | Desafio coletivo |
+| 4 | Confronto individual | Prova de decisão |
+
+Os examinadores originais **Selma** e **Rui** conduzem as provas. **Nara**, cooperativa, **Daro**, competitivo, e **Ivo**, pragmático, reaparecem conforme as situações. Acordos, ajuda ou sabotagem são registrados em flags e podem alterar alternativas posteriores. Não são NPCs autônomos nem possuem relações numéricas.
+
+Falhas comuns geram advertências, perda de Saúde ou atrasos. Até duas advertências podem ser aceitas na avaliação final; fraude e sabotagem podem causar reprovação imediata. O confronto final também aceita uma rendição avaliada após pelo menos um turno, caso tenha havido cooperação e no máximo uma advertência. Fugir ou render-se fora dessa condição reprova, sem transformar o exame em uma morte obrigatória.
+
+Aprovação concede uma **Licença Hunter** e 40 XP. A licença aparece no Inventário; Personagem informa a condição de Hunter licenciado. Ela abre **Uma consulta reservada a Hunters**, um trabalho civil com teste de Intelecto e pagamento condicionado ao resultado.
+
+Reprovação e desistência preservam o XP já obtido e permitem voltar à jornada, desde que haja Saúde. Não é possível tentar outra edição na mesma partida. Nos intervalos, consumíveis podem ser usados fora de combate. As aventuras anteriores continuam disponíveis.
+
+## Como jogar
+
+### Requisitos e instalação
+
+- Godot **4.7.2**, versão usada na validação.
+- Um computador capaz de executar o renderizador de compatibilidade do Godot.
+- Não há plugins ou dependências externas obrigatórias.
+
+No gerenciador do Godot, selecione **Importar**, escolha o `project.godot` desta pasta e abra o projeto. Pressione **F5** para executar.
+
+A janela inicial é vertical, 480×860, com mínimo de 320×480. Fontes Source Sans 3 e Cinzel são preferidas quando disponíveis; fontes locais substitutas permitem executar sem downloads.
+
+### Controles
+
+1. Informe o nome e escolha uma inclinação inicial.
+2. Use os botões da Aventura para decidir e **Continuar jornada** para avançar após ler o resultado.
+3. Consulte atributos, pontos disponíveis, Nen e condição de Hunter em **Personagem**.
+4. Use ou equipe objetos em **Inventário**, fora de batalhas.
+5. Confira o histórico e clique em **Salvar partida**, em **Registro**.
+6. Na tela inicial, use **Continuar partida salva** para retomar.
+
+A roda do mouse ou a barra de rolagem permite acessar o conteúdo longo. Criar outro personagem inicia uma nova sessão; salve antes de substituir a atual.
+
+## Salvamento e compatibilidade
+
+O jogo usa um slot manual, `user://hunter_life.json`, no diretório de dados **Hunter Life Prototype** definido pelo Godot. No Windows, ele fica sob o diretório de dados do usuário. O caminho pode ser consultado no Godot por **Project > Open User Data Folder**.
+
+O formato atual é **v9**. Preserva personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG e batalha, além de participação no exame, sequência de provas, etapa, advertências e resultado. A licença está vinculada à aprovação.
+
+As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
+
+A gravação usa arquivo temporário e substituição após sucesso. Não há salvamento automático ou múltiplos slots. O JSON é local e não criptografado.
+
+## Testes automatizados
+
+Na pasta do projeto, com o executável Godot no `PATH` (ou substituindo `godot` pelo caminho completo):
+
 ```powershell
-godot --headless --path . --script res://tests/test_foundation.gd
-godot --headless --path . --script res://tests/test_narrative.gd
-godot --headless --path . --script res://tests/test_story_ui.gd
-godot --headless --path . --script res://tests/test_journeys.gd
+# Validação do projeto
+godot --headless --editor --path . --quit
+
+# Principais suítes funcionais
+godot --headless --path . --script res://tests/test_exam.gd
+godot --headless --path . --script res://tests/test_battle.gd
+godot --headless --path . --script res://tests/test_inventory.gd
+godot --headless --path . --script res://tests/test_nen.gd
+godot --headless --path . --script res://tests/test_hatsu.gd
+
+# Verificações com renderização e capturas
+godot --path . --script res://tests/test_exam_visual.gd
 godot --path . --script res://tests/test_visual.gd
 ```
 
-## Limitações
-Catálogo compacto e finito; a jornada pode ser encerrada cedo por decisão explícita. Repetíveis usam texto base reaproveitado, com pagamentos variáveis mostrados na consequência. Não há salvamento automático nem múltiplos slots. Informações de migração não recuperam feitos que o formato antigo não distinguia. Não há batalhas, Nen, Hatsus, calendário, mundo aberto, NPCs autônomos, inventário funcional ou economia complexa. Etapa seguinte não iniciada.
+Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. Logs da entrega atual ficam em `tests/stage9_*.log`; imagens, em `tests/captures/`. Resultados detalhados e limitações das simulações estão no [relatório da Etapa 9](STAGE_9.md).
 
+## Limitações e desenvolvimento futuro
 
+O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há somente dois Hatsus e uma especialização fixa por personagem; as quatro outras categorias ainda não têm habilidades próprias.
 
+Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
+O desenvolvimento está concluído somente até a Etapa 9. A Etapa 10 depende de nova autorização.
 
+## Histórico resumido
+
+As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jornadas. Os relatórios técnicos históricos disponíveis foram preservados:
+
+| Etapa | Relatório |
+|---|---|
+| 4 | [Progressão, XP e recursos](STAGE_4.md) |
+| 5 | [Fundamentos do Nen](STAGE_5.md) |
+| 6 | [Hatsus e personalização](STAGE_6.md) |
+| 7 | [Batalhas narrativas](STAGE_7.md) |
+| 8 | [Inventário funcional](STAGE_8.md) |
+| 9 | [Exame Hunter e validação atual](STAGE_9.md) |

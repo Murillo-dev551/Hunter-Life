@@ -12,7 +12,7 @@ func setup():
 func grant(s,items: Dictionary) -> void:s.Items.apply(s,{"items_add":items})
 func run() -> void:
     var s=setup()
-    check(s.Items.data().size()==8 and s.inventory["items"].is_empty(),"Catálogo e início vazio")
+    check(s.Items.data().size()==9 and s.inventory["items"].is_empty(),"Catálogo e início vazio")
     s.open_event("supply_stall");s.jenny=14
     check(not s.choose(0) and s.jenny==14,"Compra sem saldo bloqueada")
     s.jenny=15;check(s.choose(0) and s.jenny==0 and s.Items.quantity(s,"bandage")==1,"Compra aplica custo e item")
@@ -100,4 +100,3 @@ func run() -> void:
     print("INVENTÁRIO: %d verificações, %d falhas; simulações=%s" % [checks,failures,stats])
     DirAccess.remove_absolute("user://test_inventory.json")
     quit(1 if failures else 0)
-

@@ -18,6 +18,7 @@ func _init() -> void:
             for effect in [choice,choice.get("failure",{})]:
                 if effect.has("next") and not events.has(effect["next"]): error = "Continuação inexistente."
 func eligible(conditions: Dictionary, state) -> bool:
+    if conditions.has("exam_status") and state.exam["status"]!=conditions["exam_status"]:return false
     for id in conditions.get("items",{}):
         if state.Items.quantity(state,id)<int(conditions["items"][id]):return false
     if conditions.has("hatsu_available"):
@@ -50,5 +51,3 @@ func select(state) -> String:
 func available(id: String, state) -> bool:
     var policy: Dictionary = events[id].get("repeat",{"max":1,"gap":0})
     return int(state.visits.get(id,0)) < int(policy["max"]) and state.step-int(state.last_visit.get(id,-100000)) >= int(policy["gap"])
-
-

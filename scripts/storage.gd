@@ -25,7 +25,7 @@ static func load_state(path: String = PATH) -> Dictionary:
         if d.get("current") in ["end_home","end_path","end_duty"]: d["current"]="journey_"+str(d["current"]).trim_prefix("end_"); d["seen"].append(d["current"])
     for key in ["name","current","next","result","seed","rng"]:
         if not d.get(key) is String: return {"error":"Campo de texto inválido."}
-    if not integer(d.get("version"),2,8) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
+    if not integer(d.get("version"),2,9) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
     if d["next"]!="" and not s.catalog.events.has(d["next"]): return {"error":"Continuação inválida."}
     if not d.get("active") is bool or not d.get("attributes") is Dictionary or not d.get("flags") is Dictionary or not d.get("seen") is Array or not d.get("records") is Array: return {"error":"Estado incompleto."}
     if not integer(d.get("jenny"),0,1000000) or not integer(d.get("choice"),-1,s.catalog.events[d["current"]]["choices"].size()-1): return {"error":"Valores inválidos."}
@@ -52,7 +52,7 @@ static func load_state(path: String = PATH) -> Dictionary:
             if not integer(d["visits"].get(id),1,100000) or not integer(d["last_visit"].get(id),1,int(d["step"])): return {"error":"Repetição inválida."}
         for id in d["completed"]:
             if id not in ["delivery","survey","nen"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
-        if d["adventure"] not in ["","delivery","survey","nen"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
+        if d["adventure"] not in ["","delivery","survey","nen","exam"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
         s.visits=d["visits"];s.last_visit=d["last_visit"];s.step=int(d["step"]);s.completed=d["completed"];s.current_adventure=d["adventure"]
         for id in seen: s.visits[id]=int(s.visits[id]);s.last_visit[id]=int(s.last_visit[id])
     else:
@@ -92,21 +92,13 @@ static func load_state(path: String = PATH) -> Dictionary:
         if not s.battle.is_empty():
             if s.selected_choice<0 or s.demo["choices"][s.selected_choice].get("battle","")!=s.battle["enemy"]:return {"error":"Confronto fora do acontecimento."}
             for key in ["hp","turn","repeat","special_until"]:s.battle[key]=int(s.battle[key])
-    if d["version"]==8:
+    if d["version"]>=8:
         if not State.Items.valid(d.get("inventory")):return {"error":"Inventário ou equipamento inválido."}
         s.inventory=d["inventory"].duplicate(true)
         s.inventory["revision"]=int(s.inventory["revision"])
         for id in s.inventory["items"]:s.inventory["items"][id]=int(s.inventory["items"][id])
+    if d["version"]==9:
+        if not State.Exam.valid(d.get("exam"),s):return {"error":"Participação ou licença do exame inválida."}
+        s.exam=d["exam"].duplicate(true);s.exam["stage"]=int(s.exam["stage"]);s.exam["setbacks"]=int(s.exam["setbacks"])
+    elif s.Items.quantity(s,"hunter_license")>0:return {"error":"Licença sem aprovação registrada."}
     return {"state":s,"error":""}
-
-
-
-
-
-
-
-
-
-
-
-

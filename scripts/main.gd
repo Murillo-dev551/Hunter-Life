@@ -171,13 +171,17 @@ func build_session() -> void:
     record_content = add_page("Registro")
     refresh_records()
     chapter.text = state.demo["chapter"]
+    if state.exam["status"]=="active":chapter.text="Exame Hunter · Etapa %d/4 · Saúde %d/10" % [state.exam["stage"],state.health]
     balance.text = "%d Jenny" % state.jenny
+    chapter.text=state.demo["chapter"]
+    if state.exam["status"]=="active":chapter.text="Exame Hunter · Etapa %d/4 · Saúde %d/10" % [state.exam["stage"],state.health]
     balance.tooltip_text = "Recursos disponíveis nesta jornada."
     journal_button.disabled = false
     for b in navigation: b.disabled = false
     select_tab(0)
 func build_character() -> void:
     character_content.add_child(UI.title(state.character_name))
+    character_content.add_child(UI.label("Hunter licenciado" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",14,UI.GREEN))
     character_content.add_child(UI.label("Viajante · Uma história por escrever",15,UI.MUTED))
     var progress = UI.card(character_content)
     progress.add_child(UI.label("Nível %d · Saúde %d/10" % [state.level,state.health],20,UI.GREEN))
@@ -224,6 +228,11 @@ func build_character() -> void:
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
     character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Os confrontos usam os atributos atuais.",14,UI.MUTED))
+    if "exam_invite" in state.seen and state.exam["status"]=="unentered" and not state.flags.get("exam_ignored",false):
+        var resume_exam=UI.button("Consultar inscrição Hunter")
+        resume_exam.disabled=state.active_adventure or state.Battle.active(state) or state.health==0 or state.demo["kind"]=="ending"
+        resume_exam.pressed.connect(func():state.open_event("exam_info");build_session())
+        character_content.add_child(resume_exam)
     var reset = UI.button("Criar outro personagem")
     reset.pressed.connect(show_creation)
     character_content.add_child(reset)
@@ -239,6 +248,8 @@ func choose(index: int) -> void:
     if not state.battle.is_empty():build_session();return
     adventure_view.refresh(state)
     balance.text = "%d Jenny" % state.jenny
+    chapter.text=state.demo["chapter"]
+    if state.exam["status"]=="active":chapter.text="Exame Hunter · Etapa %d/4 · Saúde %d/10" % [state.exam["stage"],state.health]
     for child in character_content.get_children():
         character_content.remove_child(child); child.queue_free()
     build_character()
@@ -311,4 +322,3 @@ func inventory_operation(id: String,mode: String,token: int) -> void:
     if not state.Items.operate(state,id,mode,token):return
     build_session();select_tab(2)
     inventory_content.add_child(UI.label("Objeto utilizado." if mode=="use" else "Equipamento atualizado.",14,UI.GREEN))
-

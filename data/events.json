@@ -1828,5 +1828,937 @@
     ],
     "conditions": {},
     "chapter": "Objetos na jornada"
+  },
+  {
+    "choices": [
+      {
+        "label": "Investigar os detalhes",
+        "result": "Você procura o ponto de encontro informado.",
+        "next": "exam_info"
+      },
+      {
+        "label": "Inscrever-se e viajar",
+        "result": "Você confirma a única participação desta jornada.",
+        "exam_start": true
+      },
+      {
+        "label": "Adiar a participação",
+        "result": "Você guarda as informações para outra ocasião."
+      },
+      {
+        "label": "Ignorar a oportunidade",
+        "result": "Você decide não participar nesta jornada.",
+        "flags": {
+          "exam_ignored": true
+        }
+      }
+    ],
+    "kind": "independent",
+    "repeat": {
+      "max": 3,
+      "gap": 4
+    },
+    "title": "Como chegar ao Exame Hunter",
+    "conditions": {
+      "exam_status": "unentered",
+      "flags": {
+        "exam_ignored": false
+      }
+    },
+    "id": "exam_invite",
+    "weight": 2,
+    "adventure": "exam",
+    "paragraphs": [
+      "Um aviso descreve uma seleção conduzida por examinadores independentes. Descobrir a rota até o local já exige iniciativa. Você não precisa de licença, Nen ou nível mínimo para tentar."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Confirmar inscrição",
+        "result": "Você parte para a seleção.",
+        "exam_start": true
+      },
+      {
+        "label": "Deixar para depois",
+        "result": "Você retorna à jornada normal.",
+        "finish_adventure": true
+      },
+      {
+        "label": "Não participar",
+        "result": "Você segue outro caminho.",
+        "flags": {
+          "exam_ignored": true
+        },
+        "finish_adventure": true
+      }
+    ],
+    "kind": "independent",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "O ponto de encontro",
+    "conditions": {},
+    "id": "exam_info",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "A examinadora Selma explica: são quatro provas; até duas advertências podem ser compensadas por bom julgamento. Fraude ou abandono encerram a participação. O Nen não é requisito."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Ouvir as regras e conhecer os candidatos",
+        "result": "Você se junta ao grupo.",
+        "next": "exam_candidates"
+      },
+      {
+        "label": "Desistir antes das provas",
+        "result": "Você prefere voltar à sua jornada.",
+        "exam_withdraw": true
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Candidatos no portão",
+    "conditions": {},
+    "id": "exam_arrival",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Selma e o examinador Rui recebem os candidatos. Nara oferece ajuda, Daro mede os concorrentes e Ivo confere as regras. As quatro provas desta edição foram definidas."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Combinar ajuda com Nara",
+        "result": "Você aceita compartilhar informações permitidas.",
+        "exam_continue": true,
+        "flags": {
+          "exam_helped": true
+        }
+      },
+      {
+        "label": "Competir sem acordo",
+        "result": "Você respeita a distância de Daro e segue por conta própria.",
+        "exam_continue": true
+      },
+      {
+        "label": "Negociar informações com Ivo",
+        "result": "Ivo anota seu acordo de reciprocidade.",
+        "exam_continue": true,
+        "flags": {
+          "exam_ivo": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Uma conversa antes da partida",
+    "conditions": {},
+    "id": "exam_candidates",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Nara propõe dividir informações públicas; Daro prefere competir sozinho; Ivo sugere guardar recursos para as provas. Ninguém exige uma aliança permanente."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "Você atravessa sem atraso.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Saltar entre os apoios"
+      },
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "exam_trial": true,
+        "result": "Você identifica os apoios estáveis.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Analisar o caminho mais firme"
+      },
+      {
+        "label": "Ancorar sua corda",
+        "result": "Você cruza com apoio e recolhe a corda.",
+        "exam_trial": true,
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 10
+      },
+      {
+        "label": "Ajudar Nara antes de seguir",
+        "exam_trial": true,
+        "result": "Vocês cruzam pelo desvio. O atraso rende uma advertência, mas Nara lembra de sua ajuda.",
+        "xp": 8,
+        "exam_setback": 1,
+        "flags": {
+          "exam_helped": true
+        }
+      },
+      {
+        "xp": 12,
+        "exam_trial": true,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "result": "Sua aura protege pequenos contatos, mas a travessia ainda exige atenção.",
+        "failure": {
+          "result": "Ten evita a escoriação, mas não evita o atraso. Você recebe uma advertência.",
+          "xp": 4,
+          "exam_setback": 1,
+          "exam_trial": true
+        },
+        "label": "Cruzar mantendo Ten",
+        "conditions": {
+          "flags": {
+            "nen_ten": true
+          }
+        }
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 1 · Travessia perigosa",
+    "conditions": {},
+    "id": "exam_crossing",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Rui exige atravessar um desfiladeiro sinalizado. Nara está atrasada junto a um barranco. Corda e planejamento ajudam, mas não são obrigatórios."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "Você conclui com reservas.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Manter ritmo constante"
+      },
+      {
+        "test": {
+          "attribute": "agility",
+          "difficulty": 15
+        },
+        "exam_trial": true,
+        "result": "Você acompanha a arrancada e chega cedo.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Seguir a aceleração de Daro"
+      },
+      {
+        "label": "Usar o mapa regional",
+        "result": "Você segue o desvio autorizado e evita a subida mais dura.",
+        "exam_trial": true,
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        },
+        "xp": 10
+      },
+      {
+        "label": "Trocar orientação com Ivo",
+        "result": "Ivo indica o ritmo adequado ao acordo anterior.",
+        "exam_trial": true,
+        "conditions": {
+          "flags": {
+            "exam_ivo": true
+          }
+        },
+        "xp": 9
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 1 · Percurso de resistência",
+    "conditions": {},
+    "id": "exam_endurance",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Selma acompanha um percurso de ritmo contínuo. Ivo mantém um passo econômico; Daro acelera na subida. O mapa mostra um desvio autorizado."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "exam_trial": true,
+        "result": "Você entrega uma conclusão verificável.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Comparar os depoimentos"
+      },
+      {
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "As perguntas revelam a informação correta.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Entrevistar as testemunhas"
+      },
+      {
+        "label": "Copiar a resposta sem verificar",
+        "exam_fail": true,
+        "result": "A origem da resposta viola a regra de autoria; você é reprovado."
+      },
+      {
+        "label": "Comparar anotações públicas com Nara",
+        "result": "O acordo permite conferir as pistas sem copiar a conclusão.",
+        "exam_trial": true,
+        "conditions": {
+          "flags": {
+            "exam_helped": true
+          }
+        },
+        "xp": 10
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 2 · Informações verificáveis",
+    "conditions": {},
+    "id": "exam_inquiry",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Selma esconde um itinerário em depoimentos contraditórios. É preciso separar observação de boato. Daro oferece uma resposta sem explicar a origem."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "Você alcança a fita no ponto certo.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Antecipar o trajeto"
+      },
+      {
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        },
+        "exam_trial": true,
+        "result": "Você recupera a fita sem tocar outros candidatos.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Correr pelo lado aberto"
+      },
+      {
+        "test": {
+          "attribute": "agility",
+          "difficulty": 12
+        },
+        "exam_trial": true,
+        "result": "Você suprime a aura, mas ainda precisa cuidar dos passos.",
+        "failure": {
+          "exam_setback": 1,
+          "result": "Um passo em falso revela sua aproximação. Você completa a prova com advertência.",
+          "exam_trial": true,
+          "xp": 4
+        },
+        "xp": 12,
+        "conditions": {
+          "flags": {
+            "nen_zetsu": true
+          }
+        },
+        "label": "Aproximar-se em Zetsu"
+      },
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "exam_trial": true,
+        "result": "Você toca o mecanismo que retém a fita, sem atingir pessoas.",
+        "failure": {
+          "exam_setback": 1,
+          "result": "O disparo erra o mecanismo. Você completa por um trajeto mais longo.",
+          "exam_trial": true,
+          "xp": 4
+        },
+        "xp": 12,
+        "conditions": {
+          "hatsu": {
+            "specialization": "precision",
+            "id": "emission"
+          }
+        },
+        "label": "Usar Projétil de Aura com Precisão"
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 2 · Recuperar a fita",
+    "conditions": {},
+    "id": "exam_capture",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Rui pede recuperar uma fita móvel num pátio, sem machucar ninguém. O percurso tem sinais para quem observar, e aproximação silenciosa não significa invisibilidade."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "Você encontra um abrigo seguro.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Orientar o grupo até o posto"
+      },
+      {
+        "label": "Iluminar a passagem com a lanterna",
+        "result": "O grupo alcança o posto sem se perder.",
+        "exam_trial": true,
+        "conditions": {
+          "items": {
+            "lantern": 1
+          }
+        },
+        "xp": 10
+      },
+      {
+        "items_take": {
+          "bandage": 1
+        },
+        "exam_trial": true,
+        "result": "Você usa uma unidade em Nara e segue pelo desvio acompanhado.",
+        "xp": 10,
+        "conditions": {
+          "items": {
+            "bandage": 1
+          }
+        },
+        "label": "Entregar uma bandagem a Nara",
+        "flags": {
+          "exam_helped": true
+        }
+      },
+      {
+        "label": "Deixar Nara sem informar o posto",
+        "exam_trial": true,
+        "result": "O atraso no socorro é registrado. Você segue, mas perde a possibilidade de avaliação favorável por cooperação.",
+        "xp": 3,
+        "health": -1,
+        "exam_setback": 1,
+        "flags": {
+          "exam_helped": false
+        }
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 3 · Abrigo e recursos",
+    "conditions": {},
+    "id": "exam_survival",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "O trecho autorizado termina num posto sem iluminação. Nara sofreu um corte superficial e Ivo procura água potável no local indicado pelos examinadores. Não há caça obrigatória nem necessidades diárias simuladas."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "exam_trial": true,
+        "result": "Você coordena uma solução e o grupo atravessa.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Negociar funções"
+      },
+      {
+        "test": {
+          "attribute": "strength",
+          "difficulty": 14
+        },
+        "exam_trial": true,
+        "result": "Você sustenta o apoio enquanto os outros passam.",
+        "failure": {
+          "health": -1,
+          "exam_setback": 1,
+          "result": "Você conclui com atraso e recebe uma advertência, sem eliminação imediata.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Assumir o apoio pesado"
+      },
+      {
+        "test": {
+          "attribute": "strength",
+          "difficulty": 12
+        },
+        "exam_trial": true,
+        "result": "Sua aura auxilia o esforço, mas depende de execução correta.",
+        "failure": {
+          "exam_setback": 1,
+          "result": "O grupo precisa reorganizar o apoio e recebe uma advertência.",
+          "exam_trial": true,
+          "xp": 5
+        },
+        "xp": 14,
+        "conditions": {
+          "hatsu": {
+            "specialization": "power",
+            "id": "reinforce"
+          }
+        },
+        "label": "Usar Corpo Temperado: Potência"
+      },
+      {
+        "label": "Sabotar o apoio de Daro",
+        "exam_fail": true,
+        "result": "Rui vê a violação de segurança. Você é reprovado."
+      },
+      {
+        "xp": 12,
+        "exam_trial": true,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "result": "Sua presença firme é aceita, sem obrigar ninguém pela força.",
+        "failure": {
+          "result": "O grupo se incomoda. Você encerra a emissão e precisa reorganizar a colaboração, recebendo advertência.",
+          "xp": 4,
+          "exam_setback": 1,
+          "exam_trial": true
+        },
+        "label": "Demonstrar Ren para organizar o grupo",
+        "conditions": {
+          "flags": {
+            "nen_ren": true
+          }
+        }
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 3 · Dividir responsabilidades",
+    "conditions": {},
+    "id": "exam_team",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Um portão exige mover apoios e coordenar a passagem do grupo. Daro quer comandar tudo; Nara pede uma distribuição clara. As regras proíbem sabotar os outros."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Conferir as observações e continuar",
+        "result": "Você se apresenta à próxima etapa.",
+        "exam_continue": true
+      },
+      {
+        "label": "Desistir da participação",
+        "result": "Você decide voltar à jornada normal.",
+        "exam_withdraw": true
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Intervalo após a etapa 1",
+    "conditions": {},
+    "id": "exam_interval_1",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Conferir as observações e continuar",
+        "result": "Você se apresenta à próxima etapa.",
+        "exam_continue": true
+      },
+      {
+        "label": "Desistir da participação",
+        "result": "Você decide voltar à jornada normal.",
+        "exam_withdraw": true
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Intervalo após a etapa 2",
+    "conditions": {},
+    "id": "exam_interval_2",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Conferir as observações e continuar",
+        "result": "Você se apresenta à próxima etapa.",
+        "exam_continue": true
+      },
+      {
+        "label": "Desistir da participação",
+        "result": "Você decide voltar à jornada normal.",
+        "exam_withdraw": true
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Intervalo após a etapa 3",
+    "conditions": {},
+    "id": "exam_interval_3",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Os examinadores registram o desempenho. Você pode usar consumíveis pelo Inventário, continuar ou desistir. Advertências não apagam a experiência conquistada."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Aceitar o confronto supervisionado",
+        "battle": "candidate",
+        "result": "Daro assume sua postura. A avaliação começa."
+      },
+      {
+        "label": "Desistir antes do confronto",
+        "result": "Você encerra voluntariamente sua participação.",
+        "exam_withdraw": true
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 4 · Confronto individual",
+    "conditions": {},
+    "id": "exam_duel",
+    "weight": 0,
+    "battle_rewards": {
+      "victory": {
+        "xp": 20
+      },
+      "incapacity": {
+        "xp": 0
+      },
+      "fled": {
+        "xp": 2
+      },
+      "yielded": {
+        "xp": 4
+      }
+    },
+    "adventure": "exam",
+    "paragraphs": [
+      "Selma propõe um duelo supervisionado contra Daro. Vencer permite aprovação com até duas advertências. Quem ajudou outro candidato pode demonstrar um turno de julgamento e render-se conscientemente: essa alternativa só vale com até uma advertência. Fugir ou render-se antes disso reprova, sem encerrar a jornada."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Devolver a ficha e explicar a regra",
+        "exam_decide": true,
+        "result": "Você recusa a vantagem irregular e apresenta uma solução verificável.",
+        "xp": 16
+      },
+      {
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "exam_decide": true,
+        "result": "Você convence a banca a refazer a distribuição.",
+        "failure": {
+          "exam_fail": true,
+          "result": "A justificativa não atende à regra final. A banca encerra sua participação.",
+          "xp": 5
+        },
+        "xp": 14,
+        "label": "Argumentar por uma nova distribuição"
+      },
+      {
+        "label": "Usar a ficha escondido",
+        "exam_fail": true,
+        "result": "A fraude é constatada e você é reprovado."
+      }
+    ],
+    "kind": "continuation",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Etapa 4 · A regra e a escolha",
+    "conditions": {},
+    "id": "exam_judgment",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Ivo encontra uma ficha perdida. Selma pede decidir entre usar uma vantagem não autorizada ou explicar como preservar a igualdade entre os candidatos. A avaliação considera suas advertências anteriores."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Voltar à jornada",
+        "result": "Você deixa o local da seleção.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "adventure_end",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "exam_reward_xp": 40,
+    "title": "Aprovação",
+    "conditions": {},
+    "id": "exam_pass",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Você recebe a Licença Hunter e 40 XP. Ela reconhece sua condição de Hunter licenciado, sem conceder Nen ou atributos máximos."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Voltar à jornada",
+        "result": "Você deixa o local da seleção.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "adventure_end",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Reprovação",
+    "conditions": {},
+    "id": "exam_fail",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Os examinadores encerram sua participação. A experiência obtida permanece, e sua jornada pode continuar."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "label": "Voltar à jornada",
+        "result": "Você deixa o local da seleção.",
+        "finish_adventure": true
+      }
+    ],
+    "kind": "adventure_end",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Desistência",
+    "conditions": {},
+    "id": "exam_withdraw",
+    "weight": 0,
+    "adventure": "exam",
+    "paragraphs": [
+      "Você encerra sua participação por vontade própria. As oportunidades comuns continuam disponíveis."
+    ],
+    "chapter": "Exame Hunter"
+  },
+  {
+    "choices": [
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você entrega uma análise e recebe 45 Jenny.",
+        "failure": {
+          "xp": 6,
+          "result": "Seu relatório precisa de revisão. Você aprende com as correções, sem receber o pagamento."
+        },
+        "xp": 18,
+        "jenny": 45,
+        "label": "Conferir o relatório da rota"
+      },
+      {
+        "label": "Recusar o trabalho",
+        "result": "Você mantém sua licença e procura outra oportunidade."
+      }
+    ],
+    "kind": "independent",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "title": "Uma consulta reservada a Hunters",
+    "conditions": {
+      "items": {
+        "hunter_license": 1
+      }
+    },
+    "id": "licensed_contract",
+    "weight": 3,
+    "adventure": "exam",
+    "paragraphs": [
+      "Sua licença permite consultar um pedido de verificação de uma rota pública. O trabalho é civil, com pagamento combinado e sem batalha obrigatória."
+    ],
+    "chapter": "Exame Hunter"
   }
 ]

@@ -8,6 +8,7 @@ static func data() -> Dictionary:
 static func fresh() -> Dictionary:return {"items":{},"equipment":{"weapon":"","protection":""},"revision":0}
 static func quantity(s,id: String) -> int:return int(s.inventory["items"].get(id,0))
 static func effect_reason(s,effect: Dictionary) -> String:
+    if effect.get("items_take",{}).has("hunter_license"):return "A Licença Hunter é permanente."
     for id in effect.get("items_take",{}):
         if id not in data() or quantity(s,id)<int(effect["items_take"][id]):return "Você não possui os objetos necessários."
     for id in effect.get("items_add",{}):

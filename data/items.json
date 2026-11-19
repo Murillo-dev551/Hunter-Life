@@ -58,5 +58,12 @@
     "category": "Lembrança",
     "max": 1,
     "effect": "Registro de uma experiência. Sem bônus mecânico."
+  },
+  "hunter_license": {
+    "effect": "Permite aceitar oportunidades exclusivas para Hunters. Não é consumível nem equipável.",
+    "name": "Licença Hunter",
+    "category": "Lembrança",
+    "description": "Credencial permanente concedida pela aprovação no Exame Hunter. Identifica você como Hunter licenciado.",
+    "max": 1
   }
 }

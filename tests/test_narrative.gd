@@ -16,7 +16,7 @@ func run() -> void:
         var id: String = s.catalog.select(s)
         distribution[id]=int(distribution.get(id,0))+1
         check(s.catalog.events[id]["weight"]>0,"Somente eventos independentes elegíveis")
-    check(distribution.size()==18,"Seleção diversificada")
+    check(distribution.size()==19,"Seleção diversificada")
     s.open_event("bridge")
     check(s.choice_reason(1)!="","Flag bloqueia desvio")
     s.flags["prepared"]=true
@@ -60,11 +60,3 @@ func run() -> void:
     DirAccess.remove_absolute("user://test_narrative.json")
     print("MOTOR: %d verificações, %d falhas; seleção=%s" % [checks,failures,distribution])
     quit(1 if failures else 0)
-
-
-
-
-
-
-
-
