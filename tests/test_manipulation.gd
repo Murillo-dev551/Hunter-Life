@@ -33,7 +33,7 @@ func run() -> void:
     var counts: Dictionary={"signal_roof":5,"reservoir":4,"exam_capture":5,"escort_checkpoint":5}
     for event in previous:
         if counts.has(event["id"]):event["choices"]=event["choices"].slice(0,counts[event["id"]])
-    check(data.size()==81 and JSON.stringify(previous).sha256_text()==BASELINE,"Preserva integralmente os 80 acontecimentos e escolhas anteriores")
+    check(data.size()==92 and JSON.stringify(previous).sha256_text()==BASELINE,"Preserva integralmente os 80 acontecimentos e escolhas anteriores")
     for spec in ["objects","motor"]:
         var outcomes: Dictionary={}
         for seed_value in range(30):

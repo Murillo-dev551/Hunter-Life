@@ -27,6 +27,7 @@ var adventure_view
 var record_content: VBoxContainer
 var character_content: VBoxContainer
 var current_tab: int = 0
+var affinity_checkpoint_dir: String=Storage.AFFINITY_DIR
 func _ready() -> void:
     get_window().min_size = Vector2i(320,480)
     theme = UI.make_theme()
@@ -140,6 +141,13 @@ func show_creation() -> void:
     var continue_button = UI.button("Continuar partida salva")
     content.add_child(continue_button)
     continue_button.pressed.connect(load_saved)
+    if FileAccess.file_exists(affinity_checkpoint_dir+"latest"):
+        var resume_affinity=UI.button("Retomar registro de Mira")
+        content.add_child(resume_affinity)
+        resume_affinity.pressed.connect(func():
+            var loaded: Dictionary=Storage.latest_affinity(affinity_checkpoint_dir)
+            if loaded["error"]!="":creation_view.show_error(loaded["error"]);return
+            state=loaded["state"];build_session())
     creation_view.start_requested.connect(start_game)
     page_title.text = "Uma nova jornada"
     chapter.text = "Prólogo · Seu personagem"
@@ -214,11 +222,21 @@ func build_character() -> void:
         nen_card.add_child(UI.label("Fundamentos: %s · Domínio básico %d/3" % [", ".join(technique_names),state.nen["mastery"]],14))
         if state.nen["water_done"]:nen_card.add_child(UI.label("Categoria: "+("Materialização (Conjuração)" if state.nen["category"]=="Materialização" else state.nen["category"]),16,UI.GREEN))
         else:nen_card.add_child(UI.label("Categoria ainda não revelada.",14,UI.MUTED))
+        if state.nen["category"]=="Especialização" and state.nen["water_done"]:
+            if state.affinity["result"]!="" and (state.affinity["phase"]=="learned" or state.current_id=="affinity_reveal_"+state.affinity["result"]):
+                var developed_category: String=state.Hatsu.category(state.affinity["result"])
+                nen_card.add_child(UI.label("Afinidade desenvolvida: "+("Materialização (Conjuração)" if developed_category=="Materialização" else developed_category),16,UI.GREEN))
+            elif state.affinity["phase"]=="active":nen_card.add_child(UI.label("Avaliação com Mira em andamento.",14,UI.MUTED))
         if state.hatsu["learned"]:
             nen_card.add_child(UI.label(state.Hatsu.NAMES[state.hatsu["id"]]+" · "+state.Hatsu.LABELS[state.hatsu["specialization"]],16,UI.GREEN))
             nen_card.add_child(UI.label(state.Hatsu.DESCRIPTIONS[state.hatsu["id"]+":"+state.hatsu["specialization"]],14,UI.MUTED))
         elif state.nen["water_done"]:
-            nen_card.add_child(UI.label("Hatsu ainda não desenvolvido. Busque uma oportunidade prática." if state.nen["category"] in state.Hatsu.CATEGORIES.values() else "Ainda não há Hatsu implementado para esta categoria. Sua jornada pode continuar normalmente.",14,UI.MUTED))
+            var hint: String="Hatsu ainda não desenvolvido. Busque uma oportunidade prática."
+            if state.nen["category"]=="Especialização":
+                hint="Mira pode orientar uma avaliação para descobrir como sua prática toma forma."
+                if state.affinity["phase"]=="active":hint="A habilidade será definida quando as cinco situações terminarem."
+                if state.affinity["phase"]=="resolved":hint="Escolha a direção interna da habilidade revelada por Mira." if state.current_id.begins_with("affinity_reveal_") else "Mira está reunindo suas observações para a conversa final."
+            nen_card.add_child(UI.label(hint,14,UI.MUTED))
         if state.nen["mastery"]==3 and not state.nen["water_done"]:
             var water=UI.button("Procurar Mira para o teste da água")
             water.disabled=state.Battle.active(state) or state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
@@ -244,7 +262,10 @@ func build_character() -> void:
     character_content.add_child(end_button)
     character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
 func choose(index: int) -> void:
+    var affinity_commit: bool=state.Affinity.locked(state)
     if not state.choose(index): return
+    var checkpoint_error: String=""
+    if affinity_commit or state.affinity["phase"]=="active":checkpoint_error=Storage.save_affinity(state,affinity_checkpoint_dir)
     if not state.battle.is_empty():build_session();return
     adventure_view.refresh(state)
     balance.text = "%d Jenny" % state.jenny
@@ -255,6 +276,7 @@ func choose(index: int) -> void:
     build_character()
     refresh_inventory()
     refresh_records()
+    if checkpoint_error!="":adventure_view.consequence.add_child(UI.label(checkpoint_error+" Salve a partida antes de sair.",14,UI.ALERT))
     var scroll = pages.get_child(0)
     scroll.ensure_control_visible.call_deferred(adventure_view.consequence)
 func save_current() -> void:

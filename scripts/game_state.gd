@@ -2,6 +2,8 @@ extends RefCounted
 const INITIAL_ATTRIBUTES = {"strength":5,"agility":5,"intellect":5,"presence":5}
 const ATTRIBUTE_NAMES = {"strength":"Força","agility":"Agilidade","intellect":"Intelecto","presence":"Presença"}
 const Exam=preload("res://scripts/exam.gd")
+const Affinity=preload("res://scripts/affinity.gd")
+var affinity: Dictionary=Affinity.fresh()
 var exam: Dictionary=Exam.fresh()
 const Items=preload("res://scripts/inventory.gd")
 var inventory: Dictionary=Items.fresh()
@@ -45,7 +47,7 @@ func start(raw_name: String, inclination: int = 0) -> String:
     if clean.is_empty(): return "Dê um nome ao personagem para começar."
     if clean.length()>32: return "Use um nome com até 32 caracteres."
     if error!="": return error
-    battle={};inventory=Items.fresh();exam=Exam.fresh()
+    battle={};inventory=Items.fresh();exam=Exam.fresh();affinity=Affinity.fresh()
     level=1;xp=0;points=0;health=10;nen=Nen.fresh();hatsu=Hatsu.fresh()
     character_name=clean; attributes=INITIAL_ATTRIBUTES.duplicate(); jenny=250
     attributes=starting_attributes(inclination)
@@ -57,6 +59,8 @@ func start(raw_name: String, inclination: int = 0) -> String:
     return ""
 func open_event(id: String) -> void:
     if Battle.active(self):return
+    if affinity["phase"]=="learned" and id.begins_with("affinity_"):return
+    if Affinity.locked(self) and (id!=Affinity.target(self) or id==current_id):return
     current_id=id; demo=catalog.events[id]; selected_choice=-1; result=""
     step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
     if id not in seen: seen.append(id)
@@ -66,6 +70,8 @@ func open_event(id: String) -> void:
     Exam.on_open(self)
 func choice_reason(index: int) -> String:
     var choice: Dictionary = demo["choices"][index]
+    var affinity_reason: String=Affinity.reason(self,choice)
+    if affinity_reason!="":return affinity_reason
     if not catalog.eligible(choice.get("conditions",{}),self): return "Exige preparação anterior ou recursos adicionais."
     for possible in [choice,choice.get("failure",{})]:
         var item_reason: String=Items.effect_reason(self,possible)
@@ -86,11 +92,16 @@ func choose(index: int) -> bool:
     var choice: Dictionary = demo["choices"][index]
     var effect: Dictionary = choice
     var test_text: String = ""
+    var affinity_roll: int=0
+    var affinity_value: int=0
+    var affinity_difficulty: int=0
+    var affinity_success: bool=true
     if choice.has("test"):
         var test: Dictionary = choice["test"]
         var roll: int = rng.randi_range(1,20)
         var value: int = int(attributes[test["attribute"]])
         var success: bool = roll+value>=int(test["difficulty"])
+        affinity_roll=roll;affinity_value=value;affinity_difficulty=int(test["difficulty"]);affinity_success=success
         test_text="\n%s: d20 %d + %d = %d contra %d · %s." % [ATTRIBUTE_NAMES[test["attribute"]],roll,value,roll+value,int(test["difficulty"]),"sucesso" if success else "fracasso"]
         if not success: effect=choice["failure"]
     effect=effect.duplicate(true)
@@ -114,6 +125,7 @@ func choose(index: int) -> bool:
     var levels: int=Progress.award(self,gained_xp)
     health=clampi(health+int(effect.get("health",0)),0,10)
     var exam_text: String=Exam.apply(self,effect)
+    Affinity.apply(self,choice,affinity_roll,affinity_value,affinity_difficulty,affinity_success)
     result=effect["result"]+test_text+exam_text+Items.apply(self,effect)+Nen.apply(self,effect)+Hatsu.apply(self,effect)
     if gained_xp>0: result+="\n+%d XP" % gained_xp
     if levels>0: result+="\nNível %d alcançado · %d ponto(s) disponível(is)." % [level,points]
@@ -136,7 +148,7 @@ func advance() -> bool:
     open_event(next)
     return true
 func serialize() -> Dictionary:
-    return {"version":9,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
+    return {"version":9,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
     if current_adventure!="" and flags.get(current_adventure+"_completed",false) and current_adventure not in completed:

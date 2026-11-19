@@ -4,7 +4,7 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Etapa atual: 10D — Hatsu de Manipulação.** Agulha de Comando permite escolher Controle de Objetos ou Comando Motor, com aprendizado orientado por Mira e aplicações breves em combate e narrativa. O catálogo possui 81 acontecimentos, preservando os 80 anteriores. Consulte o [relatório 10D](STAGE_10D.md).
+**Etapa atual: 10E — Afinidade do Especialista.** Personagens de Especialização podem passar por cinco situações com Mira e desenvolver permanentemente um dos cinco Hatsus existentes, conforme suas decisões e testes. A categoria original não muda. O catálogo possui 92 acontecimentos, preservando os 81 anteriores. Consulte o [relatório 10E](STAGE_10E.md).
 
 ## Funcionalidades
 
@@ -14,7 +14,7 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
 | Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
 | Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
-| Narrativa | 81 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Narrativa | 92 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
 | Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
 | Confrontos | Turnos narrativos, intenções observáveis e diferentes resultados |
@@ -63,12 +63,19 @@ A categoria é sorteada uma única vez na criação, permanece oculta e só é r
 | Transmutação | Fio de Aura | Contenção ou Mobilidade |
 | Materialização (Conjuração) | Escudo Materializado | Resistência ou Cobertura |
 | Manipulação | Agulha de Comando | Controle de Objetos ou Comando Motor |
+| Especialização | Um dos cinco Hatsus acima, definido pela avaliação | As mesmas especializações da habilidade revelada |
 
-Desenvolver um Hatsu exige uma oportunidade prática posterior à revelação da categoria. A especialização é persistente e não pode ser trocada livremente. Especialização pode aprender Nen e concluir jornadas, mas ainda não possui Hatsu implementado. Não há criação livre de habilidades nem consumo detalhado de aura.
+Desenvolver um Hatsu exige uma oportunidade prática posterior à revelação da categoria. A especialização é persistente e não pode ser trocada livremente. Não há criação livre de habilidades nem consumo detalhado de aura.
 
 Fio de Aura produz um filamento aderente e elástico: Contenção limita um movimento, enquanto Mobilidade usa apoios próximos. Escudo Materializado cria uma peça temporária de porte pessoal: Resistência absorve mais impacto; Cobertura protege uma passagem breve e pode desviar uma investida. Os efeitos de proteção valem só na resposta atual, e aberturas na próxima ação. Ambos exigem uma ação comum entre usos especiais e podem falhar. “Materialização” permanece o valor interno da categoria chamada Conjuração, preservando os salvamentos existentes.
 
 Agulha de Comando exige fixar ou acertar uma agulha no alvo. Controle de Objetos atua sobre peças pequenas, próximas e acessíveis; fica indisponível em confrontos sem objeto apropriado. Comando Motor interfere por um instante num movimento simples, sem controlar a consciência. Ambos podem criar uma abertura e reduzir parte da resposta atual, sem dano automático, controle permanente ou munição para administrar. Também respeitam o intervalo compartilhado entre técnicas.
+
+### Afinidade do Especialista
+
+Depois dos fundamentos e da revelação de Especialização pela água, Mira pode oferecer uma avaliação opcional. Ao aceitar, o personagem assume as cinco situações até um resultado permanente. Sucessos e fracassos permitem continuar; não há menu para escolher entre os cinco Hatsus nem pontuação de afinidade na interface.
+
+Mira interpreta o conjunto das decisões e revela a habilidade correspondente. O jogador escolhe somente a especialização interna dessa habilidade. A categoria continua **Especialização**; o Hatsu usa exatamente as regras, limites e alternativas narrativas da categoria original, sem bônus especial. Não é possível repetir a avaliação ou trocar a habilidade após conhecer o resultado.
 
 ## Batalhas narrativas
 
@@ -154,6 +161,8 @@ Os Hatsus da 10C usam a estrutura de Hatsu e o estado de batalha já existentes.
 
 Agulha de Comando usa esses mesmos campos, sem migração adicional. Batalhas iniciadas pelo fracasso de uma escolha também preservam a continuidade ao carregar.
 
+A avaliação acrescenta um campo opcional `affinity` ao save v9, com decisões, rolagens, afinidades acumuladas e resultado. Saves anteriores recebem estado não iniciado, sem resultados retroativos. Cada decisão da avaliação e a especialização escolhida geram um checkpoint separado em `user://affinity_checkpoints/`, sem sobrescrever automaticamente o slot manual. Carregar o slot manual da mesma jornada retoma o checkpoint se ele estiver mais adiantado; a tela inicial também oferece **Retomar registro de Mira**. Um salvamento manual mais recente tem preferência sobre um checkpoint antigo.
+
 As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
 
 A gravação usa arquivo temporário e substituição após sucesso. Não há salvamento automático ou múltiplos slots. O JSON é local e não criptografado.
@@ -176,6 +185,7 @@ godot --headless --path . --script res://tests/test_narrative_revision.gd
 godot --headless --path . --script res://tests/test_expansion.gd
 godot --headless --path . --script res://tests/test_hatsu_10c.gd
 godot --headless --path . --script res://tests/test_manipulation.gd
+godot --headless --path . --script res://tests/test_affinity.gd
 
 # Verificações com renderização e capturas
 godot --path . --script res://tests/test_exam_visual.gd
@@ -184,19 +194,20 @@ godot --path . --script res://tests/test_narrative_revision_visual.gd
 godot --path . --script res://tests/test_expansion_visual.gd
 godot --path . --script res://tests/test_hatsu_10c_visual.gd
 godot --path . --script res://tests/test_manipulation_visual.gd
+godot --path . --script res://tests/test_affinity_visual.gd
 ```
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 81 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10d_*.log`; imagens, em `tests/captures/`. As suítes protegem as escolhas anteriores e validam as alternativas acrescentadas. Resultados estão no [relatório 10D](STAGE_10D.md).
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 92 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10e_*.log`; imagens, em `tests/captures/`. As suítes protegem as escolhas anteriores, o resultado da avaliação e o reaproveitamento dos Hatsus. Resultados estão no [relatório 10E](STAGE_10E.md).
 
 ## Limitações e desenvolvimento futuro
 
-O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há cinco Hatsus e uma especialização fixa por personagem; a categoria Especialização ainda não tem habilidade própria. Controle de Objetos utiliza alvos explicitamente definidos, sem inventário de adversários ou simulação livre de mecanismos.
+O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há cinco Hatsus e uma especialização fixa por personagem. O Especialista reproduz um deles pela avaliação provisória da 10E; não há um sexto Hatsu ou versão superior. Controle de Objetos utiliza alvos explicitamente definidos, sem inventário de adversários ou simulação livre de mecanismos.
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento inclui o Bloco 10D. As etapas 10E e 10F não foram iniciadas. Não há sistema de três slots ou áudio.
+O desenvolvimento inclui o Bloco 10E. A Etapa 10F não foi iniciada. Não há sistema de três slots ou áudio.
 
 ## Histórico resumido
 
@@ -214,3 +225,4 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 10B | [Expansão das aventuras e consequências](STAGE_10B.md) |
 | 10C | [Fio de Aura e Escudo Materializado](STAGE_10C.md) |
 | 10D | [Agulha de Comando](STAGE_10D.md) |
+| 10E | [Afinidade do Especialista](STAGE_10E.md) |

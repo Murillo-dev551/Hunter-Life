@@ -9,14 +9,15 @@ static func category(id: String) -> String:
     # Materialização é o nome já persistido para a categoria também chamada Conjuração.
     return CATEGORIES.get(id,"")
 static func can_learn(state, id: String, spec: String) -> bool:
-    return id in SPECS and spec in SPECS[id] and not state.hatsu["learned"] and state.nen["water_done"] and state.nen["mastery"]==3 and state.nen["category"]==category(id)
+    return id in SPECS and spec in SPECS[id] and not state.hatsu["learned"] and state.nen["water_done"] and state.nen["mastery"]==3 and (state.nen["category"]==category(id) or state.Affinity.authorized(state,id,true))
 static func valid(v: Variant, state) -> bool:
     if not v is Dictionary or v.size()!=3 or not v.get("learned") is bool or not v.get("id") is String or not v.get("specialization") is String:return false
     if not v["learned"]:return v["id"]=="" and v["specialization"]==""
-    return v["id"] in SPECS and v["specialization"] in SPECS[v["id"]] and state.nen["water_done"] and state.nen["mastery"]==3 and state.nen["category"]==category(v["id"])
+    return v["id"] in SPECS and v["specialization"] in SPECS[v["id"]] and state.nen["water_done"] and state.nen["mastery"]==3 and (state.nen["category"]==category(v["id"]) or state.Affinity.authorized(state,v["id"],false))
 static func apply(state, effect: Dictionary) -> String:
     if not effect.has("hatsu_learn"):return ""
     var data: Dictionary=effect["hatsu_learn"]
     if not can_learn(state,data["id"],data["specialization"]):return ""
     state.hatsu={"id":data["id"],"specialization":data["specialization"],"learned":true}
+    if state.nen["category"]=="Especialização":state.affinity["phase"]="learned"
     return "\nHatsu desenvolvido: %s · %s." % [NAMES[data["id"]],LABELS[data["specialization"]]]

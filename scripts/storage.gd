@@ -1,6 +1,7 @@
 extends RefCounted
 const State = preload("res://scripts/game_state.gd")
 const PATH = "user://hunter_life.json"
+const AFFINITY_DIR="user://affinity_checkpoints/"
 static func save(state, path: String = PATH) -> String:
     if state.character_name.is_empty(): return "Crie um personagem primeiro."
     var file = FileAccess.open(path+".tmp",FileAccess.WRITE)
@@ -11,7 +12,7 @@ static func save(state, path: String = PATH) -> String:
     return ""
 static func integer(v: Variant, low: int, high: int) -> bool:
     return (v is int or v is float) and is_finite(float(v)) and float(v)==floor(float(v)) and v>=low and v<=high
-static func load_state(path: String = PATH) -> Dictionary:
+static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> Dictionary:
     var f = FileAccess.open(path,FileAccess.READ)
     if not f: return {"error":"Nenhuma partida salva encontrada."}
     var parser = JSON.new()
@@ -51,8 +52,8 @@ static func load_state(path: String = PATH) -> Dictionary:
         for id in seen:
             if not integer(d["visits"].get(id),1,100000) or not integer(d["last_visit"].get(id),1,int(d["step"])): return {"error":"Repetição inválida."}
         for id in d["completed"]:
-            if id not in ["delivery","survey","nen","escort","ruins"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
-        if d["adventure"] not in ["","delivery","survey","nen","exam","escort","ruins"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
+            if id not in ["delivery","survey","nen","escort","ruins","affinity"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
+        if d["adventure"] not in ["","delivery","survey","nen","exam","escort","ruins","affinity"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
         s.visits=d["visits"];s.last_visit=d["last_visit"];s.step=int(d["step"]);s.completed=d["completed"];s.current_adventure=d["adventure"]
         for id in seen: s.visits[id]=int(s.visits[id]);s.last_visit[id]=int(s.last_visit[id])
     else:
@@ -84,6 +85,9 @@ static func load_state(path: String = PATH) -> Dictionary:
         affinity_rng.seed=s.rng.seed;affinity_rng.state=s.rng.state
         s.nen["category"]=State.Nen.CATEGORIES[affinity_rng.randi_range(0,5)]
     if d["version"]>=6:
+        var affinity_data: Variant=d.get("affinity",State.Affinity.fresh())
+        if not State.Affinity.valid_data(affinity_data,s.catalog):return {"error":"Avaliação de afinidade inválida."}
+        s.affinity=State.Affinity.normalized(affinity_data)
         if not State.Hatsu.valid(d.get("hatsu"),s):return {"error":"Hatsu incompatível ou inválido."}
         s.hatsu=d["hatsu"].duplicate(true)
     if d["version"]>=7:
@@ -103,4 +107,41 @@ static func load_state(path: String = PATH) -> Dictionary:
         if not State.Exam.valid(d.get("exam"),s):return {"error":"Participação ou licença do exame inválida."}
         s.exam=d["exam"].duplicate(true);s.exam["stage"]=int(s.exam["stage"]);s.exam["setbacks"]=int(s.exam["setbacks"])
     elif s.Items.quantity(s,"hunter_license")>0:return {"error":"Licença sem aprovação registrada."}
+    if not State.Affinity.valid_state(s):return {"error":"Continuidade da avaliação inválida."}
+    if respect_checkpoint and path==PATH:return restore_affinity(s)
     return {"state":s,"error":""}
+
+static func affinity_key(s) -> String:
+    # Nome imutável e semente de nascimento identificam a jornada, sem consumir RNG.
+    return (str(s.rng.seed)+":"+s.character_name).sha256_text()
+static func save_affinity(s,directory: String=AFFINITY_DIR) -> String:
+    if s.affinity["phase"]=="unstarted":return ""
+    if DirAccess.make_dir_recursive_absolute(directory)!=OK:return "Não foi possível registrar a avaliação."
+    var key: String=affinity_key(s)
+    var error: String=save(s,directory+key+".json")
+    if error!="":return error
+    var f=FileAccess.open(directory+"latest.tmp",FileAccess.WRITE)
+    if not f:return "Não foi possível registrar a retomada da avaliação."
+    f.store_string(key);f.flush();var code: Error=f.get_error();f.close()
+    if code!=OK or DirAccess.rename_absolute(directory+"latest.tmp",directory+"latest")!=OK:return "Não foi possível registrar a retomada da avaliação."
+    return ""
+static func restore_affinity(s,directory: String=AFFINITY_DIR) -> Dictionary:
+    var path: String=directory+affinity_key(s)+".json"
+    if not FileAccess.file_exists(path):return {"state":s,"error":""}
+    var loaded: Dictionary=load_state(path,false)
+    if loaded["error"]!="":return {"error":"O registro da avaliação não pôde ser lido. "+loaded["error"]}
+    var checkpoint=loaded["state"]
+    if affinity_key(checkpoint)!=affinity_key(s):return {"error":"Registro de avaliação de outra jornada."}
+    var phases: Array=["unstarted","active","resolved","learned"]
+    var checkpoint_progress: int=phases.find(checkpoint.affinity["phase"])*10+checkpoint.affinity["decisions"].size()
+    var progress: int=phases.find(s.affinity["phase"])*10+s.affinity["decisions"].size()
+    if checkpoint.step>s.step or checkpoint.step==s.step and checkpoint_progress>progress:return loaded
+    return {"state":s,"error":""}
+static func latest_affinity(directory: String=AFFINITY_DIR) -> Dictionary:
+    var key: String=FileAccess.get_file_as_string(directory+"latest").strip_edges() if FileAccess.file_exists(directory+"latest") else ""
+    if key.length()!=64 or not key.is_valid_hex_number():return {"error":"Nenhum registro de avaliação disponível."}
+    var checkpoint: Dictionary=load_state(directory+key+".json",false)
+    if directory==AFFINITY_DIR and checkpoint["error"]=="" and FileAccess.file_exists(PATH):
+        var manual: Dictionary=load_state(PATH,false)
+        if manual["error"]=="" and affinity_key(manual["state"])==affinity_key(checkpoint["state"]):return restore_affinity(manual["state"],directory)
+    return checkpoint

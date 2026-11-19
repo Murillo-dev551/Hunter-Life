@@ -4372,5 +4372,688 @@
         "result": "Você deixa a agulha na bancada e explica que não vai iniciar a prática. Mira recolhe o material; você mantém os fundamentos que já conhece."
       }
     ]
+  },
+  {
+    "id": "affinity_offer",
+    "title": "A pergunta de Mira",
+    "chapter": "O modo de usar a aura",
+    "kind": "independent",
+    "adventure": "affinity",
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {
+      "affinity_available": true
+    },
+    "paragraphs": [
+      "Mira reconhece o resultado da sua adivinhação e guarda o copo antes de lhe oferecer um novo exercício. “Especialização não me diz, sozinha, que forma sua prática vai tomar. Quero observar como você enfrenta problemas diferentes.”",
+      "Ela preparou cinco situações no pátio e no galpão ao lado. Não há licença a apresentar nem prova de profissão: haverá tempo para tentar, falhar e compreender as próprias decisões.",
+      "“Se aceitar começar, seguiremos até uma conclusão. Não vou lhe oferecer uma lista de poderes para escolher depois: a direção virá do que você fizer. Só então escolherá como cultivar a habilidade que se revelou.” Se precisar interromper a visita, Mira conservará o ponto em que pararam."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar os cinco exercícios",
+        "result": "Você aceita seguir até a conclusão, mesmo que o resultado não seja o que imaginava. Mira abre a porta do galpão e chama você para a primeira situação.",
+        "affinity_start": true
+      },
+      {
+        "label": "Não iniciar a avaliação",
+        "result": "Você agradece a proposta e decide não começar. Mira deixa o galpão fechado e vocês se despedem."
+      }
+    ]
+  },
+  {
+    "id": "affinity_trial_1",
+    "title": "Um caixote na passagem",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Uma caixa pesada impede a passagem entre o galpão e o pátio. Há um ponto de apoio ao lado, um peso menor junto à caixa e uma trava acessível na base.",
+      "Mira não indica um método. Pede que você use os fundamentos que aprendeu para ensaiar uma solução, sem tentar reproduzir uma habilidade pronta. Ela ficará perto para interromper qualquer movimento que saia do controle."
+    ],
+    "choices": [
+      {
+        "label": "Erguer a caixa com o corpo bem apoiado",
+        "result": "Você reúne o esforço num movimento curto e desloca a caixa sem perder o apoio. Mira observa como você distribui a aura junto ao corpo.",
+        "affinity_style": "reinforce",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Seu apoio cede antes de a caixa sair do lugar. Mira segura a lateral e orienta um esforço menor; interessa-lhe a maneira como você tentou resolver o peso."
+        }
+      },
+      {
+        "label": "Deslocar o peso menor a partir da entrada",
+        "result": "Você acompanha a direção do pequeno peso ao ensaiar uma projeção curta de aura. Mira recolhe o material depois de observar sua tentativa de atuar sem se aproximar.",
+        "affinity_style": "emission",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A projeção se dispersa antes de mover o peso. Mira aproxima o alvo para que você reconheça onde perdeu a direção, sem exigir que recomece a avaliação."
+        }
+      },
+      {
+        "label": "Ensaiar uma ligação flexível com o apoio",
+        "result": "Sob orientação, você acompanha a tensão da aura entre a mão e o apoio próximo. A caixa pode ser conduzida sem que você tente sustentar todo o peso de uma vez.",
+        "affinity_style": "transmutation",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A tensão se desfaz antes de firmar o apoio. Mira sustenta a caixa e lhe pede que descreva como imaginava distribuir o esforço."
+        }
+      },
+      {
+        "label": "Dar forma a um calço junto à base",
+        "result": "Você concentra atenção numa forma simples e firme junto ao apoio. Mira acompanha o ensaio e o modo como você pensa a posição de cada superfície.",
+        "affinity_style": "conjuration",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A forma ensaiada não conserva o contorno. Mira usa um calço de madeira para demonstrar o apoio que você procurava e leva a observação adiante."
+        }
+      },
+      {
+        "label": "Trabalhar com a trava acessível",
+        "result": "Você examina o giro necessário e mantém a atenção num único movimento da peça. Mira observa sua preferência por atuar no ponto que governa o restante.",
+        "affinity_style": "manipulation",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você tenta comandar movimentos demais de uma vez e a trava não gira como esperava. Mira limita o exercício a um único gesto antes de encerrar a observação."
+        }
+      }
+    ]
+  },
+  {
+    "id": "affinity_trial_2",
+    "title": "A fita além do alcance",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "No pátio, Mira põe uma fita num suporte que não pode ser alcançado do lugar onde você está. Há pedras leves sobre um banco, uma haste e pontos de apoio próximos.",
+      "“Quero ver como você lida com a distância. Não precisa insistir no método anterior.” Ela permanece junto ao suporte para recolher o que cair e evitar que uma tentativa ponha alguém em risco."
+    ],
+    "choices": [
+      {
+        "label": "Projetar o esforço na direção da fita",
+        "result": "Você acompanha a linha entre a mão e o suporte e ensaia levar aura além do contato próximo. Mira recolhe a fita depois de observar a direção que você procurou.",
+        "affinity_style": "emission",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Sua concentração se abre antes do suporte. Mira aponta onde a projeção perdeu a linha e registra a tentativa, sem exigir um acerto para prosseguir."
+        }
+      },
+      {
+        "label": "Usar a haste como apoio para puxar",
+        "result": "Você busca uma resposta elástica ao deslocar a haste e encurtar a distância. Mira acompanha a tensão e interrompe o exercício quando o apoio está firme.",
+        "affinity_style": "transmutation",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A ligação ensaiada se solta quando a haste muda de ângulo. Mira evita a queda do material e lhe pede que observe a diferença entre tração e rigidez."
+        }
+      },
+      {
+        "label": "Imaginar uma extensão curta e firme",
+        "result": "Você define tamanho e posição de uma forma simples, limitada ao espaço entre os apoios. Mira reconhece a atenção que deu à estrutura antes de tentar alcançar a fita.",
+        "affinity_style": "conjuration",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O contorno que você ensaia não se mantém na distância pretendida. Mira aproxima a haste e confere com você quais limites imaginou para essa forma."
+        }
+      },
+      {
+        "label": "Fazer o suporte executar um único giro",
+        "result": "Você procura o eixo acessível por meio da haste e concentra a tentativa num movimento simples. Mira observa como você usa o próprio objeto para reduzir a distância.",
+        "affinity_style": "manipulation",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você escolhe um ponto que não transmite o giro ao eixo. Mira demonstra o movimento correto e encerra o exercício com sua tentativa registrada."
+        }
+      },
+      {
+        "label": "Ganhar impulso para chegar perto",
+        "result": "Você mede a distância e encontra um impulso que consegue sustentar. Mira percebe que sua primeira resposta à distância foi preparar o próprio corpo.",
+        "affinity_style": "reinforce",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você perde o ritmo do impulso e para antes de saltar. Mira mostra onde faltou apoio; o erro não muda a intenção que você trouxe ao exercício."
+        }
+      }
+    ]
+  },
+  {
+    "id": "affinity_trial_3",
+    "title": "Quando o apoio avança",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira avisa que vai soltar um apoio acolchoado em sua direção e espera você confirmar que está pronto. Não diz o momento exato; quer observar sua resposta sem transformar o exercício numa agressão.",
+      "O acolchoado corre por um trilho curto. Você pode preparar uma reação, sabendo que Mira interromperá a passagem se sua tentativa não se sustentar."
+    ],
+    "choices": [
+      {
+        "label": "Ceder para o lado usando tensão",
+        "result": "Você ensaia uma tração curta num apoio próximo e sai da linha do acolchoado. Mira confere como você tratou o movimento como algo a redirecionar.",
+        "affinity_style": "transmutation",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A tensão se rompe antes de completar o desvio. Mira trava o trilho e acompanha a volta ao apoio, conservando a observação da sua decisão."
+        }
+      },
+      {
+        "label": "Posicionar uma forma entre você e o apoio",
+        "result": "Você procura um contorno de porte pessoal no ponto de contato. Mira interrompe o ensaio quando percebe a posição que escolheu para a proteção.",
+        "affinity_style": "conjuration",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A forma aparece fora do ponto útil. Mira segura o acolchoado e pede que você indique onde a peça precisaria estar para receber o contato."
+        }
+      },
+      {
+        "label": "Interferir no braço que libera o trilho",
+        "result": "Você se concentra no gesto de liberação e tenta interromper apenas esse movimento. Mira desacelera o braço para observar a direção da tentativa com segurança.",
+        "affinity_style": "manipulation",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Sua reação chega depois da liberação. Mira detém o acolchoado e mostra que uma intenção simples também depende de alcançar o alvo no momento certo."
+        }
+      },
+      {
+        "label": "Firmar o corpo para receber o contato",
+        "result": "Você ajusta a base e mantém aura junto ao corpo ao receber o apoio. Mira interrompe o trilho depois de observar sua escolha de sustentar o impacto.",
+        "affinity_style": "reinforce",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você endurece a postura cedo demais. Mira segura o apoio antes do contato e refaz com você a posição dos pés, sem repetir a decisão."
+        }
+      },
+      {
+        "label": "Responder antes de o apoio chegar",
+        "result": "Você acompanha a aproximação e ensaia uma projeção curta contra sua linha de avanço. Mira recolhe o apoio, atenta ao momento em que você tentou agir.",
+        "affinity_style": "emission",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A tentativa parte fora da linha. Mira para o trilho antes do contato e mostra a diferença entre antecipar o movimento e apenas apressar a resposta."
+        }
+      }
+    ]
+  },
+  {
+    "id": "affinity_trial_4",
+    "title": "Um caminho que mudou",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "No galpão, Mira muda de lugar uma calha usada nos exercícios. A água agora escorre para uma bacia fora do ponto esperado, e o apoio que parecia servir antes perdeu a função.",
+      "“A mesma resposta nem sempre serve para o problema novo.” Ela pede uma adaptação simples, limitada ao material que vocês alcançam, enquanto acompanha a passagem da água."
+    ],
+    "choices": [
+      {
+        "label": "Ensaiar uma barreira de tamanho definido",
+        "result": "Você delimita uma peça pequena para interceptar a passagem fora do lugar. Mira acompanha a posição e o tamanho que escolheu antes de recolher o material.",
+        "affinity_style": "conjuration",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A forma ensaiada deixa uma passagem justamente onde precisava fechar. Mira aponta a falha e conserva o desenho da solução que você pretendia criar."
+        }
+      },
+      {
+        "label": "Ajustar um único movimento da peça",
+        "result": "Você encontra o giro que reposiciona a saída e concentra o ensaio nesse gesto. Mira percebe que você preferiu controlar uma função, em vez de sustentar a estrutura inteira.",
+        "affinity_style": "manipulation",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você tenta alterar mais de uma função e perde o movimento principal. Mira separa os gestos e lhe pede que conserve a intenção que considera mais importante."
+        }
+      },
+      {
+        "label": "Sustentar a calha enquanto muda o apoio",
+        "result": "Você prepara o corpo para manter a peça estável enquanto Mira ajusta a base. Ela observa a maneira como você voltou ao esforço direto para lidar com a mudança.",
+        "affinity_style": "reinforce",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você perde o ângulo antes do ajuste. Mira recolhe a calha e pede que você reconheça o limite do esforço que tentou sustentar."
+        }
+      },
+      {
+        "label": "Dar um impulso curto na direção correta",
+        "result": "Você ensaia concentrar o esforço numa projeção para corrigir a posição da peça. Mira acompanha a direção e encerra a tentativa quando o material está seguro.",
+        "affinity_style": "emission",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O impulso não conserva a direção que você pretendia. Mira recolhe a água na bacia e comenta o que sua tentativa revelou sobre a maneira de alcançar a peça."
+        }
+      },
+      {
+        "label": "Redistribuir a tensão entre os apoios",
+        "result": "Você procura uma ligação flexível entre pontos próximos e adapta o ângulo da calha. Mira observa sua atenção ao comportamento da aura, além da posição do objeto.",
+        "affinity_style": "transmutation",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A tensão fica desigual e se desfaz. Mira firma o apoio e pergunta que propriedade você queria conservar mesmo quando o caminho mudou."
+        }
+      }
+    ]
+  },
+  {
+    "id": "affinity_trial_5",
+    "title": "O que você decide mostrar",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira reúne os materiais sobre uma mesa, sem arrumá-los na ordem dos exercícios. Há um peso, um suporte afastado, apoios próximos e peças pequenas que podem receber um movimento simples.",
+      "“Agora não vou apontar o problema. Mostre uma maneira de usar a aura que você gostaria de continuar praticando.” Depois dessa demonstração, ela interpretará o conjunto do que observou; não haverá outra tentativa de escolher a direção já revelada."
+    ],
+    "choices": [
+      {
+        "label": "Mostrar um comando simples e controlado",
+        "result": "Você escolhe uma peça próxima e concentra a tentativa num único gesto. Mira acompanha como você limita o comando antes de recolher o material.",
+        "affinity_style": "manipulation",
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O gesto ensaiado não chega ao ponto pretendido. Mira anota a dificuldade e a escolha que você fez, encerrando a avaliação sem exigir outra demonstração."
+        }
+      },
+      {
+        "label": "Mostrar um esforço concentrado do corpo",
+        "result": "Você escolhe o peso e reúne aura no esforço que consegue sustentar. Mira espera que o devolva à mesa antes de encerrar suas anotações.",
+        "affinity_style": "reinforce",
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Seu apoio oscila e Mira ajuda a recolocar o peso. Ela considera tanto a dificuldade quanto o fato de você ter escolhido mostrar esse tipo de esforço."
+        }
+      },
+      {
+        "label": "Mostrar uma ação que alcança além da mão",
+        "result": "Você escolhe o suporte afastado e ensaia uma projeção dirigida. Mira acompanha a trajetória antes de recolher o material para a conversa final.",
+        "affinity_style": "emission",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A projeção perde a direção antes do alvo. Mira registra a tentativa e pede que você espere enquanto reúne as observações anteriores."
+        }
+      },
+      {
+        "label": "Mostrar uma resposta flexível entre apoios",
+        "result": "Você escolhe os apoios próximos e ensaia a tensão que quer cultivar na aura. Mira acompanha seu ajuste antes de guardar os materiais.",
+        "affinity_style": "transmutation",
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A ligação ensaiada não se conserva durante o movimento. Mira recolhe o apoio e considera a escolha junto das outras situações."
+        }
+      },
+      {
+        "label": "Mostrar uma forma com limites precisos",
+        "result": "Você descreve uma peça de porte pessoal e ensaia contorno e posição. Mira confere os limites que você impôs antes de fechar suas anotações.",
+        "affinity_style": "conjuration",
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A forma se desfaz antes de ficar estável. Mira considera a tentativa, sem pedir que você troque de direção para obter um resultado mais fácil."
+        }
+      }
+    ]
+  },
+  {
+    "id": "affinity_reveal_reinforce",
+    "title": "O que Mira reconheceu",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira põe suas anotações ao lado dos materiais. Não comenta apenas a última demonstração: retoma os momentos em que você repetiu uma intenção ou mudou de método diante de uma dificuldade.",
+      "“Você voltou ao corpo como ponto de apoio: reunir esforço, sustentar a posição, receber o contato. É por esse caminho que pode reproduzir Corpo Temperado.” Ela espera que você reconheça a ligação com suas decisões, em vez de lhe oferecer outra habilidade para escolher.",
+      "“Sua categoria continua sendo Especialização. Esta é a técnica que seu modo de agir permite reproduzir. Agora podemos decidir qual direção interna dela você vai cultivar; a habilidade já foi determinada.”",
+      "Mira põe uma caixa pesada ao lado de um suporte acolchoado. No primeiro exercício, a aura sustentará um esforço concentrado; no segundo, ajudará o corpo a receber um impacto controlado.",
+      "“Escolha o que quer cultivar primeiro. Não é o mesmo treino com outro nome.” Ela espera que você decida entre Potência e Resistência antes de começar a orientar sua forma pessoal de Corpo Temperado."
+    ],
+    "choices": [
+      {
+        "label": "Desenvolver Potência",
+        "result": "Você concentra aura no esforço e desloca a caixa sem perder a postura. Mira identifica a base de Corpo Temperado voltada à Potência; é essa direção que você decide desenvolver.",
+        "xp": 12,
+        "hatsu_learn": {
+          "specialization": "power",
+          "id": "reinforce"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Desenvolver Resistência",
+        "result": "Você recebe o impacto do apoio mantendo a aura distribuída e os pés firmes. Mira identifica a base de Corpo Temperado voltada à Resistência, a direção que você escolheu cultivar.",
+        "xp": 12,
+        "hatsu_learn": {
+          "specialization": "resistance",
+          "id": "reinforce"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      }
+    ]
+  },
+  {
+    "id": "affinity_reveal_emission",
+    "title": "O que Mira reconheceu",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira põe suas anotações ao lado dos materiais. Não comenta apenas a última demonstração: retoma os momentos em que você repetiu uma intenção ou mudou de método diante de uma dificuldade.",
+      "“Você procurou agir além do alcance da mão e conservar uma direção. A forma que emerge desse conjunto é Projétil de Aura.” Ela espera que você reconheça a ligação com suas decisões, em vez de lhe oferecer outra habilidade para escolher.",
+      "“Sua categoria continua sendo Especialização. Esta é a técnica que seu modo de agir permite reproduzir. Agora podemos decidir qual direção interna dela você vai cultivar; a habilidade já foi determinada.”",
+      "No pátio vazio, Mira dispõe um bloco, uma bandeira distante e uma trava estreita. Cada alvo exige uma maneira diferente de manter o controle da aura depois de separá-la do corpo.",
+      "Ela pergunta que resultado você quer buscar: impacto, distância ou um ponto pequeno. A escolha orientará os exercícios com que você dará forma ao seu Projétil de Aura."
+    ],
+    "choices": [
+      {
+        "label": "Desenvolver Potência",
+        "result": "O disparo atinge o bloco com impacto concentrado. Você reconhece o controle que precisa cultivar para desenvolver o Projétil de Aura voltado à Potência.",
+        "xp": 12,
+        "hatsu_learn": {
+          "specialization": "power",
+          "id": "emission"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Desenvolver Alcance",
+        "result": "Você mantém a emissão coesa até alcançar a bandeira distante. Mira marca a distância no chão: esse será o ponto de partida do seu Projétil de Aura voltado ao Alcance.",
+        "xp": 12,
+        "hatsu_learn": {
+          "specialization": "range",
+          "id": "emission"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Desenvolver Precisão",
+        "result": "Você ajusta o disparo até tocar a trava sem atingir a moldura. A prática estabelece a base do seu Projétil de Aura voltado à Precisão.",
+        "xp": 12,
+        "hatsu_learn": {
+          "specialization": "precision",
+          "id": "emission"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      }
+    ]
+  },
+  {
+    "id": "affinity_reveal_transmutation",
+    "title": "O que Mira reconheceu",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira põe suas anotações ao lado dos materiais. Não comenta apenas a última demonstração: retoma os momentos em que você repetiu uma intenção ou mudou de método diante de uma dificuldade.",
+      "“Você insistiu na maneira como a aura pode responder à tensão e à mudança. Sua prática encontra forma num filamento aderente e elástico: Fio de Aura.” Ela espera que você reconheça a ligação com suas decisões, em vez de lhe oferecer outra habilidade para escolher.",
+      "“Sua categoria continua sendo Especialização. Esta é a técnica que seu modo de agir permite reproduzir. Agora podemos decidir qual direção interna dela você vai cultivar; a habilidade já foi determinada.”",
+      "Mira prende um peso leve a um suporte próximo e pede que você transforme a aura num filamento aderente e elástico. Ela espera que você perceba tanto o contato quanto o momento de soltar, sem depender de uma amarra que nunca ceda.",
+      "Contenção procura restringir brevemente um movimento: o fio pode ceder, e um adversário continua capaz de reagir. Mobilidade usa pontos próximos para puxar objetos ou auxiliar o próprio deslocamento; não permite atravessar distâncias sem um apoio adequado.",
+      "“Escolha qual dessas formas quer cultivar”, diz Mira. A direção ficará como sua especialização. No confronto, o fio dura só o movimento atual; a abertura que criar vale para a próxima ação. Será preciso uma ação comum antes de empregar aura novamente."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Contenção",
+        "result": "Seu filamento adere ao suporte e limita por um instante a oscilação do peso. Você o solta antes que a tensão descontrole o exercício; Mira reconhece a base de Fio de Aura voltada à Contenção.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "transmutation",
+          "specialization": "restraint"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Cultivar Mobilidade",
+        "result": "Você prende o fio num ponto próximo e usa a elasticidade para alcançar um apoio lateral. Recolhe a aura ao firmar os pés: é a base de Fio de Aura voltada à Mobilidade.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "transmutation",
+          "specialization": "mobility"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      }
+    ]
+  },
+  {
+    "id": "affinity_reveal_conjuration",
+    "title": "O que Mira reconheceu",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira põe suas anotações ao lado dos materiais. Não comenta apenas a última demonstração: retoma os momentos em que você repetiu uma intenção ou mudou de método diante de uma dificuldade.",
+      "“Você procurou forma, tamanho e posição antes de agir. Vejo um caminho para reproduzir uma peça física temporária: Escudo Materializado.” Ela espera que você reconheça a ligação com suas decisões, em vez de lhe oferecer outra habilidade para escolher.",
+      "“Sua categoria continua sendo Especialização. Esta é a técnica que seu modo de agir permite reproduzir. Agora podemos decidir qual direção interna dela você vai cultivar; a habilidade já foi determinada.”",
+      "Mira coloca um apoio acolchoado diante de um corredor estreito e orienta a formação de um escudo físico temporário. A peça tem porte pessoal: protege uma área limitada, exige posicionamento e se desfaz depois de receber o contato para o qual foi formada.",
+      "Resistência busca suportar um impacto no próprio escudo. Cobertura busca interceptar um contato ou resguardar alguém que passe junto de você; não fecha um terreno inteiro nem cria uma proteção duradoura.",
+      "Mira pede que escolha a direção que irá cultivar, pois não haverá troca livre entre elas. Durante um confronto, a proteção valerá apenas na resposta atual do adversário, e outra ação comum será necessária antes de usar aura de novo."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Resistência",
+        "result": "Você mantém a forma diante do apoio e recebe o contato sem perder a posição. O escudo se desfaz quando o exercício termina; Mira reconhece a base de Escudo Materializado voltada à Resistência.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "conjuration",
+          "specialization": "resistance"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Cultivar Cobertura",
+        "result": "Você forma o escudo no espaço certo para interceptar o apoio enquanto Mira cruza ao seu lado. A barreira se desfaz logo depois: essa passagem breve estabelece sua base de Cobertura.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "conjuration",
+          "specialization": "coverage"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      }
+    ]
+  },
+  {
+    "id": "affinity_reveal_manipulation",
+    "title": "O que Mira reconheceu",
+    "chapter": "O modo de usar a aura",
+    "kind": "continuation",
+    "adventure": "affinity",
+    "weight": 0,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {},
+    "paragraphs": [
+      "Mira põe suas anotações ao lado dos materiais. Não comenta apenas a última demonstração: retoma os momentos em que você repetiu uma intenção ou mudou de método diante de uma dificuldade.",
+      "“Você buscou movimentos simples que governam um resultado maior. Seu caminho é transmitir esse comando por um contato preciso: Agulha de Comando.” Ela espera que você reconheça a ligação com suas decisões, em vez de lhe oferecer outra habilidade para escolher.",
+      "“Sua categoria continua sendo Especialização. Esta é a técnica que seu modo de agir permite reproduzir. Agora podemos decidir qual direção interna dela você vai cultivar; a habilidade já foi determinada.”",
+      "Mira coloca sobre a bancada uma trava simples e uma agulha de treino. Explica como impregnar o instrumento com aura: o comando só alcançará um alvo em que você conseguir atingir ou fixar a agulha. Ela acompanha a prática e recolhe o instrumento depois de cada tentativa.",
+      "Controle de Objetos atua em movimentos simples de peças pequenas e próximas, como girar uma trava ou puxar uma fivela acessível. Precisa de acesso físico: não move construções inteiras, não opera qualquer mecanismo à distância e não resolve uma sequência complexa de ações.",
+      "Comando Motor interfere brevemente num movimento de um ser vivo atingido. Mira oferece um exercício supervisionado de interromper seu braço em avanço. O alvo continua consciente e capaz de reagir; não há ordens complexas, obediência duradoura ou controle da personalidade.",
+      "Ela pede que você escolha a direção que irá cultivar. Em confronto, o comando vale só para a resposta atual e a abertura criada para a próxima ação; é preciso uma ação comum antes de outra técnica especial. A especialização não poderá ser trocada livremente."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Controle de Objetos",
+        "result": "Você fixa a agulha no ponto acessível da trava e transmite um único giro. Recolhe o instrumento quando a peça se move; Mira reconhece a base de Agulha de Comando voltada ao Controle de Objetos.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "manipulation",
+          "specialization": "objects"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      },
+      {
+        "label": "Cultivar Comando Motor",
+        "result": "Sob supervisão, você acerta o ponto indicado no braço de Mira. Um comando breve interrompe o avanço; ela retoma o movimento assim que você recolhe a agulha. Você estabelece a base de Comando Motor.",
+        "xp": 12,
+        "hatsu_learn": {
+          "id": "manipulation",
+          "specialization": "motor"
+        },
+        "flags": {
+          "affinity_completed": true
+        },
+        "finish_adventure": true
+      }
+    ]
   }
 ]

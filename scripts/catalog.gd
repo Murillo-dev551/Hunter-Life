@@ -20,6 +20,7 @@ func _init() -> void:
             for effect in [choice,choice.get("failure",{})]:
                 if effect.has("next") and not events.has(effect["next"]): error = "Continuação inexistente."
 func eligible(conditions: Dictionary, state) -> bool:
+    if conditions.get("affinity_available",false) and not state.Affinity.eligible(state):return false
     if conditions.has("exam_status") and state.exam["status"]!=conditions["exam_status"]:return false
     for id in conditions.get("items",{}):
         if state.Items.quantity(state,id)<int(conditions["items"][id]):return false
