@@ -4,7 +4,7 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Etapa atual: 10B — Expansão narrativa.** O catálogo possui 78 acontecimentos, incluindo duas novas aventuras, cinco encontros independentes e três retornos de decisões anteriores. A escrita revisada na 10A foi preservada. Consulte os detalhes no [relatório 10B](STAGE_10B.md).
+**Etapa atual: 10C — Hatsus de Transmutação e Conjuração.** Fio de Aura e Escudo Materializado oferecem quatro novas especializações, com aprendizado em situações práticas, usos narrativos e ações de combate. Os 78 acontecimentos anteriores foram preservados; dois aprendizados elevam o catálogo a 80. Consulte o [relatório 10C](STAGE_10C.md).
 
 ## Funcionalidades
 
@@ -14,7 +14,7 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
 | Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
 | Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
-| Narrativa | 78 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Narrativa | 80 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
 | Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
 | Confrontos | Turnos narrativos, intenções observáveis e diferentes resultados |
@@ -60,8 +60,12 @@ A categoria é sorteada uma única vez na criação, permanece oculta e só é r
 |---|---|---|
 | Reforço | Corpo Temperado | Potência ou Resistência |
 | Emissão | Projétil de Aura | Potência, Alcance ou Precisão |
+| Transmutação | Fio de Aura | Contenção ou Mobilidade |
+| Materialização (Conjuração) | Escudo Materializado | Resistência ou Cobertura |
 
-Desenvolver um Hatsu exige uma oportunidade prática posterior à revelação da categoria. A especialização é persistente e não pode ser trocada livremente. As demais categorias podem aprender Nen e concluir jornadas, mas ainda não possuem Hatsus implementados. Não há criação livre de habilidades nem consumo detalhado de aura.
+Desenvolver um Hatsu exige uma oportunidade prática posterior à revelação da categoria. A especialização é persistente e não pode ser trocada livremente. Manipulação e Especialização podem aprender Nen e concluir jornadas, mas ainda não possuem Hatsus implementados. Não há criação livre de habilidades nem consumo detalhado de aura.
+
+Fio de Aura produz um filamento aderente e elástico: Contenção limita um movimento, enquanto Mobilidade usa apoios próximos. Escudo Materializado cria uma peça temporária de porte pessoal: Resistência absorve mais impacto; Cobertura protege uma passagem breve e pode desviar uma investida. Os efeitos de proteção valem só na resposta atual, e aberturas na próxima ação. Ambos exigem uma ação comum entre usos especiais e podem falhar. “Materialização” permanece o valor interno da categoria chamada Conjuração, preservando os salvamentos existentes.
 
 ## Batalhas narrativas
 
@@ -143,6 +147,8 @@ O formato atual é **v9**. Preserva personagem, recursos, progressão, flags, re
 
 As aventuras da expansão usam os campos narrativos existentes, sem nova migração. Saves da 10A continuam válidos; novos acontecimentos podem surgir sem recalcular decisões ou recompensas antigas.
 
+Os Hatsus da 10C usam a estrutura de Hatsu e o estado de batalha já existentes. O formato continua v9: carregar não altera afinidade, especialização ou efeitos resolvidos. Combinações incompatíveis são recusadas.
+
 As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
 
 A gravação usa arquivo temporário e substituição após sucesso. Não há salvamento automático ou múltiplos slots. O JSON é local e não criptografado.
@@ -163,25 +169,27 @@ godot --headless --path . --script res://tests/test_nen.gd
 godot --headless --path . --script res://tests/test_hatsu.gd
 godot --headless --path . --script res://tests/test_narrative_revision.gd
 godot --headless --path . --script res://tests/test_expansion.gd
+godot --headless --path . --script res://tests/test_hatsu_10c.gd
 
 # Verificações com renderização e capturas
 godot --path . --script res://tests/test_exam_visual.gd
 godot --path . --script res://tests/test_visual.gd
 godot --path . --script res://tests/test_narrative_revision_visual.gd
 godot --path . --script res://tests/test_expansion_visual.gd
+godot --path . --script res://tests/test_hatsu_10c_visual.gd
 ```
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 78 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10b_*.log`; imagens, em `tests/captures/`. O teste editorial continua protegendo a assinatura mecânica dos 58 acontecimentos originais. Resultados da expansão estão no [relatório 10B](STAGE_10B.md).
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 80 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10c_*.log`; imagens, em `tests/captures/`. O teste editorial continua protegendo as escolhas originais, separando as alternativas acrescentadas na 10C. Resultados estão no [relatório 10C](STAGE_10C.md).
 
 ## Limitações e desenvolvimento futuro
 
-O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há somente dois Hatsus e uma especialização fixa por personagem; as quatro outras categorias ainda não têm habilidades próprias.
+O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há quatro Hatsus e uma especialização fixa por personagem; Manipulação e Especialização ainda não têm habilidades próprias.
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento inclui a expansão narrativa 10B. O Bloco 10C não foi iniciado e depende de nova autorização.
+O desenvolvimento inclui o Bloco 10C. Os blocos 10D e 10E não foram iniciados.
 
 ## Histórico resumido
 
@@ -197,3 +205,4 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 9 | [Exame Hunter](STAGE_9.md) |
 | 10A | [Revisão narrativa dos acontecimentos](STAGE_10A.md) |
 | 10B | [Expansão das aventuras e consequências](STAGE_10B.md) |
+| 10C | [Fio de Aura e Escudo Materializado](STAGE_10C.md) |

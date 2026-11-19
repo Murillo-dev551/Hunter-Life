@@ -99,7 +99,7 @@ func run() -> void:
         s=setup(4);s.choose(1);s.open_event(pair[0])
         var index: int=-1
         for i in range(s.demo["choices"].size()):
-            if s.demo["choices"][i].get("conditions",{}).has("hatsu"):index=i
+            if s.demo["choices"][i].get("conditions",{}).get("hatsu",{})=={"id":pair[1],"specialization":pair[2]}:index=i
         check(index>=0 and s.choice_reason(index)!="","Hatsu ausente bloqueado")
         s.hatsu={"learned":true,"id":pair[1],"specialization":pair[2]}
         check(s.choice_reason(index)=="","Especialização correta abre alternativa")

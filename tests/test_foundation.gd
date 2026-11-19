@@ -8,7 +8,7 @@ func check(ok: bool,text: String) -> void:
     if not ok: failures += 1; push_error(text)
 func run() -> void:
     var state = State.new()
-    check(state.error=="" and state.catalog.events.size()==78,"Catálogo narrativo válido")
+    check(state.error=="" and state.catalog.events.size()==80,"Catálogo narrativo válido")
     check(not state.choose(0),"Não escolhe antes de criar personagem")
     for invalid in ["","   ","\n\t", "a".repeat(33)]: check(state.start(invalid)!="","Nome inválido recusado")
     check(state.character_name=="","Falha de nome não inicia partida")
@@ -35,6 +35,8 @@ func run() -> void:
     ui.creation_view.start_button.pressed.emit()
     await process_frame
     check(ui.state.character_name=="Milo" and ui.pages.get_child_count()==4,"Sinal inicia partida com quatro abas")
+    # O sorteio inicial pode ter alternativas bloqueadas; este teste cobre sinais de uma cena conhecida.
+    ui.state.open_event("market");ui.build_session()
     for i in range(4):
         ui.navigation[i].pressed.emit()
         check(ui.pages.current_tab==i and ui.current_tab==i,"Sinal de navegação funcional")

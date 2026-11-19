@@ -1,10 +1,13 @@
 extends RefCounted
-const SPECS={"reinforce":["power","resistance"],"emission":["power","range","precision"]}
-const NAMES={"reinforce":"Corpo Temperado","emission":"Projétil de Aura"}
-const LABELS={"power":"Potência","resistance":"Resistência","range":"Alcance","precision":"Precisão"}
-const DESCRIPTIONS={"reinforce:power":"Aura aplicada a esforços intensos, em testes físicos específicos.","reinforce:resistance":"Amortece impactos específicos; não confere imunidade geral.","emission:power":"Impactos mais fortes em obstáculos adequados.","emission:range":"Alcança objetos distantes, com teste de Agilidade.","emission:precision":"Atinge mecanismos pequenos, com teste de Intelecto."}
+const CATEGORIES={"reinforce":"Reforço","emission":"Emissão","transmutation":"Transmutação","conjuration":"Materialização"}
+const SPECS={"reinforce":["power","resistance"],"emission":["power","range","precision"],"transmutation":["restraint","mobility"],"conjuration":["resistance","coverage"]}
+const NAMES={"reinforce":"Corpo Temperado","emission":"Projétil de Aura","transmutation":"Fio de Aura","conjuration":"Escudo Materializado"}
+const LABELS={"power":"Potência","resistance":"Resistência","range":"Alcance","precision":"Precisão","restraint":"Contenção","mobility":"Mobilidade","coverage":"Cobertura"}
+const DESCRIPTIONS={"reinforce:power":"Aura aplicada a esforços intensos, em testes físicos específicos.","reinforce:resistance":"Amortece impactos específicos; não confere imunidade geral.","emission:power":"Impactos mais fortes em obstáculos adequados.","emission:range":"Alcança objetos distantes, com teste de Agilidade.","emission:precision":"Atinge mecanismos pequenos, com teste de Intelecto.","transmutation:restraint":"Filamento aderente e elástico. Um teste bem-sucedido causa 1 de dano, reduz em 1 o ataque atual e abre a próxima ação; não imobiliza. Exige ação comum antes de novo uso.","transmutation:mobility":"Apoio próximo: teste de Agilidade para reposicionar, reduzir em 2 o ataque atual e abrir a próxima ação. Não causa dano; falhar deixa o ataque passar. Exige ação comum entre usos.","conjuration:resistance":"Escudo de porte pessoal, mantido apenas durante a resposta atual. Teste de Intelecto: reduz até 4 de dano; falha reduz 1. Exige ação comum entre usos.","conjuration:coverage":"Barreira de porte pessoal para um contato ou passagem breve. Teste de Intelecto: reduz até 2 de dano; contra investida, cria abertura. Falha não protege. Exige ação comum entre usos."}
 static func fresh() -> Dictionary:return {"id":"","specialization":"","learned":false}
-static func category(id: String) -> String:return "Reforço" if id=="reinforce" else "Emissão"
+static func category(id: String) -> String:
+    # Materialização é o nome já persistido para a categoria também chamada Conjuração.
+    return CATEGORIES.get(id,"")
 static func can_learn(state, id: String, spec: String) -> bool:
     return id in SPECS and spec in SPECS[id] and not state.hatsu["learned"] and state.nen["water_done"] and state.nen["mastery"]==3 and state.nen["category"]==category(id)
 static func valid(v: Variant, state) -> bool:

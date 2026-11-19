@@ -22,6 +22,10 @@ static func test(s,id: String) -> Dictionary:
     if id=="ren":attribute="presence";dc+=1
     if id=="zetsu":dc-=2
     if id=="hatsu":
+        if s.hatsu["id"]=="conjuration":return {"attribute":"intellect","difficulty":maxi(2,dc-(1 if s.hatsu["specialization"]=="resistance" else 0))}
+        if s.hatsu["id"]=="transmutation":
+            attribute="agility"
+            if s.hatsu["specialization"]=="mobility":return {"attribute":attribute,"difficulty":maxi(2,dc)}
         if s.hatsu["id"]=="emission":attribute="intellect" if s.hatsu["specialization"] in ["power","precision"] else "agility"
         if s.hatsu["specialization"]=="resistance":return {}
         if s.hatsu["specialization"]=="precision":dc-=3 if b["opening"] or b["intent"]=="prepare" else 1
@@ -71,7 +75,22 @@ static func act(s,id: String, token: int) -> bool:
     var block: int=0
     var damage: int=0
     var defending: bool=id in ["defend","ten"] or (id=="hatsu" and s.hatsu["specialization"]=="resistance")
-    if defending:
+    if id=="hatsu" and s.hatsu["id"]=="transmutation":
+        b["opening"]=success
+        if success:
+            if s.hatsu["specialization"]=="restraint":
+                block=1;b["hp"]=maxi(0,int(b["hp"])-1)
+                text+="\nO fio prende brevemente o braço: -1 Saúde do adversário e até 1 de dano evitado agora. Ele pode reagir; a tensão abre apenas sua próxima ação."
+            else:
+                block=2;text+="\nVocê usa um apoio próximo para sair da linha de impacto: até 2 de dano evitado agora e abertura na próxima ação. O fio é recolhido."
+        else:text+="\nO fio perde a aderência antes de firmar o apoio. Você o recolhe sem impedir a resposta do adversário."
+    elif id=="hatsu" and s.hatsu["id"]=="conjuration":
+        var resistant: bool=s.hatsu["specialization"]=="resistance"
+        block=(4 if success else 1) if resistant else (2 if success else 0)
+        b["opening"]=success and not resistant and b["intent"]=="charge"
+        text+="\nVocê posiciona o escudo de porte pessoal para esta resposta: proteção de até %d de dano. Ele se desfaz ao fim do movimento." % block if success else "\nO escudo se forma fora de posição e se desfaz: protege apenas um contato leve." if resistant else "\nA cobertura se forma tarde demais e não intercepta o ataque."
+        if b["opening"]:text+=" A investida desviada deixa abertura apenas para sua próxima ação."
+    elif defending:
         block=2 if int(b["repeat"])==1 else 0
         if id=="ten":block+=1
         if id=="hatsu":block+=2

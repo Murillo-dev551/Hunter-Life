@@ -20,12 +20,13 @@ func build(state) -> void:
             if id in ["ten","zetsu","ren"] and id not in state.nen["techniques"]:continue
             if id=="hatsu" and not state.hatsu["learned"]:continue
             var text: String=state.Battle.LABELS[id]
-            if id=="hatsu":text=state.Hatsu.NAMES[state.hatsu["id"]]+" · "+state.Hatsu.LABELS[state.hatsu["specialization"]]
+            if id=="hatsu":text=state.Hatsu.NAMES[state.hatsu["id"]]+"\n"+state.Hatsu.LABELS[state.hatsu["specialization"]]
             var test: Dictionary=state.Battle.test(state,id)
             if not test.is_empty():text+="\n%s · Dif. %d · %d%%" % [state.ATTRIBUTE_NAMES[test["attribute"]],test["difficulty"],state.Progress.chance(state.attributes[test["attribute"]],test["difficulty"])]
             var button=UI.button(text,id=="attack")
             button.add_theme_font_size_override("font_size",14)
             button.custom_minimum_size.y=76 if not test.is_empty() else 52
+            button.custom_minimum_size.y=maxf(button.custom_minimum_size.y,28+text.split("\n").size()*24)
             button.disabled=state.Battle.reason(state,id)!="";button.tooltip_text=state.Battle.reason(state,id)
             var token: int=b["turn"]
             button.pressed.connect(func():action_requested.emit(id,token))

@@ -33,7 +33,7 @@ func complete_safe(s,adventure: String) -> void:
     snapshot(s)
 func run() -> void:
     var s=fresh()
-    check(s.error=="" and s.catalog.events.size()==78,"78 eventos válidos")
+    check(s.error=="" and s.catalog.events.size()==80,"80 eventos válidos")
     for order in [["escort","ruins"],["ruins","escort"]]:
         s=fresh()
         for adventure in order:
@@ -91,7 +91,7 @@ func run() -> void:
     check(s.flags.get("ruins_stolen",false) and s.catalog.eligible(s.catalog.events["false_account"]["conditions"],s),"Ocultação gera consequência persistente")
     s=snapshot(s)
     var accessible: int=0
-    for id in s.catalog.events.keys().slice(58):
+    for id in s.catalog.events.keys().slice(58,78):
         var probe=fresh()
         probe.flags={"escort_completed":true,"ruins_shared":true,"dishonest":true}
         check(probe.catalog.eligible(probe.catalog.events[id]["conditions"],probe),"Contexto viável para novo acontecimento: "+id)

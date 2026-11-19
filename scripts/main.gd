@@ -212,13 +212,13 @@ func build_character() -> void:
         var technique_names: Array[String]=[]
         for technique in state.nen["techniques"]:technique_names.append(str(technique).capitalize())
         nen_card.add_child(UI.label("Fundamentos: %s · Domínio básico %d/3" % [", ".join(technique_names),state.nen["mastery"]],14))
-        if state.nen["water_done"]:nen_card.add_child(UI.label("Categoria: "+state.nen["category"],16,UI.GREEN))
+        if state.nen["water_done"]:nen_card.add_child(UI.label("Categoria: "+("Materialização (Conjuração)" if state.nen["category"]=="Materialização" else state.nen["category"]),16,UI.GREEN))
         else:nen_card.add_child(UI.label("Categoria ainda não revelada.",14,UI.MUTED))
         if state.hatsu["learned"]:
             nen_card.add_child(UI.label(state.Hatsu.NAMES[state.hatsu["id"]]+" · "+state.Hatsu.LABELS[state.hatsu["specialization"]],16,UI.GREEN))
             nen_card.add_child(UI.label(state.Hatsu.DESCRIPTIONS[state.hatsu["id"]+":"+state.hatsu["specialization"]],14,UI.MUTED))
         elif state.nen["water_done"]:
-            nen_card.add_child(UI.label("Hatsu ainda não desenvolvido. Busque uma oportunidade prática." if state.nen["category"] in ["Reforço","Emissão"] else "Ainda não há Hatsu implementado para esta categoria. Sua jornada pode continuar normalmente.",14,UI.MUTED))
+            nen_card.add_child(UI.label("Hatsu ainda não desenvolvido. Busque uma oportunidade prática." if state.nen["category"] in state.Hatsu.CATEGORIES.values() else "Ainda não há Hatsu implementado para esta categoria. Sua jornada pode continuar normalmente.",14,UI.MUTED))
         if state.nen["mastery"]==3 and not state.nen["water_done"]:
             var water=UI.button("Procurar Mira para o teste da água")
             water.disabled=state.Battle.active(state) or state.active_adventure or state.health==0 or state.demo["kind"]=="ending"

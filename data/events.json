@@ -1473,6 +1473,26 @@
           "attribute": "intellect"
         },
         "label": "Projétil: romper o apoio preso"
+      },
+      {
+        "label": "Interpor o escudo junto à retirada",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "resistance"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você forma o escudo entre a ponta da viga e o espaço de retirada. O contato é desviado enquanto os trabalhadores recuam; a peça se desfaz antes de receber o peso inteiro.",
+        "xp": 12,
+        "failure": {
+          "result": "Você forma o escudo fora de posição. Ele amortece o primeiro contato, mas uma lasca ainda o fere antes que os trabalhadores firmem a viga.",
+          "xp": 3,
+          "health": -1
+        }
       }
     ],
     "repeat": {
@@ -1538,6 +1558,25 @@
       {
         "label": "Seguir seu caminho",
         "result": "Você se despede enquanto o artesão ajusta a escada para fazer o reparo."
+      },
+      {
+        "label": "Puxar a bandeira com Fio de Aura",
+        "conditions": {
+          "hatsu": {
+            "id": "transmutation",
+            "specialization": "mobility"
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "result": "Você prende o filamento na ponta próxima da corda e usa a tensão para desenrolar a bandeira. O artesão recolhe o tecido enquanto você desfaz o fio.",
+        "xp": 10,
+        "failure": {
+          "result": "O filamento se solta antes de puxar a corda. Você recolhe a aura e deixa a escada livre para o artesão.",
+          "xp": 3
+        }
       }
     ],
     "repeat": {
@@ -2342,6 +2381,28 @@
           }
         },
         "label": "Usar Projétil de Aura com Precisão"
+      },
+      {
+        "label": "Conter o suporte com Fio de Aura",
+        "conditions": {
+          "hatsu": {
+            "id": "transmutation",
+            "specialization": "restraint"
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "result": "Você adere o fio ao suporte por um instante e recolhe a fita antes de soltar a tensão. Rui confere que ninguém foi usado como alvo.",
+        "xp": 12,
+        "exam_trial": true,
+        "failure": {
+          "result": "O suporte escapa à tensão. Você precisa esperar outra volta para recolher a fita e Rui registra uma advertência pelo atraso.",
+          "xp": 4,
+          "exam_trial": true,
+          "exam_setback": 1
+        }
       }
     ],
     "kind": "continuation",
@@ -2519,6 +2580,28 @@
           "flags": {
             "nen_ren": true
           }
+        }
+      },
+      {
+        "label": "Cobrir a passagem com o escudo",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "coverage"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você sustenta uma cobertura de porte pessoal enquanto o grupo passa junto ao apoio. A peça intercepta um contato breve; os candidatos continuam responsáveis por sustentar o portão.",
+        "xp": 12,
+        "exam_trial": true,
+        "failure": {
+          "result": "O escudo aparece fora da linha de passagem. O grupo precisa reorganizar os apoios e Rui registra uma advertência pela execução.",
+          "xp": 4,
+          "exam_trial": true,
+          "exam_setback": 1
         }
       }
     ],
@@ -3420,6 +3503,31 @@
         },
         "next": "ruins_archive",
         "xp": 8
+      },
+      {
+        "label": "Alcançar o apoio próximo com o fio",
+        "conditions": {
+          "hatsu": {
+            "id": "transmutation",
+            "specialization": "mobility"
+          }
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 12
+        },
+        "result": "Você prende o filamento a um apoio conferido por Bento e alcança a outra borda. Depois de recolher o fio, orienta a equipe pela passagem baixa.",
+        "xp": 8,
+        "next": "ruins_archive",
+        "failure": {
+          "result": "A aderência cede antes de você firmar os pés. Você raspa a perna ao recuar e Bento conduz todos pela passagem baixa.",
+          "xp": 3,
+          "next": "ruins_archive",
+          "health": -1,
+          "flags": {
+            "ruins_delay": true
+          }
+        }
       }
     ],
     "kind": "continuation",
@@ -3696,6 +3804,26 @@
       {
         "label": "Buscar o ajudante que trabalha na casa ao lado",
         "result": "Você chama o ajudante. Os dois zeladores combinam a retirada com as ferramentas do posto e dispensam sua presença."
+      },
+      {
+        "label": "Cobrir o zelador ao soltar o calço",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "coverage"
+          }
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "result": "Você forma uma barreira de porte pessoal entre o zelador e a peça solta. O escudo intercepta o contato enquanto ele fecha a comporta e se desfaz ao fim do movimento.",
+        "xp": 8,
+        "failure": {
+          "result": "A cobertura surge tarde. Você é atingido por uma ponta da peça ao recuar, e o zelador interrompe a tentativa para buscar outro apoio.",
+          "xp": 3,
+          "health": -1
+        }
       }
     ],
     "kind": "independent",
@@ -3959,5 +4087,139 @@
       "max": 1,
       "gap": 0
     }
+  },
+  {
+    "id": "develop_transmutation",
+    "title": "Fio de Aura: tensão e apoio",
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {
+      "hatsu_available": "Transmutação"
+    },
+    "paragraphs": [
+      "Mira prende um peso leve a um suporte próximo e pede que você transforme a aura num filamento aderente e elástico. Ela espera que você perceba tanto o contato quanto o momento de soltar, sem depender de uma amarra que nunca ceda.",
+      "Contenção procura restringir brevemente um movimento: o fio pode ceder, e um adversário continua capaz de reagir. Mobilidade usa pontos próximos para puxar objetos ou auxiliar o próprio deslocamento; não permite atravessar distâncias sem um apoio adequado.",
+      "“Escolha qual dessas formas quer cultivar”, diz Mira. A direção ficará como sua especialização. No confronto, o fio dura só o movimento atual; a abertura que criar vale para a próxima ação. Será preciso uma ação comum antes de empregar aura novamente."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Contenção",
+        "result": "Seu filamento adere ao suporte e limita por um instante a oscilação do peso. Você o solta antes que a tensão descontrole o exercício; Mira reconhece a base de Fio de Aura voltada à Contenção.",
+        "xp": 12,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "hatsu_learn": {
+          "id": "transmutation",
+          "specialization": "restraint"
+        },
+        "failure": {
+          "result": "O fio perde contato e o peso volta a oscilar. Mira aproxima o suporte e acompanha seus ajustes até você encontrar a aderência inicial de Contenção, ainda sem completar o movimento proposto.",
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "transmutation",
+            "specialization": "restraint"
+          }
+        }
+      },
+      {
+        "label": "Cultivar Mobilidade",
+        "result": "Você prende o fio num ponto próximo e usa a elasticidade para alcançar um apoio lateral. Recolhe a aura ao firmar os pés: é a base de Fio de Aura voltada à Mobilidade.",
+        "xp": 12,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "hatsu_learn": {
+          "id": "transmutation",
+          "specialization": "mobility"
+        },
+        "failure": {
+          "result": "Você calcula mal a tensão e precisa voltar ao apoio inicial. Com a distância reduzida e a orientação de Mira, encontra uma forma básica de Mobilidade, sem completar a travessia proposta.",
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "transmutation",
+            "specialization": "mobility"
+          }
+        }
+      },
+      {
+        "label": "Recusar o desenvolvimento",
+        "result": "Você recusa iniciar o desenvolvimento. Mira recolhe o material e você volta aos próprios caminhos, mantendo os fundamentos que já conhece."
+      }
+    ]
+  },
+  {
+    "id": "develop_conjuration",
+    "title": "Escudo Materializado: forma e limite",
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "conditions": {
+      "hatsu_available": "Materialização"
+    },
+    "paragraphs": [
+      "Mira coloca um apoio acolchoado diante de um corredor estreito e orienta a formação de um escudo físico temporário. A peça tem porte pessoal: protege uma área limitada, exige posicionamento e se desfaz depois de receber o contato para o qual foi formada.",
+      "Resistência busca suportar um impacto no próprio escudo. Cobertura busca interceptar um contato ou resguardar alguém que passe junto de você; não fecha um terreno inteiro nem cria uma proteção duradoura.",
+      "Mira pede que escolha a direção que irá cultivar, pois não haverá troca livre entre elas. Durante um confronto, a proteção valerá apenas na resposta atual do adversário, e outra ação comum será necessária antes de usar aura de novo."
+    ],
+    "choices": [
+      {
+        "label": "Cultivar Resistência",
+        "result": "Você mantém a forma diante do apoio e recebe o contato sem perder a posição. O escudo se desfaz quando o exercício termina; Mira reconhece a base de Escudo Materializado voltada à Resistência.",
+        "xp": 12,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "hatsu_learn": {
+          "id": "conjuration",
+          "specialization": "resistance"
+        },
+        "failure": {
+          "result": "A borda cede antes de receber bem o apoio. Mira reduz a intensidade e orienta sua posição; você aprende a forma inicial de Resistência sem suportar o impacto completo.",
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "conjuration",
+            "specialization": "resistance"
+          }
+        }
+      },
+      {
+        "label": "Cultivar Cobertura",
+        "result": "Você forma o escudo no espaço certo para interceptar o apoio enquanto Mira cruza ao seu lado. A barreira se desfaz logo depois: essa passagem breve estabelece sua base de Cobertura.",
+        "xp": 12,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "hatsu_learn": {
+          "id": "conjuration",
+          "specialization": "coverage"
+        },
+        "failure": {
+          "result": "O escudo surge tarde e Mira interrompe a passagem. Com o movimento mais lento, você aprende a forma inicial de Cobertura, ainda sem concluir o exercício no tempo proposto.",
+          "xp": 4,
+          "hatsu_learn": {
+            "id": "conjuration",
+            "specialization": "coverage"
+          }
+        }
+      },
+      {
+        "label": "Recusar o desenvolvimento",
+        "result": "Você recusa iniciar o desenvolvimento. Mira recolhe o material e você volta aos próprios caminhos, mantendo os fundamentos que já conhece."
+      }
+    ]
   }
 ]

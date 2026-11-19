@@ -25,10 +25,15 @@ func check(ok: bool, message: String) -> void:
 func run() -> void:
     var events: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/events.json"))
     # O contrato editorial da 10A protege os 58 eventos originais; 10B acrescenta outros.
-    var digest: String = JSON.stringify(mechanics(events.slice(0, 58))).sha256_text()
+    var originals: Array = events.slice(0,58).duplicate(true)
+    # A 10C somente acrescenta alternativas; o contrato das escolhas anteriores permanece.
+    var counts: Dictionary={"signal_roof":4,"blocked_passage":5,"exam_capture":4,"exam_team":5}
+    for event in originals:
+        if counts.has(event["id"]):event["choices"]=event["choices"].slice(0,counts[event["id"]])
+    var digest: String = JSON.stringify(mechanics(originals)).sha256_text()
     print("ASSINATURA MECÂNICA: ", digest)
     check(digest == EXPECTED_MECHANICS, "Preserva integralmente os dados mecânicos da Etapa 9")
-    check(events.size() == 78, "Preserva os 58 e acrescenta 20 acontecimentos")
+    check(events.size() == 80, "Preserva 78 acontecimentos e acrescenta dois aprendizados")
     for event in events:
         check(not event["paragraphs"].is_empty(), "Contexto presente: " + event["id"])
         for choice in event["choices"]:
