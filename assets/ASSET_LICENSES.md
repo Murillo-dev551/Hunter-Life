@@ -22,3 +22,5 @@ Texto da dedicação: https://creativecommons.org/publicdomain/zero/1.0/
 | `icons/*.svg` | Dez ícones monocromáticos de 24 unidades e um emblema colorido de cartão/bússola |
 
 Os geradores usam apenas Node.js e módulos nativos, em tempo de desenvolvimento. Godot reproduz os arquivos locais já incluídos. Node.js e acesso à internet não são necessários para jogar.
+
+As variantes Android `app_icon.svg`, `app_foreground.svg`, `app_background.svg` e `app_monochrome.svg` derivam do mesmo emblema original e estão cobertas pela mesma dedicação CC0. Não incorporam arte oficial da Licença Hunter.

@@ -22,6 +22,21 @@ var last_cue: String=""
 var save_error: Error=OK
 var closing: bool=false
 var fade_in: Tween
+var backgrounded: bool=false
+var app_paused: bool=false
+var app_focused: bool=true
+func lifecycle(what: int) -> void:
+    if what==NOTIFICATION_APPLICATION_PAUSED:app_paused=true
+    elif what==NOTIFICATION_APPLICATION_RESUMED:app_paused=false
+    elif what==NOTIFICATION_APPLICATION_FOCUS_OUT:app_focused=false
+    elif what==NOTIFICATION_APPLICATION_FOCUS_IN:app_focused=true
+    backgrounded=app_paused or not app_focused
+    if is_instance_valid(music):music.stream_paused=backgrounded
+    if backgrounded:
+        pending=""
+        if is_instance_valid(effects):effects.stop()
+func _notification(what: int) -> void:
+    if OS.get_name()=="Android" and what in [NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_RESUMED,NOTIFICATION_APPLICATION_FOCUS_OUT,NOTIFICATION_APPLICATION_FOCUS_IN]:lifecycle(what)
 func shutdown() -> void:
     if closing:return
     closing=true;pending=""
@@ -93,7 +108,7 @@ func change(key: String,value: Variant) -> void:
     save_error=cfg.save(config_path+".tmp")
     if save_error==OK:save_error=DirAccess.rename_absolute(config_path+".tmp",config_path)
 func cue(id: String) -> void:
-    if closing or not CUES.has(id):return
+    if closing or backgrounded or not CUES.has(id):return
     if pending=="":call_deferred("flush_cue")
     if pending=="" or PRIORITY[id]>=PRIORITY[pending]:pending=id
 func flush_cue() -> void:

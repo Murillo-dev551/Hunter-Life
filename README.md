@@ -6,6 +6,8 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 
 **Etapa atual: 10H — Animações e Refinamento dos Menus.** Transições curtas, resultados destacados e configurações compactas complementam o Diário de Explorador. A preferência global **Reduzir animações** mantém a apresentação imediata. Os três slots, os 92 acontecimentos e as regras existentes foram preservados. Consulte o [relatório 10H](STAGE_10H.md).
 
+**Android v0.1.0 — revisão de experiência:** APK atual em `builds/android/Hunter-Life-0.1.0-test2.apk`. Corrige o repasse de toque para a rolagem nativa e ativa o modo imersivo, preservando retrato e áreas seguras. A primeira versão já foi instalada e executada no Galaxy A15 5G pelo desenvolvedor; **esta revisão precisa de nova validação no aparelho e não é uma versão aprovada para lançamento público**. Veja [causa, testes e atualização do APK](STAGE_ANDROID_REVISION_1.md) e o [relatório da preparação inicial](STAGE_ANDROID.md).
+
 ## Funcionalidades
 
 | Sistema | Disponível no protótipo |
@@ -163,6 +165,8 @@ A roda do mouse ou a barra de rolagem permite acessar conteúdo longo. Salve ant
 
 ## Salvamento e compatibilidade
 
+No Android, os arquivos `user://` ficam na área privada do aplicativo; o formato v9 e os três slots são os mesmos. O botão Voltar fecha configurações, cancela diálogos ou retorna de submenus antes de oferecer a saída. Em uma jornada vinculada a slot, **Salvar e sair** grava o estado antes de fechar; falhas de gravação impedem o fechamento. O salvamento manual continua disponível no Registro. Salve antes de deixar o aplicativo em segundo plano: o Android pode encerrar processos suspensos. Desinstalar o aplicativo remove os dados locais.
+
 Os saves ficam no diretório de dados **Hunter Life Prototype** definido pelo Godot. Consulte o caminho por **Project > Open User Data Folder**. Cada slot tem arquivos próprios:
 
 | Espaço | Arquivo manual | Checkpoints |
@@ -220,6 +224,8 @@ godot --path . --script res://tests/test_slots_ui.gd
 godot --path . --script res://tests/test_combat_menu.gd
 godot --path . --script res://tests/test_audio_identity.gd
 godot --path . --script res://tests/test_polish.gd
+godot --path . --script res://tests/test_android.gd
+godot --path . --script res://tests/test_touch_scroll.gd
 
 Remove-Item Env:HUNTER_LIFE_DATA_ROOT
 ```
@@ -234,7 +240,9 @@ O catálogo é finito e possui poucas aventuras. As provas do exame são combina
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento inclui o Bloco 10H. A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Exportação de pacote PCK foi verificada, mas não foi produzido um executável independente. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
+O desenvolvimento inclui o Bloco 10H. A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Exportação de pacote PCK foi verificada, mas não foi produzido um executável Windows independente. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
+
+Um APK Android de depuração foi gerado e verificado, separado da exportação Windows. Para reconstruí-lo no computador configurado, execute `./tools/export_android.ps1`; requisitos e opções estão no [relatório Android](STAGE_ANDROID.md). JDK e SDK são necessários apenas para gerar o APK, não para jogar no telefone. A v0.1.1 não foi iniciada.
 
 ## Histórico resumido
 
@@ -256,3 +264,5 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 10F | [Três slots e menu de combate](STAGE_10F.md) |
 | 10G | [Áudio e identidade visual](STAGE_10G.md) |
 | 10H | [Animações e refinamento dos menus](STAGE_10H.md) |
+| Android v0.1.0 | [Preparação, APK de teste e validação física pendente](STAGE_ANDROID.md) |
+| Android revisão 1 | [Rolagem nativa por toque e modo imersivo](STAGE_ANDROID_REVISION_1.md) |

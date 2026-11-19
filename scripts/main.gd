@@ -3,6 +3,11 @@ const PlayerText=preload("res://scripts/ui/player_text.gd")
 const AudioSettings=preload("res://scripts/ui/audio_settings.gd")
 const Feedback=preload("res://scripts/ui/interaction_feedback.gd")
 var last_feedback: Dictionary={}
+const MobileLayout=preload("res://scripts/ui/mobile_layout.gd")
+const TouchScroll=preload("res://scripts/ui/touch_scroll.gd")
+var exit_dialog: ConfirmationDialog
+var discard_exit_button: Button
+var exit_message: Label
 var audio_settings: AcceptDialog
 var settings_button: Button
 const UI = preload("res://scripts/ui/styles.gd")
@@ -46,6 +51,9 @@ var character_content: VBoxContainer
 var current_tab: int = 0
 var affinity_checkpoint_dir: String=Storage.AFFINITY_DIR
 func _ready() -> void:
+    MobileLayout.enter_immersive()
+    get_tree().quit_on_go_back=false
+    get_tree().root.go_back_requested.connect(request_back)
     get_window().min_size = Vector2i(320,480)
     theme = UI.make_theme()
     get_node("/root/Audio").preferences_changed.connect(func():
@@ -83,7 +91,42 @@ func _ready() -> void:
     delete_dialog=ConfirmationDialog.new();delete_dialog.title="Excluir jornada";delete_dialog.dialog_autowrap=true;delete_dialog.ok_button_text="Excluir definitivamente";delete_dialog.cancel_button_text="Cancelar";add_child(delete_dialog)
     delete_dialog.confirmed.connect(confirm_slot_deletion)
     delete_dialog.canceled.connect(func():UI.sound("back"))
+    exit_dialog=ConfirmationDialog.new();exit_dialog.title="Sair do Hunter Life?";exit_dialog.borderless=true;exit_dialog.cancel_button_text="Continuar";exit_dialog.theme=UI.make_theme();exit_dialog.add_theme_stylebox_override("panel",UI.box(UI.BG,12,UI.GOLD,12));add_child(exit_dialog)
+    var exit_content=VBoxContainer.new();exit_content.custom_minimum_size.x=240;exit_dialog.add_child(exit_content)
+    exit_content.add_child(UI.title("Sair do Hunter Life?",20))
+    exit_message=UI.label("",14);exit_content.add_child(exit_message)
+    discard_exit_button=UI.button("Sair sem salvar");discard_exit_button.custom_minimum_size.y=44;exit_content.add_child(discard_exit_button)
+    discard_exit_button.pressed.connect(func():confirm_app_exit(false))
+    for button in [exit_dialog.get_ok_button(),exit_dialog.get_cancel_button()]:button.theme_type_variation="Secondary";button.custom_minimum_size.y=44
+    exit_dialog.confirmed.connect(func():confirm_app_exit(true))
+    exit_dialog.custom_action.connect(func(action):
+        if action=="discard":confirm_app_exit(false))
     show_slots()
+func request_back() -> void:
+    if get_node("/root/Audio").closing:return
+    if OS.get_name()=="Android" and DisplayServer.virtual_keyboard_get_height()>0:
+        DisplayServer.virtual_keyboard_hide()
+        var focus=get_viewport().gui_get_focus_owner()
+        if focus:focus.release_focus()
+        return
+    if is_instance_valid(audio_settings) and audio_settings.visible:audio_settings.hide();UI.sound("back");return
+    if delete_dialog.visible:delete_dialog.hide();UI.sound("back");return
+    if exit_dialog.visible:exit_dialog.hide();UI.sound("back");return
+    if is_instance_valid(creation_view) and creation_view.is_inside_tree():show_slots();return
+    if pages.get_child(0).name!="Salvamentos" and current_tab!=0 and not state.character_name.is_empty():select_tab(0);return
+    if is_instance_valid(adventure_view) and adventure_view.is_inside_tree() and adventure_view is BattleView and adventure_view.category!="":adventure_view.show_category();return
+    var can_save=active_slot>0 and not state.character_name.is_empty()
+    exit_message.text="Salve sua jornada antes de sair." if can_save else "Deseja sair? Alterações não salvas serão perdidas."
+    exit_dialog.ok_button_text="Salvar e sair" if can_save else "Sair"
+    discard_exit_button.visible=can_save
+    exit_dialog.popup_centered_clamped(Vector2i(300,240),0.9)
+func confirm_app_exit(save_first: bool) -> void:
+    if get_node("/root/Audio").closing:return
+    if save_first and active_slot>0 and not state.character_name.is_empty():
+        var error=slots.save_slot(active_slot,state,active_token)
+        if error!="":exit_message.text=error+" A jornada permanece aberta.";exit_dialog.popup_centered_clamped(Vector2i(300,240),0.9);return
+    get_viewport().gui_disable_input=true
+    get_node("/root/Audio").close_game()
 func build_header(layout: VBoxContainer) -> void:
     var row = HBoxContainer.new()
     row.add_theme_constant_override("separation",8)
@@ -161,8 +204,17 @@ func responsive() -> void:
     var horizontal: int = maxi(12 if size.x<380 else 20,int((size.x-760)/2))
     for side in ["left","right"]: margin.add_theme_constant_override("margin_"+side,horizontal)
     for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,16 if size.y>=600 else 10)
+    if OS.get_name()=="Android":
+        var safe=MobileLayout.insets(size,Rect2(DisplayServer.get_display_safe_area()),get_viewport().get_screen_transform())
+        for i in range(4):
+            var side=["left","top","right","bottom"][i]
+            margin.add_theme_constant_override("margin_"+side,margin.get_theme_constant("margin_"+side)+ceili(safe[i]))
+func _notification(what: int) -> void:
+    if what in [NOTIFICATION_APPLICATION_RESUMED,NOTIFICATION_APPLICATION_FOCUS_IN] and is_node_ready():
+        MobileLayout.enter_immersive()
+        call_deferred("responsive")
 func add_page(title: String) -> VBoxContainer:
-    var scroll = ScrollContainer.new()
+    var scroll = TouchScroll.new()
     scroll.name = title
     scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
     scroll.follow_focus = true

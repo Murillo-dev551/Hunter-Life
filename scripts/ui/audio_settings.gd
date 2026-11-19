@@ -13,7 +13,7 @@ func _ready() -> void:
     get_ok_button().theme_type_variation="Secondary"
     get_ok_button().custom_minimum_size.y=44
     add_theme_stylebox_override("panel",UI.box(UI.BG,12,UI.GOLD,12))
-    scroll=ScrollContainer.new();scroll.custom_minimum_size=Vector2(250,272);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
+    scroll=preload("res://scripts/ui/touch_scroll.gd").new();scroll.custom_minimum_size=Vector2(250,272);scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
     var content=VBoxContainer.new();content.size_flags_horizontal=Control.SIZE_EXPAND_FILL;content.add_theme_constant_override("separation",6);scroll.add_child(content)
     content.add_child(UI.title("Configurações",22))
     var audio=get_node("/root/Audio")
