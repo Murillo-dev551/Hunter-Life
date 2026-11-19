@@ -25,9 +25,10 @@ func run() -> void:
             check(root.get_texture().get_image().save_png("res://tests/captures/battle_%s_%dx%d.png" % [enemy,size.x,size.y])==OK,"Captura combate")
             captures+=1
         var before: int=ui.state.battle["turn"]
+        ui.adventure_view.show_category("defend")
         ui.adventure_view.buttons["defend"].pressed.emit();await settle()
         check(ui.state.battle["turn"]==before+1,"Sinal resolve turno")
-        ui.adventure_view.buttons["yield"].pressed.emit();await settle()
+        ui.adventure_view.show_category("other");ui.adventure_view.buttons["yield"].pressed.emit();await settle()
         check(ui.state.battle["outcome"]=="yielded","Rendição pela interface")
         ui.next_event();await settle()
         check(ui.state.battle.is_empty(),"Retorno à narrativa")

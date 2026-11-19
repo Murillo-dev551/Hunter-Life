@@ -8,8 +8,11 @@ var consequence: VBoxContainer
 var result_text: Label
 var selected_text: Label
 var advance_button: Button
+var story_panel: Control
 func build(state) -> void:
     var story = UI.card(self)
+    story_panel=story.get_parent()
+    story.add_theme_constant_override("separation",12)
     var banner = PanelContainer.new()
     banner.add_theme_stylebox_override("panel",UI.box(UI.GREEN,5,Color.TRANSPARENT,6))
     banner.add_child(UI.label("FINAL DA JORNADA" if state.health==0 or state.demo["kind"]=="ending" else "AVENTURA CONCLUÍDA" if state.demo["kind"]=="adventure_end" else "ACONTECIMENTO",11,UI.BG))
@@ -52,6 +55,9 @@ func refresh(state) -> void:
         choice_buttons[i].disabled = chosen or state.choice_reason(i)!=""
         if not chosen: choice_buttons[i].tooltip_text=state.choice_reason(i)
         if chosen: choice_buttons[i].tooltip_text = "Sua escolha" if i==state.selected_choice else "Acontecimento resolvido"
+        if chosen and i==state.selected_choice:
+            var selected=UI.box(UI.PANEL,9,UI.GOLD,14)
+            choice_buttons[i].add_theme_stylebox_override("disabled",selected)
     consequence.get_parent().visible = chosen
     if chosen:
         selected_text.text = state.demo["choices"][state.selected_choice]["label"]

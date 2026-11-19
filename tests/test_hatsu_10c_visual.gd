@@ -38,6 +38,7 @@ func run() -> void:
                 await settle()
                 if size.x==390:capture(id+"_%d_character" % index)
                 ui.state.battle={};ui.state.open_event("battle_fighter");ui.state.choose(0);ui.build_session();await settle();layout(ui)
+                ui.adventure_view.show_category("nen");await settle()
                 var button: Button=ui.adventure_view.buttons["hatsu"]
                 check(button.text.contains(ui.state.Hatsu.NAMES[id]),"Nome correto no botão")
                 check(button.text.contains("%"),"Probabilidade real visível")

@@ -51,12 +51,9 @@ func run() -> void:
                 check(not early_reveal,"A ficha não antecipa a revelação narrativa de Mira")
             if stage==1:
                 var saved: Dictionary=ui.state.serialize().duplicate(true)
-                ui.show_creation();await settle()
-                var resume: Button
-                for button in ui.pages.find_children("*","Button",true,false):
-                    if button.text=="Retomar registro de Mira":resume=button
-                check(resume!=null,"Retomada disponível na criação")
-                if resume:resume.pressed.emit();await settle()
+                var checkpoint: Dictionary=Store.latest_affinity(DIRECTORY)
+                check(checkpoint["error"]=="","Checkpoint disponível para retomada pelo slot")
+                ui.state=checkpoint["state"];ui.build_session();await settle()
                 check(ui.state.serialize()==saved,"Retoma checkpoint sem rerrolar")
             ui.next_event();await settle()
             check(ui.pages.get_child(0).scroll_vertical==0,"Continuação volta ao topo")

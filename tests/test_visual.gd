@@ -39,7 +39,7 @@ func run() -> void:
         check(ui.creation_view.start_button.get_global_rect().intersects(scroll.get_global_rect()),"Iniciar partida acessível por rolagem")
         capture("criacao_atributos_%dx%d" % [size.x,size.y])
         ui.creation_view.name_input.text="Nara"
-        ui.creation_view.start_button.pressed.emit()
+        ui.start_game("Nara")
         ui.state.open_event("market");ui.build_session()
         await settle()
         for i in range(4):

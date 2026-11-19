@@ -1,0 +1,12 @@
+// Original score and cues for Hunter Life. Offline, deterministic, no samples.
+const fs=require('fs'),path=require('path');
+const root=path.resolve(__dirname,'..'),rate=22050;
+function wav(file,data){const b=Buffer.alloc(44+data.length*2);b.write('RIFF');b.writeUInt32LE(b.length-8,4);b.write('WAVEfmt ',8);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);b.writeUInt16LE(1,22);b.writeUInt32LE(rate,24);b.writeUInt32LE(rate*2,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);b.write('data',36);b.writeUInt32LE(data.length*2,40);let peak=0,sum=0;for(let i=0;i<data.length;i++){const v=Math.max(-.8,Math.min(.8,data[i]));b.writeInt16LE(Math.round(v*32767),44+i*2);peak=Math.max(peak,Math.abs(v));sum+=v*v;}fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,b);return {seconds:data.length/rate,peak,rms:Math.sqrt(sum/data.length)};}
+function note(a,time,midi,duration,amp,soft=false,wrap=false){let f=440*2**((midi-69)/12),start=Math.round(time*rate);for(let i=0;i<duration*rate;i++){const t=i/rate,p=t/duration,attack=Math.min(1,t/(soft?.2:.012)),release=Math.min(1,(duration-t)/.22);const envelope=attack*release*(soft?Math.sin(Math.PI*p)**.65:Math.exp(-3*p));const tone=Math.sin(2*Math.PI*f*t)+.24*Math.sin(4*Math.PI*f*t)*Math.exp(-5*p)+.08*Math.sin(6*Math.PI*f*t);let j=start+i;if(wrap)j%=a.length;if(j<a.length)a[j]+=tone*envelope*amp;}}
+const a=new Float64Array(rate*64),chords=[[50,57,61,66],[47,54,57,62],[43,50,57,59],[45,52,57,62],[50,57,62,64],[47,54,59,62],[43,50,55,59],[45,52,56,62]];
+for(let bar=0;bar<20;bar++){let chord=chords[bar%8],t=bar*3.2;for(const n of chord)note(a,t,n,4,.023,true,true);for(let beat=0;beat<4;beat++)note(a,t+beat*.8,chord[(beat+Math.floor(bar/4))%4]+12,2.2,.065,false,true);if(bar%2===0)note(a,t+.4,chord[(bar/2)%4]+24,2.4,.028,true,true);}
+let stats={music:wav(path.join(root,'assets/audio/music/field_notes.wav'),a)};
+const cues={click:[[62,0]],select:[[62,0],[69,.045]],tab:[[67,0]],back:[[64,0],[60,.06]],success:[[67,0],[74,.09]],failure:[[62,0],[59,.1]],reward:[[69,0],[74,.075],[78,.15]],level:[[62,0],[66,.1],[69,.2],[74,.32]]};
+for(const [id,ns] of Object.entries(cues)){let b=new Float64Array(Math.round(rate*(id==='level'?.8:id==='click'?.12:.42)));for(const [n,t] of ns)note(b,t,n,id==='click'?.1:.28,.2);stats[id]=wav(path.join(root,'assets/audio/sfx',id+'.wav'),b);}
+fs.writeFileSync(path.join(root,'assets/audio/analysis.json'),JSON.stringify(stats,null,2)+'\n');
+console.log(stats);

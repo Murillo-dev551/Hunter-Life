@@ -26,6 +26,7 @@ func run() -> void:
     await process_frame
     await process_frame
     var ui = current_scene
+    ui.show_creation()
     check(ui.creation_view!=null and ui.pages.get_child_count()==1,"Tela inicial de criação pronta")
     check(ui.navigation.all(func(b): return b.disabled),"Navegação bloqueada antes da criação")
     ui.creation_view.name_input.text="   "

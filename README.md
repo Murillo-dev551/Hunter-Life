@@ -4,7 +4,7 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Etapa atual: 10E — Afinidade do Especialista.** Personagens de Especialização podem passar por cinco situações com Mira e desenvolver permanentemente um dos cinco Hatsus existentes, conforme suas decisões e testes. A categoria original não muda. O catálogo possui 92 acontecimentos, preservando os 81 anteriores. Consulte o [relatório 10E](STAGE_10E.md).
+**Etapa atual: 10H — Animações e Refinamento dos Menus.** Transições curtas, resultados destacados e configurações compactas complementam o Diário de Explorador. A preferência global **Reduzir animações** mantém a apresentação imediata. Os três slots, os 92 acontecimentos e as regras existentes foram preservados. Consulte o [relatório 10H](STAGE_10H.md).
 
 ## Funcionalidades
 
@@ -17,10 +17,10 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Narrativa | 92 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
 | Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
-| Confrontos | Turnos narrativos, intenções observáveis e diferentes resultados |
+| Confrontos | Turnos narrativos, intenções observáveis e comandos em quatro categorias |
 | Inventário | Nove itens, incluindo consumíveis, equipamentos, ferramentas e Licença Hunter |
 | Registro | Histórico das decisões, rolagens, recursos e encerramentos |
-| Persistência | Um slot de salvamento manual local, inclusive no meio de batalhas e provas |
+| Persistência | Três slots independentes, com salvamento durante batalhas, provas e avaliação de afinidade |
 
 A navegação usa quatro abas: **Aventura**, **Personagem**, **Inventário** e **Registro**. O conteúdo tem rolagem vertical; a navegação inferior permanece acessível em janelas compactas.
 
@@ -83,6 +83,8 @@ Os confrontos aparecem dentro de acontecimentos, na aba Aventura. A tela apresen
 
 As ações básicas são atacar com Força ou Agilidade, defender, esquivar, fugir e render-se. Preparação, guarda, abertura e repetição de ações influenciam o resultado. Intenções descrevem movimentos, sem indicar qual botão é a resposta ideal.
 
+O menu principal apresenta **Atacar**, **Defender**, **Nen / Hatsu** e **Outras ações**. Abra uma categoria para ver suas ações e use **Voltar ao menu principal** para retornar. Navegar não consome turno nem altera RNG, dano ou efeitos. Depois de uma ação válida, o menu principal reaparece. Técnicas indisponíveis têm explicação; o único Hatsu mostrado é o aprendido pelo personagem.
+
 Há um assaltante, uma lutadora experiente e o candidato necessário ao confronto final do exame. Nen e Hatsus oferecem alternativas específicas, com uma ação comum entre usos especiais. Equipamentos têm vantagens restritas ao contexto. Não é preciso conhecer Nen para vencer confrontos adequados.
 
 Vitória, desistência do adversário, fuga, rendição e incapacidade têm consequências diferentes. Dinheiro não é concedido por derrotar qualquer pessoa: recompensas dependem do acontecimento. Não há regeneração automática por turno, mapa tático ou movimentação em tempo real.
@@ -126,6 +128,16 @@ Aprovação concede uma **Licença Hunter** e 40 XP. A licença aparece no Inven
 
 Reprovação e desistência preservam o XP já obtido e permitem voltar à jornada, desde que haja Saúde. Não é possível tentar outra edição na mesma partida. Nos intervalos, consumíveis podem ser usados fora de combate. As aventuras anteriores continuam disponíveis.
 
+## Áudio e identidade visual
+
+A trilha instrumental original **Caderno de campo** acompanha a leitura em loop, sem reiniciar ao trocar de aba. Oito efeitos curtos identificam confirmação, escolha, navegação, retorno, sucesso, fracasso, recompensa e subida de nível. Avisos simultâneos usam prioridade para evitar sobreposição.
+
+O botão de ajustes no cabeçalho abre **Configurações**. Música e efeitos possuem volumes e opções de silenciar independentes, aplicados imediatamente e restaurados entre sessões. O painel também oferece **Reduzir animações**: interrompe os efeitos visuais ativos e apresenta as próximas mudanças imediatamente, preservando os destaques estáticos. As preferências ficam em `user://audio.cfg`, nas seções de áudio e acessibilidade, separadas dos três slots. Arquivos ausentes ou inválidos usam valores padrão seguros.
+
+Abas e cartões usam transições de 0,14 segundo; pressionar um botão recebe uma resposta de 0,10 segundo. Os textos aparecem completos e os controles continuam disponíveis durante os efeitos. Resultados d20, dano, XP, Jenny, itens e Licença Hunter são destacados após ações reais; carregar uma jornada não reapresenta recompensas.
+
+O emblema de cartão e bússola identifica o jogo; ele não representa uma Licença Hunter conquistada. Os ícones mantêm os textos das abas e categorias de combate. Música, efeitos e SVGs são locais e originais, sem dependências de internet. Consulte [origem e licenças dos recursos](assets/ASSET_LICENSES.md).
+
 ## Como jogar
 
 ### Requisitos e instalação
@@ -140,32 +152,36 @@ A janela inicial é vertical, 480×860, com mínimo de 320×480. Fontes Source S
 
 ### Controles
 
-1. Informe o nome e escolha uma inclinação inicial.
-2. Use os botões da Aventura para decidir e **Continuar jornada** para avançar após ler o resultado.
-3. Consulte atributos, pontos disponíveis, Nen e condição de Hunter em **Personagem**.
+1. Escolha **Slot 1**, **Slot 2** ou **Slot 3**. Em um espaço vazio, inicie uma jornada e informe nome e inclinação; em um ocupado, use **Carregar jornada**.
+2. Na Aventura, escolha uma ação e use **Continuar jornada** após ler o resultado. Em combate, abra a categoria desejada.
+3. Consulte atributos, Nen e condição de Hunter em **Personagem**; **Gerenciar jornadas** retorna ao menu de slots.
 4. Use ou equipe objetos em **Inventário**, fora de batalhas.
-5. Confira o histórico e clique em **Salvar partida**, em **Registro**.
-6. Na tela inicial, use **Continuar partida salva** para retomar.
+5. No **Registro**, clique em **Salvar no Slot N** para salvar a jornada correspondente.
+6. Para liberar um espaço, use **Excluir jornada** e confirme. Cancelar preserva o arquivo.
 
-A roda do mouse ou a barra de rolagem permite acessar o conteúdo longo. Criar outro personagem inicia uma nova sessão; salve antes de substituir a atual.
+A roda do mouse ou a barra de rolagem permite acessar conteúdo longo. Salve antes de trocar de jornada. Voltar do formulário de criação sem iniciar outra partida conserva a sessão anterior em memória.
 
 ## Salvamento e compatibilidade
 
-O jogo usa um slot manual, `user://hunter_life.json`, no diretório de dados **Hunter Life Prototype** definido pelo Godot. No Windows, ele fica sob o diretório de dados do usuário. O caminho pode ser consultado no Godot por **Project > Open User Data Folder**.
+Os saves ficam no diretório de dados **Hunter Life Prototype** definido pelo Godot. Consulte o caminho por **Project > Open User Data Folder**. Cada slot tem arquivos próprios:
+
+| Espaço | Arquivo manual | Checkpoints |
+|---|---|---|
+| Slot 1 | `user://saves/slot_1/save.json` | `user://saves/slot_1/checkpoints/` |
+| Slot 2 | `user://saves/slot_2/save.json` | `user://saves/slot_2/checkpoints/` |
+| Slot 3 | `user://saves/slot_3/save.json` | `user://saves/slot_3/checkpoints/` |
 
 O formato atual é **v9**. Preserva personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG e batalha, além de participação no exame, sequência de provas, etapa, advertências e resultado. A licença está vinculada à aprovação.
 
-As aventuras da expansão usam os campos narrativos existentes, sem nova migração. Saves da 10A continuam válidos; novos acontecimentos podem surgir sem recalcular decisões ou recompensas antigas.
+O menu valida os arquivos antes de mostrar nome, nível e categoria conhecida. Uma nova jornada só pode ocupar espaço vazio; salvar usa o slot e a geração da sessão carregada. A criação grava um primeiro estado. Os avanços comuns continuam com salvamento manual.
 
-Os Hatsus da 10C usam a estrutura de Hatsu e o estado de batalha já existentes. O formato continua v9: carregar não altera afinidade, especialização ou efeitos resolvidos. Combinações incompatíveis são recusadas.
+Na primeira execução, o antigo `user://hunter_life.json` é migrado para o **Slot 1**, se ele estiver vazio. O original é mantido como backup. Um registro de migração evita repetir a importação, inclusive depois de excluir o slot. Se o Slot 1 estiver ocupado ou algum arquivo estiver inválido, ele não é substituído; uma mensagem informa a situação. Migrações interrompidas podem ser retomadas com os registros existentes.
 
-Agulha de Comando usa esses mesmos campos, sem migração adicional. Batalhas iniciadas pelo fracasso de uma escolha também preservam a continuidade ao carregar.
-
-A avaliação acrescenta um campo opcional `affinity` ao save v9, com decisões, rolagens, afinidades acumuladas e resultado. Saves anteriores recebem estado não iniciado, sem resultados retroativos. Cada decisão da avaliação e a especialização escolhida geram um checkpoint separado em `user://affinity_checkpoints/`, sem sobrescrever automaticamente o slot manual. Carregar o slot manual da mesma jornada retoma o checkpoint se ele estiver mais adiantado; a tela inicial também oferece **Retomar registro de Mira**. Um salvamento manual mais recente tem preferência sobre um checkpoint antigo.
+A avaliação usa `affinity`, com decisões, rolagens e resultado permanente. Cada decisão gera checkpoint no diretório do slot, associado à jornada pela identificação da 10E e por uma geração própria do slot. Carregar retoma o registro mais adiantado sem repetir decisões; um manual mais recente prevalece. Checkpoints antigos em `user://affinity_checkpoints/` são adotados durante a migração da jornada correspondente. Registros válidos ainda sem slot podem ser recuperados explicitamente em espaço vazio pelo menu. Excluir uma jornada remove seus checkpoints associados, sem tocar nos outros slots.
 
 As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
 
-A gravação usa arquivo temporário e substituição após sucesso. Não há salvamento automático ou múltiplos slots. O JSON é local e não criptografado.
+A gravação usa arquivo temporário e substituição após sucesso. A exclusão exige confirmação. O JSON é local e não criptografado; não há sincronização em nuvem ou navegador de backups.
 
 ## Testes automatizados
 
@@ -174,6 +190,10 @@ Na pasta do projeto, com o executável Godot no `PATH` (ou substituindo `godot` 
 ```powershell
 # Validação do projeto
 godot --headless --editor --path . --quit
+
+# Ambiente isolado para testes de interface: não usa os slots reais.
+$testRun = [DateTime]::UtcNow.Ticks
+$env:HUNTER_LIFE_DATA_ROOT = 'user://test_run_' + $testRun
 
 # Principais suítes funcionais
 godot --headless --path . --script res://tests/test_exam.gd
@@ -186,6 +206,7 @@ godot --headless --path . --script res://tests/test_expansion.gd
 godot --headless --path . --script res://tests/test_hatsu_10c.gd
 godot --headless --path . --script res://tests/test_manipulation.gd
 godot --headless --path . --script res://tests/test_affinity.gd
+godot --headless --path . --script res://tests/test_slots.gd
 
 # Verificações com renderização e capturas
 godot --path . --script res://tests/test_exam_visual.gd
@@ -195,11 +216,17 @@ godot --path . --script res://tests/test_expansion_visual.gd
 godot --path . --script res://tests/test_hatsu_10c_visual.gd
 godot --path . --script res://tests/test_manipulation_visual.gd
 godot --path . --script res://tests/test_affinity_visual.gd
+godot --path . --script res://tests/test_slots_ui.gd
+godot --path . --script res://tests/test_combat_menu.gd
+godot --path . --script res://tests/test_audio_identity.gd
+godot --path . --script res://tests/test_polish.gd
+
+Remove-Item Env:HUNTER_LIFE_DATA_ROOT
 ```
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 92 acontecimentos em 320×480 e 390×844, com rolagem até as escolhas. Logs atuais ficam em `tests/stage10e_*.log`; imagens, em `tests/captures/`. As suítes protegem as escolhas anteriores, o resultado da avaliação e o reaproveitamento dos Hatsus. Resultados estão no [relatório 10E](STAGE_10E.md).
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 92 acontecimentos em 320×480 e 390×844. Logs atuais ficam em `tests/stage10h_*.log`; imagens, em `tests/captures/`. As 33 suítes anteriores passaram, junto da nova suíte de polimento: trocas rápidas, integridade do RNG, resultados, recompensas, configurações, foco e movimento reduzido. Resultados e limitações estão no [relatório 10H](STAGE_10H.md).
 
 ## Limitações e desenvolvimento futuro
 
@@ -207,7 +234,7 @@ O catálogo é finito e possui poucas aventuras. As provas do exame são combina
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento inclui o Bloco 10E. A Etapa 10F não foi iniciada. Não há sistema de três slots ou áudio.
+O desenvolvimento inclui o Bloco 10H. A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Exportação de pacote PCK foi verificada, mas não foi produzido um executável independente. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
 
 ## Histórico resumido
 
@@ -226,3 +253,6 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 10C | [Fio de Aura e Escudo Materializado](STAGE_10C.md) |
 | 10D | [Agulha de Comando](STAGE_10D.md) |
 | 10E | [Afinidade do Especialista](STAGE_10E.md) |
+| 10F | [Três slots e menu de combate](STAGE_10F.md) |
+| 10G | [Áudio e identidade visual](STAGE_10G.md) |
+| 10H | [Animações e refinamento dos menus](STAGE_10H.md) |

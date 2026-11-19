@@ -7,6 +7,7 @@ const GOLD = Color("B58A45")
 const ALERT = Color("A14B43")
 const MUTED = Color("62675F")
 const Icon = preload("res://scripts/ui/line_icon.gd")
+const Motion=preload("res://scripts/ui/motion.gd")
 static func box(color: Color, radius: int = 12, border: Color = Color.TRANSPARENT, padding: int = 16) -> StyleBoxFlat:
     var b = StyleBoxFlat.new()
     b.bg_color = color
@@ -68,7 +69,18 @@ static func button(text: String, primary: bool = false) -> Button:
     b.theme_type_variation = "Primary" if primary else "Secondary"
     b.custom_minimum_size.y = 52
     b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    b.pressed.connect(func():sound("back" if text.begins_with("Voltar") or text.begins_with("Cancelar") else "click"))
+    b.button_down.connect(func():Motion.enter(b,0.10,true))
     return b
+static func sound(id: String) -> void:
+    var tree=Engine.get_main_loop() as SceneTree
+    if tree and tree.root.has_node("Audio"):tree.root.get_node("Audio").cue(id)
+static func button_icon(button_node: Button, kind: String) -> void:
+    button_node.icon=Icon.TEXTURES[kind]
+    button_node.add_theme_constant_override("icon_max_width",18)
+    button_node.add_theme_constant_override("h_separation",6)
+    for state in ["icon_normal_color","icon_hover_color","icon_pressed_color","icon_focus_color"]:
+        button_node.add_theme_color_override(state,BG if button_node.theme_type_variation=="Primary" else GREEN)
 static func icon(kind: String, color: Color = GREEN) -> Control:
     var i = Icon.new()
     i.kind = kind

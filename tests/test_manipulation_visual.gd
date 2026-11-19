@@ -38,6 +38,7 @@ func run() -> void:
             if size.x==390:capture(spec+"_character")
             for enemy in ["bandit","fighter"]:
                 fixture(ui,spec);ui.state.open_event("battle_"+enemy);ui.state.choose(0);ui.build_session();await settle();layout(ui)
+                ui.adventure_view.show_category("nen");await settle()
                 var button: Button=ui.adventure_view.buttons["hatsu"]
                 check(button.disabled==(spec=="objects" and enemy=="fighter"),"Disponibilidade visual respeita alvo")
                 check(button.text.contains("%") and button.text.contains("Agulha de Comando"),"Nome e probabilidade visíveis")

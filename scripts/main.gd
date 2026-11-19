@@ -1,5 +1,10 @@
 extends Control
 const PlayerText=preload("res://scripts/ui/player_text.gd")
+const AudioSettings=preload("res://scripts/ui/audio_settings.gd")
+const Feedback=preload("res://scripts/ui/interaction_feedback.gd")
+var last_feedback: Dictionary={}
+var audio_settings: AcceptDialog
+var settings_button: Button
 const UI = preload("res://scripts/ui/styles.gd")
 const State = preload("res://scripts/game_state.gd")
 const Creation = preload("res://scripts/ui/creation_view.gd")
@@ -11,6 +16,18 @@ const Adventure = preload("res://scripts/ui/adventure_view.gd")
 const TABS = ["Aventura","Personagem","Inventário","Registro"]
 const ICONS = ["adventure","character","inventory","record"]
 const Storage = preload("res://scripts/storage.gd")
+const SaveSlots=preload("res://scripts/save_slots.gd")
+var slots=SaveSlots.new()
+var active_slot: int=0
+var active_token: String=""
+var selected_slot: int=1
+var delete_dialog: ConfirmationDialog
+var pending_delete_slot: int=0
+var pending_delete_token: String=""
+var slot_buttons: Dictionary={}
+var creation_previous_state
+var creation_previous_slot: int=0
+var creation_previous_token: String=""
 var attribute_buttons: Dictionary={}
 var state = State.new()
 var margin: MarginContainer
@@ -31,6 +48,8 @@ var affinity_checkpoint_dir: String=Storage.AFFINITY_DIR
 func _ready() -> void:
     get_window().min_size = Vector2i(320,480)
     theme = UI.make_theme()
+    get_node("/root/Audio").preferences_changed.connect(func():
+        if UI.Motion.reduced():UI.Motion.cancel_all())
     var background = ColorRect.new()
     background.color = UI.BG
     background.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -61,9 +80,21 @@ func _ready() -> void:
     build_navigation(layout)
     resized.connect(responsive)
     responsive()
-    show_creation()
+    delete_dialog=ConfirmationDialog.new();delete_dialog.title="Excluir jornada";delete_dialog.dialog_autowrap=true;delete_dialog.ok_button_text="Excluir definitivamente";delete_dialog.cancel_button_text="Cancelar";add_child(delete_dialog)
+    delete_dialog.confirmed.connect(confirm_slot_deletion)
+    delete_dialog.canceled.connect(func():UI.sound("back"))
+    show_slots()
 func build_header(layout: VBoxContainer) -> void:
     var row = HBoxContainer.new()
+    row.add_theme_constant_override("separation",8)
+    var emblem=TextureRect.new()
+    emblem.texture=preload("res://assets/icons/emblem.svg")
+    emblem.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+    emblem.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    emblem.custom_minimum_size=Vector2(32,32)
+    emblem.size_flags_vertical=Control.SIZE_SHRINK_CENTER
+    emblem.tooltip_text="Hunter Life · Emblema do jogo"
+    row.add_child(emblem)
     var titles = VBoxContainer.new()
     titles.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     titles.add_theme_constant_override("separation",4)
@@ -82,7 +113,21 @@ func build_header(layout: VBoxContainer) -> void:
     journal_button.add_child(icon)
     journal_button.pressed.connect(func(): select_tab(3))
     row.add_child(journal_button)
+    settings_button=UI.button("")
+    settings_button.custom_minimum_size=Vector2(44,44)
+    settings_button.size_flags_horizontal=Control.SIZE_SHRINK_END
+    settings_button.size_flags_vertical=Control.SIZE_SHRINK_CENTER
+    settings_button.tooltip_text="Configurações"
+    settings_button.accessibility_name="Configurações"
+    UI.button_icon(settings_button,"settings")
+    settings_button.pressed.connect(open_audio_settings)
+    row.add_child(settings_button)
     layout.add_child(row)
+func open_audio_settings() -> void:
+    if not is_instance_valid(audio_settings):
+        audio_settings=AudioSettings.new();add_child(audio_settings)
+    audio_settings.sync()
+    audio_settings.popup_centered_clamped(Vector2i(340,340),0.92)
 func build_navigation(layout: VBoxContainer) -> void:
     var row = HBoxContainer.new()
     row.add_theme_constant_override("separation",4)
@@ -107,6 +152,7 @@ func build_navigation(layout: VBoxContainer) -> void:
         nav_labels.append(text)
         b.add_child(content)
         b.pressed.connect(func(): select_tab(i))
+        b.pressed.connect(func():UI.sound("tab"))
         row.add_child(b)
         navigation.append(b)
     layout.add_child(row)
@@ -131,24 +177,88 @@ func clear_pages() -> void:
     for child in pages.get_children():
         pages.remove_child(child)
         child.queue_free()
+func show_slots(message: String="",warning: bool=true) -> void:
+    if creation_previous_state!=null:
+        if slots.token(creation_previous_slot)==creation_previous_token:
+            state=creation_previous_state;active_slot=creation_previous_slot;active_token=creation_previous_token
+        creation_previous_state=null
+    clear_pages();creation_view=null
+    var content=add_page("Salvamentos")
+    var slot_heading=HBoxContainer.new();slot_heading.add_child(UI.icon("saves"));slot_heading.add_child(UI.title("Suas jornadas"));content.add_child(slot_heading)
+    var migration: String=slots.migrate_legacy()
+    if message!="":content.add_child(UI.label(message,14,UI.ALERT if warning else UI.GREEN))
+    if migration!="":content.add_child(UI.label(migration,14,UI.MUTED))
+    slot_buttons={}
+    for index in range(1,4):
+        var card=UI.card(content)
+        var info: Dictionary=slots.summary(index)
+        var caption="Vazio" if info["empty"] else "Arquivo inválido" if info["error"]!="" else "Jornada salva"
+        if not info["empty"] and info["error"]=="" and active_slot==index:caption="Jornada em uso"
+        card.add_child(UI.label("Slot %d · %s" % [index,caption],18,UI.ALERT if info["error"]!="" else UI.GREEN))
+        if info["error"]!="":UI.Motion.highlight(card.get_parent(),UI.ALERT)
+        elif active_slot==index and not info["empty"]:UI.Motion.highlight(card.get_parent(),UI.GOLD)
+        var controls: Dictionary={}
+        if info["empty"]:
+            card.add_child(UI.label("Espaço vazio",14,UI.MUTED))
+            var create=UI.button("Iniciar nova jornada")
+            create.pressed.connect(func():begin_new_slot(index));card.add_child(create);controls["create"]=create
+        else:
+            if info["error"]=="":
+                var saved=info["state"]
+                card.add_child(UI.label(saved.character_name+" · Nível %d" % saved.level,17))
+                card.add_child(UI.label(saved.nen["category"] if saved.nen["water_done"] else "Categoria de Nen não revelada",14,UI.MUTED))
+            else:card.add_child(UI.label(info["error"],14,UI.ALERT))
+            var load_button=UI.button("Carregar jornada",true);load_button.disabled=info["error"]!=""
+            load_button.pressed.connect(func():load_slot(index));card.add_child(load_button);controls["load"]=load_button
+            var remove=UI.button("Excluir jornada")
+            remove.pressed.connect(func():request_slot_deletion(index));card.add_child(remove);controls["delete"]=remove
+        slot_buttons[index]=controls
+    var recoverable: Array=slots.legacy_candidates()
+    if not recoverable.is_empty():
+        var card=UI.card(content);card.add_child(UI.label("Registros anteriores de Mira",18,UI.GREEN))
+        card.add_child(UI.label("Recupere uma avaliação que ainda não está associada a um slot.",14,UI.MUTED))
+        for candidate in recoverable:
+            card.add_child(UI.label(candidate["state"].character_name,16))
+            for index in range(1,4):
+                if slots.occupied(index):continue
+                var recover=UI.button("Recuperar no Slot %d" % index)
+                recover.pressed.connect(func():
+                    var error: String=slots.import_checkpoint(index,candidate["key"])
+                    if error=="":load_slot(index)
+                    else:show_slots(error))
+                card.add_child(recover)
+    if active_slot>0:
+        var back=UI.button("Voltar à jornada atual")
+        back.pressed.connect(build_session);content.add_child(back)
+    page_title.text="Salvamentos";chapter.text="Três espaços · Jornadas independentes";balance.text="";journal_button.disabled=true
+    for button in navigation:button.disabled=true
+    update_navigation(-1)
+func begin_new_slot(index: int) -> void:
+    if slots.occupied(index):show_slots("Este slot já está ocupado.");return
+    selected_slot=index;show_creation()
+func request_slot_deletion(index: int) -> void:
+    pending_delete_slot=index;pending_delete_token=slots.token(index)
+    delete_dialog.dialog_text="Excluir a jornada do Slot %d e seus checkpoints? Esta ação não pode ser desfeita." % index
+    delete_dialog.popup_centered_clamped(Vector2i(380,180))
+func confirm_slot_deletion() -> void:
+    var error: String=slots.delete_slot(pending_delete_slot,pending_delete_token,true)
+    if error=="" and active_slot==pending_delete_slot:active_slot=0;active_token="";state=State.new()
+    show_slots("Jornada excluída." if error=="" else error,error!="")
 func show_creation() -> void:
+    if active_slot>0:
+        creation_previous_state=state;creation_previous_slot=active_slot;creation_previous_token=active_token
     state = State.new()
+    active_slot=0;active_token=""
     clear_pages()
     var content = add_page("Criação")
+    content.add_child(UI.label("Nova jornada no Slot %d" % selected_slot,16,UI.GREEN))
     creation_view = Creation.new()
     content.add_child(creation_view)
     creation_view.build(state)
-    var continue_button = UI.button("Continuar partida salva")
+    var continue_button = UI.button("Voltar aos salvamentos")
     content.add_child(continue_button)
-    continue_button.pressed.connect(load_saved)
-    if FileAccess.file_exists(affinity_checkpoint_dir+"latest"):
-        var resume_affinity=UI.button("Retomar registro de Mira")
-        content.add_child(resume_affinity)
-        resume_affinity.pressed.connect(func():
-            var loaded: Dictionary=Storage.latest_affinity(affinity_checkpoint_dir)
-            if loaded["error"]!="":creation_view.show_error(loaded["error"]);return
-            state=loaded["state"];build_session())
-    creation_view.start_requested.connect(start_game)
+    continue_button.pressed.connect(show_slots)
+    creation_view.start_requested.connect(create_in_slot)
     page_title.text = "Uma nova jornada"
     chapter.text = "Prólogo · Seu personagem"
     balance.text = ""
@@ -159,10 +269,29 @@ func show_creation() -> void:
 func focus_creation() -> void:
     if is_instance_valid(creation_view) and creation_view.is_inside_tree() and state.character_name.is_empty(): creation_view.name_input.grab_focus()
 func start_game(raw_name: String) -> void:
-    var error: String = state.start(raw_name,creation_view.inclination.selected)
+    # Entrada sem persistência para ferramentas de simulação; a interface usa create_in_slot.
+    active_slot=0;active_token=""
+    creation_previous_state=null
+    var error: String = state.start(raw_name,creation_view.inclination.selected if is_instance_valid(creation_view) and creation_view.is_inside_tree() else 0)
     if error != "": creation_view.show_error(error); return
     build_session()
+func create_in_slot(raw_name: String) -> void:
+    var candidate=State.new()
+    var error: String=candidate.start(raw_name,creation_view.inclination.selected)
+    if error=="":error=slots.create(selected_slot,candidate)
+    if error!="":creation_view.show_error(error);return
+    state=candidate;active_slot=selected_slot;active_token=slots.token(active_slot)
+    creation_previous_state=null
+    build_session()
+func load_slot(index: int) -> void:
+    var loaded: Dictionary=slots.load_slot(index)
+    if loaded["error"]!="":show_slots(loaded["error"]);return
+    state=loaded["state"];active_slot=index;selected_slot=index;active_token=loaded["token"]
+    build_session()
 func build_session() -> void:
+    last_feedback={}
+    balance.add_theme_color_override("font_color",UI.GREEN)
+    chapter.add_theme_color_override("font_color",UI.MUTED)
     clear_pages()
     var content = add_page("Aventura")
     adventure_view = BattleView.new() if not state.battle.is_empty() else Adventure.new()
@@ -171,6 +300,7 @@ func build_session() -> void:
     adventure_view.continue_requested.connect(next_event)
     if state.battle.is_empty():adventure_view.choice_requested.connect(choose)
     else:adventure_view.action_requested.connect(battle_action)
+    if not state.battle.is_empty():adventure_view.menu_changed.connect(func():pages.get_child(0).scroll_vertical=0)
     adventure_view.record_requested.connect(func(): select_tab(3))
     character_content = add_page("Personagem")
     build_character()
@@ -187,6 +317,7 @@ func build_session() -> void:
     journal_button.disabled = false
     for b in navigation: b.disabled = false
     select_tab(0)
+    UI.Motion.enter(adventure_view)
 func build_character() -> void:
     character_content.add_child(UI.title(state.character_name))
     character_content.add_child(UI.label("Hunter licenciado" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",14,UI.GREEN))
@@ -251,8 +382,8 @@ func build_character() -> void:
         resume_exam.disabled=state.active_adventure or state.Battle.active(state) or state.health==0 or state.demo["kind"]=="ending"
         resume_exam.pressed.connect(func():state.open_event("exam_info");build_session())
         character_content.add_child(resume_exam)
-    var reset = UI.button("Criar outro personagem")
-    reset.pressed.connect(show_creation)
+    var reset = UI.button("Gerenciar jornadas")
+    reset.pressed.connect(show_slots)
     character_content.add_child(reset)
     character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
     var end_button = UI.button("Escolher o final da jornada")
@@ -262,11 +393,14 @@ func build_character() -> void:
     character_content.add_child(end_button)
     character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
 func choose(index: int) -> void:
+    var before=[state.level,state.xp,state.jenny]
+    var visual_before=Feedback.snapshot(state)
     var affinity_commit: bool=state.Affinity.locked(state)
     if not state.choose(index): return
+    result_sound(before,state.result)
     var checkpoint_error: String=""
-    if affinity_commit or state.affinity["phase"]=="active":checkpoint_error=Storage.save_affinity(state,affinity_checkpoint_dir)
-    if not state.battle.is_empty():build_session();return
+    if affinity_commit or state.affinity["phase"]=="active":checkpoint_error=slots.save_checkpoint(active_slot,state,active_token) if active_slot>0 else Storage.save_affinity(state,affinity_checkpoint_dir)
+    if not state.battle.is_empty():build_session();present_feedback(visual_before,state.result);return
     adventure_view.refresh(state)
     balance.text = "%d Jenny" % state.jenny
     chapter.text=state.demo["chapter"]
@@ -276,18 +410,22 @@ func choose(index: int) -> void:
     build_character()
     refresh_inventory()
     refresh_records()
+    present_feedback(visual_before,state.result)
     if checkpoint_error!="":adventure_view.consequence.add_child(UI.label(checkpoint_error+" Salve a partida antes de sair.",14,UI.ALERT))
     var scroll = pages.get_child(0)
     scroll.ensure_control_visible.call_deferred(adventure_view.consequence)
 func save_current() -> void:
-    var message = UI.label("Partida salva." if Storage.save(state)=="" else "Falha ao salvar.",14)
+    var error: String=slots.save_slot(active_slot,state,active_token)
+    var message = UI.label("Partida salva no Slot %d." % active_slot if error=="" else error,14)
     record_content.add_child(message)
 func refresh_records() -> void:
     for child in record_content.get_children():
         record_content.remove_child(child)
         child.queue_free()
     record_content.add_child(UI.title("Registro da jornada"))
-    var save_button = UI.button("Salvar partida")
+    var save_button = UI.button("Salvar no Slot %d" % active_slot if active_slot>0 else "Salvar partida")
+    UI.button_icon(save_button,"saves")
+    save_button.disabled=active_slot==0
     save_button.pressed.connect(save_current)
     record_content.add_child(save_button)
     record_content.add_child(UI.label("Os primeiros passos de %s." % state.character_name,14,UI.MUTED))
@@ -297,10 +435,12 @@ func refresh_records() -> void:
     record_content.add_child(UI.label("Decisões e consequências desta jornada.",13,UI.MUTED))
 func select_tab(index: int) -> void:
     if state.character_name.is_empty() or index<0 or index>=TABS.size(): return
+    if pages.get_child(pages.current_tab) is Control:UI.Motion.stop(pages.get_child(pages.current_tab))
     current_tab = index
     pages.current_tab = index
     page_title.text = "A Jornada" if index==0 else TABS[index]
     update_navigation(index)
+    UI.Motion.enter(pages.get_child(index))
 func update_navigation(selected: int) -> void:
     for i in range(navigation.size()):
         navigation[i].theme_type_variation = "NavigationActive" if i==selected else "Navigation"
@@ -310,14 +450,14 @@ func update_navigation(selected: int) -> void:
         nav_labels[i].add_theme_color_override("font_color",color)
 
 func next_event() -> void:
+    var visual_before=Feedback.snapshot(state)
     if not state.advance(): return
     build_session()
+    var changes=Feedback.changes(visual_before,state,"")
+    if changes.license or changes.xp or changes.money or not changes.items.is_empty():present_feedback(visual_before,"")
     pages.get_child(0).scroll_vertical=0
 func load_saved() -> void:
-    var loaded: Dictionary = Storage.load_state()
-    if loaded["error"]!="": creation_view.show_error(loaded["error"]); return
-    state=loaded["state"]
-    build_session()
+    load_slot(selected_slot)
 
 
 func allocate_point(attribute: String) -> void:
@@ -332,9 +472,31 @@ func allocate_point(attribute: String) -> void:
 
 
 func battle_action(id: String, token: int) -> void:
+    var before=[state.level,state.xp,state.jenny]
+    var visual_before=Feedback.snapshot(state)
     if not state.Battle.act(state,id,token):return
+    result_sound(before,state.battle["log"][-1] if not state.battle["log"].is_empty() else "")
     build_session()
+    present_feedback(visual_before,state.battle["log"][-1] if not state.battle["log"].is_empty() else "")
     pages.get_child(0).scroll_vertical=0
+func present_feedback(before: Dictionary,text: String) -> void:
+    last_feedback=Feedback.changes(before,state,text)
+    var target: Control=adventure_view.result_panel if not state.battle.is_empty() else adventure_view.story_panel if state.selected_choice<0 else adventure_view.consequence.get_parent()
+    var tone=UI.ALERT if last_feedback.failure else UI.GREEN
+    UI.Motion.highlight(target,tone)
+    if last_feedback.damage and not state.battle.is_empty():UI.Motion.highlight(adventure_view.status_panel,UI.ALERT)
+    if last_feedback.money:UI.Motion.highlight(balance,UI.GOLD)
+    if last_feedback.level or last_feedback.xp:UI.Motion.highlight(chapter,UI.GOLD)
+    if not last_feedback.items.is_empty():UI.Motion.enter(nav_icons[2])
+    if (last_feedback.license or last_feedback.level) and not last_feedback.failure and not last_feedback.damage:UI.Motion.highlight(target,UI.GOLD)
+func result_sound(before: Array,text: String) -> void:
+    # Read already-resolved presentation; never perform another test or roll.
+    var cue="select"
+    if "· sucesso" in text:cue="success"
+    elif "· fracasso" in text:cue="failure"
+    if state.xp>before[1] or state.jenny>before[2]:cue="reward"
+    if state.level>before[0]:cue="level"
+    UI.sound(cue)
 
 func refresh_inventory() -> void:
     for child in inventory_content.get_children():inventory_content.remove_child(child);child.queue_free()
