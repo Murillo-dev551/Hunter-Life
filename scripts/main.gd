@@ -1,4 +1,5 @@
 extends Control
+const PlayerText=preload("res://scripts/ui/player_text.gd")
 const UI = preload("res://scripts/ui/styles.gd")
 const State = preload("res://scripts/game_state.gd")
 const Creation = preload("res://scripts/ui/creation_view.gd")
@@ -258,7 +259,7 @@ func refresh_records() -> void:
     record_content.add_child(UI.label("Os primeiros passos de %s." % state.character_name,14,UI.MUTED))
     for entry in state.records:
         var card = UI.card(record_content)
-        card.add_child(UI.label(entry,16))
+        card.add_child(UI.label(PlayerText.history(entry),16))
     record_content.add_child(UI.label("Decisões e consequências desta jornada.",13,UI.MUTED))
 func select_tab(index: int) -> void:
     if state.character_name.is_empty() or index<0 or index>=TABS.size(): return

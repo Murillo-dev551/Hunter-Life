@@ -32,7 +32,7 @@ static func load_state(path: String = PATH) -> Dictionary:
     for key in State.INITIAL_ATTRIBUTES:
         if not integer(d["attributes"].get(key),1,10): return {"error":"Atributos inválidos."}
     for value in d["flags"].values():
-        if not value is bool: return {"error":"Flag inválida."}
+        if not value is bool: return {"error":"Informação narrativa inválida."}
     var seen: Array = []
     for id in d["seen"]:
         if not id is String or not s.catalog.events.has(id) or id in seen: return {"error":"Eventos visitados inválidos."}
@@ -77,7 +77,7 @@ static func load_state(path: String = PATH) -> Dictionary:
         s.nen=d["nen"].duplicate(true)
         s.nen["mastery"]=int(s.nen["mastery"])
         for technique in ["ten","zetsu","ren"]:
-            if s.flags.get("nen_"+technique,false)!=(technique in s.nen["techniques"]):return {"error":"Técnicas e flags inconsistentes."}
+            if s.flags.get("nen_"+technique,false)!=(technique in s.nen["techniques"]):return {"error":"Informações das técnicas inconsistentes."}
     if d["version"]<5:
         # Migração determina a afinidade sem avançar o RNG da narrativa antiga.
         var affinity_rng=RandomNumberGenerator.new()

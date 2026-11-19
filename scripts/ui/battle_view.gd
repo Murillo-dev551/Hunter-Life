@@ -3,6 +3,7 @@ signal continue_requested
 signal action_requested(id: String, token: int)
 signal record_requested
 const UI=preload("res://scripts/ui/styles.gd")
+const PlayerText=preload("res://scripts/ui/player_text.gd")
 var buttons: Dictionary={}
 func build(state) -> void:
     var b: Dictionary=state.battle
@@ -30,7 +31,7 @@ func build(state) -> void:
             button.pressed.connect(func():action_requested.emit(id,token))
             add_child(button);buttons[id]=button
     else:
-        add_child(UI.label("Confronto encerrado: "+b["outcome"],17,UI.GREEN))
+        add_child(UI.label("Confronto encerrado: "+PlayerText.outcome(b["outcome"]),17,UI.GREEN))
         var next=UI.button("Continuar jornada",true);next.disabled=state.health==0
         next.pressed.connect(func():continue_requested.emit());add_child(next)
     var journal=UI.button("Ver histórico do confronto")
