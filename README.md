@@ -4,8 +4,6 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Etapa atual: 10H — Animações e Refinamento dos Menus.** Transições curtas, resultados destacados e configurações compactas complementam o Diário de Explorador. A preferência global **Reduzir animações** mantém a apresentação imediata. Os três slots, os 92 acontecimentos e as regras existentes foram preservados. Consulte o [relatório 10H](STAGE_10H.md).
-
 **Android v0.1.0 — revisão de experiência:** APK atual em `builds/android/Hunter-Life-0.1.0-test2.apk`. Corrige o repasse de toque para a rolagem nativa e ativa o modo imersivo, preservando retrato e áreas seguras. A primeira versão já foi instalada e executada no Galaxy A15 5G pelo desenvolvedor; **esta revisão precisa de nova validação no aparelho e não é uma versão aprovada para lançamento público**. Veja [causa, testes e atualização do APK](STAGE_ANDROID_REVISION_1.md) e o [relatório da preparação inicial](STAGE_ANDROID.md).
 
 ## Funcionalidades
