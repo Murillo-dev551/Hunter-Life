@@ -63,16 +63,17 @@ func run() -> void:
     for n in range(100):
         s=State.new();s.rng.seed=n;s.start("Simulação")
         var steps: int=0
-        while s.demo["kind"]!="ending" and steps<100:
+        while s.health>0 and s.demo["kind"]!="ending" and steps<100:
             var options: Array=[]
             for i in range(s.demo["choices"].size()):
                 if s.choice_reason(i)=="": options.append(i)
             if options.is_empty():check(false,"Nenhum bloqueio sem saída");break
             s.choose(options[s.rng.randi_range(0,options.size()-1)]);s.advance();steps+=1
-        check(s.demo["kind"]=="ending" and steps<100,"Partida completa chega a final")
+        check((s.demo["kind"]=="ending" or s.health==0) and steps<100,"Partida completa chega a final")
         check(s.attributes.values().all(func(v):return v>=1 and v<=10),"Atributos dentro dos limites")
         results[s.current_id]=int(results.get(s.current_id,0))+1;longest=maxi(longest,steps)
     print("JORNADAS: %d verificações, %d falhas; 100 partidas, finais=%s, máximo=%d escolhas" % [checks,failures,results,longest])
     DirAccess.remove_absolute("user://test_journey.json")
     quit(1 if failures else 0)
+
 

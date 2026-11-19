@@ -18,12 +18,13 @@ func build(state) -> void:
     for paragraph in state.demo["paragraphs"]: story.add_child(UI.label(paragraph,16))
     add_child(UI.label("Fim da jornada" if state.demo["kind"]=="ending" else "O que você fará?",17))
     for i in range(state.demo["choices"].size()):
-        var b = UI.button(state.demo["choices"][i]["label"],i==0)
+        var b = UI.button(wrap_choice(state.demo["choices"][i]["label"]),i==0)
         if state.demo["choices"][i].has("test"):
             var test: Dictionary = state.demo["choices"][i]["test"]
             b.text+="\n◇ %s · Dificuldade %d · %d%%" % [state.ATTRIBUTE_NAMES[test["attribute"]],int(test["difficulty"]),state.Progress.chance(int(state.attributes[test["attribute"]]),int(test["difficulty"]))]
             b.custom_minimum_size.y=72
             b.add_theme_font_size_override("font_size",14)
+        b.custom_minimum_size.y=maxf(b.custom_minimum_size.y,b.text.count("\n")*24+52)
         b.alignment = HORIZONTAL_ALIGNMENT_LEFT
         b.pressed.connect(func(): choice_requested.emit(i))
         add_child(b)
@@ -63,3 +64,11 @@ func refresh(state) -> void:
 
 
 
+func wrap_choice(text: String) -> String:
+    var lines: Array[String]=[]
+    var line: String=""
+    for word in text.split(" "):
+        if line.length()+word.length()>27 and line!="":lines.append(line);line=""
+        line+=(" " if line!="" else "")+word
+    if line!="":lines.append(line)
+    return "\n".join(lines)

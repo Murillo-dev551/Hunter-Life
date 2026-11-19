@@ -18,6 +18,11 @@ func _init() -> void:
             for effect in [choice,choice.get("failure",{})]:
                 if effect.has("next") and not events.has(effect["next"]): error = "Continuação inexistente."
 func eligible(conditions: Dictionary, state) -> bool:
+    if conditions.has("hatsu_available"):
+        if state.hatsu["learned"] or not state.nen["water_done"] or state.nen["mastery"]!=3 or state.nen["category"]!=conditions["hatsu_available"]:return false
+    if conditions.has("hatsu"):
+        var required: Dictionary=conditions["hatsu"]
+        if not state.hatsu["learned"] or state.hatsu["id"]!=required["id"] or state.hatsu["specialization"]!=required["specialization"]:return false
     for key in conditions.get("flags",{}):
         if state.flags.get(key,false) != conditions["flags"][key]: return false
     if state.jenny < int(conditions.get("jenny",0)): return false
@@ -43,3 +48,4 @@ func select(state) -> String:
 func available(id: String, state) -> bool:
     var policy: Dictionary = events[id].get("repeat",{"max":1,"gap":0})
     return int(state.visits.get(id,0)) < int(policy["max"]) and state.step-int(state.last_visit.get(id,-100000)) >= int(policy["gap"])
+

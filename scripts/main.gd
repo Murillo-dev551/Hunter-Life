@@ -207,6 +207,11 @@ func build_character() -> void:
         nen_card.add_child(UI.label("Fundamentos: %s · Domínio básico %d/3" % [", ".join(technique_names),state.nen["mastery"]],14))
         if state.nen["water_done"]:nen_card.add_child(UI.label("Categoria: "+state.nen["category"],16,UI.GREEN))
         else:nen_card.add_child(UI.label("Categoria ainda não revelada.",14,UI.MUTED))
+        if state.hatsu["learned"]:
+            nen_card.add_child(UI.label(state.Hatsu.NAMES[state.hatsu["id"]]+" · "+state.Hatsu.LABELS[state.hatsu["specialization"]],16,UI.GREEN))
+            nen_card.add_child(UI.label(state.Hatsu.DESCRIPTIONS[state.hatsu["id"]+":"+state.hatsu["specialization"]],14,UI.MUTED))
+        elif state.nen["water_done"]:
+            nen_card.add_child(UI.label("Hatsu ainda não desenvolvido. Busque uma oportunidade prática." if state.nen["category"] in ["Reforço","Emissão"] else "Ainda não há Hatsu implementado para esta categoria. Sua jornada pode continuar normalmente.",14,UI.MUTED))
         if state.nen["mastery"]==3 and not state.nen["water_done"]:
             var water=UI.button("Procurar Mira para o teste da água")
             water.disabled=state.active_adventure or state.health==0 or state.demo["kind"]=="ending"
@@ -215,7 +220,7 @@ func build_character() -> void:
     var stats = UI.card(character_content)
     stats.add_child(UI.label("Atributos",20))
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
-    character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Não há combate ou Nen nesta etapa.",14,UI.MUTED))
+    character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Não há batalhas nesta etapa.",14,UI.MUTED))
     var reset = UI.button("Criar outro personagem")
     reset.pressed.connect(show_creation)
     character_content.add_child(reset)
@@ -283,6 +288,7 @@ func allocate_point(attribute: String) -> void:
     build_session()
     select_tab(tab)
     character_content.add_child(UI.label("Ponto aplicado: %s agora é %d." % [state.ATTRIBUTE_NAMES[attribute],state.attributes[attribute]],14,UI.GREEN))
+
 
 
 

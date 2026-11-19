@@ -1053,7 +1053,30 @@
         "label": "Aprender a supressão",
         "next": "nen_ren",
         "nen_learn": "zetsu",
-        "result": "Você aprende Zetsu, sabendo que não é invisibilidade."
+        "result": "Você mantém a supressão e identifica quando retomar Ten. Aprende Zetsu com um exercício bem executado.",
+        "test": {
+          "difficulty": 13,
+          "attribute": "intellect"
+        },
+        "failure": {
+          "flags": {
+            "zetsu_guided": true
+          },
+          "xp": 3,
+          "result": "O sino toca e sua concentração se desfaz. Mira retoma o exercício ao seu lado. Você aprende o básico de Zetsu com ajuda, mas não conclui a prova independente.",
+          "nen_learn": "zetsu",
+          "next": "nen_ren"
+        }
+      },
+      {
+        "nen_learn": "zetsu",
+        "label": "Pedir orientação desde o início",
+        "result": "Mira acompanha os movimentos. Você aprende Zetsu de forma assistida, sem realizar a prova independente.",
+        "xp": 4,
+        "flags": {
+          "zetsu_guided": true
+        },
+        "next": "nen_ren"
       }
     ],
     "repeat": {
@@ -1065,7 +1088,7 @@
     "chapter": "Aprender a perceber",
     "kind": "continuation",
     "paragraphs": [
-      "Mira ensina a suprimir a emissão de aura. Você continua visível e pode ser ouvido; discrição ainda depende de cuidado."
+      "Mira propõe observar um sino sem fazê-lo tocar, suprimindo a aura e cuidando também dos passos. Zetsu não torna você invisível nem abafa ruídos físicos. Você pode tentar sozinho ou pedir orientação próxima."
     ],
     "title": "Silenciar a aura: Zetsu",
     "id": "nen_zetsu",
@@ -1154,5 +1177,314 @@
     "title": "Uma base, não um destino",
     "id": "nen_done",
     "weight": 0
+  },
+  {
+    "title": "Corpo Temperado: uma escolha",
+    "choices": [
+      {
+        "xp": 12,
+        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "failure": {
+          "xp": 4,
+          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "hatsu_learn": {
+            "specialization": "power",
+            "id": "reinforce"
+          }
+        },
+        "hatsu_learn": {
+          "specialization": "power",
+          "id": "reinforce"
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "strength"
+        },
+        "label": "Desenvolver Potência"
+      },
+      {
+        "xp": 12,
+        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "failure": {
+          "xp": 4,
+          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "hatsu_learn": {
+            "specialization": "resistance",
+            "id": "reinforce"
+          }
+        },
+        "hatsu_learn": {
+          "specialization": "resistance",
+          "id": "reinforce"
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "strength"
+        },
+        "label": "Desenvolver Resistência"
+      },
+      {
+        "label": "Deixar a proposta passar",
+        "result": "Você prefere seguir com os fundamentos que já conhece."
+      }
+    ],
+    "repeat": {
+      "gap": 0,
+      "max": 1
+    },
+    "conditions": {
+      "hatsu_available": "Reforço"
+    },
+    "id": "develop_reinforce",
+    "weight": 2,
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "paragraphs": [
+      "Mira prepara uma caixa pesada e um apoio acolchoado. Usar aura para mover a caixa ou amortecer um impacto exige práticas diferentes. Escolha uma especialização permanente: Potência ou Resistência."
+    ]
+  },
+  {
+    "title": "Projétil de Aura: uma escolha",
+    "choices": [
+      {
+        "xp": 12,
+        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "failure": {
+          "xp": 4,
+          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "hatsu_learn": {
+            "specialization": "power",
+            "id": "emission"
+          }
+        },
+        "hatsu_learn": {
+          "specialization": "power",
+          "id": "emission"
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "agility"
+        },
+        "label": "Desenvolver Potência"
+      },
+      {
+        "xp": 12,
+        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "failure": {
+          "xp": 4,
+          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "hatsu_learn": {
+            "specialization": "range",
+            "id": "emission"
+          }
+        },
+        "hatsu_learn": {
+          "specialization": "range",
+          "id": "emission"
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "agility"
+        },
+        "label": "Desenvolver Alcance"
+      },
+      {
+        "xp": 12,
+        "result": "A prática supervisionada funciona. Você desenvolve uma forma inicial e limitada da habilidade escolhida.",
+        "failure": {
+          "xp": 4,
+          "result": "A primeira tentativa não funciona. Mira ajusta sua postura e reduz o exercício. Você aprende a forma básica escolhida, sem o resultado completo da prova.",
+          "hatsu_learn": {
+            "specialization": "precision",
+            "id": "emission"
+          }
+        },
+        "hatsu_learn": {
+          "specialization": "precision",
+          "id": "emission"
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "intellect"
+        },
+        "label": "Desenvolver Precisão"
+      },
+      {
+        "label": "Deixar a proposta passar",
+        "result": "Você prefere seguir com os fundamentos que já conhece."
+      }
+    ],
+    "repeat": {
+      "gap": 0,
+      "max": 1
+    },
+    "conditions": {
+      "hatsu_available": "Emissão"
+    },
+    "id": "develop_emission",
+    "weight": 2,
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "paragraphs": [
+      "Num pátio vazio, Mira posiciona um bloco, um alvo distante e uma pequena trava. Projetar aura com impacto, distância ou controle fino exige prioridades diferentes. Escolha uma especialização permanente. Não há combate."
+    ]
+  },
+  {
+    "title": "Uma passagem bloqueada",
+    "choices": [
+      {
+        "label": "Mover a viga em conjunto",
+        "xp": 12,
+        "test": {
+          "difficulty": 15,
+          "attribute": "strength"
+        },
+        "result": "Você coordena o esforço e libera a passagem sem aura.",
+        "failure": {
+          "health": -3,
+          "xp": 4,
+          "result": "O apoio escorrega. Você protege o rosto, mas sofre uma contusão (-3 Saúde)."
+        }
+      },
+      {
+        "label": "Chamar o encarregado",
+        "result": "O encarregado isola a passagem e providencia ajuda. Você segue sem recompensa."
+      },
+      {
+        "xp": 12,
+        "result": "Sua especialização em Potência intensifica o esforço contra a viga. A passagem é liberada.",
+        "failure": {
+          "health": -2,
+          "xp": 4,
+          "result": "Mesmo com Potência, o apoio cede. Você interrompe o esforço com uma contusão menor."
+        },
+        "conditions": {
+          "hatsu": {
+            "specialization": "power",
+            "id": "reinforce"
+          }
+        },
+        "test": {
+          "difficulty": 12,
+          "attribute": "strength"
+        },
+        "label": "Corpo Temperado: mover a viga"
+      },
+      {
+        "xp": 12,
+        "result": "Você amortece o impacto enquanto os demais recuam. Resistência protege esse contato, sem eliminar o risco.",
+        "failure": {
+          "health": -1,
+          "xp": 4,
+          "result": "Você erra o apoio. A aura amortece parte do impacto, mas ainda sofre uma escoriação."
+        },
+        "conditions": {
+          "hatsu": {
+            "specialization": "resistance",
+            "id": "reinforce"
+          }
+        },
+        "test": {
+          "difficulty": 15,
+          "attribute": "agility"
+        },
+        "label": "Corpo Temperado: proteger a retirada"
+      },
+      {
+        "xp": 12,
+        "result": "Um impacto concentrado libera o apoio da viga sem atingir pessoas.",
+        "failure": {
+          "xp": 4,
+          "result": "O impacto não solta o apoio. Você afasta as pessoas e procura outra solução."
+        },
+        "conditions": {
+          "hatsu": {
+            "specialization": "power",
+            "id": "emission"
+          }
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "intellect"
+        },
+        "label": "Projétil: romper o apoio preso"
+      }
+    ],
+    "repeat": {
+      "gap": 0,
+      "max": 1
+    },
+    "conditions": {},
+    "id": "blocked_passage",
+    "weight": 2,
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "paragraphs": [
+      "Uma viga bloqueia o corredor de um armazém. Há trabalhadores para ajudar e espaço para recuar. Ninguém precisa lutar para resolver o problema."
+    ]
+  },
+  {
+    "title": "Um sinal no telhado",
+    "choices": [
+      {
+        "label": "Segurar a escada para o artesão",
+        "xp": 3,
+        "result": "Você ajuda a estabilizar a escada e o artesão resolve o problema."
+      },
+      {
+        "xp": 12,
+        "result": "Seu foco em Alcance permite tocar o alvo distante com uma emissão controlada.",
+        "failure": {
+          "result": "A tentativa falha. Você interrompe com cuidado e aprende os limites da técnica.",
+          "xp": 4
+        },
+        "conditions": {
+          "hatsu": {
+            "specialization": "range",
+            "id": "emission"
+          }
+        },
+        "test": {
+          "difficulty": 13,
+          "attribute": "agility"
+        },
+        "label": "Projétil: alcançar a bandeira"
+      },
+      {
+        "xp": 12,
+        "result": "Um disparo preciso solta a trava sem quebrar o mecanismo.",
+        "failure": {
+          "result": "A tentativa falha. Você interrompe com cuidado e aprende os limites da técnica.",
+          "xp": 4
+        },
+        "conditions": {
+          "hatsu": {
+            "specialization": "precision",
+            "id": "emission"
+          }
+        },
+        "test": {
+          "difficulty": 12,
+          "attribute": "intellect"
+        },
+        "label": "Projétil: liberar a pequena trava"
+      },
+      {
+        "label": "Seguir seu caminho",
+        "result": "Você deixa o reparo com a oficina."
+      }
+    ],
+    "repeat": {
+      "gap": 0,
+      "max": 1
+    },
+    "conditions": {},
+    "id": "signal_roof",
+    "weight": 2,
+    "chapter": "Experiências na jornada",
+    "kind": "independent",
+    "paragraphs": [
+      "Uma bandeira ficou presa no alto; uma trava estreita controla a corda. A oficina aceita ajuda, mas também dispõe de uma escada. Acertar de longe e atingir a trava pequena são tarefas distintas."
+    ]
   }
 ]
