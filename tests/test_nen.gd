@@ -72,11 +72,16 @@ func run() -> void:
     check(categories.size()==6,"Seis categorias sorteadas")
     s=State.new();s.start("Condições")
     for pair in [["bridge","nen_ten"],["survey_find","nen_zetsu"],["tournament","nen_ren"]]:
-        s.open_event(pair[0]);var index: int=s.demo["choices"].size()-1
+        s.open_event(pair[0]);var index: int=0
+        for i in range(s.demo["choices"].size()):
+            if s.demo["choices"][i].get("conditions",{}).get("flags",{}).get(pair[1],false):index=i
         check(s.choice_reason(index)!="","Técnica bloqueada antes de aprender")
     learn(s)
     for pair in [["bridge","nen_ten"],["survey_find","nen_zetsu"],["tournament","nen_ren"]]:
-        s.open_event(pair[0]);check(s.choice_reason(s.demo["choices"].size()-1)=="","Técnica abre alternativa")
+        s.open_event(pair[0]);var index: int=0
+        for i in range(s.demo["choices"].size()):
+            if s.demo["choices"][i].get("conditions",{}).get("flags",{}).get(pair[1],false):index=i
+        check(s.choice_reason(index)=="","Técnica abre alternativa")
     var old_chance: int=s.Progress.chance(s.attributes["agility"],16)
     s.Progress.award(s,40);s.Progress.spend(s,"agility")
     check(s.Progress.chance(s.attributes["agility"],16)==old_chance+5,"Ponto atualiza chance em 5 pontos percentuais")
@@ -103,6 +108,7 @@ func run() -> void:
     print("NEN: %d verificações, %d falhas; categorias=%s" % [checks,failures,categories])
     DirAccess.remove_absolute("user://test_nen.json")
     quit(1 if failures else 0)
+
 
 
 

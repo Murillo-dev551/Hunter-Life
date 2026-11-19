@@ -1,0 +1,62 @@
+{
+  "bandage": {
+    "name": "Bandagem",
+    "description": "Material para cuidar de ferimentos leves.",
+    "category": "Consumível",
+    "max": 5,
+    "heal": 3,
+    "effect": "Recupera até 3 de Saúde, fora de combate."
+  },
+  "medicine": {
+    "name": "Remédio simples",
+    "description": "Uma dose para recuperação básica, sem substituir atendimento complexo.",
+    "category": "Consumível",
+    "max": 2,
+    "heal": 5,
+    "effect": "Recupera até 5 de Saúde. Oferta limitada."
+  },
+  "knife": {
+    "name": "Faca de viagem",
+    "description": "Ferramenta de viagem que também auxilia na defesa pessoal.",
+    "category": "Equipamento",
+    "max": 1,
+    "slot": "weapon",
+    "effect": "Dificuldade -1 em ataques comuns contra o assaltante. Não se aplica a Nen/Hatsu ou ao treino amistoso."
+  },
+  "vest": {
+    "name": "Colete reforçado",
+    "description": "Proteção simples para o tronco.",
+    "category": "Equipamento",
+    "max": 1,
+    "slot": "protection",
+    "effect": "Reduz em 1 o dano de uma investida anunciada, se ainda causaria 2 ou mais após outras defesas. Não anula golpes."
+  },
+  "rope": {
+    "name": "Corda resistente",
+    "description": "Corda reutilizável para apoio em travessias.",
+    "category": "Objeto de aventura",
+    "max": 1,
+    "effect": "Abre uma travessia específica sem consumir a corda."
+  },
+  "lantern": {
+    "name": "Lanterna",
+    "description": "Uma luz portátil para explorar com cuidado.",
+    "category": "Objeto de aventura",
+    "max": 1,
+    "effect": "Permite investigar uma passagem escura."
+  },
+  "map": {
+    "name": "Mapa regional",
+    "description": "Rotas locais anotadas por viajantes.",
+    "category": "Objeto de aventura",
+    "max": 1,
+    "effect": "Permite orientação por uma escolha específica, sem bônus global."
+  },
+  "souvenir": {
+    "name": "Lembrança de viagem",
+    "description": "Uma pequena peça entalhada oferecida pela comunidade da serra, lembrança de uma entrega concluída.",
+    "category": "Lembrança",
+    "max": 1,
+    "effect": "Registro de uma experiência. Sem bônus mecânico."
+  }
+}

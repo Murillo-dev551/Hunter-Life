@@ -1,6 +1,8 @@
 extends RefCounted
 const INITIAL_ATTRIBUTES = {"strength":5,"agility":5,"intellect":5,"presence":5}
 const ATTRIBUTE_NAMES = {"strength":"Força","agility":"Agilidade","intellect":"Intelecto","presence":"Presença"}
+const Items=preload("res://scripts/inventory.gd")
+var inventory: Dictionary=Items.fresh()
 const Battle=preload("res://scripts/battle.gd")
 var battle: Dictionary={}
 const Hatsu = preload("res://scripts/hatsu.gd")
@@ -41,7 +43,7 @@ func start(raw_name: String, inclination: int = 0) -> String:
     if clean.is_empty(): return "Dê um nome ao personagem para começar."
     if clean.length()>32: return "Use um nome com até 32 caracteres."
     if error!="": return error
-    battle={}
+    battle={};inventory=Items.fresh()
     level=1;xp=0;points=0;health=10;nen=Nen.fresh();hatsu=Hatsu.fresh()
     character_name=clean; attributes=INITIAL_ATTRIBUTES.duplicate(); jenny=250
     attributes=starting_attributes(inclination)
@@ -62,6 +64,9 @@ func open_event(id: String) -> void:
 func choice_reason(index: int) -> String:
     var choice: Dictionary = demo["choices"][index]
     if not catalog.eligible(choice.get("conditions",{}),self): return "Exige preparação anterior ou recursos adicionais."
+    for possible in [choice,choice.get("failure",{})]:
+        var item_reason: String=Items.effect_reason(self,possible)
+        if item_reason!="":return item_reason
     if choice.has("hatsu_learn") and not Hatsu.can_learn(self,choice["hatsu_learn"]["id"],choice["hatsu_learn"]["specialization"]):return "Requer fundamentos, afinidade revelada e Hatsu ainda não desenvolvido."
     if choice.has("nen_learn"):
         var technique: String=choice["nen_learn"]
@@ -87,6 +92,7 @@ func choose(index: int) -> bool:
     if int(visits.get(current_id,1))>1:
         effect=effect.duplicate(true)
         effect.erase("attributes")
+        effect.erase("items_add")
         if int(effect.get("xp",0))>0: effect["xp"]=floori(int(effect["xp"])*float(demo.get("repeat_reward_scale",0)))
         if int(effect.get("jenny",0))>0: effect["jenny"]=floori(int(effect["jenny"])*float(demo.get("repeat_reward_scale",0)))
     var old_attributes: Dictionary=attributes.duplicate()
@@ -102,7 +108,7 @@ func choose(index: int) -> bool:
     var gained_xp: int=maxi(0,int(effect.get("xp",0)))
     var levels: int=Progress.award(self,gained_xp)
     health=clampi(health+int(effect.get("health",0)),0,10)
-    result=effect["result"]+test_text+Nen.apply(self,effect)+Hatsu.apply(self,effect)
+    result=effect["result"]+test_text+Items.apply(self,effect)+Nen.apply(self,effect)+Hatsu.apply(self,effect)
     if gained_xp>0: result+="\n+%d XP" % gained_xp
     if levels>0: result+="\nNível %d alcançado · %d ponto(s) disponível(is)." % [level,points]
     if health!=old_health: result+="\n%+d Saúde (%d/10)" % [health-old_health,health]
@@ -123,7 +129,7 @@ func advance() -> bool:
     open_event(next)
     return true
 func serialize() -> Dictionary:
-    return {"version":7,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
+    return {"version":8,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
     if current_adventure!="" and flags.get(current_adventure+"_completed",false) and current_adventure not in completed:
@@ -136,6 +142,7 @@ static func starting_attributes(inclination: int) -> Dictionary:
     elif inclination==2: values["agility"]=6;values["presence"]=4
     elif inclination==3: values["intellect"]=6;values["strength"]=4
     return values
+
 
 
 

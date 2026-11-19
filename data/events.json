@@ -336,6 +336,20 @@
         "next": "end_home",
         "label": "Desistir da entrega",
         "result": "Você devolve o pacote sem receber a recompensa."
+      },
+      {
+        "next": "bridge",
+        "label": "Consultar seu mapa regional",
+        "result": "Seu mapa indica uma passagem mais segura.",
+        "xp": 6,
+        "flags": {
+          "prepared": true
+        },
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        }
       }
     ],
     "id": "route",
@@ -414,6 +428,17 @@
           "attribute": "agility",
           "difficulty": 16
         }
+      },
+      {
+        "xp": 10,
+        "result": "Você usa a corda resistente para uma travessia cuidadosa. A corda é recolhida ao final.",
+        "label": "Montar apoio com sua corda",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "next": "delivery"
       }
     ],
     "id": "bridge",
@@ -441,7 +466,10 @@
         "flags": {
           "delivery_completed": true
         },
-        "xp": 40
+        "xp": 40,
+        "items_add": {
+          "souvenir": 1
+        }
       },
       {
         "jenny": 100,
@@ -451,7 +479,10 @@
         "flags": {
           "delivery_completed": true
         },
-        "xp": 40
+        "xp": 40,
+        "items_add": {
+          "souvenir": 1
+        }
       },
       {
         "jenny": 100,
@@ -461,7 +492,10 @@
         "flags": {
           "delivery_completed": true
         },
-        "xp": 40
+        "xp": 40,
+        "items_add": {
+          "souvenir": 1
+        }
       }
     ],
     "id": "delivery",
@@ -1578,5 +1612,221 @@
         "xp": 22
       }
     }
+  },
+  {
+    "id": "supply_stall",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "weight": 2,
+    "paragraphs": [
+      "Uma banca temporária vende suprimentos: bandagem 15, remédio 35, corda 25, lanterna 20, mapa 15, faca 45 e colete 60 Jenny. Você escolhe uma compra nesta visita. O remédio tem oferta limitada."
+    ],
+    "title": "Suprimentos na feira",
+    "kind": "independent",
+    "choices": [
+      {
+        "items_add": {
+          "bandage": 1
+        },
+        "result": "Você confere o objeto e paga o preço combinado.",
+        "label": "Comprar uma bandagem",
+        "jenny": -15
+      },
+      {
+        "items_add": {
+          "medicine": 1
+        },
+        "result": "Você confere o objeto e paga o preço combinado.",
+        "label": "Comprar remédio simples",
+        "jenny": -35
+      },
+      {
+        "items_add": {
+          "rope": 1
+        },
+        "result": "Você confere o objeto e paga o preço combinado.",
+        "label": "Comprar corda resistente",
+        "jenny": -25
+      },
+      {
+        "items_add": {
+          "lantern": 1
+        },
+        "result": "Você confere o objeto e paga o preço combinado.",
+        "label": "Comprar uma lanterna",
+        "jenny": -20
+      },
+      {
+        "items_add": {
+          "map": 1
+        },
+        "result": "Você confere o objeto e paga o preço combinado.",
+        "label": "Comprar mapa regional",
+        "jenny": -15
+      },
+      {
+        "result": "Você segue sem fazer compras.",
+        "label": "Guardar o dinheiro"
+      },
+      {
+        "result": "Você paga 45 Jenny por uma faca de viagem.",
+        "jenny": -45,
+        "items_add": {
+          "knife": 1
+        },
+        "label": "Comprar uma faca de viagem"
+      },
+      {
+        "result": "Você paga 60 Jenny pelo colete.",
+        "jenny": -60,
+        "items_add": {
+          "vest": 1
+        },
+        "label": "Comprar um colete reforçado"
+      }
+    ],
+    "conditions": {},
+    "chapter": "Objetos na jornada"
+  },
+  {
+    "id": "workshop_objects",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "weight": 2,
+    "paragraphs": [
+      "Uma artesã oferece um objeto em troca de ajuda na organização de peças. Você pode negociar uma faca de viagem, um colete usado ou uma ferramenta de iluminação."
+    ],
+    "title": "Ajuda na oficina",
+    "kind": "independent",
+    "choices": [
+      {
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "items_add": {
+          "vest": 1
+        },
+        "failure": {
+          "xp": 3,
+          "result": "A contagem precisa ser refeita. A artesã agradece a tentativa, mas não entrega o colete."
+        },
+        "label": "Conferir as peças por um colete",
+        "result": "Você confere as peças e recebe o colete combinado.",
+        "xp": 8
+      },
+      {
+        "xp": 5,
+        "result": "Você termina o carregamento e recebe uma faca de viagem.",
+        "label": "Ajudar no carregamento por uma faca",
+        "items_add": {
+          "knife": 1
+        }
+      },
+      {
+        "result": "A lanterna é sua recompensa pelo trabalho.",
+        "label": "Organizar a bancada por uma lanterna",
+        "items_add": {
+          "lantern": 1
+        }
+      },
+      {
+        "result": "Você prefere outra oportunidade.",
+        "label": "Recusar o serviço"
+      }
+    ],
+    "conditions": {},
+    "chapter": "Objetos na jornada"
+  },
+  {
+    "id": "abandoned_pack",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "weight": 2,
+    "paragraphs": [
+      "Um viajante retorna para buscar seus pertences e oferece um objeto sobressalente em agradecimento por você guardar o embrulho."
+    ],
+    "title": "Um embrulho na trilha",
+    "kind": "independent",
+    "choices": [
+      {
+        "result": "Ele entrega uma bandagem limpa.",
+        "label": "Aceitar uma bandagem",
+        "items_add": {
+          "bandage": 1
+        }
+      },
+      {
+        "result": "Ele entrega a corda sobressalente.",
+        "label": "Aceitar uma corda",
+        "items_add": {
+          "rope": 1
+        }
+      },
+      {
+        "result": "Ele oferece um mapa regional com caminhos públicos.",
+        "label": "Pedir indicações da região",
+        "items_add": {
+          "map": 1
+        }
+      },
+      {
+        "result": "Você agradece e deixa os objetos com o viajante.",
+        "label": "Recusar o presente"
+      }
+    ],
+    "conditions": {},
+    "chapter": "Objetos na jornada"
+  },
+  {
+    "id": "dark_store",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "weight": 2,
+    "paragraphs": [
+      "Uma oficina precisa verificar um corredor sem iluminação. Você pode esperar pelo responsável ou usar sua própria luz, sem enfrentar criaturas ou adversários."
+    ],
+    "title": "Uma passagem escura",
+    "kind": "independent",
+    "choices": [
+      {
+        "xp": 6,
+        "result": "Você ilumina a passagem e encontra a etiqueta procurada. A oficina paga 12 Jenny. Sua lanterna permanece com você.",
+        "label": "Investigar com a lanterna",
+        "conditions": {
+          "items": {
+            "lantern": 1
+          }
+        },
+        "jenny": 12
+      },
+      {
+        "result": "O responsável traz uma luz e resolve o problema. Você segue sem pagamento.",
+        "label": "Esperar o responsável"
+      },
+      {
+        "xp": 3,
+        "result": "Você entrega uma bandagem ao trabalhador. Ele agradece o cuidado.",
+        "label": "Ceder uma bandagem para um corte leve",
+        "conditions": {
+          "items": {
+            "bandage": 1
+          }
+        },
+        "items_take": {
+          "bandage": 1
+        }
+      }
+    ],
+    "conditions": {},
+    "chapter": "Objetos na jornada"
   }
 ]

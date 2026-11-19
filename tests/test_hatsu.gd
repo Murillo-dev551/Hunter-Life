@@ -12,6 +12,8 @@ func ready_state(category: String):
     var s=State.new();s.rng.seed=6006;s.start("Hatsu")
     s.nen={"awakened":true,"techniques":["ten","zetsu","ren"],"mastery":3,"category":category,"water_done":true}
     for t in ["ten","zetsu","ren"]:s.flags["nen_"+t]=true
+    s.active_adventure=false;s.current_adventure=""
+    s.open_event("market")
     return s
 func run() -> void:
     var s=State.new();s.start("Sem requisitos");s.open_event("develop_reinforce")
@@ -86,5 +88,6 @@ func run() -> void:
     print("HATSUS: %d verificações, %d falhas; jornadas=%s" % [checks,failures,levels])
     DirAccess.remove_absolute("user://test_hatsu.json")
     quit(1 if failures else 0)
+
 
 

@@ -29,6 +29,7 @@ static func test(s,id: String) -> Dictionary:
         if b["intent"]=="guard":dc+=3
         if b["opening"] or b["intent"]=="hesitate":dc-=2
     if b["enemy"]=="fighter" and b["last"]==id and int(b["repeat"])>=1:dc+=3
+    if s.inventory["equipment"]["weapon"]=="knife" and b["enemy"]=="bandit" and id in ["attack","quick"]:dc-=1
     return {"attribute":attribute,"difficulty":maxi(2,dc)}
 static func finish(s,outcome: String) -> void:
     var b: Dictionary=s.battle
@@ -92,6 +93,8 @@ static func act(s,id: String, token: int) -> bool:
     if int(b["turn"])>=6:incoming=mini(4,maxi(2,incoming)+1+floori((int(b["turn"])-6)/4.0))
     if b["enemy"]=="fighter" and int(b["repeat"])>=2:incoming+=1
     var hit: int=maxi(0,incoming-block)
+    if s.inventory["equipment"]["protection"]=="vest" and b["intent"]=="charge" and hit>=2:
+        hit-=1;text+="\nO colete amorteceu parte do impacto."
     s.health=maxi(0,s.health-hit)
     text+="\n-%d Saúde (%d/10)." % [hit,s.health]
     b["log"].append(text);s.records.append(text)
@@ -118,6 +121,8 @@ static func valid(v: Variant,s) -> bool:
     if s.health==0 and v["outcome"]!="incapacity":return false
     if v["outcome"]=="victory" and v["hp"]!=0:return false
     return true
+
+
 
 
 

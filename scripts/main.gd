@@ -3,6 +3,9 @@ const PlayerText=preload("res://scripts/ui/player_text.gd")
 const UI = preload("res://scripts/ui/styles.gd")
 const State = preload("res://scripts/game_state.gd")
 const Creation = preload("res://scripts/ui/creation_view.gd")
+const InventoryView=preload("res://scripts/ui/inventory_view.gd")
+var inventory_view
+var inventory_content: VBoxContainer
 const BattleView=preload("res://scripts/ui/battle_view.gd")
 const Adventure = preload("res://scripts/ui/adventure_view.gd")
 const TABS = ["Aventura","Personagem","Inventário","Registro"]
@@ -163,11 +166,8 @@ func build_session() -> void:
     adventure_view.record_requested.connect(func(): select_tab(3))
     character_content = add_page("Personagem")
     build_character()
-    var inventory = add_page("Inventário")
-    inventory.add_child(UI.title("O que você carrega"))
-    var card = UI.card(inventory)
-    card.add_child(UI.label("Uma mochila ainda por preencher",20))
-    card.add_child(UI.label("O inventário não está disponível nesta etapa. Nenhum item pode ser obtido ou utilizado.",16,UI.MUTED))
+    inventory_content=add_page("Inventário")
+    refresh_inventory()
     record_content = add_page("Registro")
     refresh_records()
     chapter.text = state.demo["chapter"]
@@ -242,6 +242,7 @@ func choose(index: int) -> void:
     for child in character_content.get_children():
         character_content.remove_child(child); child.queue_free()
     build_character()
+    refresh_inventory()
     refresh_records()
     var scroll = pages.get_child(0)
     scroll.ensure_control_visible.call_deferred(adventure_view.consequence)
@@ -301,4 +302,13 @@ func battle_action(id: String, token: int) -> void:
     if not state.Battle.act(state,id,token):return
     build_session()
     pages.get_child(0).scroll_vertical=0
+
+func refresh_inventory() -> void:
+    for child in inventory_content.get_children():inventory_content.remove_child(child);child.queue_free()
+    inventory_view=InventoryView.new();inventory_content.add_child(inventory_view)
+    inventory_view.build(state);inventory_view.operation_requested.connect(inventory_operation)
+func inventory_operation(id: String,mode: String,token: int) -> void:
+    if not state.Items.operate(state,id,mode,token):return
+    build_session();select_tab(2)
+    inventory_content.add_child(UI.label("Objeto utilizado." if mode=="use" else "Equipamento atualizado.",14,UI.GREEN))
 
