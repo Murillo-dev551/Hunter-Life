@@ -9,7 +9,7 @@ func check(ok: bool,label: String) -> void:
     checks+=1
     if not ok:failures+=1;push_error(label)
 func visible_text(node: Node) -> String:
-    var out: String=node.text+"\n" if node is Label or node is Button else ""
+    var out: String=node.text+"\n" if node is Label or node is Button else node.get_parsed_text()+"\n" if node is RichTextLabel else ""
     for child in node.get_children():out+=visible_text(child)
     return out
 func run() -> void:

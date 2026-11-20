@@ -24,7 +24,7 @@ func snapshot(s):
     return loaded.state
 func run() -> void:
     var reference=fresh()
-    check(reference.error=="" and reference.catalog.events.size()==174,"Catálogo completo com 174 acontecimentos")
+    check(reference.error=="" and reference.catalog.events.size()==182,"Catálogo completo com 182 acontecimentos")
     check(reference.catalog.mission_entries.size()==10,"Dez missões novas como unidades")
     var counts={"hunter":0,"common":0}
     var edges={}

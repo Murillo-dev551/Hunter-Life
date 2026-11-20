@@ -70,7 +70,7 @@ func run() -> void:
     ui.state.battle={};ui.state.open_event("battle_fighter");ui.state.choose(0);ui.build_session();ui.adventure_view.show_category("nen");await settle()
     check(ui.adventure_view.buttons["hatsu"].disabled and ui.adventure_view.buttons["hatsu"].tooltip_text.contains("objeto"),"Alvos de Manipulação continuam limitados")
     for id in State.Affinity.IDS:
-        var s=State.new();s.start("Especialista");s.active_adventure=false;s.current_adventure=""
+        var s=State.new();s.rng.seed=123;s.start("Especialista");s.active_adventure=false;s.current_adventure=""
         s.nen={"awakened":true,"techniques":["ten","zetsu","ren"],"mastery":3,"water_done":true,"category":"Especialização"}
         for technique in s.nen["techniques"]:s.flags["nen_"+technique]=true
         s.open_event("affinity_offer");s.choose(0);s.advance()

@@ -21,7 +21,7 @@ func complete(s, id: String) -> void:
     check(s.demo["kind"]!="ending","Retorno às oportunidades")
 func run() -> void:
     for order in [["offer","survey_offer"],["survey_offer","offer"]]:
-        var s=State.new();s.start("Jornada")
+        var s=State.new();s.rng.seed=123;s.start("Jornada")
         for id in order: complete(s,id)
         check(s.completed.size()==2,"Duas aventuras na mesma partida, nas duas ordens")
         Storage.save(s,"user://test_journey.json")
@@ -30,20 +30,20 @@ func run() -> void:
     for profile in range(4):
         var values: Dictionary=State.starting_attributes(profile)
         check(values.values().reduce(func(a,b):return a+b,0)==20 and values.values().all(func(v):return v>=4 and v<=6),"Perfis iniciais equilibrados")
-    var s=State.new();s.start("Repetição")
+    var s=State.new();s.rng.seed=123;s.start("Repetição")
     s.open_event("dock");s.choose(0)
     var first: int=s.jenny
     check(not s.choose(0) and s.jenny==first,"Duplo clique não paga")
     check(not s.catalog.available("dock",s),"Intervalo impede repetição imediata")
     s.step+=4
-    check(s.catalog.available("dock",s),"Intervalo por acontecimentos libera retorno")
+    check(not s.catalog.available("dock",s),"Tempo não reabre um acontecimento comum vivido")
     s.open_event("dock");s.choose(0)
-    check(s.jenny-first==9,"Retorno paga metade")
+    check(s.jenny==first,"Reabrir acontecimento resolvido não paga novamente")
     Storage.save(s,"user://test_journey.json")
     var repeated=Storage.load_state("user://test_journey.json")
     check(repeated["error"]=="" and repeated["state"].serialize()==s.serialize() and not repeated["state"].choose(0),"Save preserva contagem e bloqueio da recompensa repetida")
     s.step+=4;s.open_event("dock");s.choose(0);s.step+=4
-    check(not s.catalog.available("dock",s),"Limite de três turnos impede exploração indefinida")
+    check(not s.catalog.available("dock",s),"Acontecimento comum permanece único")
     s.start("Flags");s.flags["merchant_help"]=true
     check(s.catalog.eligible(s.catalog.events["merchant_return"]["conditions"],s),"Ajuda abre indicação")
     s.flags["dishonest"]=true

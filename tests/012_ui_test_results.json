@@ -1,0 +1,112 @@
+[
+  {
+    "summary": "VISUAL AFINIDADE 10E: 641 verificações, 0 falhas, 11 capturas",
+    "name": "test_affinity_visual",
+    "code": 0
+  },
+  {
+    "summary": "ANDROID: 40 verificações, 0 falhas",
+    "name": "test_android",
+    "code": 0
+  },
+  {
+    "summary": "Áudio e identidade: 54 verificações, 0 falhas",
+    "name": "test_audio_identity",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL BATALHA: 68 verificações, 0 falhas, 10 capturas",
+    "name": "test_battle_visual",
+    "code": 0
+  },
+  {
+    "summary": "MENU COMBATE 10F: 203 verificações, 0 falhas, 7 capturas",
+    "name": "test_combat_menu",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL EXAME: 38 verificações, 0 falhas, 7 capturas",
+    "name": "test_exam_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL EXPANSÃO 10B: 226 verificações, 0 falhas, 15 capturas",
+    "name": "test_expansion_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HATSUS 10C: 632 verificações, 0 falhas, 12 capturas",
+    "name": "test_hatsu_10c_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HATSU: 180 verificações, 0 falhas, 25 capturas",
+    "name": "test_hatsu_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL IDENTIDADE 012: 504 verificações, 0 falhas; memória={ \"switches\": 60, \"milliseconds\": 6399, \"static_before\": 58565714.0, \"static_after\": 58575934.0, \"delta\": 10220.0 }",
+    "name": "test_identity_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL INVENTÁRIO: 35 verificações, 0 falhas, 5 capturas",
+    "name": "test_inventory_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL VIDA 011: 1979 verificações, 0 falhas; 82 cenas nas duas resoluções compactas e amostras em outras três",
+    "name": "test_life_011_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL MANIPULAÇÃO 10D: 352 verificações, 0 falhas, 7 capturas",
+    "name": "test_manipulation_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL REVISÃO 10A: 4028 verificações, 0 falhas, 18 capturas",
+    "name": "test_narrative_revision_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL NEN: 34 verificações, 0 falhas, 5 capturas",
+    "name": "test_nen_visual",
+    "code": 0
+  },
+  {
+    "summary": "TEXTOS: 108 verificações, 0 falhas",
+    "name": "test_player_text",
+    "code": 0
+  },
+  {
+    "summary": "POLIMENTO 10H: 104 verificações, 0 falhas",
+    "name": "test_polish",
+    "code": 0
+  },
+  {
+    "summary": "UI PROGRESSÃO: 4 verificações, 0 falhas",
+    "name": "test_progression_ui",
+    "code": 0
+  },
+  {
+    "summary": "UI SLOTS 10F: 55 verificações, 0 falhas, 5 capturas",
+    "name": "test_slots_ui",
+    "code": 0
+  },
+  {
+    "summary": "CONTINUIDADE UI: 26 verificações, 0 falhas",
+    "name": "test_story_ui",
+    "code": 0
+  },
+  {
+    "summary": "TOQUE E ROLAGEM: 26 verificações, 0 falhas",
+    "name": "test_touch_scroll",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HUNTER LIFE: 348 verificações, 0 falhas, 35 capturas",
+    "name": "test_visual",
+    "code": 0
+  }
+]

@@ -1,4 +1,5 @@
 extends RefCounted
+const Document=preload("res://scripts/ui/document_style.gd")
 ## Presentation only. One tween per control; no delays or gameplay callbacks.
 static var targets: Array[WeakRef]=[]
 static func reduced() -> bool:
@@ -29,7 +30,7 @@ static func highlight(panel: Control,tone: Color) -> void:
     if panel is Label:panel.add_theme_color_override("font_color",tone)
     if panel is PanelContainer:
         var style=panel.get_theme_stylebox("panel").duplicate()
-        if style is StyleBoxFlat:
+        if style is StyleBoxFlat or style is Document:
             style.border_color=tone;style.set_border_width_all(2)
             style.bg_color=style.bg_color.lerp(tone,0.07)
             panel.add_theme_stylebox_override("panel",style)

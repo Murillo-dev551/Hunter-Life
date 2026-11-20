@@ -51,7 +51,7 @@ func run() -> void:
     check(Storage.load_state("user://test_progression.json")["state"].health==0,"Encerramento persistente")
     s.start("Retorno");s.seen.erase("dock");s.visits.erase("dock");s.last_visit.erase("dock");s.open_event("dock");s.choose(0)
     var xp: int=s.xp;s.step+=4;s.open_event("dock");s.choose(0)
-    check(xp==5 and s.xp==7,"XP reduzido em retorno")
+    check(xp==5 and s.xp==5,"Acontecimento único não concede XP de retorno")
     var old: Dictionary=s.serialize().duplicate(true);old["version"]=3
     for key in ["level","xp","points","health"]:old.erase(key)
     var f=FileAccess.open("user://test_progression.json",FileAccess.WRITE);f.store_string(JSON.stringify(old));f.close()

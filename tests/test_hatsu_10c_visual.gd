@@ -25,12 +25,13 @@ func run() -> void:
     var ui=current_scene
     for id in ["transmutation","conjuration"]:
         for index in range(2):
-            ui.state=State.new();ui.state.start("Aprendiz");ui.state.active_adventure=false;ui.state.current_adventure=""
-            ui.state.nen={"awakened":true,"techniques":["ten","zetsu","ren"],"mastery":3,"water_done":true,"category":ui.state.Hatsu.category(id)}
-            for technique in ui.state.nen["techniques"]:ui.state.flags["nen_"+technique]=true
-            ui.state.open_event("develop_"+id);ui.build_session();await settle()
-            ui.choose(index);check(ui.state.hatsu["learned"],"Escolha aprende o Hatsu")
             for size in [Vector2i(320,480),Vector2i(390,844),Vector2i(480,860),Vector2i(768,1024),Vector2i(1100,720)]:
+                # Each resolution gets a new journey; a resolved fight is never reopened.
+                ui.state=State.new();ui.state.rng.seed=123;ui.state.start("Aprendiz");ui.state.active_adventure=false;ui.state.current_adventure=""
+                ui.state.nen={"awakened":true,"techniques":["ten","zetsu","ren"],"mastery":3,"water_done":true,"category":ui.state.Hatsu.category(id)}
+                for technique in ui.state.nen["techniques"]:ui.state.flags["nen_"+technique]=true
+                ui.state.open_event("develop_"+id);ui.build_session();await settle()
+                ui.choose(index);check(ui.state.hatsu["learned"],"Escolha aprende o Hatsu")
                 root.size=size;ui.select_tab(1);await settle();layout(ui)
                 var scroll=ui.pages.get_child(1)
                 for label in ui.character_content.find_children("*","Label",true,false):

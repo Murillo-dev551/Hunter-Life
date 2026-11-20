@@ -11,7 +11,7 @@ const TEXTURES={
     "nen":preload("res://assets/icons/nen.svg"),
     "other":preload("res://assets/icons/other.svg")}
 var kind: String="adventure"
-var color: Color=Color("315C4C")
+var color: Color=Color("243B5A")
 func _ready() -> void:
     custom_minimum_size=Vector2(22,22)
     mouse_filter=Control.MOUSE_FILTER_IGNORE

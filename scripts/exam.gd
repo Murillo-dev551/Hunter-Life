@@ -1,17 +1,28 @@
 extends RefCounted
+const Journal=preload("res://scripts/exam_journal.gd")
+static func can_start(s) -> bool:return Journal.can_start(s)
+static func can_offer(s) -> bool:return Journal.can_offer(s)
 const OPTIONS=[["exam_crossing","exam_endurance"],["exam_inquiry","exam_capture"],["exam_survival","exam_team"],["exam_duel","exam_judgment"]]
 static func fresh() -> Dictionary:return {"status":"unentered","sequence":[],"stage":0,"setbacks":0,"awarded":false}
 static func route(s) -> String:
     return {"approved":"exam_pass","failed":"exam_fail","withdrawn":"exam_withdraw"}.get(s.exam["status"],"")
 static func conclude(s,status: String) -> void:
     if s.exam["status"]!="active":return
+    s.exam_history=Journal.history(s)
     s.exam["status"]=status;s.active_adventure=false;s.current_adventure=""
+    s.exam_history=Journal.history(s)
     s.pending_next=route(s) if s.health>0 else ""
     s.records.append("Exame Hunter: "+{"approved":"aprovação","failed":"reprovação","withdrawn":"desistência"}[status]+".")
 static func apply(s,effect: Dictionary) -> String:
-    if effect.get("exam_start",false) and s.exam["status"]=="unentered":
+    if effect.get("exam_start",false) and can_start(s):
+        var previous=Journal.history(s)
+        if s.exam.status=="failed":
+            for key in s.flags.keys():
+                if key.begins_with("exam_") and key!="exam_ignored":s.flags.erase(key)
+        s.exam=fresh()
         s.exam["status"]="active";s.exam["stage"]=1
         for pair in OPTIONS:s.exam["sequence"].append(pair[s.rng.randi_range(0,1)])
+        Journal.begin(s,previous)
         s.active_adventure=true;s.current_adventure="exam";s.pending_next="exam_arrival"
     if s.exam["status"]!="active":return ""
     s.exam["setbacks"]+=int(effect.get("exam_setback",0))
@@ -24,6 +35,7 @@ static func apply(s,effect: Dictionary) -> String:
         s.pending_next=s.exam["sequence"][s.exam["stage"]-1]
     return "\nAdvertências registradas: %d. A avaliação final admite até duas." % s.exam["setbacks"] if effect.get("exam_setback",0)>0 else ""
 static func on_open(s) -> void:
+    if s.current_id=="exam_invite":Journal.offered(s)
     if s.current_id!="exam_pass" or s.exam["status"]!="approved" or s.exam["awarded"]:return
     s.exam["awarded"]=true
     s.Items.apply(s,{"items_add":{"hunter_license":1}})

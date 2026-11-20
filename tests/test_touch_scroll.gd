@@ -94,7 +94,11 @@ func run() -> void:
     var page=ui.pages.get_child(0);page.enable_touch_navigation();await settle();before=ui.state.serialize()
     await swipe(page.get_global_rect().get_center()+Vector2(-60,30),Vector2(0,-90))
     check(page.scroll_vertical>0 and ui.state.serialize()==before,"Combate rola sem consumir turno/RNG")
+    # The compact document theme may fit three empty slots at 360×780.
+    # Exercise a genuinely overflowing menu rather than require needless scrolling.
+    root.size=Vector2i(320,480)
     ui.show_slots();page=ui.pages.get_child(0);page.enable_touch_navigation();await settle()
+    check(page.get_v_scroll_bar().max_value>page.size.y,"Fixture compacta exige rolagem dos slots")
     await swipe(page.get_global_rect().get_center(),Vector2(0,-120))
     check(page.scroll_vertical>0,"Menu de slots também é rolável")
     ui.open_audio_settings();ui.audio_settings.scroll.enable_touch_navigation();await settle()

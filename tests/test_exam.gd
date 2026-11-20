@@ -56,8 +56,10 @@ func run() -> void:
         check(loaded["error"]=="","Estado final carrega")
         results[s.exam["status"]]=int(results.get(s.exam["status"],0))+1
     check(combinations.size()==16,"Todas as 16 combinações")
-    var s=setup(1);s.choose(2);s.advance()
-    check(s.exam["status"]=="unentered" and not s.active_adventure,"Adiar mantém jornada")
+    var s=setup(1);s.choose(2)
+    check(s.exam["status"]=="unentered" and not s.active_adventure,"Adiar não inscreve nem mantém compromisso com o exame")
+    s.advance()
+    check(s.exam["status"]=="unentered" and s.current_adventure!="exam","Próxima oportunidade pode iniciar outra aventura sem entrar no exame")
     s=setup(2);s.choose(1);s.advance();s.choose(1);s.advance()
     check(s.exam["status"]=="withdrawn" and s.current_id=="exam_withdraw","Desistência retorna sem final de jornada")
     check(not s.choose(99),"Escolha inválida não altera estado")

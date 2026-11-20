@@ -110,6 +110,12 @@ static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> 
         if not State.Exam.valid(d.get("exam"),s):return {"error":"Participação ou licença do exame inválida."}
         s.exam=d["exam"].duplicate(true);s.exam["stage"]=int(s.exam["stage"]);s.exam["setbacks"]=int(s.exam["setbacks"])
     elif s.Items.quantity(s,"hunter_license")>0:return {"error":"Licença sem aprovação registrada."}
+    s.exam_history=d.get("exam_history",State.Exam.Journal.history(s))
+    if not State.Exam.Journal.valid(s.exam_history,s):return {"error":"Histórico de tentativas do exame inválido."}
+    for row in s.exam_history:
+        for key in ["started","ended","outside","offered","offer_step","stage","setbacks"]:row[key]=int(row[key])
+    # Contextual retry text depends on the restored attempt, not fresh defaults.
+    s.demo=s.catalog.describe(s.current_id,s)
     s.missions=d.get("missions",{}) if d["version"]>=10 else State.Missions.migrate(s)
     if not State.Missions.valid(s.missions,s):return {"error":"Continuidade de missão inválida."}
     if not State.Affinity.valid_state(s):return {"error":"Continuidade da avaliação inválida."}

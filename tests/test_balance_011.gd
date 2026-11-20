@@ -6,11 +6,12 @@ func _initialize() -> void:call_deferred("run")
 func check(ok: bool,label: String) -> void:
     checks+=1
     if not ok:failures+=1;push_error(label)
-func fresh(seed_value: int,licensed: bool):
-    var s=State.new();s.rng.seed=seed_value;s.start("Simulação");s.open_event("market")
+func fresh(seed_value: int,licensed: bool,initial_event: String="market"):
+    var s=State.new();s.rng.seed=seed_value;s.start("Simulação")
     if licensed:
         s.exam={"status":"approved","sequence":[s.Exam.OPTIONS[0][0],s.Exam.OPTIONS[1][0],s.Exam.OPTIONS[2][0],s.Exam.OPTIONS[3][0]],"stage":4,"setbacks":0,"awarded":true}
         s.Items.apply(s,{"items_add":{"hunter_license":1}})
+    s.open_event(initial_event)
     return s
 # A deterministic cautious policy, using only visible tests, costs and warnings.
 func decision(s) -> int:
@@ -37,11 +38,12 @@ func run() -> void:
         for id in template.catalog.mission_entries:
             report[id]={"completed":0,"failed":0,"abandoned":0,"health":0,"xp":0}
             for seed_value in range(20):
-                var s=fresh(9000+seed_value,true)
+                var s=fresh(9000+seed_value,true,template.catalog.mission_entries[id])
                 for attribute in s.attributes:s.attributes[attribute]=profile
                 if profile==8:s.Items.apply(s,{"items_add":{"rope":1,"lantern":1,"map":1}})
-                # fresh() may have already seen another opportunity, never the one reused below.
-                s.missions.erase(id);s.open_event(template.catalog.mission_entries[id]);s.choose(0);s.advance()
+                # Reuse an unresolved opening if start() already selected this mission.
+                # Opening it twice after abandoning it would violate occurrence uniqueness.
+                s.choose(0);s.advance()
                 var turns=0
                 while s.missions.get(id,"") in ["active","offered"] and s.health>0 and turns<20:
                     turns+=1

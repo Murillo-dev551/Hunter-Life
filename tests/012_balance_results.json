@@ -1,0 +1,359 @@
+{
+  "journeys": {
+    "licensed": {
+      "endings": {
+        "incapacity": 4,
+        "journey_home": 36
+      },
+      "exam_offers": 0,
+      "hunter_offers": 189,
+      "levels": {
+        "1": 2,
+        "4": 1,
+        "5": 1,
+        "6": 36
+      },
+      "max_choices": 256,
+      "mission_offers": 368,
+      "nen_offers": 38
+    },
+    "ordinary": {
+      "endings": {
+        "journey_home": 40
+      },
+      "exam_offers": 34,
+      "hunter_offers": 0,
+      "levels": {
+        "1": 1,
+        "4": 30,
+        "5": 9
+      },
+      "max_choices": 180,
+      "mission_offers": 187,
+      "nen_offers": 39
+    },
+    "unlicensed": {
+      "endings": {
+        "incapacity": 1,
+        "journey_home": 39
+      },
+      "exam_offers": 91,
+      "hunter_offers": 42,
+      "levels": {
+        "1": 1,
+        "4": 2,
+        "5": 28,
+        "6": 7,
+        "7": 2
+      },
+      "max_choices": 312,
+      "mission_offers": 227,
+      "nen_offers": 38
+    }
+  },
+  "profiles": {
+    "5": {
+      "c_fair": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 540
+      },
+      "c_ferry": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 520
+      },
+      "c_missing": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 460
+      },
+      "c_rooftops": {
+        "abandoned": 0,
+        "completed": 14,
+        "failed": 6,
+        "health": 188,
+        "xp": 450
+      },
+      "c_salvage": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 420
+      },
+      "h_capture": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 122,
+        "xp": 660
+      },
+      "h_coldchain": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 740
+      },
+      "h_relic": {
+        "abandoned": 0,
+        "completed": 14,
+        "failed": 6,
+        "health": 200,
+        "xp": 602
+      },
+      "h_research": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 540
+      },
+      "h_species": {
+        "abandoned": 0,
+        "completed": 14,
+        "failed": 6,
+        "health": 200,
+        "xp": 580
+      }
+    },
+    "8": {
+      "c_fair": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 540
+      },
+      "c_ferry": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 520
+      },
+      "c_missing": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 460
+      },
+      "c_rooftops": {
+        "abandoned": 0,
+        "completed": 17,
+        "failed": 3,
+        "health": 194,
+        "xp": 495
+      },
+      "c_salvage": {
+        "abandoned": 0,
+        "completed": 17,
+        "failed": 3,
+        "health": 194,
+        "xp": 515
+      },
+      "h_capture": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 134,
+        "xp": 660
+      },
+      "h_coldchain": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 740
+      },
+      "h_relic": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 200,
+        "xp": 780
+      },
+      "h_research": {
+        "abandoned": 0,
+        "completed": 20,
+        "failed": 0,
+        "health": 134,
+        "xp": 680
+      },
+      "h_species": {
+        "abandoned": 0,
+        "completed": 15,
+        "failed": 5,
+        "health": 200,
+        "xp": 600
+      }
+    }
+  },
+  "reached": [
+    "market",
+    "011_tuning",
+    "abandoned_pack",
+    "exam_invite",
+    "c_fair_offer",
+    "c_fair_prepare",
+    "c_fair_trial",
+    "c_fair_route_b",
+    "c_fair_route_a",
+    "c_fair_done",
+    "012_scales",
+    "011_infirmary",
+    "survey_offer",
+    "survey_path",
+    "survey_find",
+    "survey_done",
+    "cart",
+    "011_fair_follow",
+    "traveler",
+    "ruins_offer",
+    "ruins_team",
+    "ruins_entry",
+    "ruins_archive",
+    "ruins_choice",
+    "ruins_done",
+    "012_markers",
+    "merchant_return",
+    "signal_roof",
+    "supply_stall",
+    "notice",
+    "dark_store",
+    "012_receipt",
+    "c_missing_offer",
+    "c_missing_prepare",
+    "c_missing_trial",
+    "c_missing_route_a",
+    "c_missing_done",
+    "c_ferry_offer",
+    "c_ferry_prepare",
+    "c_ferry_trial",
+    "c_ferry_route_a",
+    "c_ferry_done",
+    "011_raincoat",
+    "battle_fighter",
+    "011_wall",
+    "storm_mark",
+    "c_salvage_offer",
+    "c_salvage_prepare",
+    "c_salvage_trial",
+    "c_salvage_route_b",
+    "c_salvage_done",
+    "c_rooftops_offer",
+    "c_rooftops_prepare",
+    "c_rooftops_trial",
+    "c_rooftops_route_b",
+    "c_rooftops_failed",
+    "012_mending",
+    "011_hearing",
+    "012_mooring",
+    "012_window",
+    "escort_offer",
+    "escort_prepare",
+    "escort_road",
+    "escort_checkpoint",
+    "escort_account",
+    "escort_done",
+    "tournament",
+    "battle_bandit",
+    "011_soup",
+    "workshop_objects",
+    "blocked_passage",
+    "night_watch",
+    "nen_offer",
+    "hearing",
+    "reservoir",
+    "rain",
+    "012_inn",
+    "012_observation",
+    "escort_return",
+    "dock",
+    "kitchen",
+    "offer",
+    "route",
+    "bridge",
+    "delivery",
+    "end_path",
+    "ruins_return",
+    "crossroads",
+    "011_register",
+    "c_rooftops_done",
+    "c_ferry_route_b",
+    "exam_info",
+    "exam_arrival",
+    "exam_candidates",
+    "exam_endurance",
+    "exam_interval_1",
+    "exam_inquiry",
+    "exam_fail",
+    "exam_capture",
+    "exam_interval_2",
+    "exam_team",
+    "nen_ten",
+    "nen_zetsu",
+    "nen_ren",
+    "nen_water",
+    "nen_done",
+    "develop_emission",
+    "exam_crossing",
+    "exam_survival",
+    "exam_interval_3",
+    "exam_duel",
+    "exam_withdraw",
+    "develop_reinforce",
+    "exam_judgment",
+    "exam_pass",
+    "h_relic_offer",
+    "h_relic_prepare",
+    "h_relic_trial",
+    "h_relic_route_a",
+    "h_relic_done",
+    "h_coldchain_offer",
+    "h_coldchain_prepare",
+    "h_coldchain_trial",
+    "h_coldchain_route_a",
+    "h_coldchain_done",
+    "h_species_offer",
+    "h_species_prepare",
+    "h_species_trial",
+    "h_species_route_b",
+    "h_species_failed",
+    "h_research_offer",
+    "h_research_prepare",
+    "h_research_trial",
+    "h_research_route_b",
+    "h_research_done",
+    "h_capture_offer",
+    "h_capture_prepare",
+    "h_capture_trial",
+    "h_capture_route_a",
+    "h_capture_done",
+    "011_capture_follow",
+    "011_notice",
+    "licensed_contract",
+    "h_species_done",
+    "h_relic_failed",
+    "develop_conjuration",
+    "develop_transmutation",
+    "develop_manipulation",
+    "affinity_offer",
+    "affinity_trial_1",
+    "affinity_trial_2",
+    "affinity_trial_3",
+    "affinity_trial_4",
+    "affinity_trial_5",
+    "affinity_reveal_manipulation",
+    "affinity_reveal_reinforce",
+    "affinity_reveal_conjuration"
+  ]
+}

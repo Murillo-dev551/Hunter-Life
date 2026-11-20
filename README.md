@@ -2,11 +2,11 @@
 
 **Hunter Life** é um RPG textual de escolhas inspirado na estrutura de aventuras de *Life in Adventure*, ambientado no universo de *Hunter × Hunter*. Você cria um protagonista original e conduz sua jornada por trabalhos, descobertas, pequenas aventuras e confrontos opcionais.
 
-O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
+O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de campo contemporâneo. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Versão atual: v0.1.1 — A Vida de um Hunter.** São **174 acontecimentos**, dez novas missões com ramificações, oportunidades exclusivas de Hunters, seleção de gênero e consequências persistentes. Missões narrativas não se repetem na mesma jornada. Consulte o [relatório técnico e resultados](STAGE_011.md).
+**Versão atual: v0.1.2 — Identidade Visual.** São **182 acontecimentos**, quatro abas com apresentação editorial, oito cenários originais em tinta e fontes incluídas localmente. As imagens aparecem em apenas 16 cenas; a experiência continua prioritariamente textual. Missões, Nen, Hatsus, combate e salvamentos foram preservados. Consulte o [relatório e comparações visuais](STAGE_012.md).
 
-**Android:** APK de testes em `builds/android/Hunter-Life-0.1.1-test.apk`. Preserva retrato, rolagem nativa, modo imersivo e áreas seguras da v0.1.0 validada pelo desenvolvedor no Galaxy A15 5G. A atualização **ainda precisa de validação física no aparelho**. O código estável permanece na tag Git `v0.1.0`; os APKs anteriores foram mantidos. Veja as instruções e limitações no [relatório v0.1.1](STAGE_011.md).
+**Android:** APK de testes em `builds/android/Hunter-Life-0.1.2-test.apk`. Preserva retrato, rolagem nativa, modo imersivo e áreas seguras. A v0.1.1 foi validada no Android pelo desenvolvedor; **o novo visual ainda precisa de avaliação física no Galaxy A15 5G**. As referências anteriores permanecem nas tags Git `v0.1.0` e `v0.1.1`, e os APKs antigos foram mantidos.
 
 ## Funcionalidades
 
@@ -16,7 +16,7 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
 | Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
 | Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
-| Narrativa | 174 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Narrativa | 182 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
 | Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
 | Missões | Cinco missões Hunter e cinco comuns, com conclusão, fracasso ou abandono persistentes |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
@@ -26,6 +26,16 @@ O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface verti
 | Persistência | Três slots independentes, com salvamento durante batalhas, provas e avaliação de afinidade |
 
 A navegação usa quatro abas: **Aventura**, **Personagem**, **Inventário** e **Registro**. O conteúdo tem rolagem vertical; a navegação inferior permanece acessível em janelas compactas.
+
+### Identidade visual e cenários
+
+Papel claro `#F1E8D7`, azul-marinho `#243B5A`, vinho `#963D49`, tinta `#343C43` e dourado discreto para foco e conquistas. Cabeçalho compacto, divisórias finas, cartões de documento e marcações editoriais substituem a aparência de pergaminho envelhecido. A navegação combina ícones e textos, com seleção vinho sobre a base azul-marinho.
+
+O cabeçalho ilustrado, as molduras recortadas com contornos duplos, as faixas diagonais, o sublinhado vinho e os botões com ícones seguem a composição do protótipo aprovado. **Source Sans 3** atende ao texto e aos títulos de acontecimentos; **Barlow Condensed**, à marca e seções; **Source Serif 4**, às escolhas e detalhes editoriais. Os arquivos e licenças acompanham o jogo.
+
+As oito ilustrações originais representam cidade, floresta, estrada, hospedaria, porto, ruínas, escritório e mercado, sem retratos ou personagens em destaque. As associações narrativas são explícitas, com altura responsiva limitada; cenas seguintes normalmente voltam ao texto. Arte ausente não impede ler ou escolher. A pequena vinheta fixa no cabeçalho pertence à identidade do aplicativo, separadamente das 16 cenas ilustradas.
+
+Os oito encontros novos tratam de reservas numa hospedaria, sinalização de trilha, amarração no cais, conserto de janela, recibo perdido, reparo de mochila, observação da cidade e pesagem numa banca. Não acrescentam missões extensas ou mecânicas. Veja [origens e licenças](assets/ASSET_LICENSES.md) e [capturas antes/depois](STAGE_012.md#capturas-comparativas).
 
 ### Escolhas, testes e progressão
 
@@ -41,7 +51,7 @@ A experiência necessária para o próximo nível é `40 + 20 × (nível atual �
 
 Saúde não cai apenas por avançar acontecimentos. Ferimentos e recuperação dependem de escolhas. Em zero, a regra geral é socorro e encerramento por incapacidade, sem morte automática. Uma decisão explicitamente muito perigosa na recuperação do arquivo da pedreira pode levar à morte em um desabamento; existem alternativas de inspeção, ferramentas e retirada.
 
-Concluir uma aventura normalmente devolve o personagem às oportunidades. Finais definitivos resultam de decisões explícitas ou incapacidade. Eventos únicos e repetíveis têm limites; retornos de atividades repetíveis reduzem recompensas e não concedem novamente objetos ou atributos.
+Concluir uma aventura normalmente devolve o personagem às oportunidades. Finais definitivos resultam de decisões explícitas ou incapacidade. **Todos os acontecimentos são únicos por jornada, exceto novas tentativas elegíveis do Exame Hunter após reprovação.** Visitas persistidas impedem novos sorteios, sem apagar cenas intermediárias ainda pendentes. Ao esgotar oportunidades, a jornada oferece uma conclusão coerente, sem forçar repetições.
 
 ### A vida de um Hunter
 
@@ -59,7 +69,7 @@ Na escolta, **Orlan** negocia o pagamento e espera que a carga chegue ao mercado
 
 Na expedição, **Lídia e Bento** examinam um antigo canal: travessia, inscrições de uso da água e retirada segura. É possível produzir um relato completo ou parcial, priorizar a segurança ou ocultar um fragmento para vendê-lo. As decisões podem reaparecer depois em novas conversas e cobranças.
 
-As duas aventuras têm seis acontecimentos cada, podem ocorrer em ordens diferentes e não exigem Nen, Hatsu ou licença. Todos os novos encontros são únicos por jornada; as atividades repetíveis anteriores mantêm seus limites.
+As duas aventuras têm seis acontecimentos cada, podem ocorrer em ordens diferentes e não exigem Nen, Hatsu ou licença. Encontros cotidianos, oportunidades e missões não voltam ao sorteio depois de vividos.
 
 ## Nen e Hatsus
 
@@ -122,7 +132,7 @@ Consumíveis não são desperdiçados com Saúde cheia. Os espaços **Arma** e *
 
 ## Exame Hunter
 
-Uma inscrição opcional pode surgir entre as oportunidades. É possível investigar, inscrever-se, adiar ou ignorar. Uma participação é permitida por jornada, sem calendário ou exames anuais. Nen, Hatsu e nível mínimo não são exigidos.
+Uma inscrição opcional pode surgir entre as oportunidades. É possível investigar, inscrever-se, adiar ou ignorar. Nen, Hatsu e nível mínimo não são exigidos. Depois de **reprovação**, outra candidatura exige pelo menos **5 de Saúde e seis acontecimentos distintos vividos fora do exame** desde o resultado anterior. Adiar uma nova oferta exige outras seis experiências antes de recebê-la novamente. A aba Personagem também informa a elegibilidade. Não há calendário, exames anuais ou reinício imediato das provas. Aprovação, desistência ou recusa definitiva impedem novas participações.
 
 Ao confirmar a participação, o RNG seleciona uma de duas provas em cada etapa. As quatro escolhas ficam salvas, produzindo até **16 combinações** de uma sequência fixa de textos previamente escritos.
 
@@ -161,7 +171,9 @@ O emblema de cartão e bússola identifica o jogo; ele não representa uma Licen
 
 No gerenciador do Godot, selecione **Importar**, escolha o `project.godot` desta pasta e abra o projeto. Pressione **F5** para executar.
 
-A janela inicial é vertical, 480×860, com mínimo de 320×480. Fontes Source Sans 3 e Cinzel são preferidas quando disponíveis; fontes locais substitutas permitem executar sem downloads.
+A janela inicial é vertical, 480×860, com mínimo de 320×480. Source Sans 3, Source Serif 4 e Barlow Condensed estão incluídas no projeto e não exigem instalação ou downloads durante o jogo.
+
+A importação de recursos no editor está configurada sequencialmente, após uma falha nativa intermitente na importação paralela de fontes. Três importações sem cache passaram com essa configuração; detalhes estão no [relatório técnico](STAGE_012.md#testes-executados). Isso não altera a execução das partidas.
 
 ### Controles
 
@@ -188,6 +200,8 @@ Os saves ficam no diretório de dados **Hunter Life Prototype** definido pelo Go
 
 O formato atual é **v10**. Acrescenta gênero e estados de missão aos dados anteriores: personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG, batalha e exame. A licença continua vinculada à aprovação.
 
+A v0.1.2 mantém o formato v10, acrescentando o campo opcional `exam_history` para arquivar tentativas do exame. Saves anteriores recebem apenas os fatos já comprovados da participação existente, sem recompensas retroativas ou sorteios. Visitas antigas são preservadas e passam a bloquear novos sorteios comuns. Cenários e numeração editorial continuam sendo metadados de apresentação, sem alterar o RNG. Saves com os novos acontecimentos podem conter IDs que a v0.1.1 não reconhece; conserve backup se pretender retornar à versão anterior.
+
 O menu valida os arquivos antes de mostrar nome, nível e categoria conhecida. Uma nova jornada só pode ocupar espaço vazio; salvar usa o slot e a geração da sessão carregada. A criação grava um primeiro estado. Os avanços comuns continuam com salvamento manual.
 
 Na primeira execução, o antigo `user://hunter_life.json` é migrado para o **Slot 1**, se ele estiver vazio. O original é mantido como backup. Um registro de migração evita repetir a importação, inclusive depois de excluir o slot. Se o Slot 1 estiver ocupado ou algum arquivo estiver inválido, ele não é substituído; uma mensagem informa a situação. Migrações interrompidas podem ser retomadas com os registros existentes.
@@ -202,7 +216,7 @@ A gravação usa arquivo temporário e substituição após sucesso. A exclusão
 
 ## Testes automatizados
 
-Para executar a bateria completa, incluindo interface e isolamento dos slots por suíte, use `./tools/run_tests.ps1` (aceita `-GodotPath`). A v0.1.1 passou em **40 suítes e 112.833 verificações**; a integridade do APK passou em outras 36 verificações. As simulações e as limitações estão no [relatório técnico](STAGE_011.md).
+Para executar a bateria completa, incluindo interface e isolamento dos slots por suíte, use `./tools/run_tests.ps1` (aceita `-GodotPath`). O consolidado atual fica em `tests/012_test_results.json`; resultados, métricas e limites estão no [relatório técnico](STAGE_012.md).
 
 Na pasta do projeto, com o executável Godot no `PATH` (ou substituindo `godot` pelo caminho completo):
 
@@ -215,6 +229,8 @@ $testRun = [DateTime]::UtcNow.Ticks
 $env:HUNTER_LIFE_DATA_ROOT = 'user://test_run_' + $testRun
 
 # Principais suítes funcionais
+godot --headless --path . --script res://tests/test_identity_012.gd
+godot --headless --path . --script res://tests/test_occurrence_012.gd
 godot --headless --path . --script res://tests/test_life_011.gd
 godot --headless --path . --script res://tests/test_migration_011.gd
 godot --headless --path . --script res://tests/test_balance_011.gd
@@ -231,6 +247,7 @@ godot --headless --path . --script res://tests/test_affinity.gd
 godot --headless --path . --script res://tests/test_slots.gd
 
 # Verificações com renderização e capturas
+godot --path . --script res://tests/test_identity_visual.gd
 godot --path . --script res://tests/test_life_011_visual.gd
 godot --path . --script res://tests/test_exam_visual.gd
 godot --path . --script res://tests/test_visual.gd
@@ -251,7 +268,7 @@ Remove-Item Env:HUNTER_LIFE_DATA_ROOT
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. Os testes de texto percorrem os 92 acontecimentos originais e as 82 cenas novas nas duas menores resoluções. Logs atuais ficam em `tests/011_final_*.log`; imagens, em `tests/captures/011_*.png`. Resultados consolidados e métricas estão em `tests/011_test_results.json`, `tests/011_mission_results.json` e `tests/011_balance_results.json`. Consulte o [relatório v0.1.1](STAGE_011.md) para os resultados e limites das simulações.
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. As suítes percorrem textos, imagens opcionais, escolhas longas, quatro abas e combate, incluindo comparação com saves reais da v0.1.1 e conferência dos 174 acontecimentos anteriores. Logs atuais ficam em `tests/012_final_*.log`; imagens comparativas, em `tests/captures/012_*.png`; memória, em `tests/012_memory_results.json`.
 
 ## Limitações e desenvolvimento futuro
 
@@ -261,7 +278,7 @@ Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricaç
 
 A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Windows permanece utilizável pelo Godot, sem novo executável distribuível. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
 
-Um APK Android de depuração foi gerado e verificado. Para reconstruí-lo no computador configurado, execute `./tools/export_android.ps1`; requisitos e opções estão no [relatório Android](STAGE_ANDROID.md). JDK e SDK são necessários apenas para gerar o APK, não para jogar no telefone. A validação física da v0.1.1 continua pendente; não é uma versão aprovada para lançamento público.
+Um APK Android de depuração foi gerado e verificado. Para reconstruí-lo no computador configurado, execute `./tools/export_android.ps1`; requisitos e opções estão no [relatório Android](STAGE_ANDROID.md). JDK e SDK são necessários apenas para gerar o APK, não para jogar no telefone. A validação física da v0.1.2 continua pendente; não é uma versão aprovada para lançamento público.
 
 ## Histórico resumido
 
@@ -286,3 +303,4 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | Android v0.1.0 | [Preparação, APK de teste e validação física pendente](STAGE_ANDROID.md) |
 | Android revisão 1 | [Rolagem nativa por toque e modo imersivo](STAGE_ANDROID_REVISION_1.md) |
 | v0.1.1 | [A Vida de um Hunter — conteúdo, missões e compatibilidade](STAGE_011.md) |
+| v0.1.2 | [Identidade Visual — cenários, tipografia e validação](STAGE_012.md) |

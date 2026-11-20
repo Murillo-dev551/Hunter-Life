@@ -1,0 +1,217 @@
+[
+  {
+    "summary": "VISUAL AFINIDADE 10E: 641 verificações, 0 falhas, 11 capturas",
+    "name": "test_affinity_visual",
+    "code": 0
+  },
+  {
+    "summary": "AFINIDADE 10E: 1544 verificações, 0 falhas; resultados={ \"conjuration\": 41, \"manipulation\": 46, \"emission\": 33, \"transmutation\": 38, \"reinforce\": 42 }; testes dirigidos=47 sucessos/8 fracassos",
+    "name": "test_affinity",
+    "code": 0
+  },
+  {
+    "summary": "ANDROID: 40 verificações, 0 falhas",
+    "name": "test_android",
+    "code": 0
+  },
+  {
+    "summary": "Áudio e identidade: 54 verificações, 0 falhas",
+    "name": "test_audio_identity",
+    "code": 0
+  },
+  {
+    "summary": "BALANCEAMENTO 011: 65302 verificações, 0 falhas; jornadas={ \"ordinary\": { \"levels\": { \"4\": 30, \"5\": 9, \"1\": 1 }, \"endings\": { \"journey_home\": 40 }, \"mission_offers\": 187, \"hunter_offers\": 0, \"max_choices\": 180, \"nen_offers\": 39, \"exam_offers\": 34 }, \"unlicensed\": { \"levels\": { \"5\": 28, \"7\": 2, \"4\": 2, \"6\": 7, \"1\": 1 }, \"endings\": { \"journey_home\": 39, \"incapacity\": 1 }, \"mission_offers\": 227, \"hunter_offers\": 42, \"max_choices\": 312, \"nen_offers\": 38, \"exam_offers\": 91 }, \"licensed\": { \"levels\": { \"6\": 36, \"4\": 1, \"1\": 2, \"5\": 1 }, \"endings\": { \"journey_home\": 36, \"incapacity\": 4 }, \"mission_offers\": 368, \"hunter_offers\": 189, \"max_choices\": 256, \"nen_offers\": 38, \"exam_offers\": 0 } }; cenas=157",
+    "name": "test_balance_011",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL BATALHA: 68 verificações, 0 falhas, 10 capturas",
+    "name": "test_battle_visual",
+    "code": 0
+  },
+  {
+    "summary": "BATALHAS: 7793 verificações, 0 falhas; simulações={\"bandit_attack\":{\"max\":5,\"mean_turns\":2.365,\"outcomes\":{\"enemy_yield\":50,\"incapacity\":8,\"victory\":142},\"wins\":192},\"bandit_defend\":{\"max\":6,\"mean_turns\":4.98,\"outcomes\":{\"incapacity\":200},\"wins\":0},\"bandit_flee\":{\"max\":5,\"mean_turns\":1.4,\"outcomes\":{\"fled\":199,\"incapacity\":1},\"wins\":0},\"bandit_tactical\":{\"max\":6,\"mean_turns\":3.52,\"outcomes\":{\"enemy_yield\":42,\"incapacity\":8,\"victory\":150},\"wins\":192},\"fighter_attack\":{\"max\":7,\"mean_turns\":4.52,\"outcomes\":{\"incapacity\":67,\"victory\":133},\"wins\":133},\"fighter_defend\":{\"max\":6,\"mean_turns\":6.0,\"outcomes\":{\"incapacity\":200},\"wins\":0},\"fighter_flee\":{\"max\":5,\"mean_turns\":1.325,\"outcomes\":{\"fled\":200},\"wins\":0},\"fighter_tactical\":{\"max\":9,\"mean_turns\":4.085,\"outcomes\":{\"incapacity\":25,\"victory\":175},\"wins\":175}}",
+    "name": "test_battle",
+    "code": 0
+  },
+  {
+    "summary": "MENU COMBATE 10F: 203 verificações, 0 falhas, 7 capturas",
+    "name": "test_combat_menu",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL EXAME: 38 verificações, 0 falhas, 7 capturas",
+    "name": "test_exam_visual",
+    "code": 0
+  },
+  {
+    "summary": "EXAME: 2604 verificações, 0 falhas; combinações=16, resultados={ \"approved\": 249, \"failed\": 51 }",
+    "name": "test_exam",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL EXPANSÃO 10B: 226 verificações, 0 falhas, 15 capturas",
+    "name": "test_expansion_visual",
+    "code": 0
+  },
+  {
+    "summary": "EXPANSÃO 10B: 8257 verificações, 0 falhas; aventuras={ \"escort\": { \"withdrawn\": 53, \"completed\": 46, \"incapacity\": 1 }, \"ruins\": { \"withdrawn\": 34, \"completed\": 66 } }; seleção={ \"cart\": 6, \"signal_roof\": 7, \"offer\": 14, \"workshop_objects\": 11, \"011_raincoat\": 20, \"c_fair_offer\": 19, \"011_tuning\": 14, \"dark_store\": 7, \"blocked_passage\": 10, \"escort_offer\": 11, \"survey_offer\": 5, \"market\": 10, \"c_ferry_offer\": 14, \"notice\": 13, \"abandoned_pack\": 8, \"012_mooring\": 13, \"012_scales\": 13, \"ruins_offer\": 12, \"012_mending\": 14, \"nen_offer\": 15, \"hearing\": 4, \"kitchen\": 3, \"tournament\": 16, \"rain\": 9, \"011_infirmary\": 19, \"012_window\": 10, \"c_rooftops_offer\": 14, \"dock\": 8, \"exam_invite\": 23, \"011_soup\": 10, \"c_salvage_offer\": 15, \"battle_fighter\": 6, \"c_missing_offer\": 23, \"011_register\": 10, \"011_wall\": 11, \"traveler\": 15, \"012_markers\": 11, \"011_hearing\": 13, \"012_observation\": 8, \"battle_bandit\": 5, \"storm_mark\": 3, \"supply_stall\": 11, \"012_receipt\": 5, \"012_inn\": 7, \"reservoir\": 3, \"night_watch\": 2 }; jornadas={ \"journey_path\": 15, \"journey_duty\": 35, \"journey_home\": 27, \"battle_fighter\": 9, \"battle_bandit\": 9, \"escort_checkpoint\": 4, \"bridge\": 1 }; eventos alcançados=129",
+    "name": "test_expansion",
+    "code": 0
+  },
+  {
+    "summary": "Recursos exportados: 23 verificações, 0 falhas",
+    "name": "test_export_assets",
+    "code": 0
+  },
+  {
+    "summary": "FUNDAÇÃO HUNTER LIFE: 41 verificações, 0 falhas",
+    "name": "test_foundation",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HATSUS 10C: 632 verificações, 0 falhas, 12 capturas",
+    "name": "test_hatsu_10c_visual",
+    "code": 0
+  },
+  {
+    "summary": "HATSUS 10C: 4794 verificações, 0 falhas; simulações={ \"transmutation:restraint\": { \"wins\": 71, \"mean_turns\": 5.53, \"max_turns\": 8, \"success\": 35, \"failure\": 25, \"contextual_wins\": 64, \"contextual_mean_turns\": 5.2 }, \"transmutation:mobility\": { \"wins\": 67, \"mean_turns\": 6.42, \"max_turns\": 10, \"success\": 35, \"failure\": 25, \"contextual_wins\": 59, \"contextual_mean_turns\": 5.85 }, \"conjuration:resistance\": { \"wins\": 70, \"mean_turns\": 7.39, \"max_turns\": 12, \"success\": 37, \"failure\": 23, \"contextual_wins\": 61, \"contextual_mean_turns\": 6.54 }, \"conjuration:coverage\": { \"wins\": 58, \"mean_turns\": 6.63, \"max_turns\": 10, \"success\": 35, \"failure\": 25, \"contextual_wins\": 56, \"contextual_mean_turns\": 5.99 } }",
+    "name": "test_hatsu_10c",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HATSU: 180 verificações, 0 falhas, 25 capturas",
+    "name": "test_hatsu_visual",
+    "code": 0
+  },
+  {
+    "summary": "HATSUS: 218 verificações, 0 falhas; jornadas={ \"sem_hatsu\": { 4: 15, 3: 21, 1: 5, 2: 8, 5: 1 }, \"com_hatsu\": { 3: 20, 4: 18, 2: 12 } }",
+    "name": "test_hatsu",
+    "code": 0
+  },
+  {
+    "summary": "IDENTIDADE 012: 1682 verificações, 0 falhas; 16/182 ilustrados; novos testes: 39 sucessos e 57 fracassos",
+    "name": "test_identity_012",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL IDENTIDADE 012: 504 verificações, 0 falhas; memória={ \"switches\": 60, \"milliseconds\": 6399, \"static_before\": 58565714.0, \"static_after\": 58575934.0, \"delta\": 10220.0 }",
+    "name": "test_identity_visual",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL INVENTÁRIO: 35 verificações, 0 falhas, 5 capturas",
+    "name": "test_inventory_visual",
+    "code": 0
+  },
+  {
+    "summary": "INVENTÁRIO: 528 verificações, 0 falhas; simulações={ \"sem_equipamento\": { \"wins\": 191, \"mean_health\": 5.475 }, \"equipado\": { \"wins\": 199, \"mean_health\": 7.06 } }",
+    "name": "test_inventory",
+    "code": 0
+  },
+  {
+    "summary": "JORNADAS: 237 verificações, 0 falhas; 100 partidas, finais={ \"journey_path\": 15, \"journey_duty\": 35, \"journey_home\": 27, \"battle_fighter\": 9, \"battle_bandit\": 9, \"escort_checkpoint\": 4, \"bridge\": 1 }, máximo=83 escolhas",
+    "name": "test_journeys",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL VIDA 011: 1979 verificações, 0 falhas; 82 cenas nas duas resoluções compactas e amostras em outras três",
+    "name": "test_life_011_visual",
+    "code": 0
+  },
+  {
+    "summary": "VIDA DE HUNTER 011: 8851 verificações, 0 falhas; distribuição={ \"h_capture\": { \"abandoned\": 1, \"failed\": 33, \"completed\": 16 }, \"h_coldchain\": { \"abandoned\": 1, \"failed\": 23, \"completed\": 26 }, \"h_research\": { \"abandoned\": 1, \"failed\": 25, \"completed\": 24 }, \"h_species\": { \"abandoned\": 1, \"failed\": 28, \"completed\": 21 }, \"h_relic\": { \"abandoned\": 1, \"failed\": 33, \"completed\": 16 }, \"c_ferry\": { \"abandoned\": 1, \"failed\": 20, \"completed\": 27 }, \"c_missing\": { \"abandoned\": 1, \"completed\": 26, \"failed\": 19 }, \"c_rooftops\": { \"abandoned\": 1, \"failed\": 40, \"completed\": 9 }, \"c_fair\": { \"abandoned\": 1, \"failed\": 32, \"completed\": 15 }, \"c_salvage\": { \"abandoned\": 1, \"failed\": 28, \"completed\": 20 } }; exemplos={ \"h_capture\": { \"outcome\": \"failed\", \"health\": 7, \"level\": 1, \"jenny\": 235 }, \"h_coldchain\": { \"outcome\": \"failed\", \"health\": 8, \"level\": 1, \"jenny\": 240 }, \"h_research\": { \"outcome\": \"failed\", \"health\": 8, \"level\": 1, \"jenny\": 230 }, \"h_species\": { \"outcome\": \"failed\", \"health\": 10, \"level\": 1, \"jenny\": 230 }, \"h_relic\": { \"outcome\": \"failed\", \"health\": 10, \"level\": 1, \"jenny\": 235 }, \"c_ferry\": { \"outcome\": \"failed\", \"health\": 10, \"level\": 1, \"jenny\": 240 }, \"c_missing\": { \"outcome\": \"completed\", \"health\": 10, \"level\": 1, \"jenny\": 310 }, \"c_rooftops\": { \"outcome\": \"failed\", \"health\": 10, \"level\": 1, \"jenny\": 235 }, \"c_salvage\": { \"outcome\": \"failed\", \"health\": 10, \"level\": 1, \"jenny\": 250 } }; cenas visitadas=70",
+    "name": "test_life_011",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL MANIPULAÇÃO 10D: 352 verificações, 0 falhas, 7 capturas",
+    "name": "test_manipulation_visual",
+    "code": 0
+  },
+  {
+    "summary": "MANIPULAÇÃO 10D: 4354 verificações, 0 falhas; simulações={ \"objects\": { \"success\": 81, \"failure\": 19, \"battles\": { \"bandit\": { \"wins\": 85, \"mean_turns\": 3.95, \"max_turns\": 7 }, \"fighter\": { \"wins\": 68, \"mean_turns\": 4.55, \"max_turns\": 7 } } }, \"motor\": { \"success\": 65, \"failure\": 35, \"battles\": { \"bandit\": { \"wins\": 87, \"mean_turns\": 4.05, \"max_turns\": 8 }, \"fighter\": { \"wins\": 68, \"mean_turns\": 6.17, \"max_turns\": 9 } } } }",
+    "name": "test_manipulation",
+    "code": 0
+  },
+  {
+    "summary": "MIGRAÇÃO 011: 166 verificações, 0 falhas",
+    "name": "test_migration_011",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL REVISÃO 10A: 4028 verificações, 0 falhas, 18 capturas",
+    "name": "test_narrative_revision_visual",
+    "code": 0
+  },
+  {
+    "summary": "REVISÃO 10A: 483 verificações, 0 falhas",
+    "name": "test_narrative_revision",
+    "code": 0
+  },
+  {
+    "summary": "MOTOR: 1280 verificações, 0 falhas; seleção={ \"market\": 23, \"c_rooftops_offer\": 33, \"c_ferry_offer\": 30, \"012_mooring\": 16, \"012_scales\": 24, \"exam_invite\": 44, \"012_window\": 18, \"011_raincoat\": 28, \"notice\": 29, \"dock\": 14, \"nen_offer\": 42, \"workshop_objects\": 12, \"011_register\": 31, \"012_observation\": 24, \"kitchen\": 3, \"battle_fighter\": 14, \"ruins_offer\": 19, \"c_missing_offer\": 35, \"011_hearing\": 28, \"tournament\": 33, \"offer\": 17, \"signal_roof\": 20, \"supply_stall\": 23, \"battle_bandit\": 25, \"c_salvage_offer\": 21, \"abandoned_pack\": 23, \"cart\": 41, \"c_fair_offer\": 25, \"012_inn\": 13, \"011_infirmary\": 34, \"blocked_passage\": 19, \"storm_mark\": 5, \"traveler\": 33, \"012_receipt\": 19, \"reservoir\": 2, \"012_mending\": 16, \"011_wall\": 22, \"dark_store\": 19, \"escort_offer\": 14, \"rain\": 23, \"011_soup\": 21, \"011_tuning\": 25, \"012_markers\": 22, \"survey_offer\": 9, \"night_watch\": 5, \"hearing\": 4 }",
+    "name": "test_narrative",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL NEN: 34 verificações, 0 falhas, 5 capturas",
+    "name": "test_nen_visual",
+    "code": 0
+  },
+  {
+    "summary": "NEN: 1240 verificações, 0 falhas; categorias={ \"Especialização\": 19, \"Materialização\": 14, \"Manipulação\": 20, \"Reforço\": 20, \"Transmutação\": 11, \"Emissão\": 16 }",
+    "name": "test_nen",
+    "code": 0
+  },
+  {
+    "summary": "OCORRÊNCIAS 012: 185 verificações, 0 falhas; 44 oportunidades únicas antes do esgotamento",
+    "name": "test_occurrence_012",
+    "code": 0
+  },
+  {
+    "summary": "TEXTOS: 108 verificações, 0 falhas",
+    "name": "test_player_text",
+    "code": 0
+  },
+  {
+    "summary": "POLIMENTO 10H: 104 verificações, 0 falhas",
+    "name": "test_polish",
+    "code": 0
+  },
+  {
+    "summary": "UI PROGRESSÃO: 4 verificações, 0 falhas",
+    "name": "test_progression_ui",
+    "code": 0
+  },
+  {
+    "summary": "PROGRESSÃO: 430 verificações, 0 falhas; 100 jornadas por nível={ 3: 38, 2: 25, 1: 10, 4: 25, 5: 2 }, maior saldo XP=96",
+    "name": "test_progression",
+    "code": 0
+  },
+  {
+    "summary": "UI SLOTS 10F: 55 verificações, 0 falhas, 5 capturas",
+    "name": "test_slots_ui",
+    "code": 0
+  },
+  {
+    "summary": "SLOTS 10F: 53 verificações, 0 falhas",
+    "name": "test_slots",
+    "code": 0
+  },
+  {
+    "summary": "CONTINUIDADE UI: 26 verificações, 0 falhas",
+    "name": "test_story_ui",
+    "code": 0
+  },
+  {
+    "summary": "TOQUE E ROLAGEM: 26 verificações, 0 falhas",
+    "name": "test_touch_scroll",
+    "code": 0
+  },
+  {
+    "summary": "VISUAL HUNTER LIFE: 348 verificações, 0 falhas, 35 capturas",
+    "name": "test_visual",
+    "code": 0
+  }
+]

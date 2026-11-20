@@ -1,0 +1,182 @@
+{
+  "examples": {
+    "c_ferry": {
+      "health": 10,
+      "jenny": 240,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "c_missing": {
+      "health": 10,
+      "jenny": 310,
+      "level": 1,
+      "outcome": "completed"
+    },
+    "c_rooftops": {
+      "health": 10,
+      "jenny": 235,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "c_salvage": {
+      "health": 10,
+      "jenny": 250,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "h_capture": {
+      "health": 7,
+      "jenny": 235,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "h_coldchain": {
+      "health": 8,
+      "jenny": 240,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "h_relic": {
+      "health": 10,
+      "jenny": 235,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "h_research": {
+      "health": 8,
+      "jenny": 230,
+      "level": 1,
+      "outcome": "failed"
+    },
+    "h_species": {
+      "health": 10,
+      "jenny": 230,
+      "level": 1,
+      "outcome": "failed"
+    }
+  },
+  "outcomes": {
+    "c_fair": {
+      "abandoned": 1,
+      "completed": 15,
+      "failed": 32
+    },
+    "c_ferry": {
+      "abandoned": 1,
+      "completed": 27,
+      "failed": 20
+    },
+    "c_missing": {
+      "abandoned": 1,
+      "completed": 26,
+      "failed": 19
+    },
+    "c_rooftops": {
+      "abandoned": 1,
+      "completed": 9,
+      "failed": 40
+    },
+    "c_salvage": {
+      "abandoned": 1,
+      "completed": 20,
+      "failed": 28
+    },
+    "h_capture": {
+      "abandoned": 1,
+      "completed": 16,
+      "failed": 33
+    },
+    "h_coldchain": {
+      "abandoned": 1,
+      "completed": 26,
+      "failed": 23
+    },
+    "h_relic": {
+      "abandoned": 1,
+      "completed": 16,
+      "failed": 33
+    },
+    "h_research": {
+      "abandoned": 1,
+      "completed": 24,
+      "failed": 25
+    },
+    "h_species": {
+      "abandoned": 1,
+      "completed": 21,
+      "failed": 28
+    }
+  },
+  "visited": [
+    "h_capture_offer",
+    "h_capture_prepare",
+    "h_capture_trial",
+    "h_capture_route_b",
+    "h_capture_failed",
+    "h_capture_route_a",
+    "h_capture_done",
+    "h_coldchain_offer",
+    "h_coldchain_prepare",
+    "h_coldchain_trial",
+    "h_coldchain_route_b",
+    "h_coldchain_failed",
+    "h_coldchain_route_a",
+    "h_coldchain_done",
+    "h_research_offer",
+    "h_research_prepare",
+    "h_research_trial",
+    "h_research_route_b",
+    "h_research_failed",
+    "h_research_route_a",
+    "h_research_done",
+    "h_species_offer",
+    "h_species_prepare",
+    "h_species_trial",
+    "h_species_route_b",
+    "h_species_failed",
+    "h_species_route_a",
+    "h_species_done",
+    "h_relic_offer",
+    "h_relic_prepare",
+    "h_relic_trial",
+    "h_relic_failed",
+    "h_relic_route_a",
+    "h_relic_done",
+    "h_relic_route_b",
+    "c_ferry_offer",
+    "c_ferry_prepare",
+    "c_ferry_trial",
+    "c_ferry_route_a",
+    "c_ferry_failed",
+    "c_ferry_done",
+    "c_ferry_route_b",
+    "c_missing_offer",
+    "c_missing_prepare",
+    "c_missing_trial",
+    "c_missing_route_b",
+    "c_missing_done",
+    "c_missing_route_a",
+    "c_missing_failed",
+    "c_rooftops_offer",
+    "c_rooftops_prepare",
+    "c_rooftops_trial",
+    "c_rooftops_failed",
+    "c_rooftops_route_b",
+    "c_rooftops_route_a",
+    "c_rooftops_done",
+    "c_fair_offer",
+    "c_fair_prepare",
+    "c_fair_trial",
+    "c_fair_route_a",
+    "c_fair_failed",
+    "c_fair_route_b",
+    "c_fair_done",
+    "c_salvage_offer",
+    "c_salvage_prepare",
+    "c_salvage_trial",
+    "c_salvage_route_b",
+    "c_salvage_failed",
+    "c_salvage_route_a",
+    "c_salvage_done"
+  ]
+}

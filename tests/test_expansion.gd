@@ -33,7 +33,7 @@ func complete_safe(s,adventure: String) -> void:
     snapshot(s)
 func run() -> void:
     var s=fresh()
-    check(s.error=="" and s.catalog.events.size()==174,"81 eventos válidos")
+    check(s.error=="" and s.catalog.events.size()==182,"81 eventos válidos")
     for order in [["escort","ruins"],["ruins","escort"]]:
         s=fresh()
         for adventure in order:

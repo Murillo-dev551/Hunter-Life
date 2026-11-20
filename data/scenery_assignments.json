@@ -1,0 +1,15 @@
+{
+  "offer": "road",
+  "escort_offer": "inn",
+  "ruins_offer": "ruins",
+  "survey_offer": "forest",
+  "h_capture_offer": "office",
+  "h_coldchain_offer": "office",
+  "h_research_offer": "forest",
+  "h_species_offer": "forest",
+  "h_relic_offer": "ruins",
+  "c_ferry_offer": "port",
+  "c_missing_offer": "inn",
+  "c_fair_offer": "market",
+  "exam_arrival": "city"
+}

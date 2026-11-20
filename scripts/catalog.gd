@@ -2,6 +2,7 @@ extends RefCounted
 var events: Dictionary = {}
 var error: String = ""
 var mission_entries: Dictionary={}
+const Scenery=preload("res://scripts/scenery.gd")
 func _init() -> void:
     var parser = JSON.new()
     if parser.parse(FileAccess.get_file_as_string("res://data/events.json")) != OK or not parser.data is Array:
@@ -10,6 +11,10 @@ func _init() -> void:
     var expansion=JSON.parse_string(FileAccess.get_file_as_string("res://data/journeys_011.json"))
     if not expansion is Array:error="Expansão narrativa inválida.";return
     all_events.append_array(expansion)
+    var encounters=JSON.parse_string(FileAccess.get_file_as_string("res://data/encounters_012.json"))
+    var art=JSON.parse_string(FileAccess.get_file_as_string("res://data/scenery_assignments.json"))
+    if not encounters is Array or not art is Dictionary:error="Apresentação do catálogo inválida.";return
+    all_events.append_array(encounters)
     var revisions=JSON.parse_string(FileAccess.get_file_as_string("res://data/revisions_011.json"))
     if not revisions is Dictionary:error="Revisão narrativa inválida.";return
     for event in all_events:
@@ -26,10 +31,15 @@ func _init() -> void:
             error="Descrição de evento inválida."; return
         if event.get("kind") not in ["independent","opportunity","continuation","ending","adventure_end","hub"] or event["weight"]<0:
             error="Categoria ou peso inválido."; return
+        if art.has(event["id"]):event["scenery"]=art[event["id"]]
+        if event.has("scenery") and not Scenery.valid(event["scenery"]):error="Referência de cenário inválida.";return
+        event["folio"]=events.size()+1
         events[event["id"]] = event
         if event.has("mission") and event["kind"]=="opportunity":
             if mission_entries.has(event["mission"]):error="Missão com entradas duplicadas.";return
             mission_entries[event["mission"]]=event["id"]
+    for id in art:
+        if not events.has(id):error="Ilustração associada a um acontecimento inexistente.";return
     for event in events.values():
         for reward in event.get("battle_rewards",{}).values():
             if reward.has("next") and not events.has(reward["next"]): error = "Continuação de confronto inexistente."
@@ -40,7 +50,8 @@ func eligible(conditions: Dictionary, state) -> bool:
     if conditions.get("licensed",false) and not (state.exam["status"]=="approved" and state.exam["awarded"] and state.Items.quantity(state,"hunter_license")==1):return false
     if state.level<int(conditions.get("level",1)) or state.health<int(conditions.get("health",0)):return false
     if conditions.get("affinity_available",false) and not state.Affinity.eligible(state):return false
-    if conditions.has("exam_status") and state.exam["status"]!=conditions["exam_status"]:return false
+    if conditions.has("exam_status") and state.exam["status"]!=conditions["exam_status"]:
+        if conditions["exam_status"]!="unentered" or not state.Exam.can_start(state):return false
     for id in conditions.get("items",{}):
         if state.Items.quantity(state,id)<int(conditions["items"][id]):return false
     if conditions.has("hatsu_available"):
@@ -71,6 +82,9 @@ func select(state) -> String:
     return "crossroads"
 
 func available(id: String, state) -> bool:
+    if id=="exam_invite" and state.exam.status=="failed":return state.Exam.can_offer(state)
+    # Legacy repeat budgets never re-enqueue an already experienced world scene.
+    if id in state.seen or int(state.visits.get(id,0))>0:return false
     var mission: String=events[id].get("mission",events[id].get("adventure","") if events[id].get("adventure","") in state.Missions.LEGACY else "")
     if mission!="" and state.missions.has(mission):return false
     var policy: Dictionary = events[id].get("repeat",{"max":1,"gap":0})
@@ -85,6 +99,10 @@ func adventures() -> Array:
     return ids
 func describe(id: String,s) -> Dictionary:
     var event: Dictionary=events[id].duplicate(true)
+    if id=="exam_info":event.paragraphs[2]="Selma explica que uma reprovação não encerra toda possibilidade de candidatura. Outra seleção exige voltar em condições de viajar e com experiências novas fora das provas. Quem já recebeu a licença não volta a disputar uma vaga."
+    if id=="exam_invite" and (s.exam.status=="failed" or s.Exam.Journal.history(s).size()>1):
+        event.title="Outra seleção do Exame Hunter"
+        event.paragraphs=["Depois de outros trabalhos e caminhos, você encontra um novo aviso de inscrições. A funcionária reconhece o registro da sua reprovação; não tenta apagar o resultado anterior nem oferece um atalho para a licença.","Ela pode receber outra candidatura. As provas serão as desta seleção; antes de assinar, você pode perguntar pelas condições ou seguir viagem sem se comprometer."]
     var treatment={"male":"senhor","female":"senhora","unspecified":"viajante"}[s.gender]
     for i in range(event["paragraphs"].size()):event["paragraphs"][i]=event["paragraphs"][i].replace("{tratamento}",treatment)
     return event

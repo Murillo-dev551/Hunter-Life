@@ -21,7 +21,7 @@ func capture(name: String) -> void:
     check(root.get_texture().get_image().save_png("res://tests/captures/10d_"+name+".png")==OK,"Captura gravada")
     captures+=1
 func fixture(ui,spec: String) -> void:
-    ui.state=State.new();ui.state.start("Aprendiz");ui.state.active_adventure=false;ui.state.current_adventure=""
+    ui.state=State.new();ui.state.rng.seed=123;ui.state.start("Aprendiz");ui.state.active_adventure=false;ui.state.current_adventure=""
     ui.state.nen={"awakened":true,"techniques":["ten","zetsu","ren"],"mastery":3,"water_done":true,"category":"Manipulação"}
     for technique in ui.state.nen["techniques"]:ui.state.flags["nen_"+technique]=true
     ui.state.hatsu={"id":"manipulation","specialization":spec,"learned":true}

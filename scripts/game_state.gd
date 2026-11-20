@@ -8,6 +8,7 @@ const Exam=preload("res://scripts/exam.gd")
 const Affinity=preload("res://scripts/affinity.gd")
 var affinity: Dictionary=Affinity.fresh()
 var exam: Dictionary=Exam.fresh()
+var exam_history: Array=[]
 const Items=preload("res://scripts/inventory.gd")
 var inventory: Dictionary=Items.fresh()
 const Battle=preload("res://scripts/battle.gd")
@@ -51,7 +52,7 @@ func start(raw_name: String, inclination: int = 0, selected_gender: String="unsp
     if clean.is_empty(): return "Dê um nome ao personagem para começar."
     if clean.length()>32: return "Use um nome com até 32 caracteres."
     if error!="": return error
-    battle={};inventory=Items.fresh();exam=Exam.fresh();affinity=Affinity.fresh()
+    battle={};inventory=Items.fresh();exam=Exam.fresh();exam_history=[];affinity=Affinity.fresh()
     level=1;xp=0;points=0;health=10;nen=Nen.fresh();hatsu=Hatsu.fresh()
     character_name=clean; attributes=INITIAL_ATTRIBUTES.duplicate(); jenny=250
     gender=selected_gender;missions={}
@@ -69,6 +70,12 @@ func open_event(id: String) -> void:
     if affinity["phase"]=="learned" and id.begins_with("affinity_"):return
     if Affinity.locked(self) and (id!=Affinity.target(self) or id==current_id):return
     var target: Dictionary=catalog.events[id]
+    if id in ["exam_invite","exam_info"]:
+        if exam.status not in ["unentered","failed"] or not Exam.can_start(self):return
+        if id=="exam_invite" and exam.status=="failed" and not Exam.can_offer(self):return
+    if target.get("adventure","")!="exam" and target.kind in ["independent","opportunity"] and id in seen:return
+    if target.get("adventure","")=="exam" and exam.status=="active" and id in seen and int(last_visit.get(id,0))>=Exam.Journal.current_start(self):return
+    var deferred=(id=="nen_ten" and not nen.awakened or id=="nen_water" and not nen.water_done) and id in seen
     if target.has("mission"):
         if not catalog.eligible(target["conditions"],self):return
         if missions.get(target["mission"],"") in ["completed","failed","abandoned","archived"]:return
@@ -77,7 +84,7 @@ func open_event(id: String) -> void:
         missions[previous_mission]="abandoned"
         if current_adventure==previous_mission:current_adventure="";active_adventure=false
     current_id=id; demo=catalog.describe(id,self); selected_choice=-1; result=""
-    step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
+    if not deferred:step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
     if id not in seen: seen.append(id)
     if demo["kind"] in ["opportunity","continuation"]: active_adventure=true;current_adventure=demo.get("adventure","")
     Missions.on_open(self)
@@ -92,7 +99,7 @@ func choice_reason(index: int) -> String:
     for possible in [choice,choice.get("failure",{})]:
         var item_reason: String=Items.effect_reason(self,possible)
         if item_reason!="":return item_reason
-    if choice.get("exam_start",false) and exam["status"]!="unentered":return "Você já participou desta edição do exame."
+    if choice.get("exam_start",false) and not Exam.can_start(self):return Exam.Journal.retry_reason(self)
     if demo.get("adventure")=="exam" and demo["kind"]=="continuation" and exam["status"]!="active":return "Sua participação já foi encerrada."
     if choice.has("hatsu_learn") and not Hatsu.can_learn(self,choice["hatsu_learn"]["id"],choice["hatsu_learn"]["specialization"]):return "Requer fundamentos, afinidade revelada e Hatsu ainda não desenvolvido."
     if choice.has("nen_learn"):
@@ -122,7 +129,7 @@ func choose(index: int) -> bool:
         test_text="\n%s: d20 %d + %d = %d contra %d · %s." % [ATTRIBUTE_NAMES[test["attribute"]],roll,value,roll+value,int(test["difficulty"]),"sucesso" if success else "fracasso"]
         if not success: effect=choice["failure"]
     effect=effect.duplicate(true)
-    if int(visits.get(current_id,1))>1:
+    if int(visits.get(current_id,1))>1 and demo.get("adventure","")!="exam":
         effect=effect.duplicate(true)
         effect.erase("attributes")
         effect.erase("items_add")
@@ -168,7 +175,7 @@ func advance() -> bool:
     open_event(next)
     return true
 func serialize() -> Dictionary:
-    return {"version":10,"gender":gender,"missions":missions,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
+    return {"exam_history":Exam.Journal.history(self),"version":10,"gender":gender,"missions":missions,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
     Missions.finish(self)

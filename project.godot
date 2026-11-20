@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hunter Life"
-config/version="0.1.1-test"
+config/version="0.1.2-test"
 run/max_fps.android=60
 run/main_scene="res://main.tscn"
 config/use_custom_user_dir=true
@@ -35,6 +35,10 @@ window/stretch/mode.android="canvas_items"
 window/stretch/aspect.android="expand"
 window/handheld/orientation=1
 
+[editor]
+
+import/use_multiple_threads=false
+
 [input_devices]
 
 pointing/emulate_mouse_from_touch=true
@@ -44,4 +48,4 @@ pointing/emulate_mouse_from_touch=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.95294, 0.92157, 0.86667, 1)
+environment/defaults/default_clear_color=Color(0.945098, 0.909804, 0.843137, 1)

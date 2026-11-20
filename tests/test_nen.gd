@@ -50,7 +50,9 @@ func run() -> void:
     s.start("Recusa");s.open_event("nen_offer");s.choose(2);s.advance()
     check(not s.nen["awakened"] and s.demo["kind"]!="ending" and not s.catalog.eligible(s.catalog.events["nen_offer"]["conditions"],s),"Recusar não encerra jornada")
     s.start("Adiar");s.open_event("nen_offer");s.choose(1);s.advance();s.step+=4
-    check(s.catalog.available("nen_offer",s),"Adiar mantém oportunidade")
+    check(not s.catalog.available("nen_offer",s),"Convite adiado não volta ao sorteio")
+    s.open_event("nen_ten")
+    check(s.current_id=="nen_ten","Retomar o aprendizado segue à cena ainda pendente")
     var categories: Dictionary={}
     for n in range(100):
         s=State.new();s.rng.seed=n;s.start("Água")

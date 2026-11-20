@@ -58,8 +58,7 @@ func _ready() -> void:
     theme = UI.make_theme()
     get_node("/root/Audio").preferences_changed.connect(func():
         if UI.Motion.reduced():UI.Motion.cancel_all())
-    var background = ColorRect.new()
-    background.color = UI.BG
+    var background = preload("res://scripts/ui/notebook.gd").new()
     background.mouse_filter = Control.MOUSE_FILTER_IGNORE
     background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(background)
@@ -67,18 +66,22 @@ func _ready() -> void:
     margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(margin)
     var layout = VBoxContainer.new()
-    layout.add_theme_constant_override("separation",16)
+    layout.add_theme_constant_override("separation",8)
     margin.add_child(layout)
     build_header(layout)
-    layout.add_child(HSeparator.new())
     var context = HBoxContainer.new()
+    context.add_theme_constant_override("separation",4)
+    var identity=VBoxContainer.new();identity.size_flags_horizontal=Control.SIZE_EXPAND_FILL;identity.add_theme_constant_override("separation",2);context.add_child(identity)
+    page_title.add_theme_font_override("font",UI.SERIF_ITALIC);page_title.add_theme_font_size_override("font_size",15);identity.add_child(page_title)
     chapter = UI.label("Prólogo · Seu personagem",13,UI.MUTED)
-    context.add_child(chapter)
-    balance = UI.label("",13,UI.GREEN)
+    identity.add_child(chapter)
+    balance = UI.label("",18,UI.INK);balance.add_theme_font_override("font",UI.DISPLAY)
     balance.autowrap_mode = TextServer.AUTOWRAP_OFF
     balance.size_flags_horizontal = Control.SIZE_SHRINK_END
     context.add_child(balance)
-    layout.add_child(context)
+    journal_button.reparent(context)
+    settings_button.reparent(context)
+    var context_frame=PanelContainer.new();context_frame.add_theme_stylebox_override("panel",UI.document(UI.BG,"button",UI.INK,5));context_frame.add_child(context);layout.add_child(context_frame)
     pages = TabContainer.new()
     pages.tabs_visible = false
     pages.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
@@ -128,22 +131,25 @@ func confirm_app_exit(save_first: bool) -> void:
     get_viewport().gui_disable_input=true
     get_node("/root/Audio").close_game()
 func build_header(layout: VBoxContainer) -> void:
-    var row = HBoxContainer.new()
+    var row = preload("res://scripts/ui/masthead.gd").new()
     row.add_theme_constant_override("separation",8)
     var emblem=TextureRect.new()
     emblem.texture=preload("res://assets/icons/emblem.svg")
     emblem.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
     emblem.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-    emblem.custom_minimum_size=Vector2(32,32)
+    emblem.custom_minimum_size=Vector2(42,40)
     emblem.size_flags_vertical=Control.SIZE_SHRINK_CENTER
     emblem.tooltip_text="Hunter Life · Emblema do jogo"
     row.add_child(emblem)
     var titles = VBoxContainer.new()
     titles.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    titles.add_theme_constant_override("separation",4)
-    titles.add_child(UI.label("HUNTER LIFE",12,UI.GREEN))
-    page_title = UI.label("Uma nova jornada",24)
-    titles.add_child(page_title)
+    titles.add_theme_constant_override("separation",0)
+    var brand=UI.label("HUNTER LIFE",28,UI.INK);brand.add_theme_font_override("font",UI.BRAND)
+    titles.add_child(brand)
+    var subtitle=UI.label("Diário de um Hunter",13,UI.INK);subtitle.add_theme_font_override("font",UI.SERIF_ITALIC);titles.add_child(subtitle)
+    page_title = UI.label("Uma nova jornada",13,UI.MUTED)
+    page_title.autowrap_mode=TextServer.AUTOWRAP_OFF
+    page_title.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     row.add_child(titles)
     journal_button = UI.button("",true)
     journal_button.custom_minimum_size = Vector2(44,44)
@@ -173,13 +179,13 @@ func open_audio_settings() -> void:
     audio_settings.popup_centered_clamped(Vector2i(340,340),0.92)
 func build_navigation(layout: VBoxContainer) -> void:
     var row = HBoxContainer.new()
-    row.add_theme_constant_override("separation",4)
+    row.add_theme_constant_override("separation",0)
     for i in range(TABS.size()):
         var b = UI.button("")
         b.accessibility_name = TABS[i]
         b.tooltip_text = TABS[i]
         b.theme_type_variation = "Navigation"
-        b.custom_minimum_size = Vector2(0,62)
+        b.custom_minimum_size = Vector2(0,66)
         var content = VBoxContainer.new()
         content.mouse_filter = Control.MOUSE_FILTER_IGNORE
         content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -188,7 +194,8 @@ func build_navigation(layout: VBoxContainer) -> void:
         var icon = UI.icon(ICONS[i])
         content.add_child(icon)
         nav_icons.append(icon)
-        var text = UI.label(TABS[i],12,UI.GREEN)
+        var text = UI.label(TABS[i],13,UI.GREEN)
+        text.add_theme_font_override("font",UI.SERIF)
         text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         text.mouse_filter = Control.MOUSE_FILTER_IGNORE
         content.add_child(text)
@@ -198,12 +205,12 @@ func build_navigation(layout: VBoxContainer) -> void:
         b.pressed.connect(func():UI.sound("tab"))
         row.add_child(b)
         navigation.append(b)
-    layout.add_child(row)
+    var footer=PanelContainer.new();footer.add_theme_stylebox_override("panel",UI.box(UI.NAVY,0,UI.NAVY,0));footer.add_child(row);layout.add_child(footer)
 func responsive() -> void:
     if not margin: return
     var horizontal: int = maxi(12 if size.x<380 else 20,int((size.x-760)/2))
     for side in ["left","right"]: margin.add_theme_constant_override("margin_"+side,horizontal)
-    for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,16 if size.y>=600 else 10)
+    for side in ["top","bottom"]: margin.add_theme_constant_override("margin_"+side,12 if size.y>=600 else 10)
     if OS.get_name()=="Android":
         var safe=MobileLayout.insets(size,Rect2(DisplayServer.get_display_safe_area()),get_viewport().get_screen_transform())
         for i in range(4):
@@ -373,8 +380,10 @@ func build_session() -> void:
 func build_character() -> void:
     character_content.add_child(UI.title(state.character_name))
     character_content.add_child(UI.label("Gênero: "+{"male":"Masculino","female":"Feminino","unspecified":"Não especificado"}[state.gender],14,UI.MUTED))
-    character_content.add_child(UI.label("Hunter com licença" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",14,UI.GREEN))
-    character_content.add_child(UI.label("Viajante · Uma história por escrever",15,UI.MUTED))
+    var identity=UI.card(character_content)
+    UI.section(identity,"CREDENCIAL HUNTER" if state.exam["status"]=="approved" and state.exam["awarded"] else "IDENTIDADE DE VIAGEM","character")
+    identity.add_child(UI.label("Hunter com licença" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",16,UI.NAVY))
+    identity.add_child(UI.label("Viajante · Uma história por escrever",14,UI.MUTED))
     var progress = UI.card(character_content)
     progress.add_child(UI.label("Nível %d · Saúde %d/10" % [state.level,state.health],20,UI.GREEN))
     progress.add_child(UI.label("%d / %d XP para o próximo nível" % [state.xp,state.Progress.threshold(state.level)],14))
@@ -392,7 +401,7 @@ func build_character() -> void:
         add_button.pressed.connect(func(): allocate_point(attribute))
         allocation.add_child(add_button)
     var nen_card=UI.card(character_content)
-    nen_card.add_child(UI.label("Nen",20,UI.GREEN))
+    UI.section(nen_card,"Nen · prática e afinidade","nen")
     if not state.nen["awakened"]:
         nen_card.add_child(UI.label("Você ainda não conhece Nen.",14,UI.MUTED))
         if "nen_offer" in state.seen and not state.flags.get("nen_declined",false):
@@ -427,8 +436,9 @@ func build_character() -> void:
             water.pressed.connect(func(): state.open_event("nen_water");build_session())
             nen_card.add_child(water)
     var stats = UI.card(character_content)
-    stats.add_child(UI.label("Atributos",20))
+    UI.section(stats,"Atributos","character")
     UI.attributes(stats,state.attributes,state.ATTRIBUTE_NAMES)
+    character_content.move_child(stats.get_parent(),character_content.get_children().find(nen_card.get_parent()))
     character_content.add_child(UI.label("As escolhas podem alterar seus atributos. Os confrontos usam os atributos atuais.",14,UI.MUTED))
     if "exam_invite" in state.seen and state.exam["status"]=="unentered" and not state.flags.get("exam_ignored",false):
         var resume_exam=UI.button("Consultar inscrição Hunter")
@@ -439,6 +449,15 @@ func build_character() -> void:
     reset.pressed.connect(show_slots)
     character_content.add_child(reset)
     character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
+    if state.exam.status=="failed":
+        var retry=UI.button("Consultar outra seleção do Exame Hunter")
+        var reason=state.Exam.Journal.retry_reason(state)
+        if reason=="" and not state.Exam.can_offer(state):reason="Você já consultou o aviso; viva outros acontecimentos antes de procurar nova seleção."
+        retry.disabled=reason!="" or state.active_adventure or state.health==0
+        retry.tooltip_text=reason
+        retry.pressed.connect(func():state.open_event("exam_invite");build_session())
+        character_content.add_child(retry)
+        if reason!="":character_content.add_child(UI.label(reason,14,UI.MUTED))
     var end_button = UI.button("Pensar nos próximos caminhos")
     end_button.disabled=state.Battle.active(state) or state.health==0 or state.active_adventure or state.demo["kind"]=="ending"
     end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
@@ -475,29 +494,32 @@ func refresh_records() -> void:
     for child in record_content.get_children():
         record_content.remove_child(child)
         child.queue_free()
-    record_content.add_child(UI.title("Registro da jornada"))
+    UI.section(record_content,"Registro da jornada","record")
     var save_button = UI.button("Salvar no Slot %d" % active_slot if active_slot>0 else "Salvar partida")
     UI.button_icon(save_button,"saves")
     save_button.disabled=active_slot==0
     save_button.pressed.connect(save_current)
     record_content.add_child(save_button)
     record_content.add_child(UI.label("Os primeiros passos de %s." % state.character_name,14,UI.MUTED))
+    var number=0
     for entry in state.records:
+        number+=1
         var card = UI.card(record_content)
-        card.add_child(UI.label(PlayerText.history(entry),16))
+        card.add_child(UI.label("REGISTRO %03d" % number,11,UI.MUTED))
+        card.add_child(UI.label(PlayerText.history(entry),18))
     record_content.add_child(UI.label("Decisões e consequências desta jornada.",13,UI.MUTED))
 func select_tab(index: int) -> void:
     if state.character_name.is_empty() or index<0 or index>=TABS.size(): return
     if pages.get_child(pages.current_tab) is Control:UI.Motion.stop(pages.get_child(pages.current_tab))
     current_tab = index
     pages.current_tab = index
-    page_title.text = "A Jornada" if index==0 else TABS[index]
+    page_title.text = ("A Jornada · "+state.character_name) if index==0 else TABS[index]
     update_navigation(index)
     UI.Motion.enter(pages.get_child(index))
 func update_navigation(selected: int) -> void:
     for i in range(navigation.size()):
         navigation[i].theme_type_variation = "NavigationActive" if i==selected else "Navigation"
-        var color: Color = UI.BG if i==selected else UI.GREEN
+        var color: Color = UI.MUTED if navigation[i].disabled else UI.BG
         nav_icons[i].color = color
         nav_icons[i].queue_redraw()
         nav_labels[i].add_theme_color_override("font_color",color)

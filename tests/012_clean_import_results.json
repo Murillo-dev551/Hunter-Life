@@ -1,0 +1,20 @@
+[
+  {
+    "errors": 0,
+    "trial": 1,
+    "smoke_exit": 0,
+    "import_exit": 0
+  },
+  {
+    "errors": 0,
+    "trial": 2,
+    "smoke_exit": 0,
+    "import_exit": 0
+  },
+  {
+    "errors": 0,
+    "trial": 3,
+    "smoke_exit": 0,
+    "import_exit": 0
+  }
+]

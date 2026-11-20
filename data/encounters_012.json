@@ -1,0 +1,397 @@
+[
+  {
+    "id": "012_inn",
+    "title": "O quarto que ficou reservado",
+    "paragraphs": [
+      "Na hospedaria da rua de cima, Lena confere duas reservas escritas para o mesmo quarto. Um viajante chegou com o recibo; a outra hóspede deixou a bagagem de manhã e saiu para trabalhar. A chuva torna pouco atraente procurar outra porta.",
+      "Lena reconhece a própria letra nas duas folhas. Há espaço no alojamento coletivo, mas ela não quer transferir o prejuízo para quem pagou antes. Ao ver você lendo o aviso do balcão, pergunta se pode ajudá-la a explicar o engano."
+    ],
+    "choices": [
+      {
+        "label": "Propor uma divisão que respeite os dois recibos",
+        "result": "Você separa o pagamento do quarto do preço do alojamento. As duas pessoas aceitam a devolução da diferença e Lena consegue cumprir o acordo sem culpar ninguém.",
+        "xp": 5,
+        "flags": {
+          "inn_mediated": true
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Sua proposta parece favorecer quem chegou por último. Lena interrompe a conversa e assume a devolução; você se afasta para não ampliar a discussão.",
+          "xp": 1
+        }
+      },
+      {
+        "label": "Contribuir para a diferença do alojamento",
+        "result": "Você oferece 15 Jenny para que o quarto seja mantido para a primeira reserva e a outra pessoa aceite o espaço coletivo. Lena registra sua contribuição junto do acerto.",
+        "jenny": -15,
+        "flags": {
+          "inn_helped": true
+        }
+      },
+      {
+        "label": "Deixar Lena conversar diretamente com os hóspedes",
+        "result": "Você devolve as folhas ao balcão. Lena chama as duas pessoas para esclarecer o que ela própria prometeu."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "scenery": "inn"
+  },
+  {
+    "id": "012_markers",
+    "title": "As setas depois da chuva",
+    "paragraphs": [
+      "Uma trilha de uso local se divide perto de um córrego. A chuva derrubou o poste com duas setas; agora uma aponta para a encosta, a outra para o caminho de onde você veio. Um morador que transporta hortaliças para antes de escolher.",
+      "Há marcas de rodas numa margem e pegadas recentes na outra. O homem conhece o destino, mas não esse desvio, aberto quando a passagem antiga foi fechada. Mudar o poste sem certeza também pode desorientar quem chegar depois."
+    ],
+    "choices": [
+      {
+        "label": "Conferir os vestígios antes de recolocar as setas",
+        "result": "Você segue as marcas até o começo da passagem mantida e compara o alinhamento dos encaixes. O poste volta a indicar o desvio correto; o morador leva a notícia ao responsável pela trilha.",
+        "xp": 6,
+        "flags": {
+          "trail_checked": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "As marcas se misturam perto da água. Você não decide pelo palpite: deixa o poste no chão, com um aviso legível sobre a dúvida.",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Usar o mapa para orientar o morador, sem mover o poste",
+        "result": "O contorno do córrego permite identificar o desvio. Vocês seguem pelo trecho confirmado e deixam o conserto para quem instalou a sinalização.",
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        },
+        "xp": 3
+      },
+      {
+        "label": "Acompanhar o morador até pedir informação",
+        "result": "Vocês voltam à casa mais próxima. A caminhada é maior, mas ninguém precisa confiar numa seta caída."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "scenery": "forest"
+  },
+  {
+    "id": "012_mooring",
+    "title": "Uma amarra no caminho",
+    "paragraphs": [
+      "Uma embarcação de carga se afasta alguns centímetros do cais enquanto um carregador busca a segunda amarra. A corda que deveria estar presa ao cabeço atravessa a passagem de pedestres, e uma caixa já deslizou até a borda do convés.",
+      "A barqueira manda todos se afastarem da linha esticada. Ela precisa recuperar a ponta solta, não de alguém entrando na água ou puxando a embarcação inteira com as mãos."
+    ],
+    "choices": [
+      {
+        "label": "Alcançar a ponta antes que ela passe sob as tábuas",
+        "result": "Você recolhe a parte frouxa e entrega a ponta à barqueira, mantendo as mãos longe do trecho tensionado. Ela prende o nó e agradece com uma pequena gratificação.",
+        "xp": 6,
+        "jenny": 12,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você pisa numa tábua molhada e cai de lado. A barqueira recupera a corda com uma vara; sua queda deixa um hematoma, mas não põe outra pessoa na água.",
+          "xp": 2,
+          "health": -1
+        }
+      },
+      {
+        "label": "Firmar o apoio indicado pela barqueira",
+        "result": "Você sustenta o apoio enquanto ela ajusta a amarra. O trabalho dá resultado porque vocês seguem o mesmo sinal, sem disputar a força da embarcação.",
+        "xp": 5,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você força um apoio mal assentado e lasca a madeira. A barqueira manda soltar; você contribui para o reparo do pequeno calço que danificou.",
+          "xp": 2,
+          "jenny": -5
+        }
+      },
+      {
+        "label": "Avisar os pedestres e abrir espaço para o carregador",
+        "result": "Você mantém a passagem livre. O carregador retorna com a segunda amarra e resolve o problema sem mais gente junto da corda."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    },
+    "scenery": "port"
+  },
+  {
+    "id": "012_window",
+    "title": "Vidro antes da chuva",
+    "paragraphs": [
+      "Na oficina de encadernação, a janela dos fundos bate contra o batente. Marta segura uma pilha de folhas que precisa entregar secas e aponta para o vidro separado para o conserto. A peça cabe no vão, mas o suporte de madeira empenou.",
+      "Ela pode pagar uma ajuda curta. O serviço não exige quebrar o vidro nem prometer uma reforma: basta prender a janela de modo que a primeira rajada não a solte sobre a mesa."
+    ],
+    "choices": [
+      {
+        "label": "Ajustar o suporte com as medidas do vão",
+        "result": "Você refaz a marcação, retira a folga e testa a janela antes de tirar o apoio. Marta guarda as folhas e paga o serviço combinado.",
+        "xp": 6,
+        "jenny": 18,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você corta o pequeno suporte na medida errada. Marta usa uma cobertura provisória; você repõe a madeira para que ela não pague pelo seu erro.",
+          "xp": 2,
+          "jenny": -4
+        }
+      },
+      {
+        "label": "Pedir ao vizinho que empreste um apoio adequado",
+        "result": "Você explica a urgência sem prometer trabalho em nome de Marta. O vizinho empresta o suporte, e ela combina a devolução diretamente com ele.",
+        "xp": 4,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "O vizinho precisa da peça no próprio serviço. Você aceita a recusa e ajuda Marta a afastar as folhas da janela.",
+          "xp": 1
+        }
+      },
+      {
+        "label": "Comprar uma cobertura provisória",
+        "result": "Você paga uma cobertura simples e a prende do lado de dentro. Não é o conserto definitivo, mas as folhas ficam protegidas até Marta conseguir o suporte.",
+        "jenny": -12
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "012_receipt",
+    "title": "Um recibo no casaco",
+    "paragraphs": [
+      "Ao devolver um casaco emprestado no alojamento, você encontra no bolso um recibo dobrado. Ele registra a entrega de uma ferramenta para conserto e um adiantamento de 20 Jenny. O nome está borrado; o endereço da oficina ainda pode ser lido.",
+      "O funcionário do balcão diz que o casaco passou por duas pessoas naquela semana. Sem o papel, o dono talvez tenha de provar o adiantamento por outro caminho."
+    ],
+    "choices": [
+      {
+        "label": "Deixar o recibo identificado com o balcão",
+        "result": "Você anota em qual casaco encontrou o documento, sem inventar o nome do dono. O funcionário guarda tudo junto e se compromete a conferir com os dois hóspedes.",
+        "flags": {
+          "receipt_returned": true
+        }
+      },
+      {
+        "label": "Conferir o número da ferramenta com a oficina",
+        "result": "Você descreve o número antes de falar do pagamento. A oficina identifica o serviço e manda avisar o dono, que ainda estava procurando o recibo.",
+        "xp": 4,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Você confunde um algarismo e pede uma cópia do serviço errado. Ao perceber a diferença, paga a taxa da cópia e devolve o original ao balcão.",
+          "jenny": -6,
+          "xp": 1
+        }
+      },
+      {
+        "label": "Trocar o recibo pelo adiantamento, fingindo ser o dono",
+        "result": "A oficina devolve os 20 Jenny antes de você deixar a rua. Você sabe que retirou um valor que outra pessoa precisará comprovar e assume essa dívida ao guardar o dinheiro.",
+        "jenny": 20,
+        "flags": {
+          "receipt_taken": true
+        }
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "012_mending",
+    "title": "A mochila de outra pessoa",
+    "paragraphs": [
+      "No banco diante do alojamento, um viajante chamado Túlio tenta fechar a mochila com uma tira de pano. A costura de uma alça cedeu; dentro há roupas, cartas e um estojo de trabalho, nada que justifique abandonar tudo na rua.",
+      "Ele mostra a parte rasgada e pergunta por uma oficina. Antes de apontar um endereço, você percebe que o remendo pode ser feito com poucos pontos, desde que a costura nova não corte o tecido gasto."
+    ],
+    "choices": [
+      {
+        "label": "Reforçar a costura sem apertar o tecido gasto",
+        "result": "Você distribui os pontos numa faixa mais larga. Túlio testa a alça com pouco peso antes de recolocar o estojo e agradece por não tratar o conserto como favor impossível.",
+        "xp": 5,
+        "flags": {
+          "tulio_helped": true
+        },
+        "test": {
+          "attribute": "agility",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "O primeiro ponto abre mais o tecido. Você para e compra uma tira de reforço para que a oficina consiga corrigir o rasgo sem cobrar esse dano de Túlio.",
+          "xp": 1,
+          "jenny": -6
+        }
+      },
+      {
+        "label": "Comprar linha e indicar a oficina da rua",
+        "result": "Você acompanha Túlio até a entrada e deixa a linha com quem fará o serviço. Ele guarda as cartas separadas enquanto espera.",
+        "jenny": -8,
+        "flags": {
+          "tulio_helped": true
+        }
+      },
+      {
+        "label": "Indicar o caminho e seguir viagem",
+        "result": "Você explica onde viu uma oficina aberta. Túlio agradece a informação e distribui o peso entre as mãos até chegar lá."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "012_observation",
+    "title": "A janela da estação de observação",
+    "paragraphs": [
+      "A estação de observação sobre a cidade recebe visitantes no terraço inferior. No piso de cima, Inês precisa conferir uma série de anotações sobre a visibilidade dos morros antes de enviar o boletim aos transportadores.",
+      "Uma janela ficou presa e parte das marcações foi feita por outro turno. Inês oferece um pequeno pagamento pela conferência, mas avisa que uma lacuna assumida é mais útil do que uma observação inventada."
+    ],
+    "choices": [
+      {
+        "label": "Comparar as marcações com os pontos visíveis",
+        "result": "Você separa o que ainda pode ser conferido e aponta uma diferença entre dois registros. Inês corrige a transcrição e assina apenas os dados confirmados.",
+        "xp": 7,
+        "jenny": 12,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "A névoa muda enquanto você compara os pontos. Você não consegue confirmar a diferença e marca a observação como pendente; Inês agradece por não completar o boletim por suposição.",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Soltar a janela pelo apoio de manutenção",
+        "result": "Você alcança o trinco pelo apoio indicado e libera a janela sem forçar o vidro. Inês consegue conferir o trecho que faltava e paga a ajuda.",
+        "xp": 5,
+        "jenny": 12,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Seu pé escorrega do primeiro apoio e você bate o joelho no degrau. Inês interrompe a tentativa e procura a equipe de manutenção.",
+          "xp": 2,
+          "health": -1
+        }
+      },
+      {
+        "label": "Separar os registros de cada turno",
+        "result": "Você organiza as folhas sem alterar os números. Inês consegue identificar quem deverá conferir cada lacuna."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "012_scales",
+    "title": "O peso da banca",
+    "paragraphs": [
+      "Uma compradora volta à banca com um saco de grãos e uma dúvida: em casa, o peso parece menor do que o comprado. O vendedor oferece repetir a pesagem, mas a discussão já atraiu quem aguardava na fila.",
+      "Há duas balanças no mercado. A compradora quer receber o que pagou; o vendedor teme que um erro de ajuste seja tratado como roubo antes de qualquer conferência."
+    ],
+    "choices": [
+      {
+        "label": "Comparar o mesmo peso nas duas balanças",
+        "result": "Você pede para esvaziar os pratos e repetir a medida com a mesma referência. O vendedor encontra uma folga no ajuste e completa o saco sem acusar a compradora de exagero.",
+        "xp": 5,
+        "flags": {
+          "scale_checked": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você compara as leituras sem zerar um dos pratos. A diferença permanece confusa; ao perceber a falha, pede que outra pessoa faça a conferência.",
+          "xp": 1
+        }
+      },
+      {
+        "label": "Conseguir que os dois acompanhem uma nova pesagem",
+        "result": "Você separa a reclamação da acusação. Os dois concordam em conferir o saco diante de outra banca e acertam a diferença que for encontrada.",
+        "xp": 5,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O vendedor entende sua fala como mais uma acusação. Você recua e deixa a compradora procurar o responsável pelo mercado.",
+          "xp": 1
+        }
+      },
+      {
+        "label": "Esperar a conferência sem tomar partido",
+        "result": "Você não apresenta certeza sobre uma pesagem que não viu. A fila se reorganiza enquanto os dois procuram outra balança."
+      }
+    ],
+    "kind": "independent",
+    "chapter": "Notas de campo",
+    "conditions": {},
+    "weight": 2,
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  }
+]
