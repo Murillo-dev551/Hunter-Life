@@ -4,20 +4,21 @@
 
 O jogo é um protótipo local em **Godot 4.7.2 e GDScript**, com interface vertical de diário de explorador. O Exame Hunter é uma possibilidade, não um objetivo obrigatório. Personagens e situações do catálogo são originais; não é necessário acompanhar acontecimentos canônicos.
 
-**Etapa atual: 10H — Animações e Refinamento dos Menus.** Transições curtas, resultados destacados e configurações compactas complementam o Diário de Explorador. A preferência global **Reduzir animações** mantém a apresentação imediata. Os três slots, os 92 acontecimentos e as regras existentes foram preservados. Consulte o [relatório 10H](STAGE_10H.md).
+**Versão atual: v0.1.1 — A Vida de um Hunter.** São **174 acontecimentos**, dez novas missões com ramificações, oportunidades exclusivas de Hunters, seleção de gênero e consequências persistentes. Missões narrativas não se repetem na mesma jornada. Consulte o [relatório técnico e resultados](STAGE_011.md).
 
-**Android v0.1.0 — revisão de experiência:** APK atual em `builds/android/Hunter-Life-0.1.0-test2.apk`. Corrige o repasse de toque para a rolagem nativa e ativa o modo imersivo, preservando retrato e áreas seguras. A primeira versão já foi instalada e executada no Galaxy A15 5G pelo desenvolvedor; **esta revisão precisa de nova validação no aparelho e não é uma versão aprovada para lançamento público**. Veja [causa, testes e atualização do APK](STAGE_ANDROID_REVISION_1.md) e o [relatório da preparação inicial](STAGE_ANDROID.md).
+**Android:** APK de testes em `builds/android/Hunter-Life-0.1.1-test.apk`. Preserva retrato, rolagem nativa, modo imersivo e áreas seguras da v0.1.0 validada pelo desenvolvedor no Galaxy A15 5G. A atualização **ainda precisa de validação física no aparelho**. O código estável permanece na tag Git `v0.1.0`; os APKs anteriores foram mantidos. Veja as instruções e limitações no [relatório v0.1.1](STAGE_011.md).
 
 ## Funcionalidades
 
 | Sistema | Disponível no protótipo |
 |---|---|
-| Personagem | Nome e quatro perfis iniciais equilibrados |
+| Personagem | Nome, gênero opcional e quatro perfis iniciais equilibrados |
 | Atributos | Força, Agilidade, Intelecto e Presença, limitados a 1–10 |
 | Progressão | XP, níveis e pontos de atributo distribuídos pelo jogador |
 | Recursos | Saúde 0–10 e Jenny para custos e recompensas narrativas |
-| Narrativa | 92 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
+| Narrativa | 174 acontecimentos escritos em JSON, condições, flags e continuações prioritárias |
 | Aventuras | Entrega da Serra, Levantamento da Trilha, Escolta de um comerciante, Expedição às ruínas e Exame Hunter opcional |
+| Missões | Cinco missões Hunter e cinco comuns, com conclusão, fracasso ou abandono persistentes |
 | Escolhas | Alternativas com testes, recursos, ferramentas, Nen ou consequências sem rolagem |
 | Confrontos | Turnos narrativos, intenções observáveis e comandos em quatro categorias |
 | Inventário | Nove itens, incluindo consumíveis, equipamentos, ferramentas e Licença Hunter |
@@ -38,9 +39,19 @@ Antes da escolha, aparecem atributo, dificuldade e chance real de sucesso. Com a
 
 A experiência necessária para o próximo nível é `40 + 20 × (nível atual − 1)`: 40, 60, 80, 100 XP… Cada nível concede um ponto para distribuir em Personagem; pontos guardados persistem e respeitam o espaço restante até o teto dos atributos. XP vem de conquistas declaradas no catálogo, inclusive alguns fracassos relevantes. Escolhas triviais não concedem XP automaticamente.
 
-Saúde não cai apenas por avançar acontecimentos. Ferimentos e recuperação dependem de escolhas. Em zero, o personagem recebe socorro e abandona a vida de aventuras, encerrando a jornada por incapacidade, sem morte automática.
+Saúde não cai apenas por avançar acontecimentos. Ferimentos e recuperação dependem de escolhas. Em zero, a regra geral é socorro e encerramento por incapacidade, sem morte automática. Uma decisão explicitamente muito perigosa na recuperação do arquivo da pedreira pode levar à morte em um desabamento; existem alternativas de inspeção, ferramentas e retirada.
 
 Concluir uma aventura normalmente devolve o personagem às oportunidades. Finais definitivos resultam de decisões explícitas ou incapacidade. Eventos únicos e repetíveis têm limites; retornos de atividades repetíveis reduzem recompensas e não concedem novamente objetos ou atributos.
+
+### A vida de um Hunter
+
+As oportunidades surgem na própria Aventura, sem quadro de contratos ou outra aba. A licença permite assumir captura com custódia legal, investigação de uma cadeia de medicamentos, proteção de pesquisadores, observação de uma espécie rara e recuperação de um arquivo histórico. Ela também permite consultar documentos e conferir autorizações em situações específicas, sem dispensar provas, cuidados ou testes.
+
+Sem licença, continuam disponíveis a entrega de uma peça para uma oficina, a busca de um caderno de contas, a inspeção de uma rede de água, uma expedição comercial e a recuperação de pertences numa estação alagada. Hunters também podem aceitar esses serviços. Cada missão tem sete cenas possíveis; a rota efetivamente percorrida depende das decisões.
+
+Aceitar, recusar, abandonar, concluir ou fracassar deixa um registro persistente da missão inteira. Outra ramificação não representa um novo contrato. Uma nova jornada reabre as oportunidades. Cobranças por uma venda duplicada ou por um engano num depósito podem surgir depois, usando flags simples.
+
+Na criação, **Masculino**, **Feminino** e **Não especificar** alteram apenas a identidade e tratamentos narrativos pontuais. Não modificam atributos, sorteios de Nen ou recompensas. Saves antigos usam **Não especificar**.
 
 ### Escolta e expedição
 
@@ -126,7 +137,7 @@ Os examinadores originais **Selma** e **Rui** conduzem as provas. **Nara**, coop
 
 Falhas comuns geram advertências, perda de Saúde ou atrasos. Até duas advertências podem ser aceitas na avaliação final; fraude e sabotagem podem causar reprovação imediata. O confronto final também aceita uma rendição avaliada após pelo menos um turno, caso tenha havido cooperação e no máximo uma advertência. Fugir ou render-se fora dessa condição reprova, sem transformar o exame em uma morte obrigatória.
 
-Aprovação concede uma **Licença Hunter** e 40 XP. A licença aparece no Inventário; Personagem informa a condição de Hunter licenciado. Ela abre **Uma consulta reservada a Hunters**, um trabalho civil com teste de Intelecto e pagamento condicionado ao resultado.
+Aprovação concede uma **Licença Hunter** e 40 XP. A licença aparece no Inventário; Personagem informa a condição de Hunter com licença. Além de **Uma consulta reservada a Hunters**, ela abre as cinco novas missões profissionais e consultas específicas em oportunidades comuns.
 
 Reprovação e desistência preservam o XP já obtido e permitem voltar à jornada, desde que haja Saúde. Não é possível tentar outra edição na mesma partida. Nos intervalos, consumíveis podem ser usados fora de combate. As aventuras anteriores continuam disponíveis.
 
@@ -154,18 +165,18 @@ A janela inicial é vertical, 480×860, com mínimo de 320×480. Fontes Source S
 
 ### Controles
 
-1. Escolha **Slot 1**, **Slot 2** ou **Slot 3**. Em um espaço vazio, inicie uma jornada e informe nome e inclinação; em um ocupado, use **Carregar jornada**.
+1. Escolha **Slot 1**, **Slot 2** ou **Slot 3**. Em um espaço vazio, informe nome, gênero e inclinação; em um ocupado, use **Carregar jornada**.
 2. Na Aventura, escolha uma ação e use **Continuar jornada** após ler o resultado. Em combate, abra a categoria desejada.
 3. Consulte atributos, Nen e condição de Hunter em **Personagem**; **Gerenciar jornadas** retorna ao menu de slots.
 4. Use ou equipe objetos em **Inventário**, fora de batalhas.
 5. No **Registro**, clique em **Salvar no Slot N** para salvar a jornada correspondente.
 6. Para liberar um espaço, use **Excluir jornada** e confirme. Cancelar preserva o arquivo.
 
-A roda do mouse ou a barra de rolagem permite acessar conteúdo longo. Salve antes de trocar de jornada. Voltar do formulário de criação sem iniciar outra partida conserva a sessão anterior em memória.
+No Android, arraste o dedo para percorrer conteúdo longo; no computador, use a roda ou a barra de rolagem. Salve antes de trocar de jornada. Voltar do formulário de criação sem iniciar outra partida conserva a sessão anterior em memória.
 
 ## Salvamento e compatibilidade
 
-No Android, os arquivos `user://` ficam na área privada do aplicativo; o formato v9 e os três slots são os mesmos. O botão Voltar fecha configurações, cancela diálogos ou retorna de submenus antes de oferecer a saída. Em uma jornada vinculada a slot, **Salvar e sair** grava o estado antes de fechar; falhas de gravação impedem o fechamento. O salvamento manual continua disponível no Registro. Salve antes de deixar o aplicativo em segundo plano: o Android pode encerrar processos suspensos. Desinstalar o aplicativo remove os dados locais.
+No Android, os arquivos `user://` ficam na área privada do aplicativo; os três slots mantêm seus caminhos. O botão Voltar fecha configurações, cancela diálogos ou retorna de submenus antes de oferecer a saída. Em uma jornada vinculada a slot, **Salvar e sair** grava o estado antes de fechar; falhas de gravação impedem o fechamento. O salvamento manual continua disponível no Registro. Salve antes de deixar o aplicativo em segundo plano: o Android pode encerrar processos suspensos. Desinstalar o aplicativo remove os dados locais.
 
 Os saves ficam no diretório de dados **Hunter Life Prototype** definido pelo Godot. Consulte o caminho por **Project > Open User Data Folder**. Cada slot tem arquivos próprios:
 
@@ -175,7 +186,7 @@ Os saves ficam no diretório de dados **Hunter Life Prototype** definido pelo Go
 | Slot 2 | `user://saves/slot_2/save.json` | `user://saves/slot_2/checkpoints/` |
 | Slot 3 | `user://saves/slot_3/save.json` | `user://saves/slot_3/checkpoints/` |
 
-O formato atual é **v9**. Preserva personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG e batalha, além de participação no exame, sequência de provas, etapa, advertências e resultado. A licença está vinculada à aprovação.
+O formato atual é **v10**. Acrescenta gênero e estados de missão aos dados anteriores: personagem, recursos, progressão, flags, registros, visitas, equipamentos, Nen, Hatsu, RNG, batalha e exame. A licença continua vinculada à aprovação.
 
 O menu valida os arquivos antes de mostrar nome, nível e categoria conhecida. Uma nova jornada só pode ocupar espaço vazio; salvar usa o slot e a geração da sessão carregada. A criação grava um primeiro estado. Os avanços comuns continuam com salvamento manual.
 
@@ -183,11 +194,15 @@ Na primeira execução, o antigo `user://hunter_life.json` é migrado para o **S
 
 A avaliação usa `affinity`, com decisões, rolagens e resultado permanente. Cada decisão gera checkpoint no diretório do slot, associado à jornada pela identificação da 10E e por uma geração própria do slot. Carregar retoma o registro mais adiantado sem repetir decisões; um manual mais recente prevalece. Checkpoints antigos em `user://affinity_checkpoints/` são adotados durante a migração da jornada correspondente. Registros válidos ainda sem slot podem ser recuperados explicitamente em espaço vazio pelo menu. Excluir uma jornada remove seus checkpoints associados, sem tocar nos outros slots.
 
-As migrações de v2 a v8 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Carregar não aplica recompensas, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento manual utiliza v9. Arquivos inválidos são recusados com mensagem em português antes de substituir a sessão em memória.
+As migrações de v2 a v9 permanecem disponíveis. Saves v8 recebem participação não iniciada e nenhuma licença retroativa. Saves v9 da v0.1.0 recebem gênero não especificado e estados de missões inferidos apenas dos registros existentes: concluída, ativa ou arquivada quando o desfecho antigo não pode ser comprovado. Não são inventadas recompensas ou conquistas passadas. Carregar não reaplica consequências, não sorteia provas novas e não grava o arquivo automaticamente. O próximo salvamento utiliza v10. Arquivos inválidos são recusados antes de substituir a sessão em memória.
+
+O aplicativo v0.1.0 não lê saves v10. Para testar e depois retornar à versão antiga, conserve uma cópia dos três diretórios de slots, checkpoints e preferências antes da atualização. O APK de teste usa o mesmo identificador e assinatura de depuração, permitindo atualizar a instalação sem desinstalar e mantendo os dados locais.
 
 A gravação usa arquivo temporário e substituição após sucesso. A exclusão exige confirmação. O JSON é local e não criptografado; não há sincronização em nuvem ou navegador de backups.
 
 ## Testes automatizados
+
+Para executar a bateria completa, incluindo interface e isolamento dos slots por suíte, use `./tools/run_tests.ps1` (aceita `-GodotPath`). A v0.1.1 passou em **40 suítes e 112.833 verificações**; a integridade do APK passou em outras 36 verificações. As simulações e as limitações estão no [relatório técnico](STAGE_011.md).
 
 Na pasta do projeto, com o executável Godot no `PATH` (ou substituindo `godot` pelo caminho completo):
 
@@ -200,6 +215,9 @@ $testRun = [DateTime]::UtcNow.Ticks
 $env:HUNTER_LIFE_DATA_ROOT = 'user://test_run_' + $testRun
 
 # Principais suítes funcionais
+godot --headless --path . --script res://tests/test_life_011.gd
+godot --headless --path . --script res://tests/test_migration_011.gd
+godot --headless --path . --script res://tests/test_balance_011.gd
 godot --headless --path . --script res://tests/test_exam.gd
 godot --headless --path . --script res://tests/test_battle.gd
 godot --headless --path . --script res://tests/test_inventory.gd
@@ -213,6 +231,7 @@ godot --headless --path . --script res://tests/test_affinity.gd
 godot --headless --path . --script res://tests/test_slots.gd
 
 # Verificações com renderização e capturas
+godot --path . --script res://tests/test_life_011_visual.gd
 godot --path . --script res://tests/test_exam_visual.gd
 godot --path . --script res://tests/test_visual.gd
 godot --path . --script res://tests/test_narrative_revision_visual.gd
@@ -232,17 +251,17 @@ Remove-Item Env:HUNTER_LIFE_DATA_ROOT
 
 Os testes visuais precisam de renderização real: não use `--headless` neles. As outras suítes em `tests/test_*.gd` cobrem criação, progressão, continuidade, textos e interfaces específicas. Testes usam arquivos temporários próprios, sem substituir o slot manual do jogador.
 
-As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. A verificação de textos percorre os 92 acontecimentos em 320×480 e 390×844. Logs atuais ficam em `tests/stage10h_*.log`; imagens, em `tests/captures/`. As 33 suítes anteriores passaram, junto da nova suíte de polimento: trocas rápidas, integridade do RNG, resultados, recompensas, configurações, foco e movimento reduzido. Resultados e limitações estão no [relatório 10H](STAGE_10H.md).
+As resoluções verificadas são 320×480, 390×844, 480×860, 768×1024 e 1100×720. Os testes de texto percorrem os 92 acontecimentos originais e as 82 cenas novas nas duas menores resoluções. Logs atuais ficam em `tests/011_final_*.log`; imagens, em `tests/captures/011_*.png`. Resultados consolidados e métricas estão em `tests/011_test_results.json`, `tests/011_mission_results.json` e `tests/011_balance_results.json`. Consulte o [relatório v0.1.1](STAGE_011.md) para os resultados e limites das simulações.
 
 ## Limitações e desenvolvimento futuro
 
-O catálogo é finito e possui poucas aventuras. As provas do exame são combinações de oito textos fixos, não geração de histórias. Os candidatos não têm IA autônoma. Há cinco Hatsus e uma especialização fixa por personagem. O Especialista reproduz um deles pela avaliação provisória da 10E; não há um sexto Hatsu ou versão superior. Controle de Objetos utiliza alvos explicitamente definidos, sem inventário de adversários ou simulação livre de mecanismos.
+O catálogo é finito. As dez novas missões têm ramificações previamente escritas, não geração de histórias. As provas do exame combinam oito textos fixos. Os candidatos não têm IA autônoma. Há cinco Hatsus e uma especialização fixa por personagem. O Especialista reproduz um deles pela avaliação provisória da 10E; não há um sexto Hatsu ou versão superior. Controle de Objetos utiliza alvos explicitamente definidos, sem inventário de adversários ou simulação livre de mecanismos.
 
 Não há calendário, exames anuais, mundo aberto, grupos permanentes, fabricação, peso, durabilidade, comércio dinâmico ou economia avançada. Também não há combate em tempo real, equipamentos personalizáveis ou consumo detalhado de aura. Nenhum desses sistemas é apresentado como disponível nesta versão.
 
-O desenvolvimento inclui o Bloco 10H. A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Exportação de pacote PCK foi verificada, mas não foi produzido um executável Windows independente. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
+A trilha usa timbres sintetizados leves; não há trilhas dinâmicas ou gravações instrumentais. Windows permanece utilizável pelo Godot, sem novo executável distribuível. Testes de layout não substituem validação em celulares físicos. Alguns testes antigos que encerram o processo imediatamente ainda podem emitir avisos de áudio retido no fechamento; a saída normal pela janela utiliza liberação gradual.
 
-Um APK Android de depuração foi gerado e verificado, separado da exportação Windows. Para reconstruí-lo no computador configurado, execute `./tools/export_android.ps1`; requisitos e opções estão no [relatório Android](STAGE_ANDROID.md). JDK e SDK são necessários apenas para gerar o APK, não para jogar no telefone. A v0.1.1 não foi iniciada.
+Um APK Android de depuração foi gerado e verificado. Para reconstruí-lo no computador configurado, execute `./tools/export_android.ps1`; requisitos e opções estão no [relatório Android](STAGE_ANDROID.md). JDK e SDK são necessários apenas para gerar o APK, não para jogar no telefone. A validação física da v0.1.1 continua pendente; não é uma versão aprovada para lançamento público.
 
 ## Histórico resumido
 
@@ -266,3 +285,4 @@ As Etapas 1–3 estabeleceram a interface, o motor narrativo e as primeiras jorn
 | 10H | [Animações e refinamento dos menus](STAGE_10H.md) |
 | Android v0.1.0 | [Preparação, APK de teste e validação física pendente](STAGE_ANDROID.md) |
 | Android revisão 1 | [Rolagem nativa por toque e modo imersivo](STAGE_ANDROID_REVISION_1.md) |
+| v0.1.1 | [A Vida de um Hunter — conteúdo, missões e compatibilidade](STAGE_011.md) |

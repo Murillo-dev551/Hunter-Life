@@ -58,7 +58,7 @@ static func finish(s,outcome: String) -> void:
         var before: int=s.jenny
         s.jenny=maxi(0,s.jenny+int(reward.get("jenny",0)))
         if s.jenny!=before:text+="\n%+d Jenny." % (s.jenny-before)
-    if s.health==0:s.active_adventure=false;s.current_adventure="";s.pending_next=""
+    if s.health==0:s.Missions.incapacitated(s);s.active_adventure=false;s.current_adventure="";s.pending_next=""
     s.flags["battle_"+outcome]=true
     s.Exam.battle_end(s,outcome)
     s.result=text

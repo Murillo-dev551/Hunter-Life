@@ -124,7 +124,7 @@ func run() -> void:
         s=ready("motor" if pair[1]=="objects" else "objects");s.open_event(pair[0])
         check(s.choice_reason(s.demo["choices"].size()-1)!="","Outra especialização não libera escolha")
     s=ready("objects");s.open_event("market");s=snapshot(s)
-    check(s.nen["category"]=="Manipulação" and s.serialize()["version"]==9,"Save v9 permanece compatível")
+    check(s.nen["category"]=="Manipulação" and s.serialize()["version"]==10,"Save v9 permanece compatível")
     var invalid: Dictionary=s.serialize().duplicate(true)
     invalid["nen"]["category"]="Reforço"
     var f=FileAccess.open(PATH,FileAccess.WRITE);f.store_string(JSON.stringify(invalid));f.close()

@@ -33,7 +33,7 @@ func complete_safe(s,adventure: String) -> void:
     snapshot(s)
 func run() -> void:
     var s=fresh()
-    check(s.error=="" and s.catalog.events.size()==92,"81 eventos válidos")
+    check(s.error=="" and s.catalog.events.size()==174,"81 eventos válidos")
     for order in [["escort","ruins"],["ruins","escort"]]:
         s=fresh()
         for adventure in order:
@@ -106,7 +106,7 @@ func run() -> void:
     # Fixture v9 anterior, apenas IDs do catálogo 10A e inventário vazio.
     s=fresh();s.seen=[];s.visits={};s.last_visit={};s.step=0
     s.open_event("market");s.choose(0);s=snapshot(s)
-    check(not s.flags.has("escort_completed") and s.serialize()["version"]==9,"Save antigo não recebe consequências retroativas")
+    check(not s.flags.has("escort_completed") and s.serialize()["version"]==10,"Save antigo não recebe consequências retroativas")
     var samples: Dictionary={}
     for seed_value in range(500):
         s=fresh(seed_value);s.flags={};s.visits={};s.last_visit={}

@@ -2,6 +2,8 @@ extends VBoxContainer
 signal start_requested(character_name: String)
 const UI = preload("res://scripts/ui/styles.gd")
 var inclination: OptionButton
+var gender: OptionButton
+const GENDERS=["unspecified","male","female"]
 var name_input: LineEdit
 var start_button: Button
 var feedback: Label
@@ -17,6 +19,10 @@ func build(state) -> void:
     name_input.custom_minimum_size.y = 52
     name_input.accessibility_name = "Nome do personagem"
     form.add_child(name_input)
+    form.add_child(UI.label("Gênero",16))
+    gender=OptionButton.new()
+    for option in ["Não especificar","Masculino","Feminino"]:gender.add_item(option)
+    gender.custom_minimum_size.y=44;gender.accessibility_name="Gênero";form.add_child(gender)
     name_input.text_submitted.connect(func(_text): start_requested.emit(name_input.text))
     form.add_child(UI.label("Até 32 caracteres. Você poderá começar outra história na aba Personagem.",13,UI.MUTED))
     feedback = UI.label("",14,UI.ALERT)

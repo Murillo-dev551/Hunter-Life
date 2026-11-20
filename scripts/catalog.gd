@@ -1,11 +1,25 @@
 extends RefCounted
 var events: Dictionary = {}
 var error: String = ""
+var mission_entries: Dictionary={}
 func _init() -> void:
     var parser = JSON.new()
     if parser.parse(FileAccess.get_file_as_string("res://data/events.json")) != OK or not parser.data is Array:
         error = "Catálogo inválido."; return
-    for event in parser.data:
+    var all_events: Array=parser.data
+    var expansion=JSON.parse_string(FileAccess.get_file_as_string("res://data/journeys_011.json"))
+    if not expansion is Array:error="Expansão narrativa inválida.";return
+    all_events.append_array(expansion)
+    var revisions=JSON.parse_string(FileAccess.get_file_as_string("res://data/revisions_011.json"))
+    if not revisions is Dictionary:error="Revisão narrativa inválida.";return
+    for event in all_events:
+        if revisions.has(event.get("id","")):
+            var patch: Dictionary=revisions[event["id"]]
+            for key in patch:
+                if key=="choice_patches":
+                    for index in patch[key]:
+                        for field in patch[key][index]:event["choices"][int(index)][field]=patch[key][index][field]
+                else:event[key]=patch[key]
         if not event is Dictionary or not event.get("id") is String or events.has(event["id"]) or not event.get("choices") is Array:
             error = "Evento inválido ou duplicado."; return
         if not event.get("title") is String or not event.get("paragraphs") is Array or not event.get("conditions") is Dictionary or not event.get("weight") is float and not event.get("weight") is int:
@@ -13,6 +27,9 @@ func _init() -> void:
         if event.get("kind") not in ["independent","opportunity","continuation","ending","adventure_end","hub"] or event["weight"]<0:
             error="Categoria ou peso inválido."; return
         events[event["id"]] = event
+        if event.has("mission") and event["kind"]=="opportunity":
+            if mission_entries.has(event["mission"]):error="Missão com entradas duplicadas.";return
+            mission_entries[event["mission"]]=event["id"]
     for event in events.values():
         for reward in event.get("battle_rewards",{}).values():
             if reward.has("next") and not events.has(reward["next"]): error = "Continuação de confronto inexistente."
@@ -20,6 +37,8 @@ func _init() -> void:
             for effect in [choice,choice.get("failure",{})]:
                 if effect.has("next") and not events.has(effect["next"]): error = "Continuação inexistente."
 func eligible(conditions: Dictionary, state) -> bool:
+    if conditions.get("licensed",false) and not (state.exam["status"]=="approved" and state.exam["awarded"] and state.Items.quantity(state,"hunter_license")==1):return false
+    if state.level<int(conditions.get("level",1)) or state.health<int(conditions.get("health",0)):return false
     if conditions.get("affinity_available",false) and not state.Affinity.eligible(state):return false
     if conditions.has("exam_status") and state.exam["status"]!=conditions["exam_status"]:return false
     for id in conditions.get("items",{}):
@@ -52,5 +71,20 @@ func select(state) -> String:
     return "crossroads"
 
 func available(id: String, state) -> bool:
+    var mission: String=events[id].get("mission",events[id].get("adventure","") if events[id].get("adventure","") in state.Missions.LEGACY else "")
+    if mission!="" and state.missions.has(mission):return false
     var policy: Dictionary = events[id].get("repeat",{"max":1,"gap":0})
     return int(state.visits.get(id,0)) < int(policy["max"]) and state.step-int(state.last_visit.get(id,-100000)) >= int(policy["gap"])
+func mission_name(id: String) -> String:
+    return events[mission_entries[id]]["title"] if mission_entries.has(id) else {"delivery":"Entrega da Serra","survey":"Levantamento da Trilha","escort":"Escolta de um comerciante","ruins":"Expedição às ruínas"}.get(id,"Trabalho anterior")
+func adventures() -> Array:
+    var ids: Array=[]
+    for event in events.values():
+        var id: String=event.get("adventure","")
+        if id!="" and id not in ids:ids.append(id)
+    return ids
+func describe(id: String,s) -> Dictionary:
+    var event: Dictionary=events[id].duplicate(true)
+    var treatment={"male":"senhor","female":"senhora","unspecified":"viajante"}[s.gender]
+    for i in range(event["paragraphs"].size()):event["paragraphs"][i]=event["paragraphs"][i].replace("{tratamento}",treatment)
+    return event

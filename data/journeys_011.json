@@ -1,0 +1,3626 @@
+[
+  {
+    "id": "h_capture_offer",
+    "title": "Uma ordem com endereço",
+    "paragraphs": [
+      "No entreposto de Varda, a delegada Nélia coloca sobre a mesa uma ordem de captura assinada. O procurado, Brás, vende carregamentos roubados usando o nome de pequenos transportadores. Há vítimas esperando a devolução das mercadorias, não um espetáculo na rua.",
+      "Sua licença permite consultar o depoimento reservado e assumir a diligência. Nélia exige identificação segura do suspeito e entrega às autoridades locais. A ordem não autoriza ferir clientes ou tomar dinheiro do armazém."
+    ],
+    "choices": [
+      {
+        "label": "Assumir a diligência de Nélia",
+        "result": "Você confere o nome do procurado e combina a entrega à guarda. Nélia abre o acesso aos depoimentos.",
+        "next": "h_capture_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true,
+      "health": 4
+    },
+    "weight": 3
+  },
+  {
+    "id": "h_capture_prepare",
+    "title": "Antes de bater à porta",
+    "paragraphs": [
+      "Nélia acompanha sua leitura das descrições. Brás usa um casaco comum; o detalhe útil é uma queimadura na mão esquerda, mencionada por duas vítimas.",
+      "Um escrivão pode localizar o turno dos carregadores. O serviço custa tempo e uma pequena taxa; agir depressa deixa mais lacunas."
+    ],
+    "choices": [
+      {
+        "label": "Pagar pela conferência dos registros",
+        "result": "Você cruza o turno com as notas de entrada. A compra registrada naquela manhã é do suspeito certo.",
+        "next": "h_capture_trial",
+        "jenny": -15,
+        "flags": {
+          "capture_verified": true
+        }
+      },
+      {
+        "label": "Comparar as declarações pessoalmente",
+        "result": "Os horários se encaixam quando você separa o que cada vítima viu do que ouviu de terceiros.",
+        "next": "h_capture_trial",
+        "xp": 5,
+        "flags": {
+          "capture_verified": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Uma descrição permanece ambígua. Nélia exige cautela antes de qualquer acusação.",
+          "next": "h_capture_trial",
+          "xp": 2,
+          "flags": {
+            "capture_uncertain": true
+          }
+        }
+      },
+      {
+        "label": "Recusar uma diligência sem prazo suficiente",
+        "result": "Você avisa Nélia antes de mobilizar a equipe. Outra pessoa assume o processo, e seu nome sai desta diligência.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_capture_trial",
+    "title": "O armazém em funcionamento",
+    "paragraphs": [
+      "Carregadores passam entre o balcão e a rua. Um homem de casaco escuro discute um recibo; aproximar-se por trás com uma acusação faria todos ali reagirem.",
+      "Brás percebe a licença e procura a saída dos fundos. As testemunhas precisam permanecer fora do caminho."
+    ],
+    "choices": [
+      {
+        "label": "Chamar Brás pelo nome e explicar a ordem",
+        "result": "Você lê o nome e a autoridade responsável em voz firme. Dois carregadores se afastam, e Brás para para escutar.",
+        "next": "h_capture_route_a",
+        "xp": 8,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Ele se aproveita da hesitação para atravessar a porta dos fundos, derrubando caixas atrás de si.",
+          "next": "h_capture_route_b",
+          "health": -1,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Apresentar a prova de identidade ao encarregado",
+        "result": "O encarregado reconhece a nota de entrada e manda os clientes aguardarem na frente. Você ganha espaço para falar.",
+        "next": "h_capture_route_a",
+        "conditions": {
+          "flags": {
+            "capture_verified": true
+          }
+        },
+        "xp": 7
+      },
+      {
+        "label": "Contornar as caixas antes que ele alcance o corredor",
+        "result": "Você alcança a porta lateral sem cruzar o caminho dos trabalhadores.",
+        "next": "h_capture_route_b",
+        "xp": 6,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Uma quina atinge sua costela. Brás ganha alguns metros enquanto você recupera o fôlego.",
+          "next": "h_capture_route_b",
+          "health": -2,
+          "xp": 3
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_capture_route_a",
+    "title": "Uma entrega sem plateia",
+    "paragraphs": [
+      "No pátio vazio, Brás pergunta se será espancado na frente dos homens que emprega. Você mostra o ponto da ordem que prevê entrega à guarda e uma conferência formal das cargas.",
+      "Ele ainda pode resistir. Nélia só aceitará custódia efetiva; uma promessa de comparecer outro dia não basta."
+    ],
+    "choices": [
+      {
+        "label": "Oferecer uma rendição documentada",
+        "result": "Você combina a entrega no portão, diante de duas testemunhas. Brás aceita caminhar sem envolver os carregadores.",
+        "next": "h_capture_done",
+        "xp": 8,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Brás se recusa a acompanhar você e tenta forçar uma saída. A conversa não estabeleceu custódia.",
+          "next": "h_capture_route_b",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Lutar no pátio desocupado",
+        "result": "Você afasta as caixas da passagem e avisa os carregadores para ficarem dentro. O confronto será restrito ao suspeito.",
+        "battle": "bandit"
+      },
+      {
+        "label": "Recuar e registrar que não houve custódia",
+        "result": "Você mantém os trabalhadores em segurança, mas não entrega Brás. Nélia terá de reorganizar a diligência.",
+        "next": "h_capture_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "battle_rewards": {
+      "victory": {
+        "xp": 8,
+        "next": "h_capture_done"
+      },
+      "enemy_yield": {
+        "xp": 8,
+        "next": "h_capture_done"
+      },
+      "fled": {
+        "xp": 2,
+        "next": "h_capture_failed"
+      },
+      "yielded": {
+        "xp": 2,
+        "next": "h_capture_failed"
+      },
+      "incapacity": {}
+    }
+  },
+  {
+    "id": "h_capture_route_b",
+    "title": "Entre a porta e a rua",
+    "paragraphs": [
+      "Brás prende o casaco numa corrente ao tentar alcançar o carro de carga. Há poucos segundos antes que ele se solte; ninguém ali deve ser usado como escudo.",
+      "Você pode tentar contê-lo ou aceitar que a perseguição saiu das condições combinadas."
+    ],
+    "choices": [
+      {
+        "label": "Imobilizar o braço sem puxá-lo sobre as caixas",
+        "result": "Você prende o braço junto ao corpo e espera os guardas chegarem, evitando a borda das caixas.",
+        "next": "h_capture_done",
+        "xp": 9,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Brás escapa da contenção e seu ombro bate no batente. A rua se enche de pessoas, tornando a perseguição insegura.",
+          "next": "h_capture_failed",
+          "health": -2,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Interromper o passo com a Agulha de Comando",
+        "result": "A agulha fixa por um instante e um comando motor simples atrasa a perna. Esse breve intervalo basta para a guarda fechar a passagem.",
+        "next": "h_capture_done",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "motor"
+          }
+        },
+        "xp": 8,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A agulha não se fixa. Você a recolhe e evita lançar outra em meio aos passantes.",
+          "next": "h_capture_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Encerrar a perseguição antes de atingir um passante",
+        "result": "Você anota a direção de fuga e chama Nélia. O suspeito escapa, mas ninguém na rua é envolvido.",
+        "next": "h_capture_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_capture_done",
+    "title": "A custódia e os recibos",
+    "paragraphs": [
+      "Nélia recebe Brás e confere o documento na presença das testemunhas. O dinheiro da diligência é separado da carga apreendida, que seguirá para identificação pelos donos.",
+      "Um carregador pede que seu nome não apareça numa notícia sobre o caso; ele só trabalhou no turno indicado."
+    ],
+    "choices": [
+      {
+        "label": "Entregar um relatório preciso",
+        "result": "Você distingue suspeito, vítimas e trabalhadores. Nélia remunera o serviço e conserva seu contato para diligências futuras.",
+        "jenny": 170,
+        "xp": 18,
+        "flags": {
+          "h_capture_trusted": true
+        }
+      },
+      {
+        "label": "Solicitar discrição para as testemunhas",
+        "result": "Você entrega os mesmos fatos à autoridade, mas pede cuidado ao publicar nomes de quem colaborou. A delegada aceita o pedido.",
+        "jenny": 170,
+        "xp": 18,
+        "flags": {
+          "h_capture_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "h_capture_failed",
+    "title": "Sem custódia",
+    "paragraphs": [
+      "Nélia ouve a sequência inteira antes de recolher a ordem. A fuga não pode ser lançada como captura, e o pagamento principal não é liberado.",
+      "As informações úteis entram no processo. Sua participação nesta diligência termina aqui; a cidade seguirá procurando Brás por outros meios."
+    ],
+    "choices": [
+      {
+        "label": "Assinar o relato do que realmente ocorreu",
+        "result": "Você registra os limites da tentativa sem inventar uma entrega. A licença não apaga o fracasso, mas permite que o caso prossiga com informações confiáveis.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_capture",
+    "mission": "h_capture",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "h_coldchain_offer",
+    "title": "As caixas que não podiam esperar",
+    "paragraphs": [
+      "A farmacologista Célia encontra você num depósito frigorífico. Amostras de um medicamento estão sendo desviadas para revenda sem refrigeração. Ela precisa descobrir por onde as caixas saem antes que alguém use o produto deteriorado.",
+      "Uma licença Hunter dá acesso aos lacres e ao registro de transporte. Célia quer provas verificáveis; acusar todo o turno por um boato destruiria o trabalho de gente inocente."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar a apuração de Célia",
+        "result": "Célia lhe entrega a autorização para conferir os lacres e deixa claros os limites de acesso.",
+        "next": "h_coldchain_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true,
+      "health": 4
+    },
+    "weight": 3
+  },
+  {
+    "id": "h_coldchain_prepare",
+    "title": "Lacres sob uma lâmpada",
+    "paragraphs": [
+      "O responsável pelo depósito abre a sala acompanhando cada anotação. Duas numerações foram repetidas, mas o livro de expedição também contém rasuras antigas.",
+      "Célia oferece uma cópia dos procedimentos. Sua tarefa é distinguir erro administrativo de desvio intencional."
+    ],
+    "choices": [
+      {
+        "label": "Reconstituir a sequência dos lacres",
+        "result": "Você identifica a repetição entre dois carregamentos separados, não uma simples correção de escrita.",
+        "next": "h_coldchain_trial",
+        "xp": 6,
+        "flags": {
+          "coldchain_proof": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "As correções se confundem. Você perde parte do turno e terá de observar a saída das caixas sem essa confirmação.",
+          "next": "h_coldchain_trial",
+          "jenny": -10,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Contratar uma conferência independente",
+        "result": "Uma conferente cruza o inventário com as notas fiscais e assina as diferenças encontradas.",
+        "next": "h_coldchain_trial",
+        "jenny": -25,
+        "flags": {
+          "coldchain_proof": true
+        }
+      },
+      {
+        "label": "Devolver o acesso antes de examinar material restrito",
+        "result": "Você informa Célia de que não assumirá a responsabilidade pelo material. Ela recolhe a autorização.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_coldchain_trial",
+    "title": "Uma caixa fora da lista",
+    "paragraphs": [
+      "No fim da tarde, um ajudante coloca uma caixa pequena num carrinho sem etiqueta de destino. Ele diz que só recebeu instruções e aponta para o encarregado.",
+      "O ajudante tem medo de perder o trabalho. Um interrogatório público pode fazê-lo repetir qualquer resposta que pareça segura."
+    ],
+    "choices": [
+      {
+        "label": "Conversar longe dos colegas",
+        "result": "Você deixa claro que precisa dos fatos, não de um culpado conveniente. Ele indica o horário e o local da troca.",
+        "next": "h_coldchain_route_a",
+        "xp": 8,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "O ajudante se cala e o carrinho já está saindo. Você precisará acompanhar a movimentação.",
+          "next": "h_coldchain_route_b",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Confrontar as numerações sem acusar o ajudante",
+        "result": "As duas listas mostram que a ordem veio do encarregado. Célia pede a preservação da caixa.",
+        "next": "h_coldchain_route_a",
+        "conditions": {
+          "flags": {
+            "coldchain_proof": true
+          }
+        },
+        "xp": 7
+      },
+      {
+        "label": "Seguir o carrinho pela área de carga",
+        "result": "Você conserva distância e acompanha o carrinho até uma saída pouco usada.",
+        "next": "h_coldchain_route_b"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_coldchain_route_a",
+    "title": "O encarregado diante dos registros",
+    "paragraphs": [
+      "O encarregado admite uma venda por fora, mas insiste que as caixas ainda servem. Célia explica que a temperatura precisa ser demonstrada, não presumida.",
+      "Ele oferece ressarcir o depósito se o episódio desaparecer. Aceitar dinheiro pessoalmente comprometeria a evidência e deixaria os compradores sem aviso."
+    ],
+    "choices": [
+      {
+        "label": "Preservar a caixa e encaminhar as provas",
+        "result": "Você numera os documentos e pede uma testemunha na abertura. Célia retém o lote até a análise.",
+        "next": "h_coldchain_done",
+        "xp": 10
+      },
+      {
+        "label": "Conseguir a lista de compradores antes da denúncia",
+        "result": "Você limita a negociação à devolução dos lotes e obtém os contatos que permitirão avisar os compradores.",
+        "next": "h_coldchain_done",
+        "xp": 10,
+        "flags": {
+          "coldchain_buyers": true
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "O encarregado destrói o bilhete com os compradores. O material desviado não pode mais ser localizado por essa via.",
+          "next": "h_coldchain_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Aceitar o dinheiro e abandonar a apuração",
+        "result": "Você recebe a quantia e deixa Célia sem a caixa. Ela registra que não poderá usar sua apuração como prova.",
+        "next": "h_coldchain_failed",
+        "jenny": 60,
+        "flags": {
+          "coldchain_compromised": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_coldchain_route_b",
+    "title": "O piso molhado da carga",
+    "paragraphs": [
+      "O carrinho cruza uma passagem de manutenção. Alguém acaba de lavar o piso, e uma porta lateral permite retirar a caixa sem passar pela conferência.",
+      "Não há razão para disparar aura entre funcionários carregando vidro. Você precisa alcançar o material sem destruir aquilo que veio examinar."
+    ],
+    "choices": [
+      {
+        "label": "Interceptar o carrinho antes da porta",
+        "result": "Você alcança o puxador pelo lado e para o carrinho sem derrubar a caixa.",
+        "next": "h_coldchain_done",
+        "xp": 10,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Você escorrega e a caixa cai. Uma parte das amostras se quebra, tornando a cadeia de prova insuficiente.",
+          "next": "h_coldchain_failed",
+          "health": -2,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Isolar a passagem com a equipe do depósito",
+        "result": "Você usa os contatos dos registros para chamar a conferência responsável. A saída é fechada sem perseguição.",
+        "next": "h_coldchain_done",
+        "conditions": {
+          "flags": {
+            "coldchain_proof": true
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Puxar o freio com uma agulha fixada no mecanismo",
+        "result": "Um comando curto sobre a pequena alavanca segura a roda. Você recolhe a agulha e preserva a caixa.",
+        "next": "h_coldchain_done",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "objects"
+          }
+        },
+        "xp": 8,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A agulha atinge a carenagem e não alcança o freio. O carrinho cruza a porta antes de você chegar.",
+          "next": "h_coldchain_failed",
+          "xp": 3
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_coldchain_done",
+    "title": "O lote separado",
+    "paragraphs": [
+      "As caixas ficam retidas para avaliação e os funcionários recebem orientações sobre a conservação. Célia sabe quais documentos sustentam a denúncia e quais dúvidas ainda existem.",
+      "Ela lhe paga pelo trabalho de investigação, não pela apreensão de um suposto tesouro. O depósito poderá voltar a operar quando os lotes seguros forem identificados."
+    ],
+    "choices": [
+      {
+        "label": "Entregar a cadeia de documentos",
+        "result": "Você organiza responsáveis, horários e lacres para que outra pessoa consiga conferir o que foi feito.",
+        "jenny": 160,
+        "xp": 20,
+        "flags": {
+          "h_coldchain_trusted": true
+        }
+      },
+      {
+        "label": "Manter os informantes fora da divulgação",
+        "result": "Célia recebe o relatório completo e aceita proteger os trabalhadores que colaboraram.",
+        "jenny": 160,
+        "xp": 20,
+        "flags": {
+          "h_coldchain_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "h_coldchain_failed",
+    "title": "O que já não pode ser provado",
+    "paragraphs": [
+      "Célia não transforma uma suspeita em laudo. Sem o material ou registros suficientes, ela suspende a contratação e alerta o depósito sobre os riscos que conseguiu confirmar.",
+      "Você não recebe o pagamento principal. As escolhas desta apuração permanecem registradas, inclusive qualquer acordo feito à parte."
+    ],
+    "choices": [
+      {
+        "label": "Entregar as anotações restantes",
+        "result": "Você entrega o que tem e encerra o serviço sem apresentar lacunas como provas.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_coldchain",
+    "mission": "h_coldchain",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "h_research_offer",
+    "title": "A estação do capim alto",
+    "paragraphs": [
+      "O botânico Olavo precisa recolher os registros de uma estação isolada antes da temporada de chuvas. A equipe não procura uma planta milagrosa: seus dados servem para entender uma infestação que prejudica agricultores.",
+      "Ele contrata proteção licenciada porque a trilha está danificada e já houve roubo de equipamento. Você responde pela segurança da equipe, não por enfrentar todo perigo que aparecer."
+    ],
+    "choices": [
+      {
+        "label": "Acompanhar a equipe de Olavo",
+        "result": "Você aceita a responsabilidade de proteção e combina com Tainá o ponto de retorno.",
+        "next": "h_research_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true,
+      "health": 4
+    },
+    "weight": 3
+  },
+  {
+    "id": "h_research_prepare",
+    "title": "Quem leva o quê",
+    "paragraphs": [
+      "No pátio de saída, a assistente Tainá pesa caixas e retira ferramentas duplicadas. Olavo quer levar tudo; ela lembra que ninguém deve carregar mais do que consegue mover numa evacuação.",
+      "É possível investir em transporte local ou revisar a carga junto da equipe."
+    ],
+    "choices": [
+      {
+        "label": "Pagar por animais de carga de um criador local",
+        "result": "Você contrata a capacidade necessária sem transformar os pesquisadores em carregadores.",
+        "next": "h_research_trial",
+        "jenny": -20,
+        "flags": {
+          "research_light": true
+        }
+      },
+      {
+        "label": "Redistribuir a carga antes da partida",
+        "result": "Você coloca os registros essenciais em volumes pequenos e acessíveis. A equipe consegue caminhar sem perder o material básico.",
+        "next": "h_research_trial",
+        "xp": 5,
+        "flags": {
+          "research_light": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A revisão leva tempo e ainda deixa uma caixa mal distribuída. Tainá avisa que ela poderá precisar ser abandonada.",
+          "next": "h_research_trial",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Recusar a saída sem condições adequadas",
+        "result": "Você comunica a decisão antes de entrar na trilha. Olavo procura outra escolta.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_research_trial",
+    "title": "Água sobre o caminho",
+    "paragraphs": [
+      "Uma faixa da trilha cedeu ao lado de um canal de drenagem. Tainá encontra apoio para os pés, mas uma caixa pesada tornaria a passagem instável.",
+      "Olavo olha para o relógio e sugere atravessar de qualquer maneira. A pressa dele não reduz o risco da margem."
+    ],
+    "choices": [
+      {
+        "label": "Montar uma linha de apoio com a corda",
+        "result": "Você fixa a corda num apoio firme e conduz uma pessoa de cada vez. As caixas passam depois.",
+        "next": "h_research_route_a",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Conduzir a equipe pela borda mais firme",
+        "result": "Você testa o terreno antes de cada travessia e indica onde pisar.",
+        "next": "h_research_route_a",
+        "xp": 8,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "O barro cede sob seu pé. Você protege a equipe, mas se machuca e precisa procurar outro acesso.",
+          "next": "h_research_route_b",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Buscar o acesso de manutenção",
+        "result": "Você não força a travessia. A equipe contorna o canal por uma antiga passagem de serviço.",
+        "next": "h_research_route_b"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_research_route_a",
+    "title": "O visitante da estação",
+    "paragraphs": [
+      "Um homem mexe no cadeado quando a equipe chega. Ele diz ter comprado o equipamento de um vigia, mas não apresenta recibo e tenta levar um dos estojos.",
+      "Tainá reconhece a marca do instituto na caixa. Ela pede que você impeça a retirada sem expor Olavo a um confronto."
+    ],
+    "choices": [
+      {
+        "label": "Exigir a devolução diante das testemunhas",
+        "result": "Você enumera as marcas de propriedade e oferece a saída sem o estojo. O homem o deixa no chão e se afasta.",
+        "next": "h_research_done",
+        "xp": 10,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Ele ignora a exigência e força passagem. Você precisa concentrar a equipe na segurança do material que resta.",
+          "next": "h_research_route_b",
+          "health": -1,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Afastar a equipe e conter a retirada pela força",
+        "result": "Tainá fecha a sala enquanto você mantém o homem no pátio. Ninguém da pesquisa participa do confronto.",
+        "battle": "bandit"
+      },
+      {
+        "label": "Prender brevemente o estojo com Fio de Aura",
+        "result": "Seu filamento limita o movimento da alça o bastante para Tainá recolher o material, sem prender completamente a pessoa.",
+        "next": "h_research_done",
+        "conditions": {
+          "hatsu": {
+            "id": "transmutation",
+            "specialization": "restraint"
+          }
+        },
+        "xp": 9,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O fio perde aderência na superfície molhada. Você prioriza as pessoas em vez de perseguir o estojo.",
+          "next": "h_research_route_b",
+          "xp": 3
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "battle_rewards": {
+      "victory": {
+        "xp": 8,
+        "next": "h_research_done"
+      },
+      "enemy_yield": {
+        "xp": 8,
+        "next": "h_research_done"
+      },
+      "fled": {
+        "xp": 2,
+        "next": "h_research_failed"
+      },
+      "yielded": {
+        "xp": 2,
+        "next": "h_research_failed"
+      },
+      "incapacity": {}
+    }
+  },
+  {
+    "id": "h_research_route_b",
+    "title": "Uma retirada possível",
+    "paragraphs": [
+      "O acesso de manutenção leva a uma sala baixa. A água já entrou no piso, e o estojo de registros pode ser levado sem recuperar todo o equipamento.",
+      "Olavo insiste nos instrumentos mais caros. Tainá espera sua decisão sobre o limite da retirada."
+    ],
+    "choices": [
+      {
+        "label": "Levar pessoas e registros essenciais",
+        "result": "Você explica que a contratação não exige arriscar vidas por cada instrumento. A equipe sai com os registros necessários.",
+        "next": "h_research_done",
+        "conditions": {
+          "flags": {
+            "research_light": true
+          }
+        },
+        "xp": 9
+      },
+      {
+        "label": "Retirar o estojo antes que a água suba",
+        "result": "Você alcança o armário, solta a caixa e volta pelo trajeto que Tainá mantém desobstruído.",
+        "next": "h_research_done",
+        "xp": 10,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "A caixa prende entre os móveis. Você perde tempo e volta com a mão ferida, sem os registros completos.",
+          "next": "h_research_failed",
+          "health": -2,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Cobrir a equipe com o Escudo Materializado",
+        "result": "A cobertura de porte limitado intercepta os fragmentos que caem durante a retirada de duas pessoas de cada vez.",
+        "next": "h_research_done",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "coverage"
+          }
+        },
+        "xp": 9,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O escudo surge fora da posição necessária. A equipe precisa sair sem completar a coleta.",
+          "next": "h_research_failed",
+          "health": -1,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Retirar a equipe sem insistir nos armários",
+        "result": "Ninguém fica preso na sala. O instituto, porém, não recebe os registros que motivaram a viagem.",
+        "next": "h_research_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_research_done",
+    "title": "Dados que chegaram secos",
+    "paragraphs": [
+      "Na volta, Tainá espalha as páginas sobre uma mesa e confirma que os dados essenciais chegaram. Os agricultores receberão uma conclusão limitada pelo que a pesquisa realmente mediu.",
+      "Olavo reconhece que a equipe não teria resolvido a retirada apenas carregando mais instrumentos. O serviço é remunerado pelo instituto."
+    ],
+    "choices": [
+      {
+        "label": "Registrar as decisões de segurança",
+        "result": "Você descreve quais materiais foram deixados e por quê, permitindo uma recuperação futura por outra equipe.",
+        "jenny": 180,
+        "xp": 18,
+        "flags": {
+          "h_research_trusted": true
+        }
+      },
+      {
+        "label": "Pedir que Tainá revise o relato",
+        "result": "Ela corrige horários e agradece por ter sido ouvida quando a pressa ameaçou a equipe.",
+        "jenny": 180,
+        "xp": 18,
+        "flags": {
+          "h_research_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "h_research_failed",
+    "title": "A estação terá de esperar",
+    "paragraphs": [
+      "Olavo percebe a ausência dos dados. As pessoas voltaram, mas o objetivo da viagem não foi cumprido.",
+      "O instituto não libera o pagamento principal. Tainá conserva suas anotações para orientar outra equipe."
+    ],
+    "choices": [
+      {
+        "label": "Explicar os limites da retirada",
+        "result": "Você registra o acesso alagado e as caixas perdidas sem responsabilizar a assistente por decisões alheias.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_research",
+    "mission": "h_research",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "h_species_offer",
+    "title": "O ninho na margem escura",
+    "paragraphs": [
+      "A zoóloga Dália procura um Hunter para verificar a presença de garças-de-copa numa várzea distante. Coletores passaram a vender ovos atribuídos à espécie; capturar um exemplar não é necessário para confirmar o ninho.",
+      "Dália tem autorização de pesquisa e exige que nenhum filhote seja removido. Ela prefere voltar sem dados a apresentar uma fotografia conseguida destruindo a área que estuda."
+    ],
+    "choices": [
+      {
+        "label": "Aceitar a observação de Dália",
+        "result": "Dália entrega o material de identificação e confirma que nenhum animal deve ser retirado.",
+        "next": "h_species_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true,
+      "health": 4
+    },
+    "weight": 3
+  },
+  {
+    "id": "h_species_prepare",
+    "title": "O que conta como observação",
+    "paragraphs": [
+      "Num pequeno abrigo, Dália ensina a distinguir pegadas de aves diferentes. Ela entrega um caderno com a escala de tamanho e pede distância dos ninhos.",
+      "Um barqueiro oferece acesso curto por um canal; entrar sem ele exigirá compreender as mudanças na água."
+    ],
+    "choices": [
+      {
+        "label": "Pagar ao barqueiro pelo acesso conhecido",
+        "result": "Ele marca os pontos rasos e combina onde aguardará sua volta.",
+        "next": "h_species_trial",
+        "jenny": -20,
+        "flags": {
+          "species_route": true
+        }
+      },
+      {
+        "label": "Estudar a margem antes de entrar",
+        "result": "As marcas de água mostram onde a corrente muda. Você encontra uma entrada sem pisar na vegetação de ninho.",
+        "next": "h_species_trial",
+        "xp": 5,
+        "flags": {
+          "species_route": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Você confunde um canal temporário com a passagem principal e perde material ao atravessar a água.",
+          "next": "h_species_trial",
+          "jenny": -10,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Não assumir uma pesquisa que exige essa aproximação",
+        "result": "Dália agradece a franqueza e recolhe o mapa de trabalho.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_species_trial",
+    "title": "Penas entre as raízes",
+    "paragraphs": [
+      "O ninho aparece na bifurcação de uma árvore baixa. Um coletor também percebeu o movimento e se aproxima com um saco.",
+      "Dália aguarda no abrigo. Aproximar-se fazendo barulho pode afastar o adulto e deixar os ovos expostos à chuva."
+    ],
+    "choices": [
+      {
+        "label": "Pedir ao coletor que recue com você",
+        "result": "Você oferece discutir a origem dos ovos no abrigo, longe do ninho. Ele aceita acompanhar você.",
+        "next": "h_species_route_a",
+        "xp": 8,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "O coletor ignora o pedido e segue pelo banco de lama. Você terá de preservar o ninho sem contar com a colaboração dele.",
+          "next": "h_species_route_b",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Observar a distância usando a rota marcada",
+        "result": "Você chega ao ângulo combinado sem atravessar a área de alimentação. O adulto continua no local.",
+        "next": "h_species_route_b",
+        "conditions": {
+          "flags": {
+            "species_route": true
+          }
+        },
+        "xp": 7
+      },
+      {
+        "label": "Suprimir a aura e aproximar-se sem perturbar a ave",
+        "result": "Zetsu evita uma presença energética ostensiva; você ainda escolhe apoios e permanece atrás da vegetação.",
+        "next": "h_species_route_b",
+        "conditions": {
+          "flags": {
+            "nen_zetsu": true
+          }
+        },
+        "xp": 7,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Um galho estala sob seu pé. Você recua antes que a ave abandone o ninho.",
+          "next": "h_species_route_b",
+          "health": -1,
+          "xp": 2
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_species_route_a",
+    "title": "Uma renda que dependia dos ovos",
+    "paragraphs": [
+      "O coletor explica que recebe por unidade e não por espécie confirmada. Não sabe distinguir os ninhos e teme voltar ao comprador de mãos vazias.",
+      "Você pode obter informação sobre o comércio sem prometer imunidade ou comprar ovos que continuarão sendo retirados."
+    ],
+    "choices": [
+      {
+        "label": "Trocar informação por uma saída sem apreensão de animais",
+        "result": "Você obtém o endereço do comprador e convence o coletor a devolver os ovos ainda intactos.",
+        "next": "h_species_done",
+        "xp": 10,
+        "flags": {
+          "species_trade": true
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "Ele abandona a conversa e foge. O endereço não foi confirmado e a observação do ninho permanece incompleta.",
+          "next": "h_species_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Priorizar o registro do ninho e deixar o homem partir",
+        "result": "Você não consegue investigar toda a rede de venda, mas mantém o objetivo da pesquisa sem retirar animais.",
+        "next": "h_species_route_b"
+      },
+      {
+        "label": "Comprar os ovos como prova",
+        "result": "A compra retira os ovos do local e contraria o acordo. Dália não aceita esse procedimento.",
+        "next": "h_species_failed",
+        "jenny": -30,
+        "flags": {
+          "species_disturbed": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_species_route_b",
+    "title": "O ângulo de observação",
+    "paragraphs": [
+      "A água começa a cobrir o banco de lama. Você precisa registrar o padrão das penas e os sinais do ninho sem tocar nos ovos.",
+      "Há tempo para uma tentativa cuidadosa; insistir até escurecer tornaria a volta insegura."
+    ],
+    "choices": [
+      {
+        "label": "Fixar a escala visual e anotar os traços",
+        "result": "Você compara o adulto com o caderno e registra características suficientes para Dália conferir.",
+        "next": "h_species_done",
+        "xp": 10,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "A luz muda antes que você consiga separar os traços. As anotações não sustentam a confirmação da espécie.",
+          "next": "h_species_failed",
+          "xp": 4
+        }
+      },
+      {
+        "label": "Usar um apoio próximo com o Fio de Aura",
+        "result": "O filamento auxilia seu equilíbrio num ponto próximo. Você mantém distância do ninho e registra a ave.",
+        "next": "h_species_done",
+        "conditions": {
+          "hatsu": {
+            "id": "transmutation",
+            "specialization": "mobility"
+          }
+        },
+        "xp": 9,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O apoio cede e você interrompe a aproximação, com cortes leves nas mãos e sem uma observação conclusiva.",
+          "next": "h_species_failed",
+          "health": -1,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Voltar antes de perder a passagem",
+        "result": "Você preserva a segurança da retirada, mas retorna sem a confirmação solicitada.",
+        "next": "h_species_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_species_done",
+    "title": "O ninho permanece ali",
+    "paragraphs": [
+      "Dália compara suas anotações com o material de referência e confirma a identificação. O registro será entregue com a localização protegida, para não facilitar novas coletas.",
+      "A licença ajudou a abrir a pesquisa; o resultado dependeu de observar sem destruir."
+    ],
+    "choices": [
+      {
+        "label": "Assinar o registro sem divulgar o acesso",
+        "result": "Você recebe a remuneração e mantém a localização no relatório restrito.",
+        "jenny": 150,
+        "xp": 18,
+        "flags": {
+          "h_species_trusted": true
+        }
+      },
+      {
+        "label": "Entregar também as informações do comércio",
+        "result": "Dália registra o que é verificável e encaminha o restante para apuração, sem transformar suspeitas em identificação de culpados.",
+        "jenny": 150,
+        "xp": 18,
+        "flags": {
+          "h_species_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "h_species_failed",
+    "title": "Uma observação inconclusiva",
+    "paragraphs": [
+      "Dália separa suas notas do material confirmado. Ela não pagará por uma identificação que os dados não sustentam.",
+      "O registro da tentativa continua útil para organizar a próxima visita, mas esta contratação foi encerrada."
+    ],
+    "choices": [
+      {
+        "label": "Relatar o que foi visto e o que faltou",
+        "result": "Você descreve a limitação da luz e do acesso, sem inventar detalhes da espécie.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_species",
+    "mission": "h_species",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "h_relic_offer",
+    "title": "O arquivo da pedreira",
+    "paragraphs": [
+      "O conservador Estevão recebeu notícia de um conjunto de plantas antigas dentro de uma pedreira desativada. O material pertence ao arquivo municipal; uma licença Hunter permite assumir a recuperação em uma área interditada.",
+      "Uma laje se moveu após chuvas recentes. Estevão precisa de documentos que expliquem a ocupação comum da região, não de alguém disposto a morrer por uma caixa."
+    ],
+    "choices": [
+      {
+        "label": "Assumir a recuperação do arquivo",
+        "result": "Estevão registra sua autorização e apresenta Lia como responsável técnica pelo acesso.",
+        "next": "h_relic_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true,
+      "health": 4
+    },
+    "weight": 3
+  },
+  {
+    "id": "h_relic_prepare",
+    "title": "A palavra interdição",
+    "paragraphs": [
+      "Na entrada, a técnica Lia aponta as marcas pintadas numa coluna. Elas mostram movimento recente, e o barulho de pedras pequenas continua vindo do interior.",
+      "Uma passagem de serviço é mais longa. Seguir a entrada principal exigiria reconhecer quais apoios ainda estão firmes."
+    ],
+    "choices": [
+      {
+        "label": "Levar o mapa regional até a passagem de serviço",
+        "result": "Você encontra a via indicada por Lia e marca um ponto de retorno fora da área instável.",
+        "next": "h_relic_trial",
+        "conditions": {
+          "items": {
+            "map": 1
+          }
+        },
+        "flags": {
+          "relic_safe": true
+        },
+        "xp": 5
+      },
+      {
+        "label": "Avaliar o acesso junto da técnica",
+        "result": "Você cruza as marcas com o desenho de sustentação e elimina a entrada mais instável.",
+        "next": "h_relic_trial",
+        "xp": 6,
+        "flags": {
+          "relic_safe": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "A inspeção atrasa a saída e consome parte do orçamento de apoio. A área principal continua insegura.",
+          "next": "h_relic_trial",
+          "jenny": -15,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Devolver a autorização diante do risco",
+        "result": "Estevão aceita que você não entre e procura outro procedimento de recuperação.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_relic_trial",
+    "title": "Luz no corredor de serviço",
+    "paragraphs": [
+      "A passagem estreita chega a um portão. Atrás dele, pequenas pedras caem em intervalos irregulares; Lia não cruza a marca de segurança.",
+      "Você consegue ver a porta do arquivo. A distância é curta, mas o teto rachado não deixa uma margem confiável para correr. Lia avisa que entrar sob a laje pode causar uma queda fatal."
+    ],
+    "choices": [
+      {
+        "label": "Iluminar os apoios antes de avançar",
+        "result": "A lanterna revela uma passagem lateral fora da laje solta. Você mantém contato visual com Lia.",
+        "next": "h_relic_route_a",
+        "conditions": {
+          "items": {
+            "lantern": 1
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Seguir o acesso conferido com Lia",
+        "result": "Você usa os pontos de retorno marcados na inspeção e chega ao corredor lateral.",
+        "next": "h_relic_route_a",
+        "conditions": {
+          "flags": {
+            "relic_safe": true
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Correr sob a laje instável para chegar antes da queda",
+        "result": "Você alcança a porta quando a laje desaba atrás. Fica sem a rota de entrada e precisa encontrar outra saída.",
+        "next": "h_relic_route_b",
+        "xp": 12,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 17
+        },
+        "failure": {
+          "result": "A laje cai antes que você atravesse. A equipe não consegue alcançar o corredor a tempo.",
+          "next": "h_relic_failed",
+          "death": true,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Não atravessar uma área sem apoio confiável",
+        "result": "Você volta para a marca e encerra a entrada. Os documentos permanecem na pedreira.",
+        "next": "h_relic_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_relic_route_a",
+    "title": "Papéis antes de objetos",
+    "paragraphs": [
+      "Na sala lateral, as plantas estão enroladas acima do piso úmido. Uma caixa de objetos pesados bloqueia o armário, mas não faz parte do pedido do arquivo.",
+      "Lia pede que você leve apenas aquilo que pode ser retirado com segurança. A saída deve continuar desobstruída."
+    ],
+    "choices": [
+      {
+        "label": "Deslocar a caixa sem bloquear a saída",
+        "result": "Você move o peso por etapas e alcança o armário. Os rolos seguem num volume pequeno.",
+        "next": "h_relic_done",
+        "xp": 10,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 15
+        },
+        "failure": {
+          "result": "A caixa vira sobre seu pé e impede o acesso ao armário. Você precisa sair com ajuda de Lia.",
+          "next": "h_relic_failed",
+          "health": -3,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Usar Corpo Temperado apenas no esforço necessário",
+        "result": "A Potência permite erguer a extremidade da caixa por tempo suficiente para liberar o armário.",
+        "next": "h_relic_done",
+        "conditions": {
+          "hatsu": {
+            "id": "reinforce",
+            "specialization": "power"
+          }
+        },
+        "xp": 9,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O apoio da caixa quebra antes de você completar o movimento. Você recua com um ferimento e deixa os rolos.",
+          "next": "h_relic_failed",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Pagar pela pequena equipe de içamento",
+        "result": "Pelo rádio de Lia, você contrata o apoio que estava de prontidão. O custo sai do seu pagamento.",
+        "next": "h_relic_done",
+        "jenny": -40,
+        "xp": 6
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_relic_route_b",
+    "title": "Uma saída que ainda existe",
+    "paragraphs": [
+      "A queda bloqueou o acesso principal. Pela janela alta do arquivo entra ar frio, indicando uma galeria próxima, mas a parede não suporta qualquer ponto de apoio.",
+      "Você precisa sair com o que puder carregar. Tentar recuperar toda a sala prolongaria a exposição à estrutura danificada."
+    ],
+    "choices": [
+      {
+        "label": "Fixar a corda no pilar conferido por Lia",
+        "result": "Você protege os rolos e sobe pelo apoio indicado, sem usar as chapas soltas da janela.",
+        "next": "h_relic_done",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 10
+      },
+      {
+        "label": "Encontrar um caminho pela galeria de ventilação",
+        "result": "Você lê as marcas no desenho e evita um ramal que termina fechado. Sai com os documentos mínimos.",
+        "next": "h_relic_done",
+        "xp": 11,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 16
+        },
+        "failure": {
+          "result": "O ramal escolhido está fechado. Lia encontra outro acesso para retirar você, mas os documentos não podem ser levados.",
+          "next": "h_relic_failed",
+          "health": -2,
+          "xp": 4
+        }
+      },
+      {
+        "label": "Aceitar a retirada imediata pela equipe",
+        "result": "Você deixa os rolos e segue a orientação de Lia. O resgate evita nova exposição, mas não conclui o serviço.",
+        "next": "h_relic_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0
+  },
+  {
+    "id": "h_relic_done",
+    "title": "O nome de quem desenhou",
+    "paragraphs": [
+      "Estevão abre um dos rolos e encontra o traçado de antigos canais de abastecimento. Há assinaturas de profissionais que viveram ali, não um segredo esperando por você.",
+      "O arquivo remunera a recuperação e inicia a conservação. A área interditada permanece fechada."
+    ],
+    "choices": [
+      {
+        "label": "Entregar a localização exata do material restante",
+        "result": "Você permite planejar outra retirada sem apresentar a pedreira como segura.",
+        "jenny": 210,
+        "xp": 20,
+        "flags": {
+          "h_relic_trusted": true
+        }
+      },
+      {
+        "label": "Pedir crédito para a equipe de apoio",
+        "result": "Estevão inclui Lia e os profissionais que sustentaram a retirada no registro da recuperação.",
+        "jenny": 210,
+        "xp": 20,
+        "flags": {
+          "h_relic_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "h_relic_failed",
+    "title": "A interdição continua",
+    "paragraphs": [
+      "Os documentos não chegaram ao arquivo. A equipe registra o acesso inviável e encerra a contratação em vez de enviar outra pessoa imediatamente para a mesma passagem.",
+      "Estevão mantém o material na lista de recuperação futura; a licença não obriga o município a fingir que o trabalho foi concluído."
+    ],
+    "choices": [
+      {
+        "label": "Entregar as observações de segurança",
+        "result": "Você descreve onde o caminho deixou de ser confiável e quais limites precisam mudar antes de outra entrada.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "h_relic",
+    "mission": "h_relic",
+    "mission_category": "hunter",
+    "chapter": "A vida de um Hunter",
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "c_ferry_offer",
+    "title": "A oficina do outro lado",
+    "paragraphs": [
+      "A mecânica Joana precisa devolver uma peça reparada a uma balsa antes da partida de carga. A estrada curta passa por uma travessia provisória e a equipe da balsa não pode suspender todas as entregas do dia.",
+      "Ela procura alguém que leve a peça, confira a instalação com o barqueiro e volte com um recibo. Não é necessário possuir licença, apenas aceitar a responsabilidade por uma entrega delicada."
+    ],
+    "choices": [
+      {
+        "label": "Levar a peça e acompanhar a instalação",
+        "result": "Joana separa o desenho do encaixe e confirma que precisa de um recibo de funcionamento.",
+        "next": "c_ferry_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {
+      "health": 2
+    },
+    "weight": 4
+  },
+  {
+    "id": "c_ferry_prepare",
+    "title": "Uma peça que precisa caber",
+    "paragraphs": [
+      "Joana mede a embalagem e mostra o eixo mais frágil. A peça parece resistente, mas uma pancada no encaixe pode desfazer o reparo.",
+      "Um transportador oferece um suporte acolchoado. Você também pode montar uma proteção com o material que a oficina já separou."
+    ],
+    "choices": [
+      {
+        "label": "Pagar pelo suporte do transportador",
+        "result": "A peça fica presa sem receber peso sobre o encaixe.",
+        "next": "c_ferry_trial",
+        "jenny": -10,
+        "flags": {
+          "ferry_padded": true
+        }
+      },
+      {
+        "label": "Montar a proteção com as medidas de Joana",
+        "result": "Você distribui os apoios sem pressionar o eixo. Joana aprova a embalagem.",
+        "next": "c_ferry_trial",
+        "xp": 4,
+        "flags": {
+          "ferry_padded": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Um apoio fica mal ajustado. Joana corrige o essencial, mas o atraso consome o tempo de conferência da saída.",
+          "next": "c_ferry_trial",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Avisar que não fará a travessia",
+        "result": "Joana entrega a peça ao próximo transportador e não conta mais com sua viagem.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_ferry_trial",
+    "title": "Tábuas junto da água",
+    "paragraphs": [
+      "O responsável pela travessia limita a passagem a uma pessoa por vez. O rio está alto, e uma das tábuas oscila sob o peso das caixas.",
+      "A fila fica impaciente. O barqueiro prefere um atraso a uma peça perdida, mas não prometeu manter a balsa parada indefinidamente."
+    ],
+    "choices": [
+      {
+        "label": "Levar a embalagem protegida na ordem da fila",
+        "result": "Você não concentra peso na parte instável e chega ao outro lado sem bater o eixo.",
+        "next": "c_ferry_route_a",
+        "conditions": {
+          "flags": {
+            "ferry_padded": true
+          }
+        },
+        "xp": 6
+      },
+      {
+        "label": "Equilibrar a peça pela faixa firme",
+        "result": "Você mantém o volume junto ao corpo e atravessa sem apoiar o eixo nas tábuas.",
+        "next": "c_ferry_route_a",
+        "xp": 6,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Uma tábua vira e a peça bate na borda. Você evita cair, mas precisa conferir se o reparo ainda funciona.",
+          "next": "c_ferry_route_b",
+          "health": -1,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Usar o bote do responsável",
+        "result": "Você paga uma travessia separada para o volume, sem furar a fila de pedestres.",
+        "next": "c_ferry_route_a",
+        "jenny": -15
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_ferry_route_a",
+    "title": "O encaixe na balsa",
+    "paragraphs": [
+      "O barqueiro Rui abre o compartimento e percebe que um parafuso antigo não coincide com a marca nova. Ele teme que o atraso seja atribuído à tripulação.",
+      "O recibo só será assinado quando houver uma instalação verificável. Você pode colaborar sem assinar um serviço que não fez."
+    ],
+    "choices": [
+      {
+        "label": "Comparar o desenho com a peça antiga",
+        "result": "Você identifica a posição correta do suporte e Rui conclui a instalação.",
+        "next": "c_ferry_done",
+        "xp": 7,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A comparação não resolve a folga. É preciso voltar ao teste de encaixe em vez de exigir uma assinatura.",
+          "next": "c_ferry_route_b",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Combinar uma conferência conjunta",
+        "result": "Você deixa claro que ninguém será culpado antes do teste. Rui concorda em revisar o suporte com você.",
+        "next": "c_ferry_done",
+        "xp": 7,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Ele prefere suspender a instalação a assinar sob pressão. O recibo não será emitido.",
+          "next": "c_ferry_failed",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Exigir a assinatura sem conferir o mecanismo",
+        "result": "Rui registra a entrega do volume, mas se recusa a certificar o funcionamento. Joana não considera o serviço concluído.",
+        "next": "c_ferry_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_ferry_route_b",
+    "title": "A peça sob carga",
+    "paragraphs": [
+      "Rui prende a peça na bancada e prepara uma carga de teste. Há risco de beliscar a mão se o suporte girar.",
+      "Você precisa escolher entre corrigir o apoio ou reconhecer que a travessia comprometeu a entrega."
+    ],
+    "choices": [
+      {
+        "label": "Segurar o suporte enquanto Rui ajusta a folga",
+        "result": "Você mantém as mãos fora do eixo e sustenta o apoio no momento indicado. O teste termina sem folga.",
+        "next": "c_ferry_done",
+        "xp": 8,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O suporte gira antes do ajuste e machuca sua mão. A peça precisa voltar à oficina.",
+          "next": "c_ferry_failed",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Comprar uma fixação compatível no cais",
+        "result": "Você encontra o acessório necessário e acompanha a conferência final.",
+        "next": "c_ferry_done",
+        "jenny": -20,
+        "xp": 5
+      },
+      {
+        "label": "Devolver a peça e informar o problema",
+        "result": "Você não força o mecanismo. A balsa organiza outra solução para a partida.",
+        "next": "c_ferry_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_ferry_done",
+    "title": "A assinatura de Rui",
+    "paragraphs": [
+      "Joana confere o recibo e reconhece a anotação do ajuste. A balsa parte com o compartimento fechado, e a oficina recebe por um reparo que realmente foi instalado.",
+      "Você recebe o combinado pela entrega e pela conferência, não uma promessa de emprego permanente."
+    ],
+    "choices": [
+      {
+        "label": "Voltar à oficina com o recibo",
+        "result": "Joana paga pelo trabalho e guarda seu nome para entregas que exigem atenção.",
+        "jenny": 95,
+        "xp": 13,
+        "flags": {
+          "c_ferry_trusted": true
+        }
+      },
+      {
+        "label": "Pedir que Rui receba uma cópia",
+        "result": "A tripulação conserva o registro do ajuste e não precisa explicar o mesmo problema novamente.",
+        "jenny": 95,
+        "xp": 13,
+        "flags": {
+          "c_ferry_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "c_ferry_failed",
+    "title": "De volta à bancada",
+    "paragraphs": [
+      "A peça retorna sem o recibo de instalação. Joana precisa rever o reparo e não libera a remuneração principal da entrega.",
+      "Ela distingue o dano do trajeto e a dificuldade do suporte antes de decidir o próximo reparo."
+    ],
+    "choices": [
+      {
+        "label": "Contar o que aconteceu na travessia",
+        "result": "Você apresenta os fatos e permite que Joana examine o dano sem esconder onde ele ocorreu.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_ferry",
+    "mission": "c_ferry",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "c_missing_offer",
+    "title": "O caderno de Amélia",
+    "paragraphs": [
+      "Amélia trabalha numa pensão e perdeu um caderno com contas de hóspedes e pequenos adiantamentos. Sem ele, não sabe quem já pagou e quem corre o risco de ser cobrado duas vezes.",
+      "Ela lembra de tê-lo levado ao mercado e oferece uma recompensa pela recuperação. Não há grande tesouro naqueles papéis; há pessoas que dependem de seus registros."
+    ],
+    "choices": [
+      {
+        "label": "Ajudar Amélia a encontrar o caderno",
+        "result": "Você combina a busca com Amélia e anota os locais por onde ela passou.",
+        "next": "c_missing_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {
+      "health": 2
+    },
+    "weight": 4
+  },
+  {
+    "id": "c_missing_prepare",
+    "title": "Lembranças em ordem",
+    "paragraphs": [
+      "Na cozinha, Amélia reconstrói a manhã entre dois atendimentos. Ela não quer interromper o trabalho de todos os hóspedes para localizar o próprio caderno.",
+      "Um feirante lembra de um volume semelhante perto de uma banca, mas espera ajuda para descarregar antes de conversar."
+    ],
+    "choices": [
+      {
+        "label": "Organizar o trajeto com Amélia",
+        "result": "Você separa horários confirmados de impressões e encontra o intervalo em que o caderno desapareceu.",
+        "next": "c_missing_trial",
+        "xp": 4,
+        "flags": {
+          "missing_timeline": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "As interrupções deixam uma parte da manhã incerta. Você terá de perguntar em mais lugares.",
+          "next": "c_missing_trial",
+          "jenny": -5,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Ajudar o feirante com a descarga",
+        "result": "Ele indica a banca e descreve a pessoa que recolheu o caderno.",
+        "next": "c_missing_trial",
+        "flags": {
+          "missing_timeline": true
+        }
+      },
+      {
+        "label": "Não assumir a busca",
+        "result": "Você avisa Amélia para que ela procure outra ajuda antes do fim da feira.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_missing_trial",
+    "title": "Uma conta que parecia errada",
+    "paragraphs": [
+      "Uma vendedora confirma que guardou o caderno, mas diz que ele foi levado por um homem cobrando uma dívida da pensão. O nome indicado não consta das lembranças de Amélia.",
+      "É possível que ele tenha agido de boa-fé. Acusá-lo sem entender a conta pode fazer o caderno desaparecer de vez."
+    ],
+    "choices": [
+      {
+        "label": "Pedir à vendedora que esclareça a conversa",
+        "result": "Você descobre que o homem confundiu duas pensões de nomes parecidos. A vendedora indica onde encontrá-lo.",
+        "next": "c_missing_route_a",
+        "xp": 6,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Ela se sente acusada e encerra a conversa. Você perde o endereço e precisa seguir o trajeto de saída.",
+          "next": "c_missing_route_b",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Usar a sequência de horários para localizar o homem",
+        "result": "Os horários apontam para um comprador que ainda aguarda um carro na rua lateral.",
+        "next": "c_missing_route_a",
+        "conditions": {
+          "flags": {
+            "missing_timeline": true
+          }
+        },
+        "xp": 5
+      },
+      {
+        "label": "Procurar a saída dos carros",
+        "result": "Você segue a direção indicada sem pressionar a vendedora por uma certeza que ela não tem.",
+        "next": "c_missing_route_b"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_missing_route_a",
+    "title": "Duas pensões com o mesmo nome",
+    "paragraphs": [
+      "O homem mostra uma nota de adiantamento e admite ter levado o caderno para impedir nova cobrança. Ele também receia entregar o documento e ficar sem comprovação do próprio pagamento.",
+      "A situação pode ser corrigida sem humilhar quem errou o endereço. O caderno precisa voltar inteiro."
+    ],
+    "choices": [
+      {
+        "label": "Comparar os nomes e os recibos",
+        "result": "Você distingue os endereços e deixa uma cópia da nota com o homem. Ele devolve o caderno.",
+        "next": "c_missing_done",
+        "xp": 8,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Os documentos não bastam para esclarecer o endereço. Ele retém o caderno até consultar o pagador.",
+          "next": "c_missing_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Acompanhar o homem até Amélia",
+        "result": "Amélia confirma o engano na presença dele. A devolução acontece sem levar a questão à rua inteira.",
+        "next": "c_missing_done",
+        "flags": {
+          "missing_reconciled": true
+        },
+        "xp": 6
+      },
+      {
+        "label": "Tomar o caderno à força",
+        "result": "A disputa rasga várias páginas antes de você recuperar o volume. O registro principal fica ilegível.",
+        "next": "c_missing_failed",
+        "health": -1,
+        "flags": {
+          "missing_pages_torn": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_missing_route_b",
+    "title": "O carro já está saindo",
+    "paragraphs": [
+      "O homem coloca a bagagem num carro. Você reconhece a capa do caderno junto ao banco, mas ele não percebe seu chamado.",
+      "Correr pela frente do animal seria perigoso para todos. Há uma passagem lateral onde o cocheiro ainda pode escutar você."
+    ],
+    "choices": [
+      {
+        "label": "Alcançar a lateral e pedir que parem",
+        "result": "Você chega ao cocheiro sem cruzar a frente do animal. A conversa sobre o caderno pode acontecer em segurança.",
+        "next": "c_missing_route_a",
+        "xp": 7,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você tropeça no calçamento e o carro ganha distância. O caderno parte antes de você confirmar o destino.",
+          "next": "c_missing_failed",
+          "health": -1,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Pagar ao carregador para levar um recado ao destino",
+        "result": "O carregador conhece o ponto de descarga e consegue devolver o caderno na pensão.",
+        "next": "c_missing_done",
+        "jenny": -20,
+        "xp": 5
+      },
+      {
+        "label": "Não arriscar a rua por um documento",
+        "result": "Você volta com a informação de que o caderno saiu da feira, sem prometer sua recuperação.",
+        "next": "c_missing_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_missing_done",
+    "title": "Contas que voltaram ao lugar",
+    "paragraphs": [
+      "Amélia abre o caderno na mesma mesa da cozinha e confere a sequência das páginas. Alguns hóspedes deixam de ser cobrados novamente quando os pagamentos são encontrados.",
+      "Ela lhe entrega a recompensa e oferece água antes que você volte ao caminho."
+    ],
+    "choices": [
+      {
+        "label": "Explicar o engano sem expor o homem",
+        "result": "Amélia conserva o registro e evita transformar uma confusão em boato sobre um hóspede.",
+        "jenny": 85,
+        "xp": 12,
+        "flags": {
+          "c_missing_trusted": true
+        }
+      },
+      {
+        "label": "Ajudar a conferir as últimas entradas",
+        "result": "Vocês localizam as duas contas mais urgentes antes de a pensão retomar o atendimento.",
+        "jenny": 85,
+        "xp": 12,
+        "flags": {
+          "c_missing_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "c_missing_failed",
+    "title": "As contas terão de ser refeitas",
+    "paragraphs": [
+      "Amélia recebe suas informações, mas continua sem registros utilizáveis. Ela reúne os recibos dos hóspedes para reconstruir os pagamentos.",
+      "Você não recebe a recompensa prometida pela recuperação. A busca fica encerrada e a pensão passa a resolver a lacuna por outros meios."
+    ],
+    "choices": [
+      {
+        "label": "Entregar as informações verificadas",
+        "result": "Você distingue quem viu o caderno de quem apenas ouviu falar, para não criar cobranças novas em cima de outra incerteza.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_missing",
+    "mission": "c_missing",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "c_rooftops_offer",
+    "title": "Água para a rua de cima",
+    "paragraphs": [
+      "O encanador Baltasar precisa localizar uma perda de pressão que deixou uma rua sem água. Cada morador atribui o problema ao vizinho, enquanto a oficina dele é cobrada por um reparo ainda não diagnosticado.",
+      "Ele oferece pagamento por ajuda na inspeção e no acesso aos reservatórios. Não exige licença; exige que ninguém altere válvulas sem avisar quem será afetado."
+    ],
+    "choices": [
+      {
+        "label": "Ajudar Baltasar na inspeção",
+        "result": "Baltasar abre o desenho da linha e combina a responsabilidade por cada acesso.",
+        "next": "c_rooftops_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {
+      "health": 2
+    },
+    "weight": 4
+  },
+  {
+    "id": "c_rooftops_prepare",
+    "title": "Antes de fechar qualquer registro",
+    "paragraphs": [
+      "Uma moradora entrega horários em que a água sumiu. Baltasar mostra o desenho da tubulação, corrigido à mão ao longo de anos.",
+      "Os acessos atravessam dois quintais. Será preciso obter passagem ou pagar por uma plataforma externa."
+    ],
+    "choices": [
+      {
+        "label": "Conseguir a autorização dos dois quintais",
+        "result": "Você combina horários e responsabilidade pelo acesso, evitando que a inspeção comece como invasão.",
+        "next": "c_rooftops_trial",
+        "xp": 5,
+        "flags": {
+          "water_access": true
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Um dos moradores recusa passagem. Baltasar precisa alugar apoio externo para não paralisar o trabalho.",
+          "next": "c_rooftops_trial",
+          "jenny": -15,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Pagar pela plataforma externa",
+        "result": "Baltasar alcança a conexão sem depender dos quintais.",
+        "next": "c_rooftops_trial",
+        "jenny": -20,
+        "flags": {
+          "water_access": true
+        }
+      },
+      {
+        "label": "Não entrar na disputa da rua",
+        "result": "Você devolve as anotações e Baltasar reorganiza sua equipe.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_rooftops_trial",
+    "title": "Uma derivação antiga",
+    "paragraphs": [
+      "No alto da rua, uma conexão alimenta uma lavanderia que não aparece no desenho. A dona diz que seu pai pagou pela instalação muitos anos antes.",
+      "Fechar o registro cortaria o trabalho dela. Deixar tudo como está manteria a rua sem abastecimento suficiente."
+    ],
+    "choices": [
+      {
+        "label": "Rastrear a perda antes de acusar a lavanderia",
+        "result": "Você identifica uma rachadura na conexão, independente do direito ao abastecimento.",
+        "next": "c_rooftops_route_a",
+        "xp": 7,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "O ruído da tubulação confunde o diagnóstico. É necessário examinar a conexão por dentro.",
+          "next": "c_rooftops_route_b",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Combinar uma parada curta com a lavanderia",
+        "result": "A dona avisa seus clientes e permite a abertura da conexão no intervalo combinado.",
+        "next": "c_rooftops_route_b",
+        "conditions": {
+          "flags": {
+            "water_access": true
+          }
+        },
+        "xp": 5
+      },
+      {
+        "label": "Cortar a derivação sem avisar",
+        "result": "O corte interrompe o trabalho da lavanderia. Baltasar encerra sua participação para não continuar um reparo sem acordo.",
+        "next": "c_rooftops_failed",
+        "flags": {
+          "water_cut_unannounced": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_rooftops_route_a",
+    "title": "O peso do reservatório",
+    "paragraphs": [
+      "A peça rachada fica sob um pequeno reservatório. Baltasar precisa que ele seja sustentado enquanto troca o apoio; empurrá-lo sem controle pode romper outra linha.",
+      "O espaço exige um esforço curto e uma saída livre, não uma demonstração de força."
+    ],
+    "choices": [
+      {
+        "label": "Sustentar o apoio no sinal de Baltasar",
+        "result": "Você distribui o peso no suporte provisório até a peça nova ser fixada.",
+        "next": "c_rooftops_done",
+        "xp": 8,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "O suporte escorrega e atinge sua mão. Baltasar interrompe a troca para evitar uma queda maior.",
+          "next": "c_rooftops_failed",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Usar a corda para manter o apoio alinhado",
+        "result": "Você fixa a linha como Baltasar indica e controla o deslocamento durante a troca.",
+        "next": "c_rooftops_done",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 6
+      },
+      {
+        "label": "Pagar pelo apoio de içamento",
+        "result": "A plataforma segura a peça sem pressionar a tubulação restante.",
+        "next": "c_rooftops_done",
+        "jenny": -25,
+        "xp": 5
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_rooftops_route_b",
+    "title": "Um jato na sala de válvulas",
+    "paragraphs": [
+      "Quando a tampa é aberta, uma braçadeira se solta. Uma moradora ainda está perto do acesso, segurando um pano para conter a água.",
+      "É preciso tirá-la da linha da peça e conter a perda sem lançar nada contra uma tubulação pressurizada."
+    ],
+    "choices": [
+      {
+        "label": "Alcançar a válvula e fechar a perda",
+        "result": "Você passa pelo lado seguro e interrompe o fluxo até Baltasar substituir a braçadeira.",
+        "next": "c_rooftops_done",
+        "xp": 8,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "A peça atinge seu braço antes que a válvula feche. Baltasar retira a moradora e suspende o trabalho.",
+          "next": "c_rooftops_failed",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Cobrir a moradora com o escudo",
+        "result": "Você interpõe a cobertura apenas até ela recuar, deixando Baltasar conter a perda.",
+        "next": "c_rooftops_done",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "coverage"
+          }
+        },
+        "xp": 7,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A proteção aparece baixa demais e não cobre a passagem. Você precisa retirar a moradora sem concluir a troca.",
+          "next": "c_rooftops_failed",
+          "health": -1,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Afastar todos e fechar o registro principal",
+        "result": "Ninguém permanece exposto, mas a instalação precisará de outra equipe para retomar o serviço.",
+        "next": "c_rooftops_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_rooftops_done",
+    "title": "A pressão volta primeiro embaixo",
+    "paragraphs": [
+      "Baltasar abre os registros por etapas e pede que os moradores confiram as torneiras. A lavanderia mantém sua ligação enquanto o direito ao acesso será esclarecido com documentos.",
+      "O pagamento é feito pela ajuda no reparo, sem resolver à força uma disputa que exigia outra conversa."
+    ],
+    "choices": [
+      {
+        "label": "Registrar a conexão no desenho",
+        "result": "Você deixa a informação acessível à próxima pessoa que precisar consertar a linha.",
+        "jenny": 120,
+        "xp": 14,
+        "flags": {
+          "c_rooftops_trusted": true
+        }
+      },
+      {
+        "label": "Pedir uma conferência com os moradores",
+        "result": "A rua confirma o abastecimento antes de encerrar o atendimento.",
+        "jenny": 120,
+        "xp": 14,
+        "flags": {
+          "c_rooftops_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "c_rooftops_failed",
+    "title": "A água continua interrompida",
+    "paragraphs": [
+      "Baltasar fecha a instalação em segurança e providencia outro atendimento. O problema não pode ser lançado como reparo concluído.",
+      "Os moradores ainda precisam de água, e a oficina reorganiza o orçamento sem liberar seu pagamento principal."
+    ],
+    "choices": [
+      {
+        "label": "Entregar as anotações do acesso",
+        "result": "Você registra as conexões encontradas e as decisões que interromperam o serviço, permitindo que outra equipe continue.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_rooftops",
+    "mission": "c_rooftops",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "c_fair_offer",
+    "title": "A feira que mudou de margem",
+    "paragraphs": [
+      "O comerciante Sérgio reservou espaço numa feira do interior, mas uma cheia mudou o ponto de descarga. Ele precisa levar mercadorias e conferir as encomendas sem cobrar dos clientes por perdas que ainda não ocorreram.",
+      "Sérgio paga pela ajuda e oferece uma cópia dos pedidos. Não espera uma escolta armada: espera alguém capaz de dizer quais compromissos ainda podem ser cumpridos."
+    ],
+    "choices": [
+      {
+        "label": "Viajar com as encomendas de Sérgio",
+        "result": "Você confere a lista de pedidos antes da carga sair, com uma cópia para prestar contas depois.",
+        "next": "c_fair_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {
+      "health": 2
+    },
+    "weight": 4
+  },
+  {
+    "id": "c_fair_prepare",
+    "title": "Caixas com destinatários",
+    "paragraphs": [
+      "No depósito, a filha de Sérgio separa as encomendas por comprador. Há ferramentas de um ferreiro e recipientes de uma cozinheira misturados entre produtos de venda livre.",
+      "A viagem pode priorizar o volume mais lucrativo ou aquilo que já foi pago."
+    ],
+    "choices": [
+      {
+        "label": "Priorizar o que os compradores já pagaram",
+        "result": "Você separa as encomendas e deixa Sérgio decidir o que fará com a mercadoria de venda livre.",
+        "next": "c_fair_trial",
+        "flags": {
+          "fair_orders": true
+        }
+      },
+      {
+        "label": "Reorganizar tudo sem perder a conferência",
+        "result": "Você usa os pedidos para marcar caixas e cria uma carga que aproveita espaço sem misturar donos.",
+        "next": "c_fair_trial",
+        "xp": 5,
+        "flags": {
+          "fair_orders": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Duas etiquetas se perdem na pressa. Será preciso conferir as caixas com os compradores antes de vendê-las.",
+          "next": "c_fair_trial",
+          "jenny": -10,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Não assumir o transporte",
+        "result": "Você avisa antes da carga sair. Sérgio encontra outra forma de levar parte dos pedidos.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_fair_trial",
+    "title": "O cais improvisado",
+    "paragraphs": [
+      "O novo desembarque passa por terreno arrendado. A responsável pede uma taxa de uso e explica que precisou reforçar o acesso depois da cheia.",
+      "Sérgio protesta por já ter pago a taxa da feira. São despesas diferentes, mas uma cobrança por caixa tornaria a venda inviável."
+    ],
+    "choices": [
+      {
+        "label": "Negociar uma taxa por viagem",
+        "result": "Você apresenta o volume e combina uma cobrança única, sem fingir que a primeira taxa cobria aquele terreno.",
+        "next": "c_fair_route_a",
+        "jenny": -10,
+        "xp": 7,
+        "test": {
+          "attribute": "presence",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "A negociação se desgasta e o acesso não é liberado. A carga terá de passar pela margem antiga.",
+          "next": "c_fair_route_b",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Usar a licença para consultar a autorização do acesso",
+        "result": "A responsável mostra a cobrança registrada e aceita o valor fixo previsto, em vez de cobrar por caixa.",
+        "next": "c_fair_route_a",
+        "conditions": {
+          "licensed": true
+        },
+        "jenny": -5,
+        "xp": 5
+      },
+      {
+        "label": "Contornar pelo acesso gratuito",
+        "result": "Você recusa a taxa e conduz a carga para uma passagem mais demorada e irregular.",
+        "next": "c_fair_route_b"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_fair_route_a",
+    "title": "Um pedido antes da abertura",
+    "paragraphs": [
+      "A cozinheira precisa dos recipientes para servir comida na feira. Outro comprador oferece mais dinheiro pelas mesmas caixas e quer sair antes de elas serem abertas.",
+      "Sérgio aceita seguir a lista que você ajudou a organizar. Essa decisão mudará quem poderá trabalhar durante o dia."
+    ],
+    "choices": [
+      {
+        "label": "Cumprir as encomendas pagas",
+        "result": "Você entrega o que foi reservado e conserva recibos para Sérgio. A feira abre sem disputar os mesmos objetos.",
+        "next": "c_fair_done",
+        "conditions": {
+          "flags": {
+            "fair_orders": true
+          }
+        },
+        "xp": 8
+      },
+      {
+        "label": "Conferir as caixas junto dos compradores",
+        "result": "Você separa os recipientes antes da venda e resolve a dúvida sobre os destinatários.",
+        "next": "c_fair_done",
+        "xp": 8,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Uma caixa é vendida à pessoa errada. A entrega precisa ser refeita, e o serviço não pode ser concluído nessa viagem.",
+          "next": "c_fair_failed",
+          "jenny": -15,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Aceitar a oferta maior e ignorar a reserva",
+        "result": "Sérgio recebe mais pela venda, mas os compradores pagos ficam sem mercadoria. Seu trabalho de conferência termina contestado.",
+        "next": "c_fair_failed",
+        "jenny": 35,
+        "flags": {
+          "fair_double_sold": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_fair_route_b",
+    "title": "A margem antiga",
+    "paragraphs": [
+      "Um sulco de enxurrada corta o caminho do carro de carga. O condutor se recusa a passar com todas as caixas de uma vez.",
+      "Descarregar parte é possível, mas cada caixa precisará chegar ao ponto de conferência antes do fechamento."
+    ],
+    "choices": [
+      {
+        "label": "Transportar as caixas em etapas",
+        "result": "Você acompanha o condutor e mantém as caixas separadas enquanto o carro atravessa mais leve.",
+        "next": "c_fair_route_a",
+        "xp": 8,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Uma caixa cai no sulco e parte do conteúdo se perde. Você machuca o braço ao impedir que outra caia.",
+          "next": "c_fair_failed",
+          "health": -2,
+          "jenny": -10,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Contratar um segundo carregador",
+        "result": "Vocês distribuem o volume e atravessam sem sobrecarregar a passagem.",
+        "next": "c_fair_route_a",
+        "jenny": -25
+      },
+      {
+        "label": "Usar a corda para guiar o carro vazio",
+        "result": "Você mantém o carro alinhado enquanto o condutor conduz as caixas por uma faixa firme.",
+        "next": "c_fair_route_a",
+        "conditions": {
+          "items": {
+            "rope": 1
+          }
+        },
+        "xp": 7,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A linha prende num apoio ruim. O atraso faz a carga perder o horário combinado.",
+          "next": "c_fair_failed",
+          "xp": 3
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_fair_done",
+    "title": "A lista na mesa da feira",
+    "paragraphs": [
+      "Sérgio confere os pedidos e encontra os recibos que você conservou. A viagem não trouxe apenas um lucro: permitiu que outros vendedores também abrissem suas bancas.",
+      "Ele lhe paga pela organização e pelo transporte. A taxa do acesso entra na conta da viagem, não como culpa do carregador."
+    ],
+    "choices": [
+      {
+        "label": "Entregar as contas separadas",
+        "result": "Você distingue custo de transporte, encomendas e venda livre, deixando o resultado compreensível.",
+        "jenny": 130,
+        "xp": 14,
+        "flags": {
+          "c_fair_trusted": true
+        }
+      },
+      {
+        "label": "Guardar os contatos dos compradores",
+        "result": "Eles aceitam ser procurados em viagens futuras quando houver mercadoria realmente reservada.",
+        "jenny": 130,
+        "xp": 14,
+        "flags": {
+          "c_fair_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "c_fair_failed",
+    "title": "Compromissos que ficaram pendentes",
+    "paragraphs": [
+      "Parte das encomendas não chegou como deveria. Sérgio precisa renegociar entregas antes de contratar outra viagem, e não libera o pagamento principal desta.",
+      "Os compradores lembrarão do que foi prometido e do que aconteceu, inclusive de uma eventual venda duplicada."
+    ],
+    "choices": [
+      {
+        "label": "Entregar os recibos que restaram",
+        "result": "Você fornece uma base para acertar as contas sem apresentar o atraso como uma entrega bem-sucedida.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_fair",
+    "mission": "c_fair",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "c_salvage_offer",
+    "title": "O armário sob a estação",
+    "paragraphs": [
+      "A antiga operadora de máquinas Iraci guardou seus instrumentos num armário da estação desativada. O prédio foi vendido, e a nova responsável dá prazo para retirar os bens antes da limpeza.",
+      "O subsolo está parcialmente alagado. Iraci paga pela recuperação das ferramentas que lhe pertencem, não pela retirada indiscriminada de tudo que houver no prédio."
+    ],
+    "choices": [
+      {
+        "label": "Retirar os pertences de Iraci",
+        "result": "Iraci prepara a relação dos bens e combina o horário de conferência com a nova responsável.",
+        "next": "c_salvage_prepare"
+      },
+      {
+        "label": "Deixar o serviço para outra pessoa",
+        "result": "Você devolve a proposta sem prometer o que não pretende cumprir. A pessoa responsável procura outro nome.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "opportunity",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {
+      "health": 2
+    },
+    "weight": 4
+  },
+  {
+    "id": "c_salvage_prepare",
+    "title": "Uma relação de pertences",
+    "paragraphs": [
+      "Iraci desenha duas marcas gravadas nas ferramentas. O inventário da venda também está disponível; separar os bens evitará uma disputa posterior.",
+      "A nova responsável oferece acompanhar a retirada se você combinar um horário fixo."
+    ],
+    "choices": [
+      {
+        "label": "Combinar uma conferência com as duas partes",
+        "result": "Você leva a lista assinada e garante que a retirada será vista pelas pessoas interessadas.",
+        "next": "c_salvage_trial",
+        "flags": {
+          "salvage_witness": true
+        }
+      },
+      {
+        "label": "Localizar as ferramentas no inventário",
+        "result": "Você encontra as marcas e separa a numeração do armário da instalação que ficou com o prédio.",
+        "next": "c_salvage_trial",
+        "xp": 5,
+        "flags": {
+          "salvage_witness": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "A cópia não inclui uma das páginas. Será preciso conferir os objetos na presença da responsável.",
+          "next": "c_salvage_trial",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Deixar Iraci procurar outra ajuda",
+        "result": "Você devolve a lista enquanto ainda há prazo para contratar alguém.",
+        "mission_end": "abandoned"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_salvage_trial",
+    "title": "Degraus na água",
+    "paragraphs": [
+      "O piso do subsolo desaparece sob água escura. Iraci lembra de um degrau partido ao lado de uma antiga bomba.",
+      "Um pequeno desvio permite chegar à porta sem atravessar a parte mais funda, desde que você consiga identificar o apoio."
+    ],
+    "choices": [
+      {
+        "label": "Iluminar o fundo antes de pisar",
+        "result": "A lanterna revela o degrau partido e uma faixa onde a água não cobre o apoio.",
+        "next": "c_salvage_route_a",
+        "conditions": {
+          "items": {
+            "lantern": 1
+          }
+        },
+        "xp": 6
+      },
+      {
+        "label": "Encontrar o apoio pela borda da escada",
+        "result": "Você testa cada ponto antes de transferir o peso e alcança a porta do armário.",
+        "next": "c_salvage_route_a",
+        "xp": 7,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Seu pé encontra o degrau partido e você cai de lado. Precisa voltar e buscar outro acesso.",
+          "next": "c_salvage_route_b",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Examinar a abertura de manutenção",
+        "result": "Você mantém a lista seca e procura uma entrada que não exija atravessar o piso coberto.",
+        "next": "c_salvage_route_b"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_salvage_route_a",
+    "title": "O armário e a corrente",
+    "paragraphs": [
+      "A madeira inchou e a porta não abre por completo. Uma corrente prende as ferramentas maiores, mas as marcas de Iraci aparecem onde ela descreveu.",
+      "A responsável pela limpeza pergunta se você também levará peças da bomba. Elas pertencem à venda do prédio e não podem ser tratadas como parte do pagamento."
+    ],
+    "choices": [
+      {
+        "label": "Soltar apenas o apoio da corrente",
+        "result": "Você força o ponto certo sem quebrar as ferramentas e leva somente os bens identificados.",
+        "next": "c_salvage_done",
+        "xp": 8,
+        "test": {
+          "attribute": "strength",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "O apoio quebra junto da madeira e parte das ferramentas cai na água. Você precisa sair com um corte no braço.",
+          "next": "c_salvage_failed",
+          "health": -2,
+          "xp": 3
+        }
+      },
+      {
+        "label": "Mover o pequeno fecho com a Agulha de Comando",
+        "result": "Você fixa a agulha no fecho acessível e transmite um movimento simples, liberando a porta sem controlar a estrutura inteira.",
+        "next": "c_salvage_done",
+        "conditions": {
+          "hatsu": {
+            "id": "manipulation",
+            "specialization": "objects"
+          }
+        },
+        "xp": 7,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A agulha não alcança o fecho na posição necessária. Você não consegue liberar a porta a tempo.",
+          "next": "c_salvage_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Levar também peças da bomba como pagamento extra",
+        "result": "A retirada viola a relação de bens. A responsável interrompe o serviço e Iraci se recusa a aceitar a carga.",
+        "next": "c_salvage_failed",
+        "flags": {
+          "salvage_dispute": true
+        }
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_salvage_route_b",
+    "title": "Uma abertura estreita",
+    "paragraphs": [
+      "A tampa de manutenção chega ao lado do armário. Um vizinho oferece ajuda, mas diz que só conseguiu retirar um conjunto parecido antes de o nível subir.",
+      "Sem testemunha ou inventário conferido, tirar qualquer conjunto pode entregar a Iraci ferramentas de outra pessoa."
+    ],
+    "choices": [
+      {
+        "label": "Conferir as marcas com as testemunhas",
+        "result": "Iraci e a responsável reconhecem as marcas. Você retira o conjunto pela abertura e fecha o acesso.",
+        "next": "c_salvage_done",
+        "conditions": {
+          "flags": {
+            "salvage_witness": true
+          }
+        },
+        "xp": 7
+      },
+      {
+        "label": "Comparar as marcas pela abertura",
+        "result": "Você distingue os cortes gravados nas alças e recupera o conjunto certo.",
+        "next": "c_salvage_done",
+        "xp": 8,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "A posição não permite ler as marcas com certeza. Você recusa trocar um bem alheio pelo que veio buscar.",
+          "next": "c_salvage_failed",
+          "xp": 3
+        }
+      },
+      {
+        "label": "Voltar sem retirar um conjunto incerto",
+        "result": "Você preserva a lista e informa a limitação. Outra equipe precisará recuperar os bens identificados.",
+        "next": "c_salvage_failed"
+      }
+    ],
+    "kind": "continuation",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0
+  },
+  {
+    "id": "c_salvage_done",
+    "title": "As marcas de Iraci",
+    "paragraphs": [
+      "Iraci seca as ferramentas e reconhece as marcas que fez quando ainda trabalhava na estação. A responsável confere a lista e libera a limpeza do espaço.",
+      "O pagamento não dependeu de tomar posse do prédio ou de recuperar todas as peças perdidas na água."
+    ],
+    "choices": [
+      {
+        "label": "Entregar os bens e a lista assinada",
+        "result": "Iraci paga pelo trabalho e guarda os instrumentos separados para não criar outra confusão.",
+        "jenny": 110,
+        "xp": 14,
+        "flags": {
+          "c_salvage_trusted": true
+        }
+      },
+      {
+        "label": "Ajudar Iraci a identificar o que ainda serve",
+        "result": "Vocês separam os instrumentos recuperáveis antes de encerrar a entrega.",
+        "jenny": 110,
+        "xp": 14,
+        "flags": {
+          "c_salvage_reserved": true
+        }
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "completed"
+  },
+  {
+    "id": "c_salvage_failed",
+    "title": "O armário fica para outra equipe",
+    "paragraphs": [
+      "Iraci não recebe as ferramentas identificadas. A responsável pela limpeza registra o acesso e mantém os bens separados do restante da venda.",
+      "O prazo precisará ser renegociado. Você não recebe o pagamento principal por uma recuperação que não aconteceu."
+    ],
+    "choices": [
+      {
+        "label": "Entregar a relação e descrever o acesso",
+        "result": "Você devolve os documentos e explica o que impediu a retirada, sem apresentar objetos incertos como se fossem de Iraci.",
+        "xp": 4
+      }
+    ],
+    "kind": "adventure_end",
+    "adventure": "c_salvage",
+    "mission": "c_salvage",
+    "mission_category": "common",
+    "chapter": "Ofícios e caminhos",
+    "conditions": {},
+    "weight": 0,
+    "mission_outcome": "failed"
+  },
+  {
+    "id": "011_hearing",
+    "title": "O horário de uma entrevista",
+    "paragraphs": [
+      "Um jornal local recolhe relatos sobre as mudanças no cais. A entrevistadora Dina quer entender por que pequenos comerciantes passaram a descarregar tão longe das lojas.",
+      "A recepcionista confere seu nome e abre passagem: “Pode entrar, {tratamento}. Dina está terminando uma conversa.” Não há pagamento prometido por falar; há a possibilidade de registrar uma experiência que costuma ficar fora das contas."
+    ],
+    "choices": [
+      {
+        "label": "Descrever apenas o que presenciou",
+        "result": "Dina distingue seu relato das opiniões sobre pessoas que você não conhece. A nota conserva os limites da informação.",
+        "flags": {
+          "public_careful": true
+        }
+      },
+      {
+        "label": "Convencer Dina a ouvir também os carregadores",
+        "result": "Você apresenta um motivo concreto para ampliar a conversa. Ela marca uma entrevista com o turno seguinte.",
+        "xp": 4,
+        "flags": {
+          "public_careful": true
+        },
+        "test": {
+          "attribute": "presence",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "Dina não consegue ampliar o horário e encerra a conversa no relato que você pode comprovar.",
+          "xp": 1
+        }
+      },
+      {
+        "label": "Recusar a entrevista e esperar do lado de fora",
+        "result": "Você deixa o horário para quem quer falar e segue sem assumir uma opinião pública."
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_soup",
+    "title": "O turno da cozinha comunitária",
+    "paragraphs": [
+      "Uma cozinha do bairro recebeu menos voluntários do que esperava. A responsável, Berenice, não precisa de uma demonstração de habilidade: precisa servir porções seguras sem perder os ingredientes disponíveis.",
+      "Ela mostra os lotes separados e avisa que a panela de caldo está perto do ponto de transbordar."
+    ],
+    "choices": [
+      {
+        "label": "Lavar recipientes e organizar a fila",
+        "result": "Você mantém o trabalho simples andando. Berenice consegue servir as pessoas sem desviar toda a equipe.",
+        "flags": {
+          "kitchen_helped": true
+        }
+      },
+      {
+        "label": "Reorganizar o preparo dos lotes",
+        "result": "Você separa o que precisa de mais tempo e evita misturar porções antes do ponto.",
+        "xp": 6,
+        "flags": {
+          "kitchen_helped": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Uma sequência errada consome parte dos ingredientes. Você paga a reposição e deixa Berenice reorganizar o preparo.",
+          "jenny": -10,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Comprar parte dos ingredientes que faltaram",
+        "result": "Berenice confere a compra e inclui o valor na prestação de contas da cozinha.",
+        "jenny": -15,
+        "flags": {
+          "kitchen_helped": true
+        }
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_infirmary",
+    "title": "Uma espera na enfermaria",
+    "paragraphs": [
+      "A enfermaria de um distrito pede ajuda na organização dos registros enquanto a médica atende. O corredor está cheio, mas ninguém oferece um diagnóstico improvisado em troca de dinheiro.",
+      "A escriturária divide senhas e pergunta se você pode levar papéis de uma mesa a outra sem divulgar o que leu."
+    ],
+    "choices": [
+      {
+        "label": "Organizar os papéis sem ler os prontuários",
+        "result": "Você mantém as senhas com seus titulares e facilita o trabalho sem invadir informações pessoais.",
+        "jenny": 10
+      },
+      {
+        "label": "Pagar por um atendimento para seus ferimentos",
+        "result": "A médica limpa e avalia seus ferimentos durante o horário de atendimento. A consulta não substitui cuidados fora dali.",
+        "jenny": -25,
+        "health": 3
+      },
+      {
+        "label": "Deixar a passagem livre e seguir",
+        "result": "Você não ocupa uma vaga de trabalho nem um assento necessário a quem espera atendimento."
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_wall",
+    "title": "O reboco sobre a passagem",
+    "paragraphs": [
+      "Um pedreiro interrompe a passagem ao perceber uma placa de reboco soltando acima da calçada. Duas pessoas ainda estão do outro lado da faixa que ele conseguiu improvisar.",
+      "Há tempo para alertá-las ou ajudar a manter o acesso livre; passar depressa por baixo da placa pode deslocá-la."
+    ],
+    "choices": [
+      {
+        "label": "Avisar as pessoas e manter a faixa",
+        "result": "Você ajuda a desviar a circulação até a equipe retirar a placa com seus próprios apoios."
+      },
+      {
+        "label": "Alcançar o outro lado antes de a placa cair",
+        "result": "Você atravessa pela faixa livre e orienta as pessoas para fora da área.",
+        "xp": 6,
+        "test": {
+          "attribute": "agility",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "A placa solta um fragmento enquanto você passa. O pedreiro consegue retirar as outras pessoas, mas você se fere.",
+          "health": -2,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Interpor o Escudo Materializado",
+        "result": "A Resistência segura os fragmentos menores durante a retirada. O escudo dura apenas o intervalo necessário, sem sustentar a parede inteira.",
+        "conditions": {
+          "hatsu": {
+            "id": "conjuration",
+            "specialization": "resistance"
+          }
+        },
+        "xp": 5,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "A posição do escudo não cobre a queda de todos os fragmentos. Você se machuca antes de deixar a área.",
+          "health": -1,
+          "xp": 2
+        }
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_tuning",
+    "title": "A corda de um instrumento",
+    "paragraphs": [
+      "Um músico chamado Ivo confere o instrumento antes de tocar na praça. Uma peça do suporte quebrou e a apresentação paga pelas refeições do grupo naquele dia.",
+      "Ele aceita ajuda, mas pede que ninguém use a peça restante como alavanca: ela está tensionada."
+    ],
+    "choices": [
+      {
+        "label": "Improvisar um apoio com as peças soltas",
+        "result": "Você identifica um apoio fora da parte tensionada e permite que Ivo afine o instrumento.",
+        "xp": 5,
+        "jenny": 12,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 12
+        },
+        "failure": {
+          "result": "O apoio não firma. Você reconhece o limite e compra uma reposição simples para substituir a peça que gastou.",
+          "jenny": -8,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Pagar a reposição da peça",
+        "result": "Ivo acompanha a compra e consegue tocar no horário combinado.",
+        "jenny": -12,
+        "flags": {
+          "musician_helped": true
+        }
+      },
+      {
+        "label": "Esperar a apresentação sem mexer no instrumento",
+        "result": "O grupo reorganiza o repertório usando o que ainda pode tocar com segurança."
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_notice",
+    "title": "A informação que a licença abre",
+    "paragraphs": [
+      "Uma funcionária do centro de transporte confirma sua licença antes de permitir a consulta a um boletim restrito. Ele descreve um trecho de acesso suspenso por trabalhos de manutenção.",
+      "O documento não oferece passagem gratuita nem prioridade sobre passageiros em risco. Serve para que profissionais não aceitem viagens com informações desatualizadas."
+    ],
+    "choices": [
+      {
+        "label": "Anotar os acessos oficialmente liberados",
+        "result": "Você obtém o boletim sem custo e evita comprar uma autorização de atravessador. A informação será útil ao avaliar viagens.",
+        "flags": {
+          "hunter_informed": true
+        },
+        "xp": 4
+      },
+      {
+        "label": "Compartilhar apenas o aviso público de interdição",
+        "result": "Você pede à funcionária qual parte pode ser divulgada e transmite o aviso permitido sem expor registros reservados.",
+        "flags": {
+          "hunter_informed": true
+        }
+      }
+    ],
+    "conditions": {
+      "licensed": true
+    },
+    "weight": 2,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_raincoat",
+    "title": "A bagagem de quem chegou antes",
+    "paragraphs": [
+      "Uma viajante chamada Luma vende parte da bagagem para pagar um conserto no alojamento. Ela não quer vender a fotografia de família que apareceu entre os objetos espalhados na mesa.",
+      "Enquanto confere uma ferramenta, você percebe um recibo antigo dobrado junto da fotografia. Luma o procura sem saber onde guardou."
+    ],
+    "choices": [
+      {
+        "label": "Devolver o recibo sem abrir a fotografia",
+        "result": "Luma consegue demonstrar o adiantamento que já pagou. Ela agradece por você não confundir o que estava à venda com o que era pessoal.",
+        "flags": {
+          "luma_respected": true
+        }
+      },
+      {
+        "label": "Comprar a ferramenta sem pedir desconto pela urgência",
+        "result": "Você paga pelo objeto simples e o deixa com o alojamento para ajudar no conserto, sem acrescentá-lo à sua bagagem.",
+        "jenny": -10,
+        "flags": {
+          "luma_respected": true
+        }
+      },
+      {
+        "label": "Seguir sem participar da venda",
+        "result": "Luma continua organizando os pertences com quem já estava examinando a mesa."
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_register",
+    "title": "Uma cópia no cartório",
+    "paragraphs": [
+      "Uma família precisa de cópias de um registro para resolver a transferência de uma pequena loja. O atendente explica que o original não pode sair do balcão.",
+      "A fila tem outros assuntos igualmente urgentes. Mesmo uma Licença Hunter não substitui a assinatura de quem é dono do documento."
+    ],
+    "choices": [
+      {
+        "label": "Conferir a transcrição antes de pagarem",
+        "result": "Você encontra uma diferença entre o número do imóvel e a cópia, evitando que a família volte outro dia.",
+        "xp": 6,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Você deixa passar um número trocado. A família precisa pedir outra via; você assume o custo da cópia que conferiu.",
+          "jenny": -12,
+          "xp": 2
+        }
+      },
+      {
+        "label": "Ajudar a família a organizar os documentos",
+        "result": "Você separa as folhas que o atendente pediu e libera espaço para a conferência."
+      },
+      {
+        "label": "Pagar a taxa de uma cópia conferida pelo atendente",
+        "result": "O atendente recebe o valor e entrega a via certificada à titular.",
+        "jenny": -15
+      }
+    ],
+    "conditions": {},
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_capture_follow",
+    "title": "O carregador reconhece você",
+    "paragraphs": [
+      "Um dos carregadores do armazém de Varda encontra você num local de refeições. A captura de Brás não acabou com o trabalho dele; agora precisa comprovar que certas cargas não pertenciam ao suspeito.",
+      "Ele pede apenas uma confirmação do que você realmente viu. Inventar que conferiu todas as caixas o ajudaria por um dia e comprometeria o processo depois."
+    ],
+    "choices": [
+      {
+        "label": "Confirmar somente as cargas que presenciou",
+        "result": "O carregador leva um relato limitado, mas verificável. Nélia consegue usá-lo sem alterar o que ficou pendente.",
+        "xp": 5,
+        "flags": {
+          "capture_followed": true
+        }
+      },
+      {
+        "label": "Acompanhar a conferência e pagar a cópia do recibo",
+        "result": "Você deixa a questão ser resolvida com os documentos e evita uma certeza fabricada.",
+        "jenny": -10,
+        "flags": {
+          "capture_followed": true
+        }
+      },
+      {
+        "label": "Inventar uma conferência completa",
+        "result": "O documento entra em conflito com o registro do depósito. A colaboração anterior passa a exigir esclarecimento.",
+        "flags": {
+          "capture_false_statement": true
+        },
+        "jenny": -20
+      }
+    ],
+    "conditions": {
+      "flags": {
+        "h_capture_completed": true
+      },
+      "licensed": true
+    },
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_fair_follow",
+    "title": "A encomenda lembrada",
+    "paragraphs": [
+      "Uma compradora da feira guarda seu nome junto dos recibos. Como as encomendas chegaram corretamente, ela oferece um trabalho curto de conferência antes de abrir a própria banca.",
+      "A proposta não repete a viagem de Sérgio: é uma prestação de contas com os recibos que ficaram, resolvida naquela manhã."
+    ],
+    "choices": [
+      {
+        "label": "Conferir os comprovantes da banca",
+        "result": "Você identifica os pagamentos sem cobrar duas vezes e recebe pelo serviço.",
+        "xp": 7,
+        "jenny": 25,
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 13
+        },
+        "failure": {
+          "result": "Uma soma permanece sem comprovação. A compradora pede que você refaça a conta antes de pagar e o horário de serviço termina.",
+          "xp": 2
+        }
+      },
+      {
+        "label": "Indicar alguém que possa conferir com tempo",
+        "result": "Você não promete trabalho sem disponibilidade. A compradora conserva os contatos da entrega anterior."
+      }
+    ],
+    "conditions": {
+      "flags": {
+        "c_fair_completed": true
+      }
+    },
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_fair_reckoning",
+    "title": "O recibo de uma venda duplicada",
+    "paragraphs": [
+      "A cozinheira da feira apresenta o recibo da mercadoria que pagou e não recebeu. Sérgio confirma que a caixa acabou vendida a outra pessoa durante sua viagem.",
+      "Ela não quer uma ameaça nem uma história sobre o mercado: quer saber se você participará do ressarcimento ou se a disputa precisará ser registrada."
+    ],
+    "choices": [
+      {
+        "label": "Contribuir para devolver o adiantamento",
+        "result": "Você entrega a quantia combinada e assina sua participação no acerto. O pagamento extra daquela viagem deixa de parecer um ganho sem custo.",
+        "jenny": -45,
+        "flags": {
+          "fair_repaid": true
+        }
+      },
+      {
+        "label": "Prestar um relato verdadeiro sem pagar agora",
+        "result": "Você reconhece a decisão e permite que o pedido seja apurado com seu depoimento. O conflito não desaparece, mas não depende de uma mentira nova.",
+        "flags": {
+          "fair_dispute_open": true
+        }
+      },
+      {
+        "label": "Negar o que consta do recibo",
+        "result": "A cozinheira registra a contradição. Uma futura apresentação sua não poderá se apoiar na confiança daquele grupo.",
+        "flags": {
+          "fair_dispute_open": true,
+          "dishonest": true
+        }
+      }
+    ],
+    "conditions": {
+      "flags": {
+        "fair_double_sold": true
+      }
+    },
+    "weight": 4,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  },
+  {
+    "id": "011_market_reckoning",
+    "title": "A conta que ficou para depois",
+    "paragraphs": [
+      "A vendedora do mercado reconhece você e mostra a conferência feita pela sócia. O erro não estava onde você procurou, e elas precisaram remarcar um pagamento por causa da dúvida.",
+      "Ela oferece uma oportunidade de esclarecer a indicação anterior, sem prometer a remuneração que você não chegou a conquistar."
+    ],
+    "choices": [
+      {
+        "label": "Reconhecer a limitação da primeira conferência",
+        "result": "Você não tenta receber por uma descoberta alheia. A vendedora aceita distinguir um erro reconhecido de uma indicação inventada.",
+        "flags": {
+          "merchant_mistake_addressed": true
+        }
+      },
+      {
+        "label": "Conferir o novo recibo junto da sócia",
+        "result": "A conferência conjunta encontra a diferença antes de qualquer cobrança e recupera parte da confiança.",
+        "xp": 6,
+        "flags": {
+          "merchant_help": true
+        },
+        "test": {
+          "attribute": "intellect",
+          "difficulty": 14
+        },
+        "failure": {
+          "result": "Você ainda não consegue separar as duas despesas. A sócia conclui a conta e não aceitará outra indicação sua neste trabalho.",
+          "xp": 2,
+          "flags": {
+            "merchant_refused": true
+          }
+        }
+      }
+    ],
+    "conditions": {
+      "flags": {
+        "merchant_mistake": true
+      }
+    },
+    "weight": 3,
+    "kind": "independent",
+    "chapter": "Pessoas pelo caminho",
+    "repeat": {
+      "max": 1,
+      "gap": 0
+    }
+  }
+]

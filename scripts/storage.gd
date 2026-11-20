@@ -26,7 +26,10 @@ static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> 
         if d.get("current") in ["end_home","end_path","end_duty"]: d["current"]="journey_"+str(d["current"]).trim_prefix("end_"); d["seen"].append(d["current"])
     for key in ["name","current","next","result","seed","rng"]:
         if not d.get(key) is String: return {"error":"Campo de texto inválido."}
-    if not integer(d.get("version"),2,9) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
+    if not integer(d.get("version"),2,10) or d["name"].strip_edges().is_empty() or d["name"].length()>32 or not s.catalog.events.has(d["current"]): return {"error":"Identidade ou evento inválido."}
+    if d["version"]>=10:
+        if d.get("gender") not in ["unspecified","male","female"]:return {"error":"Gênero inválido."}
+        s.gender=d["gender"]
     if d["next"]!="" and not s.catalog.events.has(d["next"]): return {"error":"Continuação inválida."}
     if not d.get("active") is bool or not d.get("attributes") is Dictionary or not d.get("flags") is Dictionary or not d.get("seen") is Array or not d.get("records") is Array: return {"error":"Estado incompleto."}
     if not integer(d.get("jenny"),0,1000000) or not integer(d.get("choice"),-1,s.catalog.events[d["current"]]["choices"].size()-1): return {"error":"Valores inválidos."}
@@ -43,7 +46,7 @@ static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> 
     if d["current"] not in seen or not d["seed"].is_valid_int() or not d["rng"].is_valid_int(): return {"error":"Continuidade inválida."}
     if d["choice"]==-1 and (d["next"]!="" or d["result"]!=""): return {"error":"Escolha inconsistente."}
     s.character_name=d["name"]; s.attributes=d["attributes"]; s.jenny=int(d["jenny"]); s.flags=d["flags"]; s.seen=seen
-    s.current_id=d["current"]; s.demo=s.catalog.events[s.current_id]; s.selected_choice=int(d["choice"]); s.pending_next=d["next"]; s.active_adventure=d["active"]; s.result=d["result"]; s.records.assign(d["records"])
+    s.current_id=d["current"]; s.demo=s.catalog.describe(s.current_id,s); s.selected_choice=int(d["choice"]); s.pending_next=d["next"]; s.active_adventure=d["active"]; s.result=d["result"]; s.records.assign(d["records"])
     for key in s.attributes: s.attributes[key]=int(s.attributes[key])
     s.rng.seed=int(d["seed"]); s.rng.state=int(d["rng"])
     if d["version"]>=3:
@@ -52,8 +55,8 @@ static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> 
         for id in seen:
             if not integer(d["visits"].get(id),1,100000) or not integer(d["last_visit"].get(id),1,int(d["step"])): return {"error":"Repetição inválida."}
         for id in d["completed"]:
-            if id not in ["delivery","survey","nen","escort","ruins","affinity"] or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
-        if d["adventure"] not in ["","delivery","survey","nen","exam","escort","ruins","affinity"] or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
+            if id not in s.catalog.adventures() or d["completed"].count(id)>1: return {"error":"Conclusão inválida."}
+        if d["adventure"]!="" and d["adventure"] not in s.catalog.adventures() or d["active"]!=(d["adventure"]!=""): return {"error":"Aventura inconsistente."}
         s.visits=d["visits"];s.last_visit=d["last_visit"];s.step=int(d["step"]);s.completed=d["completed"];s.current_adventure=d["adventure"]
         for id in seen: s.visits[id]=int(s.visits[id]);s.last_visit[id]=int(s.last_visit[id])
     else:
@@ -103,10 +106,12 @@ static func load_state(path: String = PATH, respect_checkpoint: bool = true) -> 
         s.inventory=d["inventory"].duplicate(true)
         s.inventory["revision"]=int(s.inventory["revision"])
         for id in s.inventory["items"]:s.inventory["items"][id]=int(s.inventory["items"][id])
-    if d["version"]==9:
+    if d["version"]>=9:
         if not State.Exam.valid(d.get("exam"),s):return {"error":"Participação ou licença do exame inválida."}
         s.exam=d["exam"].duplicate(true);s.exam["stage"]=int(s.exam["stage"]);s.exam["setbacks"]=int(s.exam["setbacks"])
     elif s.Items.quantity(s,"hunter_license")>0:return {"error":"Licença sem aprovação registrada."}
+    s.missions=d.get("missions",{}) if d["version"]>=10 else State.Missions.migrate(s)
+    if not State.Missions.valid(s.missions,s):return {"error":"Continuidade de missão inválida."}
     if not State.Affinity.valid_state(s):return {"error":"Continuidade da avaliação inválida."}
     if respect_checkpoint and path==PATH:return restore_affinity(s)
     return {"state":s,"error":""}

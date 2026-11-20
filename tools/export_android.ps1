@@ -18,7 +18,7 @@ if(-not(Test-Path -LiteralPath (Join-Path $AndroidSdk 'build-tools\36.0.0\apksig
 $env:JAVA_HOME=$JavaSdk
 $env:ANDROID_HOME=$AndroidSdk
 $env:PATH=(Join-Path $JavaSdk 'bin')+';'+$env:PATH
-$output=if($OutputPath){[IO.Path]::GetFullPath($OutputPath)}else{Join-Path $projectRoot 'builds\android\Hunter-Life-0.1.0-test2.apk'}
+$output=if($OutputPath){[IO.Path]::GetFullPath($OutputPath)}else{Join-Path $projectRoot 'builds\android\Hunter-Life-0.1.1-test.apk'}
 New-Item -ItemType Directory -Force -Path (Split-Path $output -Parent) | Out-Null
 & $GodotPath --headless --path $env:TEMP --script (Join-Path $PSScriptRoot 'configure_android.gd')
 if($LASTEXITCODE -ne 0){throw 'Falha ao configurar caminhos Android no editor.'}

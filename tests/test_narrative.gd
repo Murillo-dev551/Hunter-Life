@@ -12,11 +12,15 @@ func run() -> void:
     s.start("Lia")
     var distribution: Dictionary = {}
     for i in range(1000):
-        s.seen=[];s.visits={};s.last_visit={};s.active_adventure=false;s.current_adventure=""
+        s.seen=[];s.visits={};s.missions={};s.last_visit={};s.active_adventure=false;s.current_adventure=""
         var id: String = s.catalog.select(s)
         distribution[id]=int(distribution.get(id,0))+1
         check(s.catalog.events[id]["weight"]>0,"Somente eventos independentes elegíveis")
-    check(distribution.size()==26,"Seleção diversificada")
+    var eligible_count=0
+    for id in s.catalog.events:
+        var event=s.catalog.events[id]
+        if event["kind"] in ["independent","opportunity"] and event.weight>0 and s.catalog.available(id,s) and s.catalog.eligible(event["conditions"],s):eligible_count+=1
+    check(distribution.size()==eligible_count,"Todas as oportunidades elegíveis estão representadas")
     s.open_event("bridge")
     check(s.choice_reason(1)!="","Flag bloqueia desvio")
     s.flags["prepared"]=true

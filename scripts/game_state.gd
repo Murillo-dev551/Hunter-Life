@@ -1,4 +1,7 @@
 extends RefCounted
+const Missions=preload("res://scripts/missions.gd")
+var missions: Dictionary={}
+var gender: String="unspecified"
 const INITIAL_ATTRIBUTES = {"strength":5,"agility":5,"intellect":5,"presence":5}
 const ATTRIBUTE_NAMES = {"strength":"Força","agility":"Agilidade","intellect":"Intelecto","presence":"Presença"}
 const Exam=preload("res://scripts/exam.gd")
@@ -42,7 +45,8 @@ var rng = RandomNumberGenerator.new()
 func _init() -> void:
     error = catalog.error
     rng.randomize()
-func start(raw_name: String, inclination: int = 0) -> String:
+func start(raw_name: String, inclination: int = 0, selected_gender: String="unspecified") -> String:
+    if selected_gender not in ["unspecified","male","female"]:return "Selecione uma opção de gênero válida."
     var clean: String = raw_name.strip_edges().replace("\n"," ").replace("\r"," ").replace("\t"," ")
     if clean.is_empty(): return "Dê um nome ao personagem para começar."
     if clean.length()>32: return "Use um nome com até 32 caracteres."
@@ -50,6 +54,8 @@ func start(raw_name: String, inclination: int = 0) -> String:
     battle={};inventory=Items.fresh();exam=Exam.fresh();affinity=Affinity.fresh()
     level=1;xp=0;points=0;health=10;nen=Nen.fresh();hatsu=Hatsu.fresh()
     character_name=clean; attributes=INITIAL_ATTRIBUTES.duplicate(); jenny=250
+    gender=selected_gender;missions={}
+    current_id="";demo={};selected_choice=-1
     attributes=starting_attributes(inclination)
     nen["category"]=Nen.CATEGORIES[rng.randi_range(0,5)] # Fixada por personagem, oculta até a água.
     visits={};last_visit={};step=0;completed=[];current_adventure=""
@@ -58,13 +64,23 @@ func start(raw_name: String, inclination: int = 0) -> String:
     open_event(catalog.select(self))
     return ""
 func open_event(id: String) -> void:
+    if id==current_id and selected_choice==-1 and id in seen:return
     if Battle.active(self):return
     if affinity["phase"]=="learned" and id.begins_with("affinity_"):return
     if Affinity.locked(self) and (id!=Affinity.target(self) or id==current_id):return
-    current_id=id; demo=catalog.events[id]; selected_choice=-1; result=""
+    var target: Dictionary=catalog.events[id]
+    if target.has("mission"):
+        if not catalog.eligible(target["conditions"],self):return
+        if missions.get(target["mission"],"") in ["completed","failed","abandoned","archived"]:return
+    var previous_mission: String=Missions.id_for(demo)
+    if previous_mission!="" and previous_mission!=Missions.id_for(target) and missions.get(previous_mission,"") in ["offered","active"]:
+        missions[previous_mission]="abandoned"
+        if current_adventure==previous_mission:current_adventure="";active_adventure=false
+    current_id=id; demo=catalog.describe(id,self); selected_choice=-1; result=""
     step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
     if id not in seen: seen.append(id)
     if demo["kind"] in ["opportunity","continuation"]: active_adventure=true;current_adventure=demo.get("adventure","")
+    Missions.on_open(self)
     if demo["kind"]=="adventure_end": finish_adventure()
     if demo["kind"]=="ending": active_adventure=false;current_adventure=""
     Exam.on_open(self)
@@ -89,6 +105,7 @@ func choice_reason(index: int) -> String:
 func choose(index: int) -> bool:
     if not battle.is_empty() or health<=0 or character_name.is_empty() or selected_choice!=-1 or index<0 or index>=demo.get("choices",[]).size(): return false
     if choice_reason(index)!="": return false
+    if demo.has("mission") and not catalog.eligible(demo["conditions"],self):return false
     var choice: Dictionary = demo["choices"][index]
     var effect: Dictionary = choice
     var test_text: String = ""
@@ -120,10 +137,12 @@ func choose(index: int) -> bool:
     for key in effect.get("flags",{}): flags[key]=effect["flags"][key]
     if effect.get("finish_adventure",false): finish_adventure()
     pending_next=effect.get("next","")
+    Missions.apply(self,effect)
     points=mini(points,Progress.room(self))
     var gained_xp: int=maxi(0,int(effect.get("xp",0)))
     var levels: int=Progress.award(self,gained_xp)
     health=clampi(health+int(effect.get("health",0)),0,10)
+    if effect.get("death",false):health=0;flags["journey_deceased"]=true
     var exam_text: String=Exam.apply(self,effect)
     Affinity.apply(self,choice,affinity_roll,affinity_value,affinity_difficulty,affinity_success)
     result=effect["result"]+test_text+exam_text+Items.apply(self,effect)+Nen.apply(self,effect)+Hatsu.apply(self,effect)
@@ -131,9 +150,10 @@ func choose(index: int) -> bool:
     if levels>0: result+="\nNível %d alcançado · %d ponto(s) disponível(is)." % [level,points]
     if health!=old_health: result+="\n%+d Saúde (%d/10)" % [health-old_health,health]
     if health==0:
+        Missions.incapacitated(self)
         if exam["status"]=="active":Exam.conclude(self,"failed")
         active_adventure=false;current_adventure="";pending_next=""
-        result+="\nSem condições de prosseguir, você recebe socorro e abandona a vida de aventuras. Sua jornada termina aqui, sem morte automática."
+        result+="\nSua vida termina no desabamento; o registro da expedição conserva seu nome." if flags.get("journey_deceased",false) else "\nSem condições de prosseguir, você recebe socorro e abandona a vida de aventuras. Sua jornada termina aqui, sem morte automática."
     for key in effect.get("attributes",{}):
         if attributes[key]!=old_attributes[key]: result+="\n%+d %s (%d/10)" % [attributes[key]-old_attributes[key],ATTRIBUTE_NAMES[key],attributes[key]]
     if jenny!=old_money: result+="\n%+d Jenny" % (jenny-old_money)
@@ -148,12 +168,13 @@ func advance() -> bool:
     open_event(next)
     return true
 func serialize() -> Dictionary:
-    return {"version":9,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
+    return {"version":10,"gender":gender,"missions":missions,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
+    Missions.finish(self)
     if current_adventure!="" and flags.get(current_adventure+"_completed",false) and current_adventure not in completed:
         completed.append(current_adventure)
-        records.append("Aventura concluída: "+current_adventure)
+        records.append("Aventura concluída: "+(catalog.mission_name(current_adventure) if catalog.mission_entries.has(current_adventure) else current_adventure))
     current_adventure="";active_adventure=false
 static func starting_attributes(inclination: int) -> Dictionary:
     var values: Dictionary=INITIAL_ATTRIBUTES.duplicate()

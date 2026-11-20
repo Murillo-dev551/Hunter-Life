@@ -123,7 +123,7 @@ func run() -> void:
         other.open_event(pair[0])
         check(other.choice_reason(index)!="","Outra especialização não substitui a necessária")
     var old=ready("reinforce","resistance");old.open_event("market");old=load_same(old)
-    check(old.hatsu["id"]=="reinforce" and old.serialize()["version"]==9,"Save v9 anterior preservado")
+    check(old.hatsu["id"]=="reinforce" and old.serialize()["version"]==10,"Save v9 anterior preservado")
     var invalid: Dictionary=old.serialize().duplicate(true)
     invalid["hatsu"]={"id":"conjuration","specialization":"coverage","learned":true}
     var f=FileAccess.open(PATH,FileAccess.WRITE);f.store_string(JSON.stringify(invalid));f.close()

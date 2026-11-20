@@ -329,7 +329,7 @@ func start_game(raw_name: String) -> void:
     build_session()
 func create_in_slot(raw_name: String) -> void:
     var candidate=State.new()
-    var error: String=candidate.start(raw_name,creation_view.inclination.selected)
+    var error: String=candidate.start(raw_name,creation_view.inclination.selected,creation_view.GENDERS[creation_view.gender.selected])
     if error=="":error=slots.create(selected_slot,candidate)
     if error!="":creation_view.show_error(error);return
     state=candidate;active_slot=selected_slot;active_token=slots.token(active_slot)
@@ -372,7 +372,8 @@ func build_session() -> void:
     UI.Motion.enter(adventure_view)
 func build_character() -> void:
     character_content.add_child(UI.title(state.character_name))
-    character_content.add_child(UI.label("Hunter licenciado" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",14,UI.GREEN))
+    character_content.add_child(UI.label("Gênero: "+{"male":"Masculino","female":"Feminino","unspecified":"Não especificado"}[state.gender],14,UI.MUTED))
+    character_content.add_child(UI.label("Hunter com licença" if state.exam["status"]=="approved" and state.exam["awarded"] else "Sem Licença Hunter",14,UI.GREEN))
     character_content.add_child(UI.label("Viajante · Uma história por escrever",15,UI.MUTED))
     var progress = UI.card(character_content)
     progress.add_child(UI.label("Nível %d · Saúde %d/10" % [state.level,state.health],20,UI.GREEN))
@@ -438,7 +439,7 @@ func build_character() -> void:
     reset.pressed.connect(show_slots)
     character_content.add_child(reset)
     character_content.add_child(UI.label("Aventuras concluídas: %d" % state.completed.size(),14,UI.GREEN))
-    var end_button = UI.button("Escolher o final da jornada")
+    var end_button = UI.button("Pensar nos próximos caminhos")
     end_button.disabled=state.Battle.active(state) or state.health==0 or state.active_adventure or state.demo["kind"]=="ending"
     end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
     end_button.pressed.connect(func(): state.open_event("crossroads"); build_session())

@@ -1,0 +1,122 @@
+{
+  "market": {
+    "choice_patches": {
+      "0": {
+        "failure": {
+          "result": "Você não consegue separar as cobranças e a vendedora remarca o pagamento para conferir com a sócia. A dúvida não rende remuneração e deixa uma conta que ela poderá cobrar de você em outro encontro.",
+          "xp": 3,
+          "flags": {
+            "merchant_mistake": true
+          }
+        }
+      }
+    }
+  },
+  "dock": {
+    "choice_patches": {
+      "1": {
+        "failure": {
+          "result": "Uma caixa desliza e prende sua mão contra o apoio. Você termina só parte do turno e recebe o pagamento parcial; o ferimento acompanha o esforço que ficou incompleto.",
+          "jenny": 8,
+          "xp": 4,
+          "health": -1
+        }
+      }
+    }
+  },
+  "traveler": {
+    "choice_patches": {
+      "1": {
+        "failure": {
+          "result": "O carroceiro está atrasado e não muda a rota. Você paga a ajuda de um carregador para levar a bagagem até a rua certa, mas o viajante terá de resolver o embarque com menos tempo.",
+          "xp": 4,
+          "jenny": -5,
+          "flags": {
+            "traveler_delayed": true
+          }
+        }
+      }
+    }
+  },
+  "cart": {
+    "choice_patches": {
+      "1": {
+        "failure": {
+          "result": "O tronco quebra antes de erguer o eixo. Você afasta as mãos a tempo, mas paga a peça danificada da cerca e deixa a família organizar outra solução.",
+          "xp": 5,
+          "jenny": -8
+        }
+      }
+    }
+  },
+  "tournament": {
+    "choice_patches": {
+      "2": {
+        "failure": {
+          "result": "Duas pessoas avançam ao mesmo tempo e a bandeira cai. A equipe perde a colocação e pede que você não prometa coordenar outro grupo sem primeiro ouvir quem fará a travessia.",
+          "xp": 4,
+          "flags": {
+            "team_disappointed": true
+          }
+        }
+      }
+    }
+  },
+  "crossroads": {
+    "paragraphs": [
+      "Você abre o diário numa mesa tranquila e encontra páginas marcadas por poeira, contas e caminhos riscados. Pela primeira vez em algum tempo, ninguém espera uma resposta imediata.",
+      "Um morador fala de uma casa vaga, uma oficina precisa de alguém todos os dias e há ainda transporte para outro distrito. Ficar ou assumir um ofício significa deixar os trabalhos de passagem; partir para outra fase significa guardar este volume de viagens."
+    ],
+    "choice_patches": {
+      "0": {
+        "label": "Procurar a casa e desfazer a bagagem"
+      },
+      "1": {
+        "label": "Guardar o diário e partir para outra fase"
+      },
+      "2": {
+        "label": "Assumir o ofício diário na comunidade"
+      }
+    }
+  },
+  "end_path": {
+    "title": "Depois da entrega",
+    "choice_patches": {
+      "1": {
+        "label": "Guardar o diário e deixar as encomendas de passagem"
+      }
+    }
+  },
+  "end_home": {
+    "title": "Depois da entrega",
+    "choice_patches": {
+      "1": {
+        "label": "Alugar uma casa e estabelecer-se aqui"
+      }
+    }
+  },
+  "end_duty": {
+    "title": "Depois da entrega",
+    "choice_patches": {
+      "1": {
+        "label": "Assumir um ofício permanente no abrigo"
+      }
+    }
+  },
+  "survey_done": {
+    "choice_patches": {
+      "0": {
+        "label": "Despedir-se e voltar à estrada"
+      },
+      "1": {
+        "label": "Aceitar trabalho regular na cooperativa"
+      }
+    }
+  },
+  "nen_offer": {
+    "weight": 4
+  },
+  "exam_invite": {
+    "weight": 4
+  }
+}
