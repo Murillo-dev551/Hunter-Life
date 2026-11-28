@@ -61,6 +61,9 @@ func open_event(id: String) -> void:
     if Battle.active(self):return
     if affinity["phase"]=="learned" and id.begins_with("affinity_"):return
     if Affinity.locked(self) and (id!=Affinity.target(self) or id==current_id):return
+    # Um confronto já encerrado ou uma continuação pendente pertencem ao acontecimento anterior.
+    # Sem esta limpeza, atalhos da aba Personagem exibiam a batalha antiga e geravam saves inválidos.
+    battle={};pending_next=""
     current_id=id; demo=catalog.events[id]; selected_choice=-1; result=""
     step+=1;visits[id]=int(visits.get(id,0))+1;last_visit[id]=step
     if id not in seen: seen.append(id)
@@ -105,8 +108,10 @@ func choose(index: int) -> bool:
         test_text="\n%s: d20 %d + %d = %d contra %d · %s." % [ATTRIBUTE_NAMES[test["attribute"]],roll,value,roll+value,int(test["difficulty"]),"sucesso" if success else "fracasso"]
         if not success: effect=choice["failure"]
     effect=effect.duplicate(true)
-    if int(visits.get(current_id,1))>1:
-        effect=effect.duplicate(true)
+    # Uma técnica de Nen ainda não aprendida é progresso único, não recompensa repetida:
+    # retomar o convite de Mira depois de interromper Ten mantém o XP normal da prática.
+    var first_learning: bool=effect.get("nen_learn","") in ["ten","zetsu","ren"] and effect["nen_learn"] not in nen["techniques"]
+    if int(visits.get(current_id,1))>1 and not first_learning:
         effect.erase("attributes")
         effect.erase("items_add")
         if int(effect.get("xp",0))>0: effect["xp"]=floori(int(effect["xp"])*float(demo.get("repeat_reward_scale",0)))
@@ -137,7 +142,8 @@ func choose(index: int) -> bool:
     for key in effect.get("attributes",{}):
         if attributes[key]!=old_attributes[key]: result+="\n%+d %s (%d/10)" % [attributes[key]-old_attributes[key],ATTRIBUTE_NAMES[key],attributes[key]]
     if jenny!=old_money: result+="\n%+d Jenny" % (jenny-old_money)
-    if effect.has("battle"):Battle.begin(self,effect["battle"])
+    # Sem Saúde, um confronto ficaria aberto sem ações válidas e invalidaria o save.
+    if effect.has("battle") and health>0:Battle.begin(self,effect["battle"])
     records.append("%s — %s" % [demo["title"],choice["label"]]); records.append(result)
     return true
 func advance() -> bool:
@@ -151,7 +157,9 @@ func serialize() -> Dictionary:
     return {"version":9,"affinity":affinity,"exam":exam,"inventory":inventory,"battle":battle,"hatsu":hatsu,"nen":nen,"level":level,"xp":xp,"points":points,"health":health,"visits":visits,"last_visit":last_visit,"step":step,"completed":completed,"adventure":current_adventure,"name":character_name,"attributes":attributes,"jenny":jenny,"flags":flags,"seen":seen,"current":current_id,"choice":selected_choice,"next":pending_next,"active":active_adventure,"result":result,"records":records,"seed":str(rng.seed),"rng":str(rng.state)}
 
 func finish_adventure() -> void:
-    if current_adventure!="" and flags.get(current_adventure+"_completed",false) and current_adventure not in completed:
+    # O catálogo não marca "nen_completed"; o aprendizado termina com o teste da água.
+    var concluded: bool=flags.get(current_adventure+"_completed",false) or (current_adventure=="nen" and nen["water_done"])
+    if current_adventure!="" and concluded and current_adventure not in completed:
         completed.append(current_adventure)
         records.append("Aventura concluída: "+current_adventure)
     current_adventure="";active_adventure=false

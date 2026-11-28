@@ -88,7 +88,7 @@ func _ready() -> void:
     build_navigation(layout)
     resized.connect(responsive)
     responsive()
-    delete_dialog=ConfirmationDialog.new();delete_dialog.title="Excluir jornada";delete_dialog.dialog_autowrap=true;delete_dialog.ok_button_text="Excluir definitivamente";delete_dialog.cancel_button_text="Cancelar";add_child(delete_dialog)
+    delete_dialog=ConfirmationDialog.new();delete_dialog.title="Excluir jornada";delete_dialog.dialog_autowrap=true;delete_dialog.ok_button_text="Excluir";delete_dialog.cancel_button_text="Cancelar";add_child(delete_dialog)
     delete_dialog.confirmed.connect(confirm_slot_deletion)
     delete_dialog.canceled.connect(func():UI.sound("back"))
     exit_dialog=ConfirmationDialog.new();exit_dialog.title="Sair do Hunter Life?";exit_dialog.borderless=true;exit_dialog.cancel_button_text="Continuar";exit_dialog.theme=UI.make_theme();exit_dialog.add_theme_stylebox_override("panel",UI.box(UI.BG,12,UI.GOLD,12));add_child(exit_dialog)
@@ -360,8 +360,6 @@ func build_session() -> void:
     refresh_inventory()
     record_content = add_page("Registro")
     refresh_records()
-    chapter.text = state.demo["chapter"]
-    if state.exam["status"]=="active":chapter.text="Exame Hunter · Etapa %d/4 · Saúde %d/10" % [state.exam["stage"],state.health]
     balance.text = "%d Jenny" % state.jenny
     chapter.text=state.demo["chapter"]
     if state.exam["status"]=="active":chapter.text="Exame Hunter · Etapa %d/4 · Saúde %d/10" % [state.exam["stage"],state.health]
@@ -443,7 +441,7 @@ func build_character() -> void:
     end_button.tooltip_text="Conclua ou abandone a aventura atual primeiro." if state.active_adventure else ""
     end_button.pressed.connect(func(): state.open_event("crossroads"); build_session())
     character_content.add_child(end_button)
-    character_content.add_child(UI.label("Começa uma nova jornada. Salve antes de substituir sua sessão.",13,UI.MUTED))
+    character_content.add_child(UI.label("Leva à encruzilhada final, onde você decide como esta jornada termina. Salve antes se quiser preservar o ponto atual.",13,UI.MUTED))
 func choose(index: int) -> void:
     var before=[state.level,state.xp,state.jenny]
     var visual_before=Feedback.snapshot(state)

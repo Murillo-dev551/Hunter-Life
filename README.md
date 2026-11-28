@@ -209,6 +209,7 @@ godot --headless --path . --script res://tests/test_hatsu_10c.gd
 godot --headless --path . --script res://tests/test_manipulation.gd
 godot --headless --path . --script res://tests/test_affinity.gd
 godot --headless --path . --script res://tests/test_slots.gd
+godot --headless --path . --script res://tests/test_corrections.gd
 
 # Verificações com renderização e capturas
 godot --path . --script res://tests/test_exam_visual.gd

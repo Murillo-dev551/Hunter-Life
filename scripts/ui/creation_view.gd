@@ -18,7 +18,7 @@ func build(state) -> void:
     name_input.accessibility_name = "Nome do personagem"
     form.add_child(name_input)
     name_input.text_submitted.connect(func(_text): start_requested.emit(name_input.text))
-    form.add_child(UI.label("Até 32 caracteres. Você poderá começar outra história na aba Personagem.",13,UI.MUTED))
+    form.add_child(UI.label("Até 32 caracteres. Outras histórias podem ser iniciadas em Personagem › Gerenciar jornadas.",13,UI.MUTED))
     feedback = UI.label("",14,UI.ALERT)
     feedback.hide()
     form.add_child(feedback)
