@@ -78,7 +78,8 @@ static func act(s,id: String, token: int) -> bool:
     if id in ["ten","zetsu","ren","hatsu"]:b["special_until"]=int(b["turn"])+2
     if id=="yield":b["log"].append(text);s.records.append(text);finish(s,"yielded");return true
     if id in ["flee","zetsu"] and success:
-        b["log"].append(text+"\nVocê usa a rota de saída; Zetsu não oculta o corpo." if id=="zetsu" else text);s.records.append(text);finish(s,"fled");return true
+        if id=="zetsu":text+="\nVocê usa a rota de saída; Zetsu não oculta o corpo."
+        b["log"].append(text);s.records.append(text);finish(s,"fled");return true
     var block: int=0
     var damage: int=0
     var defending: bool=id in ["defend","ten"] or (id=="hatsu" and s.hatsu["specialization"]=="resistance")
